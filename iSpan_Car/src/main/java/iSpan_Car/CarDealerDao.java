@@ -17,10 +17,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 
-
-
-
-
 public class CarDealerDao {
 	
 	DataSource ds = null;
@@ -73,7 +69,7 @@ public class CarDealerDao {
 	
 	//透過統編來搜尋車商
 	public List<CarDealerBean> findByVATNumberLike(int carDealVATNumber) throws SQLException{
-		String sql = "select * from carDealerInfo where carDealerVATNumber like?";
+		String sql = "select * from carDealerInfo where carDealerVATNumber like ?";
 		Connection conn = ds.getConnection();
 		PreparedStatement preState = conn.prepareStatement(sql);
 		preState.setString(1, "%" + carDealVATNumber + "%");
@@ -83,12 +79,12 @@ public class CarDealerDao {
 		
 		while(rs.next()) {
 			CarDealerBean dealerBean = new CarDealerBean();
-			dealerBean.setCarDealName(rs.getString("carDealName"));
-			dealerBean.setCarDealPhone(rs.getInt("carDealPhone"));
-			dealerBean.setCarDealAddress(rs.getString("carDealAddress"));
+			dealerBean.setCarDealName(rs.getString("carDealerName"));
+			dealerBean.setCarDealPhone(rs.getInt("carDealerPhone"));
+			dealerBean.setCarDealAddress(rs.getString("carDealerAddress"));
 			dealerBean.setOpenTime(rs.getString("openTime"));
 			dealerBean.setContactPerson(rs.getString("contactPerson"));
-			dealerBean.setCarDealVATNumber(rs.getInt("carDealVATNumber"));
+			dealerBean.setCarDealVATNumber(rs.getInt("carDealerVATNumber"));
 			list.add(dealerBean);
 		}
 			rs.close();
@@ -96,8 +92,6 @@ public class CarDealerDao {
 			conn.close();
 			return list;
 
-		
-		
 	}
 
 	

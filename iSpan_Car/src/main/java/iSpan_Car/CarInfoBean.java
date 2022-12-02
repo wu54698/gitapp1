@@ -1,15 +1,15 @@
 package iSpan_Car;
 
-import java.io.FileInputStream;
+import java.sql.Blob;
 
 public class CarInfoBean {
-	private int carDealerVATNumber;			//車商統編
+	private int carDealVATNumber;			//車商統編
 	private String carDealName;				//車商名稱
 	private int accountNumber;				//帳號
 	private String carBrand;				//車輛品牌
 	private String carName;					//車輛名稱
-	private int Stock;						//庫存
-	private FileInputStream carImage;		//車輛照片
+	private int stock;						//庫存
+	private Blob  carImage;					//車輛照片
 	private String carDescription;			//車輛描述
 	private String announceDate;			//發布日期
 	
@@ -17,26 +17,26 @@ public class CarInfoBean {
 		
 	}
 	
-	public CarInfoBean(int carDealerVATNumber, String carDealName, int accountNumber, String carBrand, String carName,
-			int stock, FileInputStream carImage, String carDescription, String announceDate) {
+	public CarInfoBean(int carDealVATNumber, String carDealName, int accountNumber, String carBrand, String carName,
+			int stock, Blob carImage, String carDescription, String announceDate) {
 		super();
-		this.carDealerVATNumber = carDealerVATNumber;
+		this.carDealVATNumber = carDealVATNumber;
 		this.carDealName = carDealName;
 		this.accountNumber = accountNumber;
 		this.carBrand = carBrand;
 		this.carName = carName;
-		this.Stock = stock;
+		this.stock = stock;
 		this.carImage = carImage;
 		this.carDescription = carDescription;
 		this.announceDate = announceDate;
 	}
 
-	public int getCarDealerVATNumber() {
-		return carDealerVATNumber;
+	public int getCarDealVATNumber() {
+		return carDealVATNumber;
 	}
 
-	public void setCarDealerVATNumber(int carDealerVATNumber) {
-		this.carDealerVATNumber = carDealerVATNumber;
+	public void setCarDealVATNumber(int carDealVATNumber) {
+		this.carDealVATNumber = carDealVATNumber;
 	}
 
 	public String getCarDealName() {
@@ -72,18 +72,18 @@ public class CarInfoBean {
 	}
 
 	public int getStock() {
-		return Stock;
+		return stock;
 	}
 
 	public void setStock(int stock) {
-		this.Stock = stock;
+		this.stock = stock;
 	}
 
-	public FileInputStream getCarImage() {
+	public Blob getCarImage() {
 		return carImage;
 	}
 
-	public void setCarImage(FileInputStream carImage) {
+	public void setCarImage(Blob carImage) {
 		this.carImage = carImage;
 	}
 
