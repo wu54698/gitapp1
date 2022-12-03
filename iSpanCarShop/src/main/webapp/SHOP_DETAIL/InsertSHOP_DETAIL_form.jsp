@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>新增產品</title>
 <style>
 form {
 	margin: 0 auto;

@@ -26,7 +26,7 @@ public class ProductQueryServlet extends HttpServlet {
 		
 		request.setAttribute("querybyproductno", list);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/SHOP_DETAIL/ProductQuery.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/SHOP_DETAIL/ProductQuery_Result.jsp");
 		rd.forward(request, response);
 		return;
 			

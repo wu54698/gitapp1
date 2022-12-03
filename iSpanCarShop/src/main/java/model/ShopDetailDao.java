@@ -123,7 +123,6 @@ DataSource ds = null;
 		preState.setString(1, productno);
 
 		ResultSet rs = preState.executeQuery();
-		rs.next();
 
 		List<ShopDetailBean> list = new ArrayList<>();
 

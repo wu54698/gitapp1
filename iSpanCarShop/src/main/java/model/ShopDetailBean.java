@@ -10,7 +10,11 @@ public class ShopDetailBean {
 	private Integer price;
 	private Integer stock;
 	private String uptime;
+	private String productinfo;
+	private Blob productimage;
+	private String productimage_name;
 
+	
 	public ShopDetailBean(String productname, String type, String spec, Integer price, Integer stock, String uptime,
 			String productinfo, Blob productimage, String productimage_name) {
 		super();
@@ -25,9 +29,6 @@ public class ShopDetailBean {
 		this.productimage_name = productimage_name;
 	}
 
-	private String productinfo;
-	private Blob productimage;
-	private String productimage_name;
 
 	public ShopDetailBean() {
 	}
