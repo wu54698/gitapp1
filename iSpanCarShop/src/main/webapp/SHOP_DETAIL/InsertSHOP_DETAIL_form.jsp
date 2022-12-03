@@ -30,7 +30,7 @@ form {
 						value="${param.productname}" type="text" size="14"></td>
 				</tr>
 				<tr bgcolor='tan'>
-					<td width="120" height="40">種類:</td>
+					<td width="120" height="40">產品類型:</td>
 					<td width="600" height="40" align="left"><input id='type'
 						style="text-align: left" name="type" value="${param.type}"
 						type="text" size="14"></td>

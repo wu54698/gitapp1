@@ -33,6 +33,18 @@ public class ShopDetailBean {
 	public ShopDetailBean() {
 	}
 
+
+
+
+	public ShopDetailBean(Integer productno, String productname, Integer price, Integer stock) {
+		super();
+		this.productno = productno;
+		this.productname = productname;
+		this.price = price;
+		this.stock = stock;
+	}
+
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
