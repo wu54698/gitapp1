@@ -15,21 +15,25 @@ form {
 </style>
 <body>
 	<form name="carDealerInfoA"
-		action="<c:url value='/CarDealerServlet.do'  /> " method="post">
+		action="" method="post">
 		<ul>
-			<li><input id="carDealName" name="carDealName"
+			<li>車商名稱<input id="carDealName" name="carDealName"
 				value="${param.carDealName}" type="text"></li>
-			<li><input id="carDealPhone" name="carDealPhone"
+			<li>車商電話<input id="carDealPhone" name="carDealPhone"
 				value="${param.carDealPhone}" type="text"></li>
-			<li><input id="carDealAddress" name="carDealAddress"
+			<li>地址<input id="carDealAddress" name="carDealAddress"
 				value="${param.carDealAddress}" type="text"></li>
-			<li><input id="openTime" name="openTime"
+			<li>營業時間<input id="openTime" name="openTime"
 				value="${param.openTime}" type="text"></li>
-			<li><input id="contactPerson" name="contactPerson"
+			<li>聯絡人<input id="contactPerson" name="contactPerson"
 				value="${param.contactPerson}" type="text"></li>
-			<li><input id="carDealVATNumber" name="carDealVATNumber"
+			<li>統一編號<input id="carDealVATNumber" name="carDealVATNumber"
 				value="${param.carDealVATNumber}" type="text"></li>
-			<input type="submit" value="送出">
+				
+			<input type="submit" value="新增" formaction="<c:url value='/CarDealerServlet.do'/>">
+			<input type="submit" value="刪除" formaction="<c:url value='/DeleteCarDealerServlet.do'/>">
+			<input type="submit" value="改資訊" formaction="<c:url value='/UpdateCarDealerServlet.do'/>">
+			<input type="submit" value="找車商" formaction="<c:url value='/ShowDealerServlet.do'/>">
 		</ul>
 	</form>
 </body>

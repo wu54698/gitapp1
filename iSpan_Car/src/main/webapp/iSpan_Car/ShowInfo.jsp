@@ -8,6 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>車商資料已被更動</h1>
+    <form action="<c:url value='/ShowCarInfoServlet.do'/>" method="post">
+        輸入車輛廠牌<input type="text" name="carBrand">
+        <br>
+        <input type="submit" name="送出">
+    </form>
 </body>
 </html>
