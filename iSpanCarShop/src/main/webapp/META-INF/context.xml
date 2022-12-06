@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?> 
+<Context displayName="JSP Exercise" docBase="jspExercise" path="/jspExercise" reloadable="true">
+  <!--                  SQLServer                      -->
+  <Resource name="SHOP_DETAIL_DB" type="javax.sql.DataSource"
+      username="sa" password="123"
+      driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+      url="jdbc:sqlserver://127.0.0.1:1433;DatabaseName=projecttwo"    
+      maxTotal="8"
+      maxIdle="4"
+      maxWaitMillis="5000"
+  />  
+</Context>
