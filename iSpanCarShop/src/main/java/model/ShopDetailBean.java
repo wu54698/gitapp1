@@ -36,12 +36,15 @@ public class ShopDetailBean {
 
 
 
-	public ShopDetailBean(Integer productno, String productname, Integer price, Integer stock) {
+	public ShopDetailBean(Integer productno, String productname, Integer price, Integer stock,String productinfo, Blob productimage,String productimage_name) {
 		super();
 		this.productno = productno;
 		this.productname = productname;
 		this.price = price;
 		this.stock = stock;
+		this.productinfo = productinfo;
+		this.productimage = productimage;
+		this.productimage_name = productimage_name;
 	}
 
 

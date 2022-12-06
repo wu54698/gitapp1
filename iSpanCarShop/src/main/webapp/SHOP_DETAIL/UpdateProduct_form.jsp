@@ -64,18 +64,18 @@ form {
 <%-- 						value="${param.uptime}" type="text" size="14"><font --%>
 <!-- 						color='blue' size="-1">&nbsp;&nbsp;格式為yyyy-MM-dd</font></td> -->
 <!-- 				</tr> -->
-<!-- 				<tr bgcolor='tan'> -->
-<!-- 					<td width="120" height="40">產品資訊:</td> -->
-<!-- 					<td width="600" height="40" align="left"><input -->
-<%-- 						name="productinfo" value="${param.productinfo}" type="text" --%>
-<!-- 						size="14"></td> -->
-<!-- 				</tr> -->
-<!-- 				<tr> -->
-<!-- 				<tr bgcolor='tan'> -->
-<!-- 					<td width="120" height="40">產品圖片:</td> -->
-<!-- 					<td width="600" height="40" align="left"><input -->
-<%-- 						name="productimage" value="${param.productimage}" type="file"> --%>
-<!-- 				</tr> -->
+				<tr bgcolor='tan'>
+					<td width="120" height="40">產品資訊:</td>
+					<td width="600" height="40" align="left"><input
+						name="productinfo" value="${param.productinfo}" type="text"
+						size="14"></td>
+				</tr>
+				<tr>
+				<tr bgcolor='tan'>
+					<td width="120" height="40">產品圖片:</td>
+					<td width="600" height="40" align="left"><input
+						name="productimage" value="${param.productimage}" type="file">
+				</tr>
 				<tr bgcolor='tan'>
 					<td height="50" colspan="2" align="center"><input
 						type="submit" value="送出"></td>

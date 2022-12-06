@@ -178,9 +178,9 @@ public class ShopDetailDao {
 //			throw new RuntimeException("ShopDetailDao()#updateProduct(BookBean)發生例外: " + ex.getMessage());
 //		}
 //	}
-		// 修改一筆產品資料(簡單版)
+		// 修改一筆產品資料
 	public void updateProduct(ShopDetailBean sdb) {
-		String sql = "update SHOP_DETAIL SET productname = ? , price = ? ,stock = ? where productno = ?";
+		String sql = "update SHOP_DETAIL SET productname = ? , price = ? ,stock = ? ,productinfo = ? ,productimage = ? ,productimage_name = ? where productno = ?";
 		try {
 			Connection conn = ds.getConnection();
 			PreparedStatement preState = conn.prepareStatement(sql);
@@ -188,14 +188,14 @@ public class ShopDetailDao {
 				preState.setString(1, sdb.getProductname());
 				preState.setInt(2, sdb.getPrice());
 				preState.setInt(3, sdb.getStock());
-				preState.setInt(4, sdb.getProductno());
+				preState.setInt(7, sdb.getProductno());
 //				preState.setString(3, sdb.getSpec());
 //				java.sql.Date uptime = null;
 //				uptime = stringToSqlDate(sdb.getUptime());
 //				preState.setDate(6, uptime);
-//				preState.setString(7, sdb.getProductinfo());
-//				preState.setBinaryStream(8, sdb.getProductimage().getBinaryStream());
-//				preState.setString(9, sdb.getProductimage_name());
+				preState.setString(4, sdb.getProductinfo());
+				preState.setBinaryStream(5, sdb.getProductimage().getBinaryStream());
+				preState.setString(6, sdb.getProductimage_name());
 				int row = preState.executeUpdate();
 				System.out.println("修改了" + row + "筆");
 				preState.close();
