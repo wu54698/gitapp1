@@ -26,7 +26,7 @@ form {
 			</thead>
 			<tbody>
 				<tr bgcolor='tan'>
-					<td width="120" height="40">產品編號:</td>
+					<td width="130" height="50">產品編號:</td>
 					<td width="600" height="40" align="left"><input
 						id='productno' style="text-align: left" name="productno"
 						value="${param.productno}" type="text" size="14"></td>

@@ -57,15 +57,15 @@ public class ShopDetailDao {
 		return null;
 	}
 
-	// 拿全部資料(不含圖片)，回傳List<Member>
+	// 拿所有產品資料，回傳List<Member>
 	public List<ShopDetailBean> findAllProduct() throws SQLException {
-		String sql = "select (productno,productname,type,spec,price,stock,uptime,productinfo) from SHOP_DETAIL";
-		// 連線 、 preparedstatement
+		String sql = "select * from SHOP_DETAIL";
+
 		Connection conn = ds.getConnection();
 		PreparedStatement preState = conn.prepareStatement(sql);
-		// 執行拿到 ResultSet
+
 		ResultSet rs = preState.executeQuery();
-		// 準備空的 List<ShopDetailBean>
+
 		List<ShopDetailBean> list = new ArrayList<>();
 
 		while (rs.next()) {
@@ -77,10 +77,11 @@ public class ShopDetailDao {
 			sdb.setSpec(rs.getString("spec"));
 			sdb.setPrice(rs.getInt("price"));
 			sdb.setStock(rs.getInt("stock"));
+			sdb.setSpec(rs.getString("spec"));
 			sdb.setUptime(rs.getString("uptime"));
 			sdb.setProductinfo(rs.getString("productinfo"));
-			// sdb.setProductimage(rs.getBlob("productimage"));
-			// sdb.setProductimage_name(rs.getString("productimage_name"));
+			sdb.setProductimage(rs.getBlob("productimage"));
+			sdb.setProductimage_name(rs.getString("productimage_name"));
 			list.add(sdb);
 		}
 		// 回傳list
