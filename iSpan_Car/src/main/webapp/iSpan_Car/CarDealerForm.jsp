@@ -34,6 +34,7 @@ form {
 			<input type="submit" value="刪除" formaction="<c:url value='/DeleteCarDealerServlet.do'/>">
 			<input type="submit" value="改資訊" formaction="<c:url value='/UpdateCarDealerServlet.do'/>">
 			<input type="submit" value="找車商" formaction="<c:url value='/ShowDealerServlet.do'/>">
+			<input type="submit" value="搜尋全車商" formaction="<c:url value='/ShowAllDealerServlet.do'/>">
 		</ul>
 	</form>
 </body>

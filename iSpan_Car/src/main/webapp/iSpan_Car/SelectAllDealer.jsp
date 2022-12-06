@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Select Car Dealer</title>
+<title>Insert title here</title>
 </head>
 <body>
 <table>
-        <c:forEach var="dealer" items="${selectcarDealName}" varStatus="vs">
+        <c:forEach var="dealer" items="${SelectAllDealer}" varStatus="vs">
             <tr>
                 <th>車商名稱</th>
                 <th>車商電話</th>
@@ -26,8 +26,7 @@
                 <td>${dealer.contactPerson}</td>
                 <td>${dealer.carDealVATNumber}</td>
             </tr>
-        </c:forEach>
-
+        </c:forEach>	
     </table>
     <a href="<c:url value='/iSpan_Car/CarDealerForm.jsp' />" >回上一頁</a>
 </body>

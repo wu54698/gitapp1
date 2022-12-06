@@ -9,7 +9,7 @@
 </head>
 <body>
 <table>
-        <c:forEach var="info" items="${selectCarBrand}" varStatus="vs">
+        <c:forEach var="car" items="${SelectAllCar}" varStatus="vs">
             <tr>
                 <th>車輛編號</th>
                 <th>車商名稱</th>
@@ -22,17 +22,19 @@
                 <th>發布日期</th>
             </tr>
             <tr>
-                <td>${info.carNo}</td>
-                <td>${info.carDealName}</td>
-                <td>${info.accountNumber}</td>
-                <td>${info.carBrand}</td>
-                <td>${info.carName}</td>
-                <td>${info.stock}</td>
-                <td><img src="<c:url value='/ImageServlet?carBrand=${info.carBrand}'/>" width="260px" height="260px"></td>
-                <td>${info.carDescription}</td>
-                <td>${info.announceDate}</td>
+            	<td>${car.carNo}</td>
+                <td>${car.carDealName}</td>
+                <td>${car.accountNumber}</td>
+                <td>${car.carBrand}</td>
+                <td>${car.carName}</td>
+                <td>${car.stock}</td>
+              <!--<td>${car.carImage}</td>--> 
+                <td><img src="<c:url value='/ImageServlet?carDealName=${car.carDealName}'/>" width="260px" height="260px"></td>
+                <td>${car.carDescription}</td>
+                <td>${car.announceDate}</td>
             </tr>
-        </c:forEach>
+        </c:forEach>	
     </table>
+    <a href="<c:url value='/iSpan_Car/CarInfoForm.jsp' />" >回上一頁</a>
 </body>
 </html>

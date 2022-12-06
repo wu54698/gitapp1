@@ -8,28 +8,30 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form name="carInfoA" action="<c:url value='/CarInfoServlet.do'  /> "
+	<form name="carInfoA" action=""
 		method="post" enctype="multipart/form-data">
 		<ul>
-			<li><input id="carDealVATNumber" name="carDealVATNumber"
-				value="${param.carDealVATNumber}" type="text"></li>
-			<li><input id="carDealName" name="carDealName"
+			<li>車輛編號<input id="carNo" name="carNo"
+				value="${param.carNo}" type="text"></li>
+			<li>車商名稱<input id="carDealName" name="carDealName"
 				value="${param.carDealName}" type="text"></li>
-			<li><input id="accountNumber" name="accountNumber"
+			<li>帳號<input id="accountNumber" name="accountNumber"
 				value="${param.accountNumber}" type="text"></li>
-			<li><input id="carBrand" name="carBrand"
+			<li>車輛品牌<input id="carBrand" name="carBrand"
 				value="${param.carBrand}" type="text"></li>
-			<li><input id="carName" name="carName" value="${param.carName}"
+			<li>車輛名稱<input id="carName" name="carName" value="${param.carName}"
 				type="text"></li>
-			<li><input id="stock" name="stock" value="${param.stock}"
+			<li>庫存<input id="stock" name="stock" value="${param.stock}"
 				type="text"></li>
-			<li><input id="carImage" name="carImage"
+			<li>車輛照片<input id="carImage" name="carImage"
 				value="${param.carImage}" type="file"></li>
-			<li><input id="carDescription" name="carDescription"
+			<li>車輛描述<input id="carDescription" name="carDescription"
 				value="${param.carDescription}" type="text"></li>
-			<li><input id="announceDate" name="announceDate"
+			<li>發布日期<input id="announceDate" name="announceDate"
 				value="${param.announceDate}" type="text"></li>
-			<input type="submit" value="送出">
+			<input type="submit" value="新增" formaction="<c:url value='/CarInfoServlet.do'/>">
+			<input type="submit" value="刪除" formaction="<c:url value='/DeleteCarInfoServlet.do'/>">
+			<input type="submit" value="搜尋全車輛" formaction="<c:url value='/ShowAllCarInfoServlet.do'/>">
 		</ul>
 	</form>
 </body>
