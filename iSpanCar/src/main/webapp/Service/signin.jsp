@@ -8,14 +8,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="<c:url value='/serviceInsertServlet.do'/>"  method="POST" enctype="multipart/form-data">
-<input type="text" name="Service_name"><br>
-<input type="text" name="Serviceinfomation"><br>
-<input type="text" name="Servicedescription"><br>
-<input type="text" name="Contactperson"><br>
-<input type="text" name="Reseller_nonreseller"><br>
-<input type="file" name="Carimage"><br>
-<input type="submit"  value="提交">
+<form action=""  method="POST" enctype="multipart/form-data">
+<label>保養廠名稱：</label><input type="text" name="servicename"><br>
+<label>保養廠描述：</label><input type="text" name="Servicedescription"><br>
+<label>保養廠資訊：</label><input type="text" name="Serviceinfomation"><br>
+<label>保養廠聯繫：</label><input type="text" name="Contactperson"><br>
+<label>原場副廠：</label><select name="Reseller_nonreseller" >
+  <option value="0">原廠</option>
+  <option value="1">副廠</option></select><br>
+<label>保養廠圖片</label><input type="file" name="Carimage"><br>
+
+<input type="submit"  value="提交" formaction="<c:url value='/serviceInsertServlet.do'/>"><br>
+
 </form>
 
 

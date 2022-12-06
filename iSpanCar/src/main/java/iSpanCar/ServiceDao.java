@@ -60,7 +60,7 @@ public class ServiceDao {
 //刪除
 	public void deleteService(String getService_name) throws SQLException {
 		Connection conn = ds.getConnection();
-		String sql = "delete from Service where service_name = ?";
+		String sql = "delete from Service where Service_name = ?";
 		PreparedStatement preState = conn.prepareStatement(sql);
 		preState.setString(1, getService_name);
 		int row = preState.executeUpdate();

@@ -27,7 +27,7 @@ public class serviceInsertServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)  {
 	try {	
 		request.setCharacterEncoding("UTF-8");
-		String Service_name =  request.getParameter("Service_name");
+		String Service_name =  request.getParameter("servicename");
 		String Serviceinfomation = request.getParameter("Serviceinfomation");
 		String Servicedescription = request.getParameter("Servicedescription");
 		String Contactperson = request.getParameter("Contactperson");

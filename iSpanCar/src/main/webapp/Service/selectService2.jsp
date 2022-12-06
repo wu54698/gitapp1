@@ -9,8 +9,8 @@
 </head>
 <body>
 	<form action="<c:url value='/serviceSelectServlet.do'/>" method="POST">
-		<input type="text" name="Service_name"><br> 
-		<input type="submit" value="提交">
+	<label>查詢保養廠名稱：</label><input type="text" name="Service_name"><br> 
+<input type="submit"  value="提交" formaction="<c:url value='/serviceSelectServlet.do'/>"><br>
 	</form>
 
 

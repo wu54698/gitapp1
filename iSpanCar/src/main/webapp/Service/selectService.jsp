@@ -11,7 +11,8 @@
 
 	<table>
 
-		<c:forEach var='Service' items='${Serviceinfomation}' varStatus="vs">
+		<c:set value='${Service}' var='Service'>
+		</c:set>
 			
 				<tr>
 					<th>保養廠名稱</th>
@@ -24,17 +25,16 @@
 											
 				</tr>
 			<tr>
-				<td>${Service.Service_name}</td>
-				<td>${Service.Carimage}</td>
-				<td>${Service.Servicedescription}</td>
-				<td>${Service.Serviceinfomation}</td>
-				<td>${Service.email}</td>
-				<td>${Service.Contactperson}</td>
-				<td>${Service.Reseller_nonreseller}</td>
-				<td><img src="<c:url value='/serviceImageServlet?Service_name=${Service.Service_name}'/>"  width="180" height="180"/></td>
+				<td>${Service.service_name}</td>
+				<td><img src="<c:url value='/serviceImageServlet?Service_name=${Service.service_name}'/>"  width="180" height="180"/></td>
+				<td>${Service.servicedescription}</td>
+				<td>${Service.serviceinfomation}</td>
+				<td>${Service.contactperson}</td>
+				<td>${Service.reseller_nonreseller}</td>
+				
 			</tr>
 		
-		</c:forEach>
+	
 	</table>
 
 </body>

@@ -13,7 +13,7 @@ public class ServiceBean implements Serializable {
 	private Blob	Carimage;    		// 保養廠照片
 	private String Servicedescription;  // 保養廠描述
 	private String Serviceinfomation;  	// 保養廠資訊
-	private String Contactperson;   	// 聯繫
+	private String Contactperson;   	// 保養廠聯繫
 	private String Reseller_nonreseller;// 原廠副廠
 	public String getServiceinfomation() {
 		return Serviceinfomation;

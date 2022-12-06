@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,13 +22,12 @@ public class serviceSelectServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		ServiceDao sdao = new ServiceDao();
-
-		request.getParameter(getServletName());
-		ServiceBean sBean = sdao.findById();
+		String Service_name =request.getParameter("Service_name");	
+		ServiceBean sBean = sdao.findById(Service_name);
 		
-		request.setAttribute("selectaccountnumber", sBean);
+		request.setAttribute("Service", sBean);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/member/selectMember.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/Service/selectService.jsp");
 		rd.forward(request, response);
 		return;
 			
