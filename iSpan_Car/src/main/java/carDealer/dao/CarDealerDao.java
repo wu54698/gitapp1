@@ -138,9 +138,6 @@ public class CarDealerDao {
 			preState.close();
 			conn.close();
 			return list;
-
 	}
-
-	
 
 }

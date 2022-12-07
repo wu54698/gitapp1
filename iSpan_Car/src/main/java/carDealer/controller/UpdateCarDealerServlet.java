@@ -64,7 +64,7 @@ public class UpdateCarDealerServlet extends HttpServlet {
 			cDao.updateByCarDealName(dealerBean);
 			List<CarDealerBean> newList = cDao.findByCarDealerName(carDealName);
 			request.setAttribute("UpdateDealer", newList);
-			RequestDispatcher rd = request.getRequestDispatcher("/iSpan_Car/UpdateDealer.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/Car-Dearler/UpdateDealer.jsp");
 			rd.forward(request, response);
 			return;
 		} catch (SQLException | ParseException e) {

@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -52,11 +54,16 @@ public class CarInfoServlet extends HttpServlet {
 			CarInfoBean infoBean = new CarInfoBean
 					(carNumber, carDealName, accountNumber, carBrand, carName, amount, blob, carDescription, announceDate);
 			infoDao.addCarInfo(infoBean);
+			List<CarInfoBean> newList = infoDao.findAllCar();
 			
-			String contextPath = request.getContextPath();
-			response.sendRedirect(
-					contextPath + "/iSpan_Car/CarInfoSuccess.jsp"
-					);
+			request.setAttribute("SelectAllCar", newList);
+			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/SelectAllCar.jsp");
+			rd.forward(request, response);
+			return;
+//			String contextPath = request.getContextPath();
+//			response.sendRedirect(
+//					contextPath + "/iSpan_Car/SelectAllCar.jsp"
+//					);
 			//RequestDispatcher rd = request.getRequestDispatcher("???????");
 			
 		} catch (IOException e) {

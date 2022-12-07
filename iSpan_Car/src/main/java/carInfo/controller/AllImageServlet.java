@@ -23,16 +23,15 @@ public class AllImageServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String carBrand = request.getParameter("carNo");
+		String carNo = request.getParameter("carNo");
+		int carNumber = Integer.parseInt(carNo);
 		CarInfoDao infoDao = new CarInfoDao();
-		
 		try {
-			List<CarInfoBean> list = infoDao.findByCarBrandLike();
+			List<CarInfoBean> list = infoDao.findByCarNoLike(carNumber);
 			
-			for(CarInfoBean cBean : list) {
-				InputStream is = cBean.getCarImage().getBinaryStream();
+			for(CarInfoBean infoBean : list) {
+				InputStream is = infoBean.getCarImage().getBinaryStream();
 				OutputStream os = response.getOutputStream();
-				
 				int len = 0;
 				byte[] bytes = new byte[8192];
 				while((len = is.read(bytes)) != -1) {
@@ -46,8 +45,4 @@ public class AllImageServlet extends HttpServlet {
 		}
 	}
 		
-		
-		
 	}
-
-}

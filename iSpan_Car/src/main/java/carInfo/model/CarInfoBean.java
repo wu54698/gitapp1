@@ -3,6 +3,13 @@ package carInfo.model;
 import java.sql.Blob;
 
 public class CarInfoBean {
+	@Override
+	public String toString() {
+		return "CarInfoBean [carNo=" + carNo + ", carDealName=" + carDealName + ", accountNumber=" + accountNumber
+				+ ", carBrand=" + carBrand + ", carName=" + carName + ", stock=" + stock + ", carImage=" + carImage
+				+ ", carDescription=" + carDescription + ", announceDate=" + announceDate + "]";
+	}
+
 	private int carNo;						//車輛編號
 	private String carDealName;				//車商名稱
 	private String accountNumber;				//帳號

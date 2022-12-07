@@ -34,7 +34,7 @@ public class DeleteCarInfoServlet extends HttpServlet {
 			infoDao.deleteCarInfo(amount);
 			List<CarInfoBean> list = infoDao.findAllCar();
 			request.setAttribute("SelectAllCar", list);
-			RequestDispatcher rd = request.getRequestDispatcher("/iSpan_Car/SelectAllCar.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/SelectAllCar.jsp");
 			rd.forward(request, response);
 			return;
 			

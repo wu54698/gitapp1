@@ -32,7 +32,7 @@ public class ShowCarInfoServlet extends HttpServlet {
 			
 			request.setAttribute("selectCarBrand", list);
 			//連線jsp，輸入至EL屬性物件
-			RequestDispatcher rd = request.getRequestDispatcher("/iSpan_Car/SelectInfo.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/SelectInfo.jsp");
 			rd.forward(request, response);
 			return;
 			

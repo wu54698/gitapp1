@@ -30,7 +30,7 @@ public class ShowAllDealerServlet extends HttpServlet {
 
 			List<CarDealerBean> list = cDao.findAllDealer();
 			request.setAttribute("SelectAllDealer", list);
-			RequestDispatcher rd = request.getRequestDispatcher("/iSpan_Car/SelectAllDealer.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/Car-Dearler/SelectAllDealer.jsp");
 			rd.forward(request, response);
 			return;
 		} catch (SQLException e) {
