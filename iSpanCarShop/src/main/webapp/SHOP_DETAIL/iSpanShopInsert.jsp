@@ -2,11 +2,26 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
 
 <head>
-<meta charset="UTF-8">
-<title>所有產品列表</title>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+ <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+<title>新增產品資料</title>
+
 <!-- Custom fonts for this template-->
 <link
 	href="http://localhost:8080/iSpanCarShop/SHOP_DETAIL/vendor/fontawesome-free/css/all.min.css"
@@ -14,13 +29,14 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
+
 <!-- Custom styles for this template-->
 <link
 	href="http://localhost:8080/iSpanCarShop/SHOP_DETAIL/css/sb-admin-2.min.css"
 	rel="stylesheet">
-<link
-	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"
-	rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+
 </head>
 
 <body id="page-top">
@@ -126,7 +142,6 @@
 			<!-- Main Content -->
 			<div id="content">
 
-
 				<!-- Topbar -->
 				<nav
 					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -193,55 +208,72 @@
 				<!-- End of Topbar -->
 
 				<!-- Begin Page Content 內容 -->
-				<div class="container">
+				<div class="container-fluid">
 
-					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">商城管理</h1>
-					<%-- <a href="<c:url value='/SHOP_DETAIL/iSpanShopInsert.jsp' />">新增產品</a> --%>
-					<div>
-						<form action="<c:url value='/SHOP_DETAIL/iSpanShopInsert.jsp'/>"
-							method="POST">
-							<input type="submit" value="新增產品" />
-						</form>
-						<p>
-					</div>
-					<table id="productlist">
-						<thead>
-							<tr>
-								<th>產品編號</th>
-								<th>產品名稱</th>
-								<th>種類</th>
-								<th>規格</th>
-								<th>價格</th>
-								<th>庫存數量</th>
-								<th>發售日期</th>
-								<th>產品資訊</th>
-								<th>產品圖片</th>
-								<th>修改</th>
-								<th>刪除</th>
-
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var='product' items='${queryallproduct}'
-								varStatus="vs">
-								<tr>
-									<td id="productno">${product.productno}</td>
-									<td>${product.productname}</td>
-									<td>${product.type}</td>
-									<td>${product.spec}</td>
-									<td>${product.price}</td>
-									<td>${product.stock}</td>
-									<td>${product.uptime}</td>
-									<td>${product.productinfo}</td>
-									<td><img src="<c:url value='/AllProductImgServlet'/>"
-										width="180" height="180" /></td>
-									<td><input type="button" id="btn1" value="修改"></td>
-									<td><input type="button" id="btn2" value="刪除"></td>
+					<!--                     Page Heading -->
+					<!--                     <h1 class="h3 mb-4 text-gray-800">商城商品新增</h1> -->
+					<form name="insertProductFormA"
+						action="<c:url value='/InsertShopDetailServlet.do'  />"
+						method="POST" enctype="multipart/form-data">
+						<table border="1">
+							<thead>
+								<tr bgcolor='tan'>
+									<th height="60" colspan="2" align="center"><h2>新增產品資料</h2></th>
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								<tr bgcolor='tan'>
+									<td width="120" height="40">產品名稱:</td>
+									<td width="600" height="40" align="left"><input
+										id='productname' style="text-align: left" name="productname"
+										value="${param.productname}" type="text" size="14"></td>
+								</tr>
+								<tr bgcolor='tan'>
+									<td width="120" height="40">產品類型:</td>
+									<td width="600" height="40" align="left"><input id='type'
+										style="text-align: left" name="type" value="${param.type}"
+										type="text" size="14"></td>
+								</tr>
+								<tr bgcolor='tan'>
+									<td width="120" height="40">規格:</td>
+									<td width="600" height="40" align="left"><input
+										name="spec" value="${param.spec}" type="text" size="20"></td>
+								</tr>
+								<tr bgcolor='tan'>
+									<td width="120" height="40">價格:</td>
+									<td width="600" height="40" align="left"><input
+										name="price" value="${param.price}" type="text" size="20"></td>
+								</tr>
+								<tr bgcolor='tan'>
+									<td width="120" height="40">庫存數量:</td>
+									<td width="600" height="40" align="left"><input
+										name="stock" value="${param.stock}" type="text" size="14"></td>
+								</tr>
+								<tr bgcolor='tan'>
+									<td width="120" height="40">發售日期:</td>
+									<td width="600" height="40" align="left"><input
+										name="uptime" value="${param.uptime}" type="text" size="14" id="datepicker"><font
+										color='blue' size="-1">&nbsp;&nbsp;格式為yyyy-MM-dd</font></td>
+								</tr>
+								<tr bgcolor='tan'>
+									<td width="120" height="40">產品資訊:</td>
+									<td width="600" height="40" align="left"><input
+										name="productinfo" value="${param.productinfo}" type="text"
+										size="14"></td>
+								</tr>
+								<tr>
+								<tr bgcolor='tan'>
+									<td width="120" height="40">產品圖片:</td>
+									<td width="600" height="40" align="left"><input
+										name="productimage" value="${param.productimage}" type="file">
+								</tr>
+								<tr bgcolor='tan'>
+									<td height="50" colspan="2" align="center"><input
+										type="submit" value="送出"></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
 				</div>
 				<!-- /.container-fluid -->
 
@@ -312,34 +344,9 @@
 		src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
 	<script>
 		$(document).ready(function() {
-			$('#productlist').DataTable();
+			$('#table_id').DataTable();
 		});
-	</script>
-	<script>
-		$('.container').on(
-				'click',
-				'#btn2',
-				function() {
 
-					//			let a = $(this).parent().parent().children('#productno').text() ;
-					// 			console.log(a)
-
-					$.ajax({
-						type : "POST",
-						url : "<c:url value='/DeleteShopDetailServlet.do'/>",
-						//contentType:"text",
-						context:this,
-						dataType : "text",
-						data : {
-							"productno" : $(this).parent().parent().children(
-									'#productno').text()
-						},
-						success : function(response) {
-							console.log("OK")
-							$(this).parent().parent().remove();
-						}
-					})
-				});
 	</script>
 
 </body>

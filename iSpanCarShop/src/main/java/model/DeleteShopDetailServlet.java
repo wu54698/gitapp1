@@ -26,8 +26,6 @@ public class DeleteShopDetailServlet extends HttpServlet {
 			for(ShopDetailBean sdb :list) {
 				sDao.deleteProduct(sdb);
 			}
-			
-			
 			RequestDispatcher rd = request.getRequestDispatcher("/SHOP_DETAIL/DeleteProductSucess.jsp");
 			rd.forward(request, response);
 			return;
@@ -35,5 +33,24 @@ public class DeleteShopDetailServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	
+	}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			request.setCharacterEncoding("UTF-8");
+			String productno = request.getParameter("productno");
+//			int productnnoint = Integer.parseInt(productno); 
+			ShopDetailDao sDao = new ShopDetailDao();
+			System.out.println(productno);
+			List<ShopDetailBean> list = sDao.findByProductno(productno);
+			for(ShopDetailBean sdb :list) {
+				sDao.deleteProduct(sdb);
+			}
+			RequestDispatcher rd = request.getRequestDispatcher("/SHOP_DETAIL/DeleteProductSucess.jsp");
+			rd.forward(request, response);
+			return;
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
