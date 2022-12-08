@@ -24,7 +24,7 @@ public class ProductListServlet extends HttpServlet {
 		
 		request.setAttribute("queryallproduct", list);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/SHOP_DETAIL/ShowProductList.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/SHOP_DETAIL/iSpanProductList.jsp");
 		rd.forward(request, response);
 		return;
 			
@@ -41,7 +41,7 @@ public class ProductListServlet extends HttpServlet {
 		
 		request.setAttribute("queryallproduct", list);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/SHOP_DETAIL/ShowProductList.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/SHOP_DETAIL/iSpanProductList.jsp");
 		rd.forward(request, response);
 		return;
 			
