@@ -33,7 +33,7 @@ public class ShowDealerServlet extends HttpServlet {
 			List<CarDealerBean> list = cDao.findByCarDealerName(carDealName);
 			
 			request.setAttribute("selectcarDealName", list);
-			RequestDispatcher rd = request.getRequestDispatcher("/Car-Dearler/SelectDealer.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/Car-Dearler/SelectDealer_frame.jsp");
 			rd.forward(request, response);
 			return;
 		} catch (SQLException e) {

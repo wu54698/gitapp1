@@ -32,7 +32,7 @@ public class FindCarBrandServlet extends HttpServlet {
 			List<CarInfoBean> list = infoDao.findByCarBrandLike(carBrand);
 			
 			request.setAttribute("Brand", list);
-			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/SelectCarByBrand.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/SelectCarByBrand_frame.jsp");
 			rd.forward(request, response);
 			return;
 			

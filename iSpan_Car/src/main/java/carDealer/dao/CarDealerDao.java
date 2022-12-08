@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +19,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import carDealer.model.CarDealerBean;
-
 
 
 
@@ -40,6 +41,13 @@ public class CarDealerDao {
 		Time sTime = new java.sql.Time(udate.getTime()); //轉sql.time
 		return sTime;
 	}
+
+	//時間轉字串
+//	public String TimeToString(Time oTime) {
+//		SimpleDateFormat sdFormat = new SimpleDateFormat("HH:mm:ss");
+//		
+//	}
+	
 	
 	//新增車商
 	public void addCarDealer(CarDealerBean bean) throws SQLException, ParseException {

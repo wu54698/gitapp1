@@ -28,13 +28,13 @@ public class DeleteCarInfoServlet extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			CarInfoDao infoDao = new CarInfoDao();
 			String Stock = request.getParameter("stock");
-			System.out.println(Stock);
+//			System.out.println(Stock);
 			int amount = Integer.parseInt(Stock);
 
 			infoDao.deleteCarInfo(amount);
 			List<CarInfoBean> list = infoDao.findAllCar();
 			request.setAttribute("SelectAllCar", list);
-			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/SelectAllCar.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/SelectAllCar_frame.jsp");
 			rd.forward(request, response);
 			return;
 			

@@ -90,7 +90,7 @@ public class UpdateCarInfoServlet extends HttpServlet {
 			List<CarInfoBean> newList = infoDao.findByCarNoLike(carNumber);
 			
 			request.setAttribute("UpdateCarInfo", newList);
-			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/UpdateCarInfo.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/UpdateCarInfo_frame.jsp");
 			rd.forward(request, response);
 			return;
 		} catch (SQLException e) {
