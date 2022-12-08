@@ -205,7 +205,7 @@
 						</form>
 						<p>
 					</div>
-					
+
 					<table id="productlist">
 						<thead>
 							<tr>
@@ -235,8 +235,9 @@
 									<td>${product.stock}</td>
 									<td>${product.uptime}</td>
 									<td>${product.productinfo}</td>
-									<td><img src="<c:url value='/AllProductImgServlet'/>"
-										width="180" height="180" /></td>
+									<td><img
+										src="<c:url value='/ProductImgServlet?productno=${product.productno}'/>"
+										width="240" height="240" /></td>
 									<td><input type="button" id="btn1" value="修改"></td>
 									<td><input type="button" id="btn2" value="刪除"></td>
 								</tr>
@@ -329,7 +330,7 @@
 						type : "POST",
 						url : "<c:url value='/DeleteShopDetailServlet.do'/>",
 						//contentType:"text",
-						context:this,
+						context : this,
 						dataType : "text",
 						data : {
 							"productno" : $(this).parent().parent().children(
