@@ -9,6 +9,8 @@
 </head>
 <body>
 	修改產品 OK!
-
+	<form action="<c:url value='/ProductListServlet.do'/>" method="POST">
+		<input type="submit" value="回商城管理頁面" />
+	</form>
 </body>
 </html>

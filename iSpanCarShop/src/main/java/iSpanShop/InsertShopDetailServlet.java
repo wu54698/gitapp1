@@ -33,6 +33,7 @@ public class InsertShopDetailServlet extends HttpServlet {
 			String stock = request.getParameter("stock");
 			int stockint = Integer.parseInt(stock);
 			String productinfo = request.getParameter("productinfo");
+			
 
 			ShopDetailDao sDao = new ShopDetailDao();
 

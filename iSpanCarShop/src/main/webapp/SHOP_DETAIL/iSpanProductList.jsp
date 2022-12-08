@@ -21,6 +21,18 @@
 <link
 	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"
 	rel="stylesheet">
+<style>
+textarea {
+	background:transparent; 
+	border-style:none; 
+	text-indent:75px;
+	
+}
+.container{
+margin:30px ;
+padding:0;
+}
+</style>
 </head>
 
 <body id="page-top">
@@ -206,7 +218,7 @@
 						<p>
 					</div>
 
-					<table id="productlist">
+					<table id="productlist" style="width:1270px;">
 						<thead>
 							<tr>
 								<th>產品編號</th>
@@ -234,11 +246,12 @@
 									<td>${product.price}</td>
 									<td>${product.stock}</td>
 									<td>${product.uptime}</td>
-									<td>${product.productinfo}</td>
+									<td><textarea readonly>${product.productinfo}</textarea></td>
 									<td><img
 										src="<c:url value='/ProductImgServlet?productno=${product.productno}'/>"
-										width="240" height="240" /></td>
-									<td><input type="button" id="btn1" value="修改"></td>
+										width="180" height="180" /></td>
+									<td><input type="button" id="btn1" value="修改"
+										onclick="location.href='http://localhost:8080/iSpanCarShop/SHOP_DETAIL/UpdateProduct_form.jsp';"></td>
 									<td><input type="button" id="btn2" value="刪除"></td>
 								</tr>
 							</c:forEach>
@@ -338,11 +351,13 @@
 						},
 						success : function(response) {
 							console.log("OK")
+							alert("刪除成功!");
 							$(this).parent().parent().remove();
 						}
 					})
 				});
 	</script>
+
 
 </body>
 

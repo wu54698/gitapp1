@@ -87,6 +87,7 @@ public class ShopDetailDao {
 		// 回傳list
 		rs.close();
 		preState.close();
+		conn.close();
 		return list;
 	}
 
@@ -113,6 +114,7 @@ public class ShopDetailDao {
 		int row = preState.executeUpdate();
 		System.out.println("新增了" + row + "筆");
 		preState.close();
+		conn.close();
 	}
 
 	// 透過productno拿資料
@@ -146,6 +148,7 @@ public class ShopDetailDao {
 		// 回傳list
 		rs.close();
 		preState.close();
+		conn.close();
 		return list;
 	}
 
@@ -199,6 +202,7 @@ public class ShopDetailDao {
 				int row = preState.executeUpdate();
 				System.out.println("修改了" + row + "筆");
 				preState.close();
+				conn.close();
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
