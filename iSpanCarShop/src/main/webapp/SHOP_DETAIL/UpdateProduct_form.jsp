@@ -225,17 +225,19 @@ padding:0;
 									</tr>
 								</thead>
 								<tbody>
+								<c:forEach var='sentno' items='${sentno}'
+								varStatus="vs">
 									<tr bgcolor='transparent'>
 										<td width="130" height="40" style="text-align: center"><font size="4">產品編號</font></td>
 										<td width="600" height="40" align="left"><input
 											id='productno' style="text-align: left" name="productno"
-											value="${param.productno}" type="text" size="14"></td>
+											value="${sentno.productno}" type="text" size="14"></td>
 									</tr>
 									<tr bgcolor='transparent'>
 										<td width="120" height="40" style="text-align: center"><font size="4">產品名稱</font></td>
 										<td width="600" height="40" align="left"><input
 											id='productname' style="text-align: left" name="productname"
-											value="${param.productname}" type="text" size="14"></td>
+											value="${sentno.productname}" type="text" size="14"></td>
 									</tr>
 									<!-- 				<tr bgcolor='tan'> -->
 									<!-- 					<td width="120" height="40">種類:</td> -->
@@ -251,12 +253,12 @@ padding:0;
 									<tr bgcolor='transparent'>
 										<td width="120" height="40" style="text-align: center"><font size="4">價 格</font></td>
 										<td width="600" height="40" align="left"><input
-											name="price" value="${param.price}" type="text" size="20"></td>
+											name="price" value="${sentno.price}" type="text" size="20"></td>
 									</tr>
 									<tr bgcolor='transparent'>
 										<td width="120" height="40" style="text-align: center"><font size="4">庫存數量</font></td>
 										<td width="600" height="40" align="left"><input
-											name="stock" value="${param.stock}" type="text" size="14"></td>
+											name="stock" value="${sentno.stock}" type="text" size="14"></td>
 									</tr>
 									<!-- 				<tr bgcolor='tan'> -->
 									<!-- 					<td width="120" height="40">上架日期:</td> -->
@@ -267,18 +269,19 @@ padding:0;
 									<tr bgcolor='transparent'>
 										<td width="120" height="40" style="text-align: center"><font size="4">產品資訊</font></td>
 										<td width="120" height="400" align="left"><textarea
-												rows="30" cols="90" name="productinfo">${param.productinfo}</textarea>
+												rows="30" cols="90" name="productinfo">${sentno.productinfo}</textarea>
 									</tr>
 									<tr>
 									<tr bgcolor='transparent'>
 										<td width="120" height="40" style="text-align: center"><font size="4">產品圖片</font></td>
 										<td width="600" height="40" align="left"><input
-											name="productimage" value="${param.productimage}" type="file">
+											name="productimage" value="${sentno.productimage}" type="file">
 									</tr>
 									<tr bgcolor='transparent'>
 										<td height="50" colspan="2" align="center"><input
 											type="submit" value="送出"></td>
 									</tr>
+									</c:forEach>
 								</tbody>
 							</table>
 						</form>
