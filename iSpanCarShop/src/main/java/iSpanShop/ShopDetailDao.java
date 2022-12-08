@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
-import java.util.Date;
+//import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+//import java.text.ParseException;
+//import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,12 +33,12 @@ public class ShopDetailDao {
 		}
 	}
 
-	public java.sql.Date stringToSqlDate(String string) throws ParseException {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		Date udate = df.parse(string);
-		java.sql.Date update = new java.sql.Date(udate.getTime());
-		return update;
-	}
+//	public java.sql.Date stringToSqlDate(String string) throws ParseException {
+//		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//		Date udate = df.parse(string);
+//		java.sql.Date update = new java.sql.Date(udate.getTime());
+//		return update;
+//	}
 
 	public Blob fileToBlob(InputStream is, long size) throws IOException, SQLException {
 		byte[] b = new byte[(int) size];
@@ -101,13 +101,13 @@ public class ShopDetailDao {
 		preState.setString(3, sdb.getSpec());
 		preState.setInt(4, sdb.getPrice());
 		preState.setInt(5, sdb.getStock());
-		java.sql.Date uptime = null;
-		try {
-			uptime = stringToSqlDate(sdb.getUptime());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		preState.setDate(6, uptime);
+//		java.sql.Date uptime = null;
+//		try {
+//			uptime = stringToSqlDate(sdb.getUptime());
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+		preState.setString(6, sdb.getUptime());
 		preState.setString(7, sdb.getProductinfo());
 		preState.setBinaryStream(8, sdb.getProductimage().getBinaryStream());
 		preState.setString(9, sdb.getProductimage_name());
