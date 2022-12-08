@@ -57,7 +57,7 @@ public class CarInfoServlet extends HttpServlet {
 			List<CarInfoBean> newList = infoDao.findAllCar();
 			
 			request.setAttribute("SelectAllCar", newList);
-			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/SelectAllCar.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/SelectAllCar_frame.jsp");
 			rd.forward(request, response);
 			return;
 //			String contextPath = request.getContextPath();

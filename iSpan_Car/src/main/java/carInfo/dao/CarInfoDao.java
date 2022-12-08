@@ -65,12 +65,12 @@ public class CarInfoDao {
 		
 	}
 	
-	//透過庫存刪除車輛
-	public void deleteCarInfo(int stock) throws SQLException {
-		String sql = "delete from carInfo where stock = ?";
+	//透過車輛編號刪除車輛
+	public void deleteCarInfo(int carNo) throws SQLException {
+		String sql = "delete from carInfo where carNo = ?";
 		Connection conn = ds.getConnection();
 		PreparedStatement preState = conn.prepareStatement(sql);
-		preState.setInt(1, stock);
+		preState.setInt(1, carNo);
 		preState.execute();
 		preState.close();
 		conn.close();

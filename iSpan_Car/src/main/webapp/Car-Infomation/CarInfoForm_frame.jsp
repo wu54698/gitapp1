@@ -28,7 +28,8 @@
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+ <link rel="stylesheet" href="/resources/demos/style.css">
 </head>
 
 <body id="page-top">
@@ -267,7 +268,7 @@
                         type="file"></td>
             </tr>
             <tr>
-            <tr bgcolor='transparent'>
+            <tr>
                 <td width="120" height="40">發布日期</td>
                 <td width="600" height="40" align="left"><input id="announceDate" name="announceDate"
                         value="${param.announceDate}" type="text" size="14" style="text-align: left">
@@ -277,7 +278,7 @@
             <tr bgcolor='transparent'>
                 <td height="50" colspan="2" align="center">
                     <input type="submit" value="新增" formaction="<c:url value='/CarInfoServlet.do'/>">
-                    <input type="submit" value="刪除" formaction="<c:url value='/DeleteCarInfoServlet.do'/>">
+<%--                     <input type="submit" value="刪除" formaction="<c:url value='/DeleteCarInfoServlet.do'/>"> --%>
                     <input type="submit" value="修改車輛資訊" formaction="<c:url value='/UpdateCarInfoServlet.do'/>">
                     <input type="submit" value="找品牌" formaction="<c:url value='/FindCarBrandServlet.do'/>">
                     <input type="submit" value="搜尋全車輛" formaction="<c:url value='/ShowAllCarInfoServlet.do'/>">
@@ -359,6 +360,13 @@
 // 			$('#carInfoForm').DataTable();
 // 		});
 	</script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  	<script>
+  		$( function() {
+    	$( "#announceDate" ).datepicker();
+ 		 } );
+  	</script>
 
 </body>
 

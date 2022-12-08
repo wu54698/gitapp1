@@ -210,7 +210,7 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">功能名稱</h1>
-        <form name="carDealerInfoA" action="" method="post">
+        <form name="carDealerInfoA" action="" method="post" id="dealer">
 <table id="carDealer">
             <thead>
                 <tr>
@@ -236,8 +236,8 @@
             </tbody>
         
     </table>
-        <input type="submit" value="新增" formaction="<c:url value='/CarDealerServlet.do'/>">
-        <input type="submit" value="刪除" formaction="<c:url value='/DeleteCarDealerServlet.do'/>">
+        <input type="submit" value="新增" formaction="<c:url value='/CarDealerServlet.do'/>" onclick="add()">
+<%--         <input type="submit" value="刪除" formaction="<c:url value='/DeleteCarDealerServlet.do'/>"> --%>
         <input type="submit" value="改資訊" formaction="<c:url value='/UpdateCarDealerServlet.do'/>">
         <input type="submit" value="找車商" formaction="<c:url value='/ShowDealerServlet.do'/>">
         <input type="submit" value="搜尋全車商" formaction="<c:url value='/ShowAllDealerServlet.do'/>">
@@ -306,7 +306,9 @@
         $(document).ready(function () {
             $('#carDealer').DataTable();
         });
+        
     </script>
+
 
 </body>
 

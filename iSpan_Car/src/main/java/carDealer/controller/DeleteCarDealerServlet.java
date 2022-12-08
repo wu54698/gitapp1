@@ -30,7 +30,7 @@ public class DeleteCarDealerServlet extends HttpServlet {
 			cDao.deleteCarDealer(carDealName);
 			List<CarDealerBean> list = cDao.findAllDealer();
 			request.setAttribute("SelectAllDealer", list);
-			RequestDispatcher rd = request.getRequestDispatcher("/Car-Dearler/SelectAllDealer.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/Car-Dearler/SelectAllDealer_frame.jsp");
 			rd.forward(request, response);
 			return;
 			

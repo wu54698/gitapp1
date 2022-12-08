@@ -205,6 +205,7 @@
 
 				<!-- Begin Page Content 內容 -->
 				<div class="container-fluid">
+				<div class="container1">
 
 					<!-- Page Heading -->
 					<h1 class="h3 mb-4 text-gray-800">功能名稱</h1>
@@ -220,17 +221,18 @@
 								<th>車輛照片</th>
 								<th>車輛描述</th>
 								<th>發布日期</th>
+								<th>刪除</th>
 							</tr>
 						</thead>
 						<c:forEach var="car" items="${SelectAllCar}" varStatus="vs">
 							<tbody>
 								<tr>
-									<td>${car.carNo}</td>
+									<td id="carNo">${car.carNo}</td>
 									<td>${car.carDealName}</td>
 									<td>${car.accountNumber}</td>
 									<td>${car.carBrand}</td>
 									<td>${car.carName}</td>
-									<td>${car.stock}</td>
+									<td id="stock">${car.stock}</td>
 									<!--<td>${car.carImage}</td>-->
 									<td><img
 										src="http://localhost:8080/iSpan_Car/AllImageServlet.do?carNo=${car.carNo}"
@@ -238,11 +240,13 @@
 									<td><textarea readonly cols="10" rows="5"
 											style="text-align: left">${car.carDescription}</textarea></td>
 									<td>${car.announceDate}</td>
+									<td><input type="button" id="btn1" value="刪除"></td>
 								</tr>
 							</tbody>
 						</c:forEach>
 					</table>
 					<a href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">回上一頁</a>
+				</div>
 				</div>
 				<!-- /.container-fluid -->
 
@@ -316,7 +320,27 @@
 			$('#selectAllCar').DataTable();
 		});
 	</script>
+	<script>
+	$('.container1').on('click', '#btn1', function () {
+		$.ajax({
+			type: "POST",
+			url: "<c:url value='/DeleteCarInfoServlet.do'/>",
+			//contentType text
+			context: this,
+			dataType: "text",
+			data: {
+				"carNo": $(this).parent().parent().children(
+					'#carNo').text()
+			},
+			success: function (response) {
+				console.log("OK")
+				alert("刪除成功")
+				$(this).parent().parent().remove();
+			}
+		})
 
+	});
+	</script>
 </body>
 
 </html>

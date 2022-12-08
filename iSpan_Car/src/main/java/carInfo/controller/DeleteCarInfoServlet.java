@@ -27,9 +27,9 @@ public class DeleteCarInfoServlet extends HttpServlet {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			CarInfoDao infoDao = new CarInfoDao();
-			String Stock = request.getParameter("stock");
+			String carNo = request.getParameter("carNo");
 //			System.out.println(Stock);
-			int amount = Integer.parseInt(Stock);
+			int amount = Integer.parseInt(carNo);
 
 			infoDao.deleteCarInfo(amount);
 			List<CarInfoBean> list = infoDao.findAllCar();
