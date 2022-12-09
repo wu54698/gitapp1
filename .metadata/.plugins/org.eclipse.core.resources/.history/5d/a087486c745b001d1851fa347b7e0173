@@ -1,0 +1,9 @@
+package tyland;
+
+public class ImportData {
+
+	public ImportData() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

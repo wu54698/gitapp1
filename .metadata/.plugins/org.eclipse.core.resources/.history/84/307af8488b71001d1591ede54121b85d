@@ -1,0 +1,52 @@
+/**
+ * 
+ */
+
+
+
+
+
+
+function addListItem(res, list) {
+	for (var i = 0; i < res.length; i++) {
+		var listItem = $("<li class=\"list-group-item\"><a href=\"#\"><div class=\"row\"></div></a></li>");
+		var e1 = $('<div>', {
+			class: 'col-xl-2',
+			text: res[i].Cname
+		})
+		var e2 = $('<div>', {
+			class: 'col-xl-8',
+			text: res[i].Ptitle
+		})
+		var e3 = $('<div>', {
+			class: 'col-xl-2',
+			text: res[i].Mname
+		})
+
+		listItem.children().children().append(e1);
+		listItem.children().children().append(e2);
+		listItem.children().children().append(e3);
+		list.append(listItem);
+	}
+}
+
+
+
+
+$(document).ready(function() {
+	var list = $(".list-group");
+	$.ajax({
+		url: "threads",
+		method: "GET",
+		dataType: "json",
+		success: function(res) {
+			console.log(res);
+			addListItem(res, list);
+			
+		},
+		error: function(err) { console.log(err) },
+	});
+});
+
+
+

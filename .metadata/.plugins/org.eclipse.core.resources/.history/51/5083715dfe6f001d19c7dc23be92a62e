@@ -1,0 +1,10 @@
+/**
+ * 
+ */
+ $.ajax({
+  url:"threads",
+  method:"GET",
+  dataType:"json",
+  success:function(res){console.log(res)},
+  error:function(err){console.log(err)},
+});

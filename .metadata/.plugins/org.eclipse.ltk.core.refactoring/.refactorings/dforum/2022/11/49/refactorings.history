@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;dforum/src/main/java/TableTypes.java&apos; to &apos;Types.java&apos;" description="Rename resource &apos;TableTypes.java&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/java/TableTypes.java" name="Types.java" stamp="1669731432396" updateReferences="true"/>
+</session>

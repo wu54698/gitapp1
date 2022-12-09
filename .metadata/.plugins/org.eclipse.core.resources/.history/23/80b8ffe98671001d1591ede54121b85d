@@ -1,0 +1,36 @@
+/**
+ * 
+ */
+
+var list = $(".list-group");
+var listItem = $("<li class=\"list-group-item\"><a href=\"#\"><div class=\"row\"></div></a></li>");
+
+
+
+function addListItem(res) {
+	for (var i = 0; i < res.length; i++) {
+		var e1 = $('<div>', {
+			class: 'col-xl-2',
+			text: res[i].Cname
+		})
+
+		listItem.children().children().append(e1);
+	}
+}
+
+
+$.ajax({
+	url: "threads",
+	method: "GET",
+	dataType: "json",
+	success: function(res) {
+		console.log(res);
+		addListItem(res);
+		list.append(listItem);
+	},
+	error: function(err) { console.log(err) },
+});
+
+
+
+

@@ -1,0 +1,70 @@
+package tyland;
+
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Run {
+
+	public static void main(String[] args) {
+		// TODO connect db, query district
+		QueryHelper query = new QueryHelper();
+		Map districtMap = query.getDistrict();
+		Scanner scanner = new Scanner(System.in);
+
+//		LandT landt = new LandT();
+//		landt.LandPosition = "1111sss";
+//		query.insertMain("land", landt);
+
+		ReadCSV readcsv = new ReadCSV();
+		// readcsv.ImportMain(districtMap);
+		// readcsv.ImportLand();
+		// readcsv.ImportPark();
+		// readcsv.ImportBuild();
+		System.out.print("選擇區域： " + districtMap.toString() + "\n");
+		int district = scanner.nextInt();
+		System.out.printf("您輸入了 %d ！\n", district);
+		// System.out.printf("選擇 1.單價 2.總價 3.不限 \n", district);
+		// int priceType = scanner.nextInt();
+		// if (priceType == 1) {
+		System.out.printf("總價");
+		System.out.printf(
+				"選擇總價範圍 1. 小於500萬 , 2. 500-1000萬 , 3.1000-1500萬 ,4. 1500-2000萬 , 5. 2000-3000萬 , 6. 3000萬以上 \n");
+		int priceRange = scanner.nextInt();
+		String condition = "";
+		switch (priceRange) {
+		case 1:
+			condition = "<5000000";
+			break;
+		case 2:
+			condition = "BETWEEN 5000000 AND 9999999";
+			break;
+		case 3:
+			condition = "BETWEEN 10000000 AND 14999999";
+			break;
+		case 4:
+			condition = "BETWEEN 15000000 AND 19999999";
+			break;
+		case 5:
+			condition = "BETWEEN 20000000 AND 29999999499999";
+			break;
+		case 6:
+			condition = ">30000000";
+			break;
+
+		}
+		
+		condition += "AND district.SN=" + district ;
+		
+		List<List<String>> rowlist = new ArrayList<List<String>>();
+		rowlist = query.getData(condition);
+		
+		for( List l : rowlist ) {
+			System.out.println(l);	
+		}
+
+	}
+}

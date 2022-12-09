@@ -1,0 +1,18 @@
+/**
+ * 
+ */
+
+var list = $("<li class=<li class=\"list-group-item\"><a href=\"#\"><div class=\"row\"></div></a></li>");
+$.ajax({
+	url: "threads",
+	method: "GET",
+	dataType: "json",
+	success: function(res) { 
+		 console.log(res)
+		},
+	error: function(err) { console.log(err) },
+});
+
+
+
+

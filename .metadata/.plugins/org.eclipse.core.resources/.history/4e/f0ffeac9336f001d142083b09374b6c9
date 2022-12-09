@@ -1,0 +1,143 @@
+
+
+import java.lang.reflect.Field;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+public class QueryHelper {
+	Connection conn;
+
+	public String getThreads() {
+		conn = ConnectionUtil.getConnectionLand();
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		String str ="";
+		try {
+			String sqlstr = "SELECT T.SN, T.time, C.name AS Cname, P.title, P.body, M.name AS Mname FROM thread AS T";
+			sqlstr += "LEFT JOIN category AS C on C.SN=T.categorySN";
+			sqlstr += "LEFT JOIN post AS P on P.threadSN=T.SN";
+			sqlstr += "LEFT JOIN member AS M on M.SN=P.memberSN";
+			PreparedStatement pstmt = conn.prepareStatement(sqlstr);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				str += rs.getInt("SN");
+				str += rs.getTime("time");
+				str += rs.getNString("Cname");
+				str += rs.getNString("title");
+				str += rs.getNString("body");
+				str += rs.getNString("Mname");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.free();
+		}
+		return str;
+	}
+
+	public void insert(String tableName, Object obj, boolean ignoreSN) {
+		conn = ConnectionUtil.getConnectionLand();
+		int objCount = 0;
+		try {
+			String sqlstr = "INSERT INTO ";
+			sqlstr += tableName;
+			sqlstr += " (";
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<String> paramList = new ArrayList<String>();
+			for (Field field : obj.getClass().getDeclaredFields()) {
+				field.setAccessible(true); // You might want to set modifier to public first.
+				Object value = field.get(obj);
+				map.put(field.getName(), value);
+
+				if (ignoreSN && field.getName().equals("SN")) {
+					// no insert
+				} else {
+					sqlstr += field.getName() + ",";
+					if (value == null) {
+						paramList.add("null");
+					} else {
+						paramList.add(value.toString());
+						System.out.println(value.toString());
+					}
+
+					objCount++;
+
+				}
+			}
+			sqlstr = sqlstr.substring(0, sqlstr.length() - 1);
+			sqlstr += ") ";
+			sqlstr += "VALUES ";
+			String sqlparams = "(" + String.join("", Collections.nCopies(objCount, "?,")).substring(0, objCount * 2 - 1)
+					+ ")"; // (?,?,?,?)
+			sqlstr += sqlparams;
+
+			PreparedStatement pstmt = conn.prepareStatement(sqlstr);
+
+			for (int i = 0; i < paramList.size(); i++) {
+				pstmt.setString(i + 1, paramList.get(i));
+			}
+
+			int updateCount = pstmt.executeUpdate();
+
+		} catch (SQLException | IllegalArgumentException | IllegalAccessException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.free();
+		}
+
+	}
+
+	public List<List<String>> getData(String condition) {
+		conn = ConnectionUtil.getConnectionLand();
+		List<String> list ;
+		List<List<String>> rowlist = new ArrayList<List<String>>();
+		try {
+			String sqlstr = "SELECT distinct main.SN AS mainSN,district.name AS districtname, main.houseNumberPlate,main.totalArea,transactionDate,buildingState,totalPrice,note,";
+			sqlstr += "land.SN AS landSN,landPosition,land.zone,";
+			sqlstr += "build.SN AS buildSN,age,build.area AS buildarea,usage,materials,";
+			sqlstr += "build.floor AS buildfloor ,park.SN AS parkSN,park.price AS parkprice,park.area AS parkarea,park.floor AS parkfloor\n";
+			sqlstr += "FROM main\n";
+			sqlstr += "LEFT JOIN land ON main.SN = land.mainSN\n";
+			sqlstr += "LEFT JOIN build ON main.SN = build.mainSN\n";
+			sqlstr += "LEFT JOIN park ON main.SN = park.mainSN\n";
+			sqlstr += "INNER JOIN district ON district.SN = main.districtSN\n";
+			sqlstr += "WHERE totalPrice ";
+			sqlstr += condition + ";";
+			PreparedStatement pstmt = conn.prepareStatement(sqlstr);
+
+			List<String> argList = Arrays.asList("districtname", "houseNumberPlate", "totalArea", "transactionDate",
+					"buildingState", "totalPrice", "note", "landSN", "landPosition", "zone", "buildSN", "age",
+					"buildarea", "usage", "materials", "buildfloor", "parkSN", "parkprice", "parkarea", "parkfloor");
+
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				list = new ArrayList<String>();
+				for (String arg : argList) {
+					if (rs.getObject(arg) != null) {
+						list.add(rs.getObject(arg).toString());
+					} else {
+						list.add("\t");
+					}
+				}
+				rowlist.add(list);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.free();
+		}
+		return rowlist;
+
+	}
+
+}

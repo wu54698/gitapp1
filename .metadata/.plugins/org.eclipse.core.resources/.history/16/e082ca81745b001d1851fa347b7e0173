@@ -1,0 +1,10 @@
+package tyland;
+
+import java.util.List;
+
+public class Data {
+	public MainT mainData;
+	public List<BuildT> buildList ;
+	public List<LandT> landList ;
+	public List<ParkT> parkList ;
+}
