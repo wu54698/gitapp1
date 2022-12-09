@@ -221,66 +221,62 @@
         <tbody>
             <tr bgcolor='transparent'>
                 <td width="120" height="40">車輛編號</td>
-                <td width="600" height="40" align="left"><input id="carNo" name="carNo" value="${param.carNo}"
+                <td width="600" height="40" align="left"><input id="carNo" name="carNo" class="checkNotNull" value="${param.carNo}"
                         type="text" size="14" style="text-align: left"></td>
             </tr>
             <tr bgcolor='transparent'>
                 <td width="120" height="40">車商名稱</td>
-                <td width="600" height="40" align="left"><input id="carDealName" name="carDealName"
+                <td width="600" height="40" align="left"><input id="carDealName" name="carDealName" class="checkNotNull"
                         value="${param.carDealName}" type="text" size="14" style="text-align: left"></td>
             </tr>
             <tr bgcolor='transparent'>
                 <td width="120" height="40">帳號</td>
-                <td width="600" height="40" align="left"><input id="accountNumber" name="accountNumber"
+                <td width="600" height="40" align="left"><input id="accountNumber" name="accountNumber" class="checkNotNull"
                         value="${param.accountNumber}" type="text" size="14" style="text-align: left">
                 </td>
             </tr>
             <tr bgcolor='transparent'>
                 <td width="120" height="40">車輛品牌</td>
-                <td width="600" height="40" align="left"><input id="carBrand" name="carBrand" value="${param.carBrand}"
+                <td width="600" height="40" align="left"><input id="carBrand" name="carBrand" class="checkNotNull" value="${param.carBrand}"
                         type="text" size="14" style="text-align: left"></td>
             </tr>
             <tr bgcolor='transparent'>
                 <td width="120" height="40">車輛名稱</td>
-                <td width="600" height="40" align="left"><input id="carName" name="carName" value="${param.carName}"
+                <td width="600" height="40" align="left"><input id="carName" name="carName" class="checkNotNull" value="${param.carName}"
                         type="text" size="14" style="text-align: left"></td>
             </tr>
             <tr bgcolor='transparent'>
                 <td width="120" height="40">庫存</td>
-                <td width="600" height="40" align="left"><input id="stock" name="stock" value="${param.stock}"
+                <td width="600" height="40" align="left"><input id="stock" name="stock" class="checkNotNull" value="${param.stock}"
                         type="text" size="14" style="text-align: left">
                 </td>
             </tr>
             <tr bgcolor='transparent'>
                 <td width="120" height="80">車輛描述</td>
                 <td width="600" height="40" align="left">
-                    <textarea id="carDescription" name="carDescription" value="${param.carDescription}" cols="30"
-                        rows="10" style="text-align: left">
-                        我是
-                        多行
-                        標籤
-                    </textarea>
+                    <textarea id="carDescription" name="carDescription" class="checkNotNull" value="${param.carDescription}" cols="30"
+                        rows="10" style="text-align: left"></textarea>
                 </td>
             </tr>
             <tr bgcolor='transparent'>
                 <td width="120" height="40">車輛照片</td>
-                <td width="600" height="40" align="left"><input id="carImage" name="carImage" value="${param.carImage}"
+                <td width="600" height="40" align="left"><input id="carImage" name="carImage" class="checkNotNull" value="${param.carImage}"
                         type="file"></td>
             </tr>
             <tr>
             <tr>
                 <td width="120" height="40">發布日期</td>
-                <td width="600" height="40" align="left"><input id="announceDate" name="announceDate"
+                <td width="600" height="40" align="left"><input id="announceDate" name="announceDate" class="checkNotNull"
                         value="${param.announceDate}" type="text" size="14" style="text-align: left">
-                    <font color='blue' size="-1">&nbsp;&nbsp;格式為yyyy-MM-dd</font>
+                    <font color='blue' size="-1">&nbsp;&nbsp;格式為MM-dd-yyyy</font>
                 </td>
             </tr>
             <tr bgcolor='transparent'>
                 <td height="50" colspan="2" align="center">
-                    <input type="submit" value="新增" formaction="<c:url value='/CarInfoServlet.do'/>">
+                    <input type="submit" value="新增" id="addCar" formaction="<c:url value='/CarInfoServlet.do'/>">
 <%--                     <input type="submit" value="刪除" formaction="<c:url value='/DeleteCarInfoServlet.do'/>"> --%>
-                    <input type="submit" value="修改車輛資訊" formaction="<c:url value='/UpdateCarInfoServlet.do'/>">
-                    <input type="submit" value="找品牌" formaction="<c:url value='/FindCarBrandServlet.do'/>">
+                    <input type="submit" value="修改車輛資訊" id="updateCarInfo" formaction="<c:url value='/UpdateCarInfoServlet.do'/>">
+                    <input type="submit" value="找品牌" id="findCarBrand" formaction="<c:url value='/FindCarBrandServlet.do'/>">
                     <input type="submit" value="搜尋全車輛" formaction="<c:url value='/ShowAllCarInfoServlet.do'/>">
                 </td>
             </tr>
@@ -366,6 +362,33 @@
   		$( function() {
     	$( "#announceDate" ).datepicker();
  		 } );
+  		
+  	//驗證欄位不為空
+		 $('#findCarBrand').on({
+			 click: function(){
+				 $('#carBrand').attr('required', true)
+			 }, mouseleave: function(){
+				 $('#carBrand').attr('required', false)
+			 }
+		 });
+		 $('#updateCarInfo').on({
+			 click: function(){
+				 $('#carNo').attr('required', true)
+			 }, mouseleave: function(){
+				 $('#carNo').attr('required', false)
+			 }
+		 });
+  		
+		 $('#addCar').on({
+	            click: function () {
+	                $('.checkNotNull').attr('required', true)
+	            }, mouseleave: function () {
+	                $('.checkNotNull').attr('required', false)
+	            },
+	        });
+  	
+  	
+  		
   	</script>
 
 </body>

@@ -28,6 +28,14 @@
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+	<style>
+	textarea{
+	background:transparent;  
+      border-style:none;
+	}
+	
+	
+	</style>
 </head>
 
 <body id="page-top">
