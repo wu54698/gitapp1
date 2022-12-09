@@ -19,7 +19,7 @@ public class SendIdToUpdate extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String productno = request.getParameter("productno");
 		ShopDetailDao sDao = new ShopDetailDao();
-		
+		System.out.println("----------");
 		List<ShopDetailBean> list;
 		try {
 			list = sDao.findByProductno(productno);

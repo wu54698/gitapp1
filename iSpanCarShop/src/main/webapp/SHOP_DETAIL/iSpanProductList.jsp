@@ -236,10 +236,10 @@ padding:0;
 							</tr>
 						</thead>
 						<tbody>
-						<form method="POST">
 							<c:forEach var='product' items='${queryallproduct}'
 								varStatus="vs">
 								<tr>
+									<form method="POST" action="">
 									<td id="productno">${product.productno}</td>
 									<td>${product.productname}</td>
 									<td>${product.type}</td>
@@ -253,11 +253,11 @@ padding:0;
 										width="180" height="180" /></td>
 <!-- 									<td><input type="button" id="btn1" value="修改" -->
 <!-- 										onclick="location.href='http://localhost:8080/iSpanCarShop/SHOP_DETAIL/UpdateProduct_form.jsp';"></td> -->
-									<td><input type="submit" id="btn1" value="修改" formaction= "<c:url value='/SendIdToUpdate.do'/>"></td>
+									<td><input type="submit" id="btn1" value="修改" formaction="<c:url value='/SendIdToUpdate.do?productno=${product.productno}'/>"></td>
 									<td><input type="button" id="btn2" value="刪除"></td>
+									</form>
 								</tr>
 							</c:forEach>
-							</form>
 						</tbody>
 					</table>
 				</div>
