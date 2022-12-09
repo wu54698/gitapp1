@@ -30,7 +30,10 @@ public class ShopDetailBean {
 	}
 
 
+
+
 	public ShopDetailBean() {
+		super();
 	}
 
 

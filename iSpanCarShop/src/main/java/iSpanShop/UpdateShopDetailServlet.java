@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,12 +15,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
 @MultipartConfig()
 @WebServlet("/UpdateShopDetailServlet.do")
 public class UpdateShopDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			// 設定輸入資料的編碼
 			request.setCharacterEncoding("UTF-8");
@@ -46,7 +49,9 @@ public class UpdateShopDetailServlet extends HttpServlet {
 
 //			ShopDetailBean mb = new ShopDetailBean(productname, type, spec, priceint, stockint, uptime, productinfo,
 //					imgblob, productimage_name);
-			ShopDetailBean mb = new ShopDetailBean(productnnoint,productname,priceint,stockint,productinfo,imgblob,productimage_name);
+
+			ShopDetailBean mb = new ShopDetailBean(productnnoint, productname, priceint, stockint, productinfo, imgblob,
+					productimage_name);
 
 			sDao.updateProduct(mb);
 
@@ -65,7 +70,9 @@ public class UpdateShopDetailServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			// 設定輸入資料的編碼
 			request.setCharacterEncoding("UTF-8");
@@ -92,7 +99,9 @@ public class UpdateShopDetailServlet extends HttpServlet {
 
 //			ShopDetailBean mb = new ShopDetailBean(productname, type, spec, priceint, stockint, uptime, productinfo,
 //					imgblob, productimage_name);
-			ShopDetailBean mb = new ShopDetailBean(productnnoint,productname,priceint,stockint,productinfo,imgblob,productimage_name);
+
+			ShopDetailBean mb = new ShopDetailBean(productnnoint, productname, priceint, stockint, productinfo, imgblob,
+					productimage_name);
 
 			sDao.updateProduct(mb);
 
