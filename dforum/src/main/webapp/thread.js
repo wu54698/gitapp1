@@ -80,6 +80,8 @@ $(document).ready(function() {
 		},
 		error: function(err) { console.log(err) },
 	});
+	$("#time").val(new Date().getTime());
+	$("#threadSN").val(SN);
 });
 
 

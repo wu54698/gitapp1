@@ -21,17 +21,13 @@
 
 
 <script src="thread.js"></script>
-
 <script>
-	$("#newpost").each(
-			function() {
-				this.setAttribute("style", "height:" + (this.scrollHeight)
-						+ "px;overflow-y:hidden;");
-			}).on("input", function() {
-		this.style.height = 0;
-		this.style.height = (this.scrollHeight) + "px";
-	});
+function reloadpage(){
+	//e.preventDefault();
+	//location.reload(); 
+}
 </script>
+
 
 <title>車論壇</title>
 </head>
@@ -52,23 +48,27 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="card bg-default">
-					<div class="card-body" style="width: 100%; height: 100%">
 
-						<textarea style="width: 100%; height: 100%;" placeholder="在此輸入回覆..."></textarea>
+					<form action="newpost" method="post" accept-charset="UTF-8">
 
-					</div>
-					<!-- <div class="card-footer"></div> -->
+						<div class="card-body" style="width: 100%; height: 100%">
+							<textarea id="body" name="body" class="form-control"
+								style="width: 100%; height: 100%;" placeholder="在此輸入回覆..."
+								required></textarea>
+						</div>
+
+						<div>
+							<input type="hidden" id="memberSN" name="memberSN" value="1" /> 
+							<input type="hidden" id="time" name="time" />
+							<input type="hidden" id="threadSN" name="threadSN" />
+							<input type="hidden" id="title" name="title" value="" /> 
+							<input type="submit" class="btn btn-primary" onclick="reloadpage()" />
+						</div>
+					</form>
+
 				</div>
 			</div>
 		</div>
-
-
-		<div>
-			<button type="button" class="btn btn-primary">送出</button>
-		</div>
-
-
-
 
 
 		<footer class="footer"> </footer>

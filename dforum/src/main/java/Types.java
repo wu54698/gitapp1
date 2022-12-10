@@ -1,12 +1,12 @@
 
 class Post {
 	public int SN;
-	public java.sql.Date time;
-	public String Cname;
 	public String title;
 	public String body;
-	public String Mname;
-	public int TotalPrice;
+	public java.sql.Timestamp time;
+	public boolean isOP;
+	public int memberSN;
+	public int threadSN;
 }
 
 //str += rs.getInt("SN");

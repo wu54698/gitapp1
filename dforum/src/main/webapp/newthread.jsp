@@ -20,9 +20,10 @@
 	crossorigin="anonymous"></script>
 
 
-<script>
+<script type="text/javascript">
 	$(document).ready(
 			function() {
+				$("#time").val(new Date().getTime());
 				$.ajax({
 					url : "categories",
 					method : "GET",
@@ -30,7 +31,7 @@
 					success : function(res) {
 						console.log(res);
 
-						var sel = $('<select>',{class:'custom-select'}).appendTo('#catediv');
+						var sel = $('<select>',{class:'custom-select',name:'category'}).appendTo('#catediv');
 						$(res).each(
 								function() {
 									sel.append($("<option>").attr('value',
@@ -42,6 +43,7 @@
 						console.log(err)
 					},
 				});
+				
 			});
 </script>
 
@@ -59,20 +61,36 @@
 			<h3 class="text-muted">發表文章</h3>
 		</div>
 
-		<div id="catediv" class="input-group mb-3">
-			<div class="input-group-prepend">
-				<span class="input-group-text" id="inputGroup-sizing-sm">分類</span>
+		<form action="thread" method="post" accept-charset="UTF-8">
+			<div id="catediv" class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="inputGroup-sizing-sm">分類</span>
+				</div>
+
 			</div>
 
-		</div>
-		<div id="newt" style="width: 100%; height: 100%">
-			<textarea id="newthread" name="newthread"
-				style="width: 100%; height: 100%" placeholder="在此輸入文章..."></textarea>
-		</div>
 
-		<div>
-			<button type="button" class="btn btn-primary">送出</button>
-		</div>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text">標題</span>
+				</div>
+				<input type="text" class="form-control" id="title" name="title" required>
+			</div>
+
+
+
+			<div id="newt" style="width: 100%; height: 100%">
+				<textarea id="body" name="body" class="form-control"
+					style="width: 100%; height: 100%" placeholder="在此輸入文章..." required></textarea>
+			</div>
+
+			<div>
+				<input type="hidden" id="memberSN" name="memberSN" value="1" /> 
+				<input type="hidden" id="time" name="time" /> 
+				<input type="submit" class="btn btn-primary" />
+			</div>
+		</form>
+
 
 
 

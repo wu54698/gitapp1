@@ -93,74 +93,47 @@ public class QueryHelper {
 		return str;
 	}
 	
-	public String newThread() {
+	public int newThread(int categorySN) {
 		conn = ConnectionUtil.getConnectionForum();
-		String str ="";
+		int rt0SN =0;
 		try {
-			String sqlstr = "SELECT T.SN, T.time, P.SN AS PSN, P.title AS Ptitle, P.body AS Pbody, P.time AS Ptime, P.isOP AS Pisop, C.SN AS CSN, C.name AS Cname, M.SN AS MSN,M.name AS Mname FROM thread AS T ";
-			sqlstr += "LEFT JOIN category AS C on C.SN=T.categorySN ";
-			sqlstr += "LEFT JOIN post AS P on P.threadSN=T.SN ";
-			sqlstr += "LEFT JOIN member AS M on M.SN=P.memberSN ";
-			sqlstr += "FOR JSON PATH  ";
+			String sqlstr = "INSERT INTO thread (time, categorySN) "
+			+ "VALUES (GETDATE(), ?); "
+			+"SELECT SCOPE_IDENTITY();";
+			
 			PreparedStatement pstmt = conn.prepareStatement(sqlstr);
+			pstmt.setInt(1, categorySN);
 			ResultSet rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				str += rs.getNString(1);
+				rt0SN += rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			ConnectionUtil.free();
 		}
-		return str;
+		return rt0SN;
 	}
 
-	public void insert(String tableName, Object obj, boolean ignoreSN) {
+	public void newPost(Post post) {
 		conn = ConnectionUtil.getConnectionForum();
-		int objCount = 0;
+		
 		try {
-			String sqlstr = "INSERT INTO ";
-			sqlstr += tableName;
-			sqlstr += " (";
-			Map<String, Object> map = new HashMap<String, Object>();
-			List<String> paramList = new ArrayList<String>();
-			for (Field field : obj.getClass().getDeclaredFields()) {
-				field.setAccessible(true); // You might want to set modifier to public first.
-				Object value = field.get(obj);
-				map.put(field.getName(), value);
-
-				if (ignoreSN && field.getName().equals("SN")) {
-					// no insert
-				} else {
-					sqlstr += field.getName() + ",";
-					if (value == null) {
-						paramList.add("null");
-					} else {
-						paramList.add(value.toString());
-						System.out.println(value.toString());
-					}
-
-					objCount++;
-
-				}
-			}
-			sqlstr = sqlstr.substring(0, sqlstr.length() - 1);
-			sqlstr += ") ";
-			sqlstr += "VALUES ";
-			String sqlparams = "(" + String.join("", Collections.nCopies(objCount, "?,")).substring(0, objCount * 2 - 1)
-					+ ")"; // (?,?,?,?)
-			sqlstr += sqlparams;
+			String sqlstr = "INSERT INTO post ( title  , body  , time  , isOP  , memberSN  , threadSN )     VALUES\r\n"
+					+ "(?,?,?,?,?,?)";
 
 			PreparedStatement pstmt = conn.prepareStatement(sqlstr);
-
-			for (int i = 0; i < paramList.size(); i++) {
-				pstmt.setString(i + 1, paramList.get(i));
-			}
+			pstmt.setNString(1,post.title);
+			pstmt.setNString(2,post.body);
+			pstmt.setTimestamp(3,post.time);
+			pstmt.setInt(4,post.isOP ? 1 : 0);
+			pstmt.setInt(5,post.memberSN);
+			pstmt.setInt(6,post.threadSN);
 
 			int updateCount = pstmt.executeUpdate();
 
-		} catch (SQLException | IllegalArgumentException | IllegalAccessException e) {
+		} catch (SQLException | IllegalArgumentException e) {
 			e.printStackTrace();
 		} finally {
 			ConnectionUtil.free();
