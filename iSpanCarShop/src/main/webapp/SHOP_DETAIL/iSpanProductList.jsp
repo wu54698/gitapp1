@@ -230,11 +230,11 @@ display:inline;
 					<div>
 						<form action="<c:url value='/SHOP_DETAIL/iSpanShopInsert.jsp'/>"
 							method="POST">
-							<input type="submit" value="新增產品"  style="width:100px;height:45px;">
+							<input type="submit" value="新增產品"  style="width:100px;height:45px;text-align:center">
 						</form>
 						<form action="<c:url value='/Shop_CartServlet.do'/>"
 							method="POST">
-							<input type="submit" value="購物車測試"  style="width:100px;height:45px;">
+							<input type="submit" value="購物車測試"  style="width:100px;height:45px;text-align:center">
 						</form>
 						<p>
 					</div>
@@ -261,15 +261,15 @@ display:inline;
 								varStatus="vs">
 								<tr>
 									<form method="POST" action="">
-									<td id="productno">${product.productno}</td>
-									<td>${product.productname}</td>
+									<td id="productno" style="text-align:center;">${product.productno}</td>
+									<td style="width:80px">${product.productname}</td>
 									<td>${product.type}</td>
 									<td>${product.spec}</td>
 									<td>${product.price}</td>
-									<td>${product.stock}</td>
+									<td style="text-align:center;">${product.stock}</td>
 									<td>${product.uptime}</td>
 									<td><textarea readonly>${product.productinfo}</textarea></td>
-									<td><img
+									<td ><img style="border-radius:10%;"
 										src="<c:url value='/ProductImgServlet?productno=${product.productno}'/>"
 										width="180" height="180" /></td>
 <!-- 									<td><input type="button" id="btn1" value="修改" -->

@@ -253,15 +253,15 @@ opacity:0.6;
 								varStatus="vs">
 									<tr bgcolor='transparent'>
 										<td width="130" height="40" style="text-align: center"><font size="4">產品編號</font></td>
-										<td width="600" height="40" align="left"><input required
-											id='productno' style="text-align: left" name="productno"
+										<td width="600" height="40" align="left"><input required readonly
+											id='productno' style="text-align: left;background-color:LightGray;" name="productno"
 											value="${sentno.productno}" type="text" size="14"></td>
 									</tr>
 									<tr bgcolor='transparent'>
 										<td width="120" height="40" style="text-align: center"><font size="4">產品名稱</font></td>
 										<td width="600" height="40" align="left"><input required
-											id='productname' style="text-align: left" name="productname"
-											value="${sentno.productname}" type="text" size="14"></td>
+											id='productname' style="text-align: left;" name="productname"
+											value="${sentno.productname}" type="text" size="30"></td>
 									</tr>
 									<!-- 				<tr bgcolor='tan'> -->
 									<!-- 					<td width="120" height="40">種類:</td> -->
@@ -277,7 +277,7 @@ opacity:0.6;
 									<tr bgcolor='transparent'>
 										<td width="120" height="40" style="text-align: center"><font size="4">價 格</font></td>
 										<td width="600" height="40" align="left"><input required
-											name="price" value="${sentno.price}" type="text" size="20"></td>
+											name="price" value="${sentno.price}" type="text" size="14"></td>
 									</tr>
 									<tr bgcolor='transparent'>
 										<td width="120" height="40" style="text-align: center"><font size="4">庫存數量</font></td>

@@ -251,7 +251,7 @@ opacity:0.6;
 											</td>
 											<td width="600" height="40" align="left"><input required id='productname'
 													style="text-align: left" name="productname"
-													value="${param.productname}" type="text" size="14"></td>
+													value="${param.productname}" type="text" size="30"></td>
 										</tr>
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center">
@@ -266,14 +266,14 @@ opacity:0.6;
 												<font size="4">規 格</font>
 											</td>
 											<td width="600" height="40" align="left"><input required name="spec"
-													value="通用${param.spec}" type="text" size="20"></td>
+													value="通用${param.spec}" type="text" size="14"></td>
 										</tr>
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center">
 												<font size="4">價 格</font>
 											</td>
 											<td width="600" height="40" align="left"><input required name="price"
-													value="${param.price}" type="number" size="20" ></td>
+													value="${param.price}" type="number" size="14" ></td>
 										</tr>
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center">
@@ -287,7 +287,7 @@ opacity:0.6;
 												<font size="4">發售日期</font>
 											</td>
 											<td width="600" height="40" align="left"><input required name="uptime"
-													id="updatepick" value="${param.uptime}" type="text" size="14">
+													id="updatepick" value="${param.uptime}" type="text" size="20">
 												<!-- 												<font color='blue' size="-1">&nbsp;&nbsp;格式為yyyy-MM-dd</font> -->
 											</td>
 										</tr>
