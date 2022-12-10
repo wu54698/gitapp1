@@ -18,7 +18,6 @@ import javax.servlet.http.HttpSession;
 import carDealer.dao.CarDealerDao;
 import carDealer.model.CarDealerBean;
 
-
 //新增車商資訊
 @WebServlet("/CarDealerServlet.do")
 public class CarDealerServlet extends HttpServlet {
@@ -27,12 +26,24 @@ public class CarDealerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			
+			// 定義存放錯誤訊息的 Collection物件
+			Map<String, String> errorMessage = new HashMap<>();
+			request.setAttribute("ErrorMsg", errorMessage);
+
 			request.setCharacterEncoding("UTF-8");
 			CarDealerDao cDao = new CarDealerDao();
-
+			List<CarDealerBean> list = cDao.findAllDealer();
 			// 讀取瀏覽器送入的欄位內的資料
 			String carDealName = request.getParameter("carDealName");
+			
+			// 檢查使用者所輸入的資料是否重複
+			for (CarDealerBean carDealerBean : list) {
+				if (carDealerBean.getCarDealName().equals(carDealName)) {
+					errorMessage.put("carDealName", "該車商名稱已登錄");
+				}
+				
+			}
+
 			String carDealPhone = request.getParameter("carDealPhone");
 			String carDealAddress = request.getParameter("carDealAddress");
 			String openTime = request.getParameter("openTime");
@@ -41,20 +52,25 @@ public class CarDealerServlet extends HttpServlet {
 			int VATNumber = Integer.parseInt(carDealVATNumber);
 
 //			java.sql.Time time = cDao.StringToTime(openTime);
-
 			
-			CarDealerBean dealerBean = new CarDealerBean(carDealName, carDealPhone, 
-					carDealAddress, openTime, contactPerson, VATNumber);
+			if (!errorMessage.isEmpty()) {
+				RequestDispatcher rd = request.getRequestDispatcher("/Car-Dearler/CarDealerForm_frame.jsp");
+				rd.forward(request, response);
+				return;
+			}	
+			
+			CarDealerBean dealerBean = new CarDealerBean(carDealName, carDealPhone, carDealAddress, openTime,
+					contactPerson, VATNumber);
 			cDao.addCarDealer(dealerBean);
-			List<CarDealerBean> list = cDao.findAllDealer();
 			request.setAttribute("SelectAllDealer", list);
 			RequestDispatcher rd = request.getRequestDispatcher("/Car-Dearler/SelectAllDealer_frame.jsp");
 			rd.forward(request, response);
 			return;
+
 		} catch (ParseException | SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

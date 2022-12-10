@@ -224,7 +224,9 @@
 								<tr>
 									<td><input id="carDealName" name="carDealName" class="checkNotNull"
 										value="${param.carDealName}" type="text" size="10"
-										placeholder="輸入車商名稱"></td>
+										placeholder="輸入車商名稱">
+										<div style="color:#FF0000; font-size:60%; display: inline">${ErrorMsg.carDealName}</div>
+										</td>
 									<td><input id="carDealPhone" name="carDealPhone" class="checkNotNull"
 										value="${param.carDealPhone}" type="text" size="10"></td>
 									<td><input id="carDealAddress" name="carDealAddress" class="checkNotNull"
