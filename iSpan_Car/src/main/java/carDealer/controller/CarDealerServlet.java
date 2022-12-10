@@ -62,7 +62,8 @@ public class CarDealerServlet extends HttpServlet {
 			CarDealerBean dealerBean = new CarDealerBean(carDealName, carDealPhone, carDealAddress, openTime,
 					contactPerson, VATNumber);
 			cDao.addCarDealer(dealerBean);
-			request.setAttribute("SelectAllDealer", list);
+			List<CarDealerBean> addList = cDao.findAllDealer();
+			request.setAttribute("SelectAllDealer", addList);
 			RequestDispatcher rd = request.getRequestDispatcher("/Car-Dearler/SelectAllDealer_frame.jsp");
 			rd.forward(request, response);
 			return;

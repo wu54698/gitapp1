@@ -3,7 +3,10 @@ package carDealer.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,10 +30,25 @@ public class UpdateCarDealerServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		try {
+			// 定義存放錯誤訊息的 Collection物件
+			Map<String, String> errorMessage = new HashMap<>();
+			request.setAttribute("NotFoundMsg", errorMessage);
+			
+			
 			request.setCharacterEncoding("UTF-8");
 			CarDealerDao cDao = new CarDealerDao();
-
+			List<CarDealerBean> verifyList = cDao.findAllDealer();
+			
+			// 讀取瀏覽器送入的欄位內的資料
 			String carDealName = request.getParameter("carDealName");
+			
+			// 檢查使用者所輸入的資料是否錯誤
+			for (CarDealerBean cdb : verifyList) {
+				if (!cdb.getCarDealName().equals(carDealName)) {
+					errorMessage.put("carDealName", "找無此車商");
+				}
+			}
+			
 			String carDealPhone = request.getParameter("carDealPhone");
 //		int Phone = Integer.parseInt(carDealPhone);
 			String carDealAddress = request.getParameter("carDealAddress");
@@ -58,6 +76,12 @@ public class UpdateCarDealerServlet extends HttpServlet {
 			int VAT = (carDealVATNumber.equals("")) ? originBean.getCarDealVATNumber()
 					: Integer.parseInt(carDealVATNumber);
 
+			if (!errorMessage.isEmpty()) {
+				RequestDispatcher rd = request.getRequestDispatcher("/Car-Dearler/CarDealerForm_frame.jsp");
+				rd.forward(request, response);
+				return;
+			}
+			
 //		System.out.println(name+" "+mobile+" "+address+" "+time+" "+person+" "+VAT);
 			CarDealerBean dealerBean = new CarDealerBean(name, mobile, address, time, person, VAT);
 
