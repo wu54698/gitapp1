@@ -23,7 +23,44 @@
 			<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 			<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 			<link rel="stylesheet" href="/resources/demos/style.css">
-
+<style>
+.sendbtn{
+border:0;
+background-color:#2db5c2;
+color:#fff;
+border-radius:10px;
+height:30px;
+width:80px;
+opacity:1;
+}
+.sendbtn:hover{
+opacity:0.6;
+}
+.imgbtn{
+border:0;
+background-color:#2db5c2;
+color:#fff;
+border-radius:10px;
+height:30px;
+width:80px;
+opacity:1;
+}
+.imgbtn:hover{
+opacity:0.6;
+}
+.backshopbtn{
+border:0;
+background-color:#2db5c2;
+color:#fff;
+border-radius:8px;
+height:40px;
+width:122px;
+opacity:1;
+}
+.backshopbtn:hover{
+opacity:0.6;
+}
+</style>
 		</head>
 
 		<body id="page-top">
@@ -188,6 +225,10 @@
 
 						<!-- Begin Page Content 內容 -->
 						<div class="container-fluid">
+						<form action="<c:url value='/ProductListServlet.do'/>"
+							method="POST">
+							<input type="submit" value="回商城管理頁面" class="backshopbtn">
+						</form>
 
 							<!--                     Page Heading -->
 							<!--                     <h1 class="h3 mb-4 text-gray-800">商城商品新增</h1> -->
@@ -197,7 +238,7 @@
 									<thead>
 										<tr bgcolor='transparent'>
 											<th height="60" colspan="2" align="center">
-												<h2>
+												<h2 style="margin:0 auto;">
 													<b>新增產品資料</b>
 												</h2>
 											</th>
@@ -225,21 +266,21 @@
 												<font size="4">規 格</font>
 											</td>
 											<td width="600" height="40" align="left"><input required name="spec"
-													value="${param.spec}" type="text" size="20"></td>
+													value="通用${param.spec}" type="text" size="20"></td>
 										</tr>
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center">
 												<font size="4">價 格</font>
 											</td>
 											<td width="600" height="40" align="left"><input required name="price"
-													value="${param.price}" type="text" size="20"></td>
+													value="${param.price}" type="number" size="20" ></td>
 										</tr>
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center">
 												<font size="4">庫存數量</font>
 											</td>
 											<td width="600" height="40" align="left"><input required name="stock"
-													value="${param.stock}" type="text" size="14"></td>
+													value="${param.stock}" type="number" size="14"></td>
 										</tr>
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center">
@@ -271,7 +312,7 @@
 										</tr>
 
 										<tr bgcolor='transparent'>
-											<td height="50" colspan="2" align="center"><input type="submit" value="送出">
+											<td height="50" colspan="2" align="center"><input type="submit" value="送出" class="sendbtn">
 											</td>
 										</tr>
 									</tbody>
@@ -442,14 +483,14 @@
 
 
 			</script>
-			-->
-			<!-- 	 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
-			<!-- <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> -->
-			<!-- <script> -->
-			<!-- // 	$(function() { -->
-			<!-- // 		$('#updatepick').datepicker(); -->
-			<!-- // 	}); -->
-			<!-- </script> -->
+			
+				 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+			<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+			<script>
+				$(function() { 
+					$('#updatepick').datepicker(); 
+			  	}); 
+			 </script> 
 
 		</body>
 

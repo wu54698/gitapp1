@@ -32,6 +32,23 @@ textarea {
 margin:30px ;
 padding:0;
 }
+input{
+border:0;
+background-color:#2db5c2;
+color:#fff;
+border-radius:10px;
+opacity:1;
+}
+input:hover{
+
+opacity:0.6;
+}
+
+form{
+display:inline;
+}
+
+
 </style>
 </head>
 
@@ -213,7 +230,11 @@ padding:0;
 					<div>
 						<form action="<c:url value='/SHOP_DETAIL/iSpanShopInsert.jsp'/>"
 							method="POST">
-							<input type="submit" value="新增產品" />
+							<input type="submit" value="新增產品"  style="width:100px;height:45px;">
+						</form>
+						<form action="<c:url value='/Shop_CartServlet.do'/>"
+							method="POST">
+							<input type="submit" value="購物車測試"  style="width:100px;height:45px;">
 						</form>
 						<p>
 					</div>
@@ -253,8 +274,8 @@ padding:0;
 										width="180" height="180" /></td>
 <!-- 									<td><input type="button" id="btn1" value="修改" -->
 <!-- 										onclick="location.href='http://localhost:8080/iSpanCarShop/SHOP_DETAIL/UpdateProduct_form.jsp';"></td> -->
-									<td><input type="submit" id="btn1" value="修改" formaction="<c:url value='/SendIdToUpdate.do?productno=${product.productno}'/>"></td>
-									<td><input type="button" id="btn2" value="刪除"></td>
+									<td><input style="border-radius:80%;width:50px;height:50px" type="submit" id="btn1" value="修改" formaction="<c:url value='/SendIdToUpdate.do?productno=${product.productno}'/>"></td>
+									<td><input style="border-radius:80%;width:50px;height:50px" type="button" id="btn2" value="刪除"></td>
 									</form>
 								</tr>
 							</c:forEach>

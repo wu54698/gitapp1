@@ -6,7 +6,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>所有產品列表</title>
+<title>商品列表</title>
 <!-- Custom fonts for this template-->
 <link
 	href="http://localhost:8080/iSpanCarShop/SHOP_DETAIL/vendor/fontawesome-free/css/all.min.css"
@@ -21,41 +21,80 @@
 <link
 	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"
 	rel="stylesheet">
-	<style>
-/* textarea { */
-/* 	background:transparent;  */
-/* 	border-style:none;  */
-/* 	text-indent:75px; */
-	
-/* } */
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+<style>
 .container{
 margin:30px ;
 padding:0;
 }
-.sendbtn{
+input{
 border:0;
 background-color:#2db5c2;
 color:#fff;
 border-radius:10px;
-height:30px;
-width:80px;
 opacity:1;
 }
-.sendbtn:hover{
+input:hover{
+
 opacity:0.6;
 }
-.backshopbtn{
-border:0;
-background-color:#2db5c2;
-color:#fff;
-border-radius:8px;
-height:40px;
-width:122px;
-opacity:1;
+body{
+  background:#1f1f1f;
 }
-.backshopbtn:hover{
-opacity:0.6;
+
+.wrap{
+  overflow:hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.35);
 }
+
+table{
+  font-family: 'Oswald', sans-serif;
+  border-collapse:collapse;
+
+}
+
+th{
+  background-color:rgba(79,192,210,0.7);
+  color:#ffffff;
+  width:25vw;
+  height:75px;
+}
+
+td{
+  background-color:#363636;
+  color:#ffffff;
+  width:25vw;
+  height:50px;
+  text-align:center;
+  transition: all 0.3s ease-in-out;
+}
+
+tr:hover td{
+  background-color:#2a2a2a;
+    transition: all 0.3s ease-in-out;
+}
+
+tr td:first-child{
+  color:rgba(79,192,210,0.6);
+  border-left:5px solid rgba(79,192,210,0.6);
+    transition: all 0.3s ease-in-out;
+}
+
+tr:hover td:first-child{
+  color:rgba(79,192,210,1);
+  border-left:5px solid rgba(79,192,210,1);
+    transition: all 0.3s ease-in-out;
+}
+
+tr{
+  border-bottom: 1px solid #2a2a2a;
+}
+
+tr:last-of-type{
+  border-bottom: none;
+}
+
 </style>
 </head>
 
@@ -229,160 +268,107 @@ opacity:0.6;
 				<!-- End of Topbar -->
 
 				<!-- Begin Page Content 內容 -->
-				<div class="container">
+ 				<div class="container"> 
 
 					<!-- Page Heading -->
-					<h2>商城管理</h2>
-					<%-- <a href="<c:url value='/SHOP_DETAIL/iSpanShopInsert.jsp' />">新增產品</a> --%>
-					<div>
-						<form action="<c:url value='/ProductListServlet.do'/>"
-							method="POST">
-							<input type="submit" value="回商城管理頁面" class="backshopbtn">
-						</form>
-						<form name="updateProductForm"
-							action="<c:url value='/UpdateShopDetailServlet.do'/>"
-							method="POST" enctype="multipart/form-data">
-							<table border="1">
-								<thead>
-									<tr bgcolor='transparent'>
-										<th height="60" colspan="2" align="center"><h2 style="margin:0 auto;"><b>修改產品資料</b></h2></th>
-									</tr>
-								</thead>
-								<tbody>
-								<c:forEach var='sentno' items='${sentno}'
+					<h1 class="h3 mb-4 text-gray-800">商城</h1>
+					<div class="wrap">
+					<table>
+						<thead>
+							<tr >
+								<th style="text-align: center">產品編號</th>
+								<th style="text-align: center">產品名稱</th>
+								<th style="text-align: center">價格</th>
+								<th style="text-align: center">產品圖片</th>
+								<th style="text-align: center">購買數量</th>
+								<th style="text-align: center">加入購物車</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var='product' items='${queryallproduct}'
 								varStatus="vs">
-									<tr bgcolor='transparent'>
-										<td width="130" height="40" style="text-align: center"><font size="4">產品編號</font></td>
-										<td width="600" height="40" align="left"><input required
-											id='productno' style="text-align: left" name="productno"
-											value="${sentno.productno}" type="text" size="14"></td>
-									</tr>
-									<tr bgcolor='transparent'>
-										<td width="120" height="40" style="text-align: center"><font size="4">產品名稱</font></td>
-										<td width="600" height="40" align="left"><input required
-											id='productname' style="text-align: left" name="productname"
-											value="${sentno.productname}" type="text" size="14"></td>
-									</tr>
-									<!-- 				<tr bgcolor='tan'> -->
-									<!-- 					<td width="120" height="40">種類:</td> -->
-									<!-- 					<td width="600" height="40" align="left"><input id='type' -->
-									<%-- 						style="text-align: left" name="type" value="${param.type}" --%>
-									<!-- 						type="text" size="14"></td> -->
-									<!-- 				</tr> -->
-									<!-- 				<tr bgcolor='tan'> -->
-									<!-- 					<td width="120" height="40">規格:</td> -->
-									<!-- 					<td width="600" height="40" align="left"><input name="spec" -->
-									<%-- 						value="${param.spec}" type="text" size="20"></td> --%>
-									<!-- 				</tr> -->
-									<tr bgcolor='transparent'>
-										<td width="120" height="40" style="text-align: center"><font size="4">價 格</font></td>
-										<td width="600" height="40" align="left"><input required
-											name="price" value="${sentno.price}" type="text" size="20"></td>
-									</tr>
-									<tr bgcolor='transparent'>
-										<td width="120" height="40" style="text-align: center"><font size="4">庫存數量</font></td>
-										<td width="600" height="40" align="left"><input required
-											name="stock" value="${sentno.stock}" type="text" size="14"></td>
-									</tr>
-									<!-- 				<tr bgcolor='tan'> -->
-									<!-- 					<td width="120" height="40">上架日期:</td> -->
-									<!-- 					<td width="600" height="40" align="left"><input name="uptime" -->
-									<%-- 						value="${param.uptime}" type="text" size="14"><font --%>
-									<!-- 						color='blue' size="-1">&nbsp;&nbsp;格式為yyyy-MM-dd</font></td> -->
-									<!-- 				</tr> -->
-									<tr bgcolor='transparent'>
-										<td width="120" height="40" style="text-align: center"><font size="4">產品資訊</font></td>
-										<td width="120" height="400" align="left"><textarea required
-												rows="30" cols="90" name="productinfo">${sentno.productinfo}</textarea>
-									</tr>
-									<tr>
-									<tr bgcolor='transparent'>
-										<td width="120" height="40" style="text-align: center"><font size="4">產品圖片</font></td>
-										<td width="600" height="40" align="left"><input required
-											name="productimage" value="${sentno.productimage}" type="file">
-									</tr>
-									<tr bgcolor='transparent'>
-										<td height="50" colspan="2" align="center"><input
-											type="submit" value="送出" class="sendbtn"></td>
-									</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</form>
+								<tr>
+									<td id="productno">${product.productno}</td>
+									<td>${product.productname}</td>
+									<td>${product.price}</td>
+									<td><img
+										src="<c:url value='/ProductImgServlet?productno=${product.productno}'/>"
+										width="180" height="180" /></td>
+									<td><input type="number" id="quantity" style="background-color:#6C7A89;width:55px;"></td>
+									<td><input style="border-radius:80%;width:90px;height:60px" type="submit"  value="加入購物車" formaction="<c:url value=''/>"></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 					</div>
-					<!-- /.container-fluid -->
-
 				</div>
-				<!-- End of Main Content -->
-
-				<!-- Footer -->
-				<footer class="sticky-footer bg-white">
-					<div class="container my-auto">
-						<div class="copyright text-center my-auto">
-							<span>Copyright &copy; Your Website 2020</span>
-						</div>
-					</div>
-				</footer>
-				<!-- End of Footer -->
+				<!-- /.container-fluid -->
 
 			</div>
-			<!-- End of Content Wrapper -->
+			<!-- End of Main Content -->
+
+			<!-- Footer -->
+			<footer class="sticky-footer bg-white">
+				<div class="container my-auto">
+					<div class="copyright text-center my-auto">
+						<span>Copyright &copy; Your Website 2020</span>
+					</div>
+				</div>
+			</footer>
+			<!-- End of Footer -->
 
 		</div>
-		<!-- End of Page Wrapper -->
+		<!-- End of Content Wrapper -->
 
-		<!-- Scroll to Top Button-->
-		<a class="scroll-to-top rounded" href="#page-top"> <i
-			class="fas fa-angle-up"></i>
-		</a>
+	</div>
+	<!-- End of Page Wrapper -->
 
-		<!-- Logout Modal-->
-		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Ready to
-							Leave?</h5>
-						<button class="close" type="button" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">Select "Logout" below if you are
-						ready to end your current session.</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button"
-							data-dismiss="modal">Cancel</button>
-						<a class="btn btn-primary" href="login.html">Logout</a>
-					</div>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="login.html">Logout</a>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<!-- Bootstrap core JavaScript-->
-		<script
-			src="http://localhost:8080/iSpanCarShop/SHOP_DETAIL/vendor/jquery/jquery.min.js"></script>
-		<script
-			src="http://localhost:8080/iSpanCarShop/SHOP_DETAIL/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script
+		src="http://localhost:8080/iSpanCarShop/SHOP_DETAIL/vendor/jquery/jquery.min.js"></script>
+	<script
+		src="http://localhost:8080/iSpanCarShop/SHOP_DETAIL/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-		<!-- Core plugin JavaScript-->
-		<script
-			src="http://localhost:8080/iSpanCarShop/SHOP_DETAIL/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script
+		src="http://localhost:8080/iSpanCarShop/SHOP_DETAIL/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-		<!-- Custom scripts for all pages-->
-		<script
-			src="http://localhost:8080/iSpanCarShop/SHOP_DETAIL/js/sb-admin-2.min.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script
+		src="http://localhost:8080/iSpanCarShop/SHOP_DETAIL/js/sb-admin-2.min.js"></script>
 
-		<script src="https://kit.fontawesome.com/dbb4662278.js"
-			crossorigin="anonymous"></script>
-		<script type="text/javascript" charset="utf8"
-			src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-		<script>
-			$(document).ready(function() {
-				$('#productlist').DataTable();
-			});
-		</script>
+	<script src="https://kit.fontawesome.com/dbb4662278.js"
+		crossorigin="anonymous"></script>
+
+
 </body>
 
 </html>
