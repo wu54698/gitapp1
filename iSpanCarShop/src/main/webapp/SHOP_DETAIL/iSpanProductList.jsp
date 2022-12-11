@@ -21,6 +21,8 @@
 <link
 	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"
 	rel="stylesheet">
+
+
 <style>
 textarea {
 	background:transparent; 
@@ -272,16 +274,18 @@ display:inline;
 									<td ><img style="border-radius:10%;"
 										src="<c:url value='/ProductImgServlet?productno=${product.productno}'/>"
 										width="180" height="180" /></td>
-<!-- 									<td><input type="button" id="btn1" value="修改" -->
-<!-- 										onclick="location.href='http://localhost:8080/iSpanCarShop/SHOP_DETAIL/UpdateProduct_form.jsp';"></td> -->
-									<td><input style="border-radius:80%;width:50px;height:50px" type="submit" id="btn1" value="修改" formaction="<c:url value='/SendIdToUpdate.do?productno=${product.productno}'/>"></td>
-									<td><input style="border-radius:80%;width:50px;height:50px" type="button" id="btn2" value="刪除"></td>
+									<td><input style="border-radius:80%;width:50px;height:50px" type="submit" id="btn11" value="修改" formaction="<c:url value='/SendIdToUpdate.do?productno=${product.productno}'/>"></td>
+<%-- 									<td><button type="submit" id="btn1" onclick="window.location.href ='http://localhost:8080/iSpanCarShop/SendIdToUpdate.do?productno=${product.productno}'">修改</button></td> --%>
+<!-- 									
+<td><input type="button" id="btn2" value="刪除" ></td> -->
+									<td><button type="button" id="btn2" style="border-radius:80%;width:50px;height:50px"><i class="fa-sharp fa-solid fa-trash-can fa-xl" ></i></button></td>
 									</form>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
 				</div>
+				<script src="https://kit.fontawesome.com/f9c412c6fd.js" crossorigin="anonymous"></script>
 				<!-- /.container-fluid -->
 
 			</div>
@@ -381,8 +385,13 @@ display:inline;
 					})
 				});
 	</script>
-
-
+<!-- <script> -->
+// $("#btn1").click(function() {
+// 	let bb = $(this).parent().parent().children('#productno').text();
+	
+	
+// 	});
+<!-- </script> -->
 </body>
 
 </html>
