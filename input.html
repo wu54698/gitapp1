@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/jquery.twzipcode.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="POST" enctype="multipart/form-data" id="createAccountForm" class="user">
+        <div class="form-group">
+            <input type="text" class="form-control form-control-user" id="accountnumber"
+                name="accountnumber" placeholder="${login.accountnumber}" value="${param.accountnumber}">
+            <span>需輸入6-20字</span><span id="response"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <input type="password" class="form-control form-control-user"
+                    id="memberpassword" name="memberpassword" placeholder="密碼">
+                <span>需輸入8-20字含英文大小寫</span>
+            </div>
+            <div class="col-sm-6">
+                <input type="password" class="form-control form-control-user"
+                    id="RepeatPassword" placeholder="再次確認密碼"><span></span>
+
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <input type="text" class="form-control form-control-user" id="membername"
+                    name="membername" placeholder="姓名"  value="${param.membername}"><span></span>
+            </div>
+            <div class="col-sm-6">
+                <input type="tel" class="form-control form-control-user" id="phonenumber"
+                    name="phonenumber" placeholder="電話" value="${param.phonenumber}">
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="email" class="form-control form-control-user" id="email" name="email"
+                placeholder="Email Address" value="${param.email}"><span></span>
+        </div>
+        <div class="form-group row">
+            <div id="twzipcode" class=" col-sm-4 mb-sm-0"></div>
+            <div class="col-sm-8 mt-2">
+                <input type="text" class="form-control form-control-user " id="memberaddress" name="memberaddress" placeholder="地址" value="${param.memberaddress}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <input type="text" class="form-control form-control-user" id="platenumber"
+                    name="platenumber" placeholder="車牌" value="${param.platenumber}">
+            </div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control form-control-user" id="idnumber"
+                    name="idnumber" placeholder="身分證" value="${param.idnumber}"><span></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 form-control ml-3" for="year">生日</label>
+            <select name="year" id="year" class="form-select form-control col-sm-3" selected="${param.year}"></select>
+
+            <select name="month" id="month" onblur="createdate()"
+                class="form-control col-sm-3" selected="${param.month}"></select>
+
+            <select name="date" id="date" class="form-control col-sm-3" selected="${param.date}"></select>
+        </div>
+        <div class="form-group row" id="cardnumber">
+            <div class="div-card col-sm-3">
+                <input type="text" class="card-input2 form-control" maxlength="4"
+                    placeholder="信用卡號" name="card1" value="${param.card1}">
+            </div>
+            <div class="div-card col-sm-3">
+                <input type="text" class="card-input2 form-control" maxlength="4"
+                    placeholder="信用卡號" name="card2" value="${param.card2}">
+            </div>
+            <div class="div-card col-sm-3">
+                <input type="text" class="card-input2 form-control" maxlength="4"
+                    placeholder="信用卡號" name="card3" value="${param.card3}">
+            </div>
+            <div class="div-card col-sm-3">
+                <input type="text" class="card-input2 form-control" maxlength="4"
+                    placeholder="信用卡號" name="card4" value="${param.card4}">
+            </div>
+        </div><span></span>
+        <div class="form-group">
+            <input type="file" name="file" id="file" class="form-control">
+        </div>
+        <div id="imgshowbox">
+            <img id="imgshow" src="" alt="" />
+        </div>
+        <input type="button" value='創建帳號' class="btn btn-primary btn-user btn-block" id="createAccount">
+        <input type="button" value='一鍵輸入' class="btn btn-primary btn-user btn-block" id="inputform">
+<!--                                 <a href="#" class="btn btn-primary btn-user btn-block" id="createAccount"> -->
+<!--                                     創建帳號 -->
+<!--                                 </a> -->
+
+    </form>
+
+    <script>
+        $('#inputform').on('click',function(){
+            $('#accountnumber').val('888')
+            $('#memberpassword').attr('value','777')
+            $('#RepeatPassword').attr('value','777')
+            $('#membername').attr('value','777')
+            $('#phonenumber').attr('value','777')
+            $('#email').attr('value','777')
+            $('#memberaddress').attr('value','777')
+            $('#platenumber').attr('value','777')
+            $('#idnumber').attr('value','777')
+            // $('#accountnumber').attr('value','777')
+            // $('#accountnumber').attr('value','777')
+        })
+    </script>
+    
+</body>
+</html>
