@@ -32,11 +32,12 @@
 				<ul class="nav nav-pills float-right">
 					<li class="nav-item"></li>
 					<li class="nav-item"></li>
-					<li class="nav-item"><a type="button" href="newthread.jsp"
+					<li class="nav-item">
+					<a type="button" href="newthread.jsp"
 							class="btn btn-primary">發表文章</a></li>
 				</ul>
 			</nav>
-			<h3 class="text-muted">垃圾車</h3>
+			<h3 class="text-muted">資車會論壇</h3>
 		</div>
 
 
