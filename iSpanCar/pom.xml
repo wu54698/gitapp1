@@ -37,11 +37,6 @@
       <version>3.0.1-b06</version>
     </dependency>
 
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.29</version>
-    </dependency>
 
     <dependency>
       <groupId>com.google.code.gson</groupId>
