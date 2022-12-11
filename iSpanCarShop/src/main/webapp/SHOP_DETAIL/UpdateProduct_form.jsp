@@ -298,7 +298,7 @@ opacity:0.6;
 									<tr>
 									<tr bgcolor='transparent'>
 										<td width="120" height="40" style="text-align: center"><font size="4">產品圖片</font></td>
-										<td width="600" height="40" align="left"><input required
+										<td width="600" height="40" align="left"><input 
 											name="productimage" value="${sentno.productimage}" type="file">
 									</tr>
 									<tr bgcolor='transparent'>

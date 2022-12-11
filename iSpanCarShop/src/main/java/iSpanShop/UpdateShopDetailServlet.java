@@ -26,14 +26,14 @@ public class UpdateShopDetailServlet extends HttpServlet {
 		try {
 			// 設定輸入資料的編碼
 			request.setCharacterEncoding("UTF-8");
-			String productnno = request.getParameter("productno");
-			int productnnoint = Integer.parseInt(productnno);
+			String productno = request.getParameter("productno");
+			int productnoint = Integer.parseInt(productno);
 			String productname = request.getParameter("productname");
-//			String type = request.getParameter("type");
-//			String spec = request.getParameter("spec");
+			// String type = request.getParameter("type");
+			// String spec = request.getParameter("spec");
 			String price = request.getParameter("price");
 			int priceint = Integer.parseInt(price);
-//			String uptime = request.getParameter("uptime");
+			// String uptime = request.getParameter("uptime");
 			String stock = request.getParameter("stock");
 			int stockint = Integer.parseInt(stock);
 			String productinfo = request.getParameter("productinfo");
@@ -43,20 +43,51 @@ public class UpdateShopDetailServlet extends HttpServlet {
 			Part imagePart = request.getPart("productimage");
 			InputStream is = imagePart.getInputStream();
 			long size = imagePart.getSize();
-//
+			//
 			Blob imgblob = sDao.fileToBlob(is, size);
 			String productimage_name = sDao.getFileName(imagePart);
 
-//			ShopDetailBean mb = new ShopDetailBean(productname, type, spec, priceint, stockint, uptime, productinfo,
-//					imgblob, productimage_name);
-
-			ShopDetailBean mb = new ShopDetailBean(productnnoint, productname, priceint, stockint, productinfo, imgblob,
+			// ShopDetailBean mb = new ShopDetailBean(productname, type, spec, priceint,
+			// stockint, uptime, productinfo,
+			// imgblob, productimage_name);
+			ShopDetailBean mb = new ShopDetailBean(productnoint, productname, priceint, stockint, productinfo, imgblob,
 					productimage_name);
 
-			sDao.updateProduct(mb);
+			// sDao.updateProduct(mb);
+			List<ShopDetailBean> list = sDao.findByProductno(productno);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/SHOP_DETAIL/UpdateProductSucess.jsp");
-			rd.forward(request, response);
+			// 驗證部分 三元運算
+			ShopDetailBean ogBean = new ShopDetailBean();
+			for (ShopDetailBean sdb : list) {
+				ogBean.setProductno(sdb.getProductno());
+				ogBean.setProductname(sdb.getProductname());
+				ogBean.setPrice(sdb.getPrice());
+				ogBean.setStock(sdb.getStock());
+				ogBean.setProductinfo(sdb.getProductinfo());
+				ogBean.setProductimage(sdb.getProductimage());
+				ogBean.setProductimage_name(sdb.getProductimage_name());
+			}
+			int pno = (productno.equals("")) ? ogBean.getProductno() : productnoint;
+			String pname = (productname.equals("")) ? ogBean.getProductname() : productname;
+			int pprice = (price.equals("")) ? ogBean.getPrice() : priceint;
+			int pstock = (stock.equals("")) ? ogBean.getStock() : stockint;
+			String pproductinfo = (productinfo.equals("")) ? ogBean.getProductinfo() : productinfo;
+			Blob pimg = (imagePart.getSize() == 0) ? ogBean.getProductimage() : imgblob;
+			String pproductimage_name = (productimage_name.equals("")) ? ogBean.getProductimage_name()
+					: productimage_name;
+
+			ShopDetailBean bean = new ShopDetailBean(pno, pname, pprice, pstock, pproductinfo, pimg,
+					pproductimage_name);
+
+			sDao.updateProduct(bean);
+
+			// List<ShopDetailBean> newList = sDao.findByProductno(productno);
+			// request.setAttribute("UpdateProduct", newList);
+			// RequestDispatcher rd =
+			// request.getRequestDispatcher("/SHOP_DETAIL/UpdateProductSucess.jsp");
+			// rd.forward(request, response);
+			String contextPath = request.getContextPath();
+			response.sendRedirect(contextPath + "/SHOP_DETAIL/UpdateProductSucess.jsp");
 			return;
 
 		} catch (UnsupportedEncodingException e) {
@@ -76,14 +107,14 @@ public class UpdateShopDetailServlet extends HttpServlet {
 		try {
 			// 設定輸入資料的編碼
 			request.setCharacterEncoding("UTF-8");
-			String productnno = request.getParameter("productno");
-			int productnnoint = Integer.parseInt(productnno);
+			String productno = request.getParameter("productno");
+			int productnoint = Integer.parseInt(productno);
 			String productname = request.getParameter("productname");
-//			String type = request.getParameter("type");
-//			String spec = request.getParameter("spec");
+			// String type = request.getParameter("type");
+			// String spec = request.getParameter("spec");
 			String price = request.getParameter("price");
 			int priceint = Integer.parseInt(price);
-//			String uptime = request.getParameter("uptime");
+			// String uptime = request.getParameter("uptime");
 			String stock = request.getParameter("stock");
 			int stockint = Integer.parseInt(stock);
 			String productinfo = request.getParameter("productinfo");
@@ -93,20 +124,52 @@ public class UpdateShopDetailServlet extends HttpServlet {
 			Part imagePart = request.getPart("productimage");
 			InputStream is = imagePart.getInputStream();
 			long size = imagePart.getSize();
-//
+			//
 			Blob imgblob = sDao.fileToBlob(is, size);
 			String productimage_name = sDao.getFileName(imagePart);
 
-//			ShopDetailBean mb = new ShopDetailBean(productname, type, spec, priceint, stockint, uptime, productinfo,
-//					imgblob, productimage_name);
-
-			ShopDetailBean mb = new ShopDetailBean(productnnoint, productname, priceint, stockint, productinfo, imgblob,
+			// ShopDetailBean mb = new ShopDetailBean(productname, type, spec, priceint,
+			// stockint, uptime, productinfo,
+			// imgblob, productimage_name);
+			ShopDetailBean mb = new ShopDetailBean(productnoint, productname, priceint, stockint, productinfo, imgblob,
 					productimage_name);
 
-			sDao.updateProduct(mb);
+			// sDao.updateProduct(mb);
+			List<ShopDetailBean> list = sDao.findByProductno(productno);
 
-			RequestDispatcher rd = request.getRequestDispatcher("/SHOP_DETAIL/UpdateProductSucess.jsp");
-			rd.forward(request, response);
+			// 驗證部分 三元運算
+			ShopDetailBean ogBean = new ShopDetailBean();
+			for (ShopDetailBean sdb : list) {
+				ogBean.setProductno(sdb.getProductno());
+				ogBean.setProductname(sdb.getProductname());
+				ogBean.setPrice(sdb.getPrice());
+				ogBean.setStock(sdb.getStock());
+				ogBean.setProductinfo(sdb.getProductinfo());
+				ogBean.setProductimage(sdb.getProductimage());
+				ogBean.setProductimage_name(sdb.getProductimage_name());
+			}
+			int pno = (productno.equals("")) ? ogBean.getProductno() : productnoint;
+			String pname = (productname.equals("")) ? ogBean.getProductname() : productname;
+			int pprice = (price.equals("")) ? ogBean.getPrice() : priceint;
+			int pstock = (stock.equals("")) ? ogBean.getStock() : stockint;
+			String pproductinfo = (productinfo.equals("")) ? ogBean.getProductinfo() : productinfo;
+			Blob pimg = (imagePart.getSize() == 0) ? ogBean.getProductimage() : imgblob;
+			String pproductimage_name = (productimage_name.equals("")) ? ogBean.getProductimage_name()
+					: productimage_name;
+
+			ShopDetailBean bean = new ShopDetailBean(pno, pname, pprice, pstock, pproductinfo, pimg,
+					pproductimage_name);
+
+			sDao.updateProduct(bean);
+
+			// List<ShopDetailBean> newList = sDao.findByProductno(productno);
+			// request.setAttribute("UpdateProduct", newList);
+			// RequestDispatcher rd =
+			// request.getRequestDispatcher("/SHOP_DETAIL/UpdateProductSucess.jsp");
+			// rd.forward(request, response);
+
+			String contextPath = request.getContextPath();
+			response.sendRedirect(contextPath + "/SHOP_DETAIL/UpdateProductSucess.jsp");
 			return;
 
 		} catch (UnsupportedEncodingException e) {
