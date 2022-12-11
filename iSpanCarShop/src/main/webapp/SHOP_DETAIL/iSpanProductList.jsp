@@ -274,11 +274,11 @@ display:inline;
 									<td ><img style="border-radius:10%;"
 										src="<c:url value='/ProductImgServlet?productno=${product.productno}'/>"
 										width="180" height="180" /></td>
-									<td><input style="border-radius:80%;width:50px;height:50px" type="submit" id="btn11" value="修改" formaction="<c:url value='/SendIdToUpdate.do?productno=${product.productno}'/>"></td>
-<%-- 									<td><button type="submit" id="btn1" onclick="window.location.href ='http://localhost:8080/iSpanCarShop/SendIdToUpdate.do?productno=${product.productno}'">修改</button></td> --%>
+<%-- 									<td><input style="border-radius:80%;width:50px;height:50px" type="submit" id="btn11" value="修改" formaction="<c:url value='/SendIdToUpdate.do?productno=${product.productno}'/>"></td> --%>
+									<td><button type="submit" class="btn1" id="btn1" onclick="foredit()" style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen fa-lg"></i></button></td>
 <!-- 									
 <td><input type="button" id="btn2" value="刪除" ></td> -->
-									<td><button type="button" id="btn2" style="border-radius:80%;width:50px;height:50px"><i class="fa-sharp fa-solid fa-trash-can fa-xl" ></i></button></td>
+									<td><button type="button" id="btn2" style="border-radius:80%;width:40px;height:40px"><i class="fa-sharp fa-solid fa-trash-can fa-lg" ></i></button></td>
 									</form>
 								</tr>
 							</c:forEach>
@@ -392,6 +392,20 @@ display:inline;
 	
 // 	});
 <!-- </script> -->
+<script>
+var aa;
+$(".btn1").on('mouseover',function(){
+	aa = $(this).parent().parent().children('#productno').text();
+	console.log(aa)
+});
+
+function foredit(){
+	console.log(aa);
+	let bb = $(this).parent().parent().children('#productno').text();
+	window.open("http://localhost:8080/iSpanCarShop/SendIdToUpdate.do?productno=" + aa);
+
+}
+</script>
 </body>
 
 </html>
