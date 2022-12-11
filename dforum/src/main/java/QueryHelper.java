@@ -140,6 +140,25 @@ public class QueryHelper {
 		}
 
 	}
+	
+	public int deletePost(int postSN) {
+		conn = ConnectionUtil.getConnectionForum();
+		int updateCount=0;
+		try {
+			String sqlstr = "DELETE FROM post WHERE SN=?";
+			PreparedStatement pstmt = conn.prepareStatement(sqlstr);
+			pstmt.setInt(1,postSN);
+			updateCount = pstmt.executeUpdate();
+			
+		} catch (SQLException | IllegalArgumentException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.free();
+			
+		}
+		return updateCount;
+
+	}
 
 
 }

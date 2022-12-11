@@ -41,5 +41,11 @@ public class NewPost extends HttpServlet {
 		query.newPost(post);
 
 	}
+	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		int updateCount = query.deletePost(Integer.parseInt(request.getParameter("sn")));
+		response.getWriter().append("deleted "+updateCount+" data");
+	}
 
 }
