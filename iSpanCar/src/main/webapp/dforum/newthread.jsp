@@ -258,7 +258,7 @@
 					<li class="nav-item"></li>
 				</ul>
 			</nav>
-			<form action="<c:url value='/thread'/>" method="post" accept-charset="UTF-8">
+			<form action="<c:url value='/thread.do'/>" method="post" accept-charset="UTF-8">
 				<div id="catediv" class="input-group mb-3">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="inputGroup-sizing-sm">分類</span>

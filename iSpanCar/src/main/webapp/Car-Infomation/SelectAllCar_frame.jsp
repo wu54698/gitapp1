@@ -222,7 +222,7 @@
 							<tr>
 								<th>車輛編號</th>
 								<th>車商名稱</th>
-								<th>${login.accountnumber}</th>
+								<th>帳號</th>
 								<th>車輛品牌</th>
 								<th>車輛名稱</th>
 								<th>庫存</th>

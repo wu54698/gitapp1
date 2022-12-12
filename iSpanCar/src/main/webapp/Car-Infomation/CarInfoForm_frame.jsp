@@ -230,7 +230,7 @@
                         value="${param.carDealName}" type="text" size="14" style="text-align: left"></td>
             </tr>
             <tr bgcolor='transparent'>
-                <td width="120" height="40">${login.accountnumber}</td>
+                <td width="120" height="40">帳號</td>
                 <td width="600" height="40" align="left"><input id="accountNumber" name="accountNumber" class="checkNotNull"
                         value="${param.accountNumber}" type="text" size="14" style="text-align: left">
                 </td>
