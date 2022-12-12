@@ -64,12 +64,13 @@ public class memberInsertServlet extends HttpServlet {
 		MemberDao mdao = new MemberDao();
 		
 		Part filePart = request.getPart("file");
+	
 		InputStream is = filePart.getInputStream();
 		long size = filePart.getSize();
 		
 		Blob blob = mdao.fileToBlob(is,size) ;
 		String filename = mdao.getFileName(filePart);
-	    
+		
 		
 		MemberBean bean = new MemberBean(account, password, name, phone, email,city + town+ address, platenumber, birthday, idnumber,cardnumber,blob,filename);
 		

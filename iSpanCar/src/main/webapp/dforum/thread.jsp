@@ -13,7 +13,7 @@
 <meta name="author" content="">
 
 <title>SB Admin 2 - Blank</title>
-
+<c:set value="${LoginOK}" var="login"/>
 <!-- Custom fonts for this template-->
 <link href="http://localhost:8080/jspExercise/script/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
 	type="text/css">
@@ -39,8 +39,9 @@
 	integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
 	crossorigin="anonymous"></script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 
-<script src="http://localhost:8080/jspExercise/script/thread.js"></script>
+<script src="http://localhost:8080/jspExercise/script/js/thread.js"></script>
 <script>
 function reloadpage(){
 	//e.preventDefault();
@@ -127,7 +128,7 @@ function reloadpage(){
 			</a></li>
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="charts.html">
+			<li class="nav-item"><a class="nav-link" href="threads.jsp">
 					<i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
 			</a></li>
 
@@ -135,8 +136,9 @@ function reloadpage(){
 			<li class="nav-item"><a class="nav-link"
 				href="<c:url value='/ProductListServlet.do'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
+			</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="tables.html">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrder.do'/>">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -229,29 +231,29 @@ function reloadpage(){
  <div id="posts"></div>
 
 				<div class="row">
-					<div class="col-md-12">
-						<div class="card bg-default">
-		
-							<form action="<c:url value='/newpost'/>" method="post" accept-charset="UTF-8">
-		
-								<div class="card-body" style="width: 100%; height: 100%">
-									<textarea id="body" name="body" class="form-control"
-										style="width: 100%; height: 100%;" placeholder="在此輸入回覆..."
-										required></textarea>
-								</div>
-		
-								<div>
-									<input type="hidden" id="memberSN" name="memberSN" value="1" /> 
-									<input type="hidden" id="time" name="time" />
-									<input type="hidden" id="threadSN" name="threadSN" />
-									<input type="hidden" id="title" name="title" value="" /> 
-									<input type="submit" class="btn btn-primary" onclick="reloadpage()" />
-								</div>
-							</form>
-		
-						</div>
+				<div class="col-md-12">
+					<div class="card bg-default">
+	
+						<form action="<c:url value='/newpost2.do'/>" method="post" accept-charset="UTF-8">
+	
+							<div class="card-body" style="width: 100%; height: 100%">
+								<textarea id="body" name="body" class="form-control"
+									style="width: 100%; height: 100%;" placeholder="在此輸入回覆..."
+									required></textarea>
+							</div>
+	
+							<div>
+								<input type="hidden" id="memberSN" name="memberSN" value="1" /> 
+								<input type="hidden" id="time" name="time" />
+								<input type="hidden" id="threadSN" name="threadSN" />
+								<input type="hidden" id="title" name="title" value="" /> 
+								<input type="submit" class="btn btn-primary" onclick="reloadpage()" />
+							</div>
+						</form>
+	
 					</div>
 				</div>
+			</div>
 
 
 

@@ -119,7 +119,7 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="<c:url value='/dforum/threads.jsp'/>">
                     <i class="fa-brands fa-rocketchat"></i>
                     <span>論壇</span></a>
             </li>
@@ -130,7 +130,7 @@
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="<c:url value='/QueryAllOrder.do'/>">
                     <i class="fa-solid fa-coins"></i>
                     <span>訂單</span></a>
             </li>
@@ -380,7 +380,7 @@
 	               })//陣列中加入.not以外的內文
 	               console.log(array)
 	               for (let i = 1; i < array.length-1; i++) {
-	                   let content = "<input type='text' size='7'class='form-control form-control-user' value='" + array[i] + "'>";
+	                   let content = "<input type='text' size='7'class='form-control form-control-user updateinput' value='" + array[i] + "'>";
 	                   $(this).closest('tr').children('td').eq(i).text("");
 	                   $(this).closest('tr').children('td').eq(i).append(content);
 	               }
@@ -393,6 +393,14 @@
 	               $(this).parent().empty().append(buttonstring)
 	
 	           })
+	           $('#content').on('mouseover','.updateinput',function(){
+		            value = $(this).val()
+		            $(this).parent().html('<textarea name="" class="textarea" cols="10" rows="3">'+value+'</textarea>')
+		            console.log(value)
+		        })
+		        $('#content').on('mouseleave','.textarea',function(){
+		            $(this).parent().html("<input type='text' size='7'class='form-control form-control-user updateinput' value='"+value+"'>")
+		        })
 	         	
 	           $('#content').on('change','.file',function(){
 	        	 //獲取input file的files文件數組;

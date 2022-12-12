@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
 
@@ -13,7 +15,7 @@
 <meta name="author" content="">
 
 <title>SB Admin 2 - Blank</title>
-
+<c:set value="${LoginOK}" var="login"/>
 <!-- Custom fonts for this template-->
 <link
 	href="http://localhost:8080/jspExercise/script/vendor/fontawesome-free/css/all.min.css"
@@ -23,15 +25,16 @@
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
-<link
-	href="http://localhost:8080/jspExercise/script/css/sb-admin-2.min.css"
+<link href="http://localhost:8080/jspExercise/script/css/sb-admin-2.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+<link href="http://localhost:8080/jspExercise/script/css/order.css"
+	rel="stylesheet">
+
+
 </head>
 
 <body id="page-top">
-<c:set value="${LoginOK}" var="login"/>
+
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
@@ -41,16 +44,12 @@
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand 左上標誌 -->
-			<a
-				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="index.html">
-				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fa-solid fa-car-rear"></i>
-				</div>
-				<div class="sidebar-brand-text mx-3">
-					資車會<sup></sup>
-				</div>
-			</a>
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.jsp" >
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fa-solid fa-car-rear"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">資車會<sup></sup></div>
+            </a>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
@@ -88,12 +87,10 @@
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link"
 				href="<c:url value='/Car-Dearler/CarDealerForm_frame.jsp' />"> <i
-					class="fa-solid fa-car"></i> <span>車廠</span>
-			</a></li>
+					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
-			</a></li>
+				href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />"> <i
+					class="fa-solid fa-car"></i> <span>車輛</span></a></li>
 
 			<!-- Divider -->
 			<!-- <hr class="sidebar-divider"> -->
@@ -118,9 +115,9 @@
 				href="<c:url value='/ProductListServlet.do'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrder.do'/>">
-					<i class="fa-solid fa-coins"></i> <span>訂單</span>
-			</a></li>
+			<li class="nav-item"><a class="nav-link"
+				href="<c:url value='/QueryAllOrder.do'/>"> <i
+					class="fas fa-fw fa-table"></i> <span>訂單</span></a></li>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
 
@@ -142,7 +139,7 @@
 				<nav
 					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-					<div class="h4 mt-2 text-gray-800">資車國際</div>
+					<div class="h4 mt-2 text-gray-800">訂單列表管理</div>
 
 
 					<!-- Topbar Navbar 右邊頭像 -->
@@ -188,8 +185,13 @@
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" href="#"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+								</a> <a class="dropdown-item" href="#"> <i
+									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+									Settings
+								</a> <a class="dropdown-item" href="#"> <i
+									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+									Activity Log
 								</a>
-
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="#" data-toggle="modal"
 									data-target="#logoutModal"> <i
@@ -207,71 +209,123 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">功能名稱</h1>
-					<table id="selectCarByBrand">
-						<thead>
+					<!-- <h1 class="h3 mb-4 text-gray-800">功能名稱</h1> -->
+					<div class="wrap">
+						<div class="search">
+<!-- 							<input class="search-bar" type="text" name="search" id="search" -->
+<!-- 								placeholder="搜尋"> -->
+<!-- 							<button class="search-btn"> -->
+<!-- 								<i class="fas fa-search"></i> -->
+<!-- 							</button> -->
+
+<!-- 							<select class="search-sel"> -->
+<!-- 								<option>請選擇搜尋條件</option> -->
+<!-- 								<option>產品編號</option> -->
+<!-- 								<option>會員編號</option> -->
+<!-- 								<option>訂單編號</option> -->
+<!-- 							</select> -->
+							<!-- 							<button class="search-btn-updata" id="add">新增</button> -->
+							<!-- 							<button class="search-btn-delect" id="del">刪除</button> -->
+							<!-- 							<button class="search-btn-revise">修改</button> -->
+
+
+						</div>
+
+					</div>
+
+					<!-- /.container-fluid -->
+
+				</div>
+
+				<!-- End of Main Content -->
+
+				<!-- Footer -->
+				<footer class="sticky-footer bg-white">
+					<div class="container my-auto">
+						<div class="copyright text-center my-auto">
+							<!-- <span>Copyright &copy; Your Website 2020</span>  -->
+						</div>
+					</div>
+				</footer>
+				<!-- End of Footer -->
+				<div class="container">
+
+					<c:forEach var="orders" varStatus="statusX"
+						items="${requestScope.AllOrder}">
+<form action="<c:url value='/OrderUpdateServlet.do'/>" method="Post"
+							enctype="multipart/form-data">
+
+						<table id="orderTable">
 							<tr>
-								<th>車輛編號</th>
-								<th>車商名稱</th>
-								<th>${login.accountnumber}</th>
-								<th>車輛品牌</th>
-								<th>車輛名稱</th>
-								<th>庫存</th>
-								<th>車輛照片</th>
-								<th>車輛描述</th>
-								<th>發布日期</th>
+								<th>狀態</th>
+								<th>建立者</th>
+								<th>訂單編號</th>
+								<th>總計</th>
+								<th>下單時間</th>
+								<th>更改時間</th>
+								<th>連絡電話</th>
+								
+								<th>修改</th>
 							</tr>
-						</thead>
-						<c:forEach var="car" items="${Brand}" varStatus="vs">
 							<tbody>
 								<tr>
-									<td>${car.carNo}</td>
-									<td>${car.carDealName}</td>
-									<td>${car.accountNumber}</td>
-									<td>${car.carBrand}</td>
-									<td>${car.carName}</td>
-									<td>${car.stock}</td>
-									<!--<td>${car.carImage}</td>-->
-									<td><img
-										src="http://localhost:8080/iSpanCar/AllImageServlet.do?carNo=${car.carNo}"
-										width="180px" height="120px"></td>
-									<td><textarea readonly cols="10" rows="5"
-											style="text-align: left">${car.carDescription}</textarea></td>
-									<td>${car.announceDate}</td>
+									<th><select required class="orderStatus" name="orderStatus">
+											<option>${orders.orderStatus}</option>
+											<option>已支付</option>
+											<option>取消訂單</option>
+									</select></th>
+									<th>${orders.orderName}</th>
+									<th><input type="hidden" name="orderId" style="display: none" value="${orders.orderId}" >${orders.orderId}</th>
+									<th>${orders.totalPrice}</th>
+									<th>${orders.orderDate}</th>
+									<th>${orders.newDate}</th>
+									<th>${orders.orderPhone}</th>
+									
+									<th><input  type="submit" value="修改" readonly="readonly">
+											
+										</th>
 								</tr>
+
 							</tbody>
-						</c:forEach>
-					</table>
-					<a href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">回上一頁</a>
+						</form>
+						</table>
+						<table >
+							<tr>
+								<th>產品編號</th>
+								<th>產品名稱</th>
+								<th>數量</th>
+								<th>價格</th>
+							</tr>
+							<tbody>
+
+								<c:forEach var="orderItem" varStatus="status"
+									items="${requestScope.AllOrderItme}">
+									<c:if test="${orders.orderId == orderItem.orderId}">
+										<tr>
+											<th>${orderItem.productNumber}</th>
+											<th>${orderItem.productName}</th>
+											<th>${orderItem.quantity}</th>
+											<th>${orderItem.productPrice}</th>
+										</tr>
+									</c:if>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:forEach>
+
 				</div>
-				<!-- /.container-fluid -->
+				<!-- End of Content Wrapper -->
 
 			</div>
-			<!-- End of Main Content -->
+			<!-- End of Page Wrapper -->
 
-			<!-- Footer -->
-			<footer class="sticky-footer bg-white">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright &copy; Your Website 2020</span>
-					</div>
-				</div>
-			</footer>
-			<!-- End of Footer -->
+			<!-- Scroll to Top Button-->
+			<a class="scroll-to-top rounded" href="#page-top"> <i
+				class="fas fa-angle-up"></i>
+			</a>
 
-		</div>
-		<!-- End of Content Wrapper -->
-
-	</div>
-	<!-- End of Page Wrapper -->
-
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
-	</a>
-
-	<!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+			<!-- Logout Modal-->
+			<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -290,30 +344,34 @@
         </div>
     </div>
 
-	<!-- Bootstrap core JavaScript-->
-	<script
-		src="http://localhost:8080/jspExercise/script/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="http://localhost:8080/jspExercise/script/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+			<!-- Bootstrap core JavaScript-->
+			<script
+				src="http://localhost:8080/jspExercise/script/vendor/jquery/jquery.min.js"></script>
+			<script
+				src="http://localhost:8080/jspExercise/script/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+			<script src="https://kit.fontawesome.com/7065f74436.js"
+				crossorigin="anonymous"></script>
 
-	<!-- Core plugin JavaScript-->
-	<script
-		src="http://localhost:8080/jspExercise/script/vendor/jquery-easing/jquery.easing.min.js"></script>
+			<!-- Core plugin JavaScript-->
+			<script
+				src="http://localhost:8080/jspExercise/script/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-	<!-- Custom scripts for all pages -->
-	<script
-		src="http://localhost:8080/jspExercise/script/js/sb-admin-2.min.js"></script>
-
-	<script src="https://kit.fontawesome.com/dbb4662278.js"
-		crossorigin="anonymous"></script>
-	<script type="text/javascript" charset="utf8"
-		src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-	<script>
-		$(document).ready(function() {
-			$('#selectCarByBrand').DataTable();
-		});
-	</script>
-
+			<!-- Custom scripts for all pages-->
+			<script src="http://localhost:8080/jspExercise/script/js/sb-admin-2.min.js"></script>
+			<script>
+		
+				$(function() { 
+					
+					 
+// 					 $("#view").on('click',function(){
+// 						 if($('#orderItem').css("display")==("none")){
+// 						$('#orderItem').slideDown()
+// 					 }else{
+// 						 $('#orderItem').slideUp()
+// 					 }
+// 					 }); 
+				});
+			</script>
 </body>
 
 </html>

@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/newpost2.do")
-public class NewPost extends HttpServlet {
+@WebServlet("/newpost")
+public class NewPost2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	QueryHelper query;
-    public NewPost() {
+    public NewPost2() {
         super();
         query = new QueryHelper();
     }
@@ -28,13 +28,7 @@ public class NewPost extends HttpServlet {
 		post.title = request.getParameter("title");
 		post.threadSN = Integer.parseInt(request.getParameter("threadSN")); ;
 		query.newPost(post);
-		String context= request.getContextPath();
-		response.sendRedirect(context+"/dforum/threads.jsp");
 
 	}
 
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int updateCount = query.deletePost(Integer.parseInt(request.getParameter("sn")));
-		response.getWriter().append("deleted "+updateCount+" data");
-	}
 }

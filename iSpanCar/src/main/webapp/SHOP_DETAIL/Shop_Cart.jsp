@@ -181,7 +181,7 @@ tr:last-of-type{
             </li>
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="charts.html">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/dforum/threads.jsp'/>">
 					<i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
 			</a></li>
 
@@ -190,7 +190,7 @@ tr:last-of-type{
 				href="<c:url value='/ProductListServlet.do'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="tables.html">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrder.do'/>">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -282,6 +282,9 @@ tr:last-of-type{
 					<!-- Page Heading -->
 					<h1 class="h3 mb-4 text-gray-800">商城</h1>
 					<div class="wrap">
+					<form action="<c:url value='/QueryAllCart.do'/>" method="get">
+						<input type="submit" value="購物車" />
+					</form>
 					<table>
 						<thead>
 							<tr >
@@ -297,14 +300,17 @@ tr:last-of-type{
 							<c:forEach var='product' items='${queryallproduct}'
 								varStatus="vs">
 								<tr>
-									<td id="productno">${product.productno}</td>
-									<td>${product.productname}</td>
-									<td>${product.price}</td>
+								<form action="<c:url value='/CartInsertServlet.do'/>"  method="POST" enctype="multipart/form-data">
+								
+									<td id="productno">${product.productno} <input type="hidden" value="${product.productno}" name="productNumber"><input type="hidden" name="memberId" value="${login.accountnumber}"></td>
+									<td >${product.productname}<input type="hidden" value="${product.productname}" name="productName"></td>
+									<td >${product.price}<input type="hidden" value="${product.price}" name="productPrice"></td>
 									<td><img
 										src="<c:url value='/ProductImgServlet.do?productno=${product.productno}'/>"
 										width="180" height="180" /></td>
-									<td><input type="number" id="quantity" style="background-color:#6C7A89;width:55px;"></td>
-									<td><input style="border-radius:80%;width:90px;height:60px" type="submit"  value="加入購物車" formaction="<c:url value=''/>"></td>
+									<td><input name="quantity" type="number" id="quantity" style="background-color:#6C7A89;width:55px;"></td>
+									<td><input style="border-radius:80%;width:90px;height:60px" type="submit"  value="加入購物車" ></td>
+								</form>
 								</tr>
 							</c:forEach>
 						</tbody>

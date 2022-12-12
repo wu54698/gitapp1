@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Register</title>
+    <title>新增帳號</title>
 
     <!-- Custom fonts for this template-->
     <link href="http://localhost:8080/jspExercise/script/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -120,9 +120,10 @@
                                     <input type="file" name="file" id="file" class="form-control">
                                 </div>
                                 <div id="imgshowbox">
-                                    <img id="imgshow" src="" alt="" />
+                                    <img id="imgshow" src="" alt=""  width="120" height="120" />
                                 </div>
 								<input type="button" value='創建帳號' class="btn btn-primary btn-user btn-block" id="createAccount">
+								<input type="button" value='一鍵輸入' class="btn btn-info btn-user btn-block" id="inputform">
 <!--                                 <a href="#" class="btn btn-primary btn-user btn-block" id="createAccount"> -->
 <!--                                     創建帳號 -->
 <!--                                 </a> -->
@@ -167,6 +168,7 @@
     <script src="http://localhost:8080/jspExercise/script/js/birthday.js">//生日</script>
     <script src="http://localhost:8080/jspExercise/script/js/verify.js"></script>
     <script src="http://localhost:8080/jspExercise/script/js/showimg.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     	<script> 
     $(function () {
     
@@ -204,7 +206,21 @@
             $('#createAccount').attr('type','submit');
         }
 
-    })
+	    })
+	    
+	    $('#inputform').on('click',function(){
+	            $('#accountnumber').val('andy888')
+	            $('#memberpassword').attr('value','Dd123456')
+	            $('#RepeatPassword').attr('value','Dd123456')
+	            $('#membername').attr('value','andy')
+	            $('#phonenumber').attr('value','0955662778')
+	            $('#email').attr('value','andy888@gmail.com')
+	            $('#memberaddress').attr('value','新生路2段421號')
+	            $('#platenumber').attr('value','V6-8929')
+	            $('#idnumber').attr('value','H173107890')
+	            // $('#accountnumber').attr('value','777')
+	            // $('#accountnumber').attr('value','777')
+	     })
 	   
     	
     })

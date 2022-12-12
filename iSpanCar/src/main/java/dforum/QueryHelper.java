@@ -54,7 +54,7 @@ public class QueryHelper {
 			sqlstr += "C.SN AS CSN, C.name AS Cname, M.SN AS MSN,M.name AS Mname FROM thread AS T ";
 			sqlstr += "LEFT JOIN category AS C on C.SN=T.categorySN ";
 			sqlstr += "LEFT JOIN post AS P on P.threadSN=T.SN ";
-			sqlstr += "LEFT JOIN member AS M on M.SN=P.memberSN ";
+			sqlstr += "LEFT JOIN forummember AS M on M.SN=P.memberSN ";
 			sqlstr += "WHERE threadSN=? ";
 			sqlstr += "FOR JSON PATH  ";
 			PreparedStatement pstmt = conn.prepareStatement(sqlstr);
@@ -141,5 +141,23 @@ public class QueryHelper {
 
 	}
 
+	public int deletePost(int postSN) {
+		conn = ConnectionUtil.getConnectionForum();
+		int updateCount=0;
+		try {
+			String sqlstr = "DELETE FROM post WHERE SN=?";
+			PreparedStatement pstmt = conn.prepareStatement(sqlstr);
+			pstmt.setInt(1,postSN);
+			updateCount = pstmt.executeUpdate();
+			
+		} catch (SQLException | IllegalArgumentException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionUtil.free();
+			
+		}
+		return updateCount;
+
+	}
 
 }

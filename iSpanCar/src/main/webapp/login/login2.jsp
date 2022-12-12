@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>登入</title>
 
     <!-- Custom fonts for this template-->
     <link href="http://localhost:8080/jspExercise/script/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -42,7 +42,7 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">請輸入帳密</h1>
                                     </div>
                                     <form class="user" action="<c:url value='/loginServlet.do'/>" method="POST">
                                         <div class="form-group">
@@ -94,6 +94,7 @@
     <!-- Custom scripts for all pages-->
     <script src="http://localhost:8080/jspExercise/script/js/sb-admin-2.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script> 
 	$(function () {
 	    
@@ -113,6 +114,7 @@
 				    },
 				    success: function(response) {
 				        if(response.trim() == "無資料" || response.trim() == "資料有誤") {
+				        	
 				            alert("帳號密碼錯誤，請重新輸入" + response);
 				        } else {
 				            alert("驗證成功，即將登入首頁"+ response);

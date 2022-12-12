@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
 
@@ -12,7 +13,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin 2 - Blank</title>
+<title>商城</title>
 
 <!-- Custom fonts for this template-->
 <link
@@ -23,11 +24,11 @@
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
-<link
-	href="http://localhost:8080/jspExercise/script/css/sb-admin-2.min.css"
+<link href="http://localhost:8080/jspExercise/script/css/sb-admin-2.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+<link href="http://localhost:8080/jspExercise/script/css/cart.css"
+	rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -41,16 +42,12 @@
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand 左上標誌 -->
-			<a
-				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="index.html">
-				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fa-solid fa-car-rear"></i>
-				</div>
-				<div class="sidebar-brand-text mx-3">
-					資車會<sup></sup>
-				</div>
-			</a>
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.jsp" >
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fa-solid fa-car-rear"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">資車會<sup></sup></div>
+            </a>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
@@ -88,12 +85,10 @@
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link"
 				href="<c:url value='/Car-Dearler/CarDealerForm_frame.jsp' />"> <i
-					class="fa-solid fa-car"></i> <span>車廠</span>
-			</a></li>
+					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
-			</a></li>
+				href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />"> <i
+					class="fa-solid fa-car"></i> <span>車輛</span></a></li>
 
 			<!-- Divider -->
 			<!-- <hr class="sidebar-divider"> -->
@@ -117,9 +112,10 @@
 			<li class="nav-item"><a class="nav-link"
 				href="<c:url value='/ProductListServlet.do'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
+					
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrder.do'/>">
-					<i class="fa-solid fa-coins"></i> <span>訂單</span>
+			<li class="nav-item"><a class="nav-link" href="http://localhost:8080/ispan_car/order/order.jsp">
+					<i class="fas fa-fw fa-table"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
@@ -142,7 +138,7 @@
 				<nav
 					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-					<div class="h4 mt-2 text-gray-800">資車國際</div>
+					<div class="h4 mt-2 text-gray-800">購物車</div>
 
 
 					<!-- Topbar Navbar 右邊頭像 -->
@@ -188,8 +184,13 @@
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" href="#"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+								</a> <a class="dropdown-item" href="#"> <i
+									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+									Settings
+								</a> <a class="dropdown-item" href="#"> <i
+									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+									Activity Log
 								</a>
-
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="#" data-toggle="modal"
 									data-target="#logoutModal"> <i
@@ -204,65 +205,95 @@
 				<!-- End of Topbar -->
 
 				<!-- Begin Page Content 內容 -->
-				<div class="container-fluid">
+				<!-- <div class="container-fluid"> -->
 
-					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">功能名稱</h1>
-					<table id="selectCarByBrand">
+				<!-- Page Heading -->
+				<!-- <h1 class="h3 msb-4 text-gray-800" >購物車</h1> -->
+
+				<div id="app">
+
+
+					<table>
 						<thead>
 							<tr>
-								<th>車輛編號</th>
-								<th>車商名稱</th>
-								<th>${login.accountnumber}</th>
-								<th>車輛品牌</th>
-								<th>車輛名稱</th>
-								<th>庫存</th>
-								<th>車輛照片</th>
-								<th>車輛描述</th>
-								<th>發布日期</th>
+								<th>購物編號</th>
+								<th>會員編號</th>
+								<td>商品編號</td>
+								<td>商品名稱</td>
+								<td>商品價格</td>
+								<td>購買數量</td>
+								<td>操作</td>
 							</tr>
 						</thead>
-						<c:forEach var="car" items="${Brand}" varStatus="vs">
-							<tbody>
+						<tbody>
+							<c:forEach var="cart" varStatus="statusX" items="${AllCart}">
 								<tr>
-									<td>${car.carNo}</td>
-									<td>${car.carDealName}</td>
-									<td>${car.accountNumber}</td>
-									<td>${car.carBrand}</td>
-									<td>${car.carName}</td>
-									<td>${car.stock}</td>
-									<!--<td>${car.carImage}</td>-->
-									<td><img
-										src="http://localhost:8080/iSpanCar/AllImageServlet.do?carNo=${car.carNo}"
-										width="180px" height="120px"></td>
-									<td><textarea readonly cols="10" rows="5"
-											style="text-align: left">${car.carDescription}</textarea></td>
-									<td>${car.announceDate}</td>
+									<td>${cart.cartId}</td>
+									<td>${cart.memberId}</td>
+									<td>${cart.productNumber}</td>
+									<td>${cart.productName}</td>
+									<td class="price" id="price">${cart.productPrice}</td>
+									<td class="quantity" id="quantity">${cart.quantity}</td>
+									<td>
+										<form action="<c:url value='/CartUpdateServlet.do'/>"
+											method="POST" enctype="multipart/form-data">
+											<input type="button" class="decrement" value="-"> <input
+												type="text" name="quantity" class="cart-count" value="1">
+											<input type="button" class="increment" value="+"> <input
+												type="hidden" style="display: none" name="cartId"
+												value="${cart.cartId}"> <input type="submit"
+												value="修改">
+										</form>
+									</td>
+									<td>
+										<form action="<c:url value='/CartDeleteServlet.do'/>"
+											method="POST" enctype="multipart/form-data">
+											<input type="hidden" style="display: none" name="cartId"
+												value="${cart.cartId}"> <input type="submit"
+												value="刪除">
+										</form>
+									</td>
 								</tr>
-							</tbody>
-						</c:forEach>
+
+							</c:forEach>
+						</tbody>
 					</table>
-					<a href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">回上一頁</a>
+
+					<div align="right">
+
+						總計:<span id="total"></span>元 <br>
+						<form action="<c:url value='/QueryAllCartById.do'/>" method="GET"
+							enctype="multipart/form-data">
+							前往結帳<input type="text" readonly name="memberId" value="${login.accountnumber}">
+<!-- style="display: none" -->
+							<input id="pay" type="submit" value="結算" readonly="readonly">
+						</form>
+
+					</div>
+
 				</div>
-				<!-- /.container-fluid -->
+
 
 			</div>
-			<!-- End of Main Content -->
-
-			<!-- Footer -->
-			<footer class="sticky-footer bg-white">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright &copy; Your Website 2020</span>
-					</div>
-				</div>
-			</footer>
-			<!-- End of Footer -->
+			<!-- /.container-fluid -->
 
 		</div>
-		<!-- End of Content Wrapper -->
+		<!-- End of Main Content -->
+
+		<!-- Footer -->
+		<!--             <footer class="sticky-footer bg-white"> -->
+		<!--                 <div class="container my-auto"> -->
+		<!--                     <div class="copyright text-center my-auto"> -->
+		<!--                         <span>Copyright &copy; Your Website 2020</span> -->
+		<!--                     </div> -->
+		<!--                 </div> -->
+		<!--             </footer> -->
+		<!-- End of Footer -->
 
 	</div>
+	<!-- End of Content Wrapper -->
+
+	<!--     </div> -->
 	<!-- End of Page Wrapper -->
 
 	<!-- Scroll to Top Button-->
@@ -271,25 +302,24 @@
 	</a>
 
 	<!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">決定登出?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
-<!--                 <div class="modal-footer"> -->
-                   
-<!--                 </div> -->
-            </div>
-        </div>
-    </div>
-
+	<!--     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" -->
+	<!--         aria-hidden="true"> -->
+	<!--         <div class="modal-dialog" role="document"> -->
+	<!--             <div class="modal-content"> -->
+	<!--                 <div class="modal-header"> -->
+	<!--                     <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5> -->
+	<!--                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"> -->
+	<!--                         <span aria-hidden="true">×</span> -->
+	<!--                     </button> -->
+	<!--                 </div> -->
+	<!--                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div> -->
+	<!--                 <div class="modal-footer"> -->
+	<!--                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button> -->
+	<!--                     <a class="btn btn-primary" href="login.html">Logout</a> -->
+	<!--                 </div> -->
+	<!--             </div> -->
+	<!--         </div> -->
+	<!--     </div> -->
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src="http://localhost:8080/jspExercise/script/vendor/jquery/jquery.min.js"></script>
@@ -300,20 +330,49 @@
 	<script
 		src="http://localhost:8080/jspExercise/script/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-	<!-- Custom scripts for all pages -->
-	<script
-		src="http://localhost:8080/jspExercise/script/js/sb-admin-2.min.js"></script>
-
-	<script src="https://kit.fontawesome.com/dbb4662278.js"
-		crossorigin="anonymous"></script>
-	<script type="text/javascript" charset="utf8"
-		src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="http://localhost:8080/jspExercise/script/js/sb-admin-2.min.js"></script>
 	<script>
 		$(document).ready(function() {
-			$('#selectCarByBrand').DataTable();
+			initialize();
+
+		});
+
+		function initialize() {
+			var totalPrice = 0;
+			var cartnumber = $('.price').length;
+
+			for (var a = 0; a <= cartnumber; a++) {
+				var quantity = Number($('.quantity').eq(a).text());
+				var price = Number($('.price').eq(a).text());
+				var smallTotal = quantity * price;
+				totalPrice = totalPrice + smallTotal;
+
+				var total = document.getElementById("total");
+				total.innerHTML = totalPrice;
+				//             console.log(totalPrice)
+			}
+		};
+
+		$(function() {
+
+			$(".increment").click(function() {
+				var n = $(this).prev(".cart-count").val();
+				n++
+				$(this).prev(".cart-count").val(n)
+			})
+
+			$(".decrement").click(function() {
+				if ($(this).next(".cart-count").val() > 1) {
+					var n = $(this).next(".cart-count").val();
+					n--
+					$(this).next(".cart-count").val(n)
+				}
+			})
+
 		});
 	</script>
-
 </body>
+
 
 </html>

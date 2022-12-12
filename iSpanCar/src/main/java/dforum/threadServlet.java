@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.sql.Timestamp;
-@WebServlet("/thread")
+@WebServlet("/thread.do")
 public class threadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	QueryHelper query;

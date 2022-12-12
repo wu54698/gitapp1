@@ -31,6 +31,7 @@ public class loginServlet extends HttpServlet {
 		MemberDao mDao = new MemberDao();
 		String check = mDao.checkaccountnumberpassword(accountnumber, memberpassword);
 		List<MemberBean> list =	mDao.findbyaccountnumber(accountnumber);
+		if(list.size()>0) {
 			for(MemberBean mb :list) {
 				if(check.equals("資料正確")) {
 					session.setAttribute("LoginOK", mb);
@@ -45,7 +46,10 @@ public class loginServlet extends HttpServlet {
 				}
 				
 			}
-		
+		}else {
+			RequestDispatcher rd = request.getRequestDispatcher("/login/login2.jsp");
+			rd.forward(request, response);
+		}
 		
 		
 		} catch (SQLException e) {
