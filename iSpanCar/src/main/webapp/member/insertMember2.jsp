@@ -120,7 +120,7 @@
                                     <input type="file" name="file" id="file" class="form-control">
                                 </div>
                                 <div id="imgshowbox">
-                                    <img id="imgshow" src="" alt=""  width="120" height="120" />
+                                    <img id="imgshow" src="" alt=""  />
                                 </div>
 								<input type="button" value='創建帳號' class="btn btn-primary btn-user btn-block" id="createAccount">
 								<input type="button" value='一鍵輸入' class="btn btn-info btn-user btn-block" id="inputform">

@@ -34,9 +34,14 @@ public class memberUpdateimg extends HttpServlet {
 //		System.out.println(part);
 		InputStream is = part.getInputStream();
 		long size = part.getSize();
-		Blob blob =	mDao.fileToBlob(is, size);
+		if(size==0) {
+			
+		}else {
+			Blob blob =	mDao.fileToBlob(is, size);
 		
-		mDao.updateImgByAccount(accountnumber, blob);
+			mDao.updateImgByAccount(accountnumber, blob);
+		}
+		
 		
 		
 			

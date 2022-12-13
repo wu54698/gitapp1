@@ -42,10 +42,14 @@ public class UpdateCarDealerServlet extends HttpServlet {
 			String carDealName = request.getParameter("carDealName");
 			
 			// 檢查使用者所輸入的資料是否錯誤
+			boolean duplicateCheck = false;
 			for (CarDealerBean cdb : verifyList) {
-				if (!cdb.getCarDealName().equals(carDealName)) {
-					errorMessage.put("carDealName", "找無此車商");
+				if (cdb.getCarDealName().equals(carDealName)) {
+					duplicateCheck = true;
 				}
+			}
+			if(!duplicateCheck) {
+				errorMessage.put("carDealName", "找無此車商");
 			}
 			
 			String carDealPhone = request.getParameter("carDealPhone");

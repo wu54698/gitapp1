@@ -393,14 +393,16 @@
 	               $(this).parent().empty().append(buttonstring)
 	
 	           })
-// 	           $('#content').on('mouseover','.updateinput',function(){
-// 		            value = $(this).val()
-// 		            $(this).parent().html('<textarea name="" class="textarea" cols="10" rows="3">'+value+'</textarea>')
-// 		            console.log(value)
-// 		        })
-// 		        $('#content').on('mouseleave','.textarea',function(){
-// 		            $(this).parent().html("<input type='text' size='7'class='form-control form-control-user updateinput' value='"+value+"'>")
-// 		        })
+	           $('#content').on('mouseover','.updateinput',function(){
+		           var value = $(this).val()
+		            $(this).parent().html('<textarea name="" class="textarea" cols="10" rows="3">'+value+'</textarea>')
+		           
+		        })
+		        $('#content').on('mouseleave','.textarea',function(){
+		       		var text = $(this).val();
+		       		console.log(text)
+		            $(this).parent().html("<input type='text' size='7'class='form-control form-control-user updateinput' value='"+text+"'>")
+		        })
 	         	
 	           $('#content').on('change','.file',function(){
 	        	 //獲取input file的files文件數組;
