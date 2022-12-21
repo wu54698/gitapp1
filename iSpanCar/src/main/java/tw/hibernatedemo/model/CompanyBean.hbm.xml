@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<hibernate-mapping>
+    <class name="tw.hibernatedemo.model.CompanyBean" table="company">
+        <id name="companyId" type="java.lang.Integer">
+            <column name="companyID" />
+            <generator class="assigned" />
+        </id>
+        <property name="companyName" type="java.lang.String">
+            <column name="companyNAME" sql-type="nvarchar(50)" />
+        </property>
+    </class>
+</hibernate-mapping>
