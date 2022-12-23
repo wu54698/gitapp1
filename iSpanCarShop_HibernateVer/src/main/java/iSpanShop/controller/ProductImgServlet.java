@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import iSpanShop.model.ShopDetailBean;
+import iSpanShop.model.ShopDetailDao;
+
 @WebServlet("/ProductImgServlet")
 public class ProductImgServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -18,10 +21,11 @@ public class ProductImgServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String productno = request.getParameter("productno");
+		System.out.println(productno);
 		ShopDetailDao sDao = new ShopDetailDao();
 		try {
 			List<ShopDetailBean> list = sDao.findByProductno(productno);
-
+			System.out.println(list);
 			for (ShopDetailBean sBean : list) {
 				InputStream is = sBean.getProductimage().getBinaryStream();
 				OutputStream os = response.getOutputStream();

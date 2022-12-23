@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import iSpanShop.model.ShopDetailBean;
+import iSpanShop.model.ShopDetailDao;
+
 @WebServlet("/ProductQueryServlet.do")
 public class ProductQueryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

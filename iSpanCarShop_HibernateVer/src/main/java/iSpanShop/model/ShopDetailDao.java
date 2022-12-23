@@ -29,7 +29,7 @@ import iSpanShop.util.HibernateUtil;
 public class ShopDetailDao {
 
 	private SessionFactory factory;
-	
+
 	public ShopDetailDao() {
 		this.factory = HibernateUtil.getSessionFactory();
 	}
@@ -59,72 +59,85 @@ public class ShopDetailDao {
 	}
 
 	// 拿所有產品資料，回傳List<Member>
-	public List<ShopDetailBean> findAllProduct(){
-		
+	public List<ShopDetailBean> findAllProduct() {
+
 		Session session = factory.getCurrentSession();
-		
-		Query<ShopDetailBean> query = session.createQuery("from ShopDetailBean",ShopDetailBean.class);
-		
+		session.beginTransaction();
+		Query<ShopDetailBean> query = session.createQuery("from ShopDetailBean", ShopDetailBean.class);
+
 		List<ShopDetailBean> result = query.getResultList();
-		
+		session.getTransaction().commit();
 		return result;
 	}
 
 	// 新增資料
-	public ShopDetailBean insertProduct(ShopDetailBean sdb){
+	public ShopDetailBean insertProduct(ShopDetailBean sdb) {
 		Session session = factory.getCurrentSession();
-		
+		session.beginTransaction();
+
 		ShopDetailBean shopDetailBean = session.get(ShopDetailBean.class, sdb.getProductno());
-		if(shopDetailBean == null) {
+		if (shopDetailBean == null) {
 			session.save(sdb);
 			return sdb;
+
 		}
+		session.getTransaction().commit();
 		return null;
 	}
 
 	// 透過productno拿資料
 	public List<ShopDetailBean> findByProductno(String productno) throws SQLException {
-		
-		String hql = "from SHOP_DETAIL where productno = :productno";
-		
+
+		String hql = "from ShopDetailBean where productno = :productno";
+
+		int productnonumber = Integer.parseInt(productno);
 		Session session = factory.getCurrentSession();
+		session.beginTransaction();
 		try {
-			Query<ShopDetailBean> query = session.createQuery(hql,ShopDetailBean.class).setParameter("productno", productno);
+			Query<ShopDetailBean> query = session.createQuery(hql, ShopDetailBean.class).setParameter("productno",
+					productnonumber);
 			List<ShopDetailBean> result = query.getResultList();
+			session.getTransaction().commit();
 			return result;
 		} catch (Exception e) {
+			session.getTransaction().rollback();
 			System.out.println("hql出事了!");
 			e.printStackTrace();
 			return null;
 		}
+
 	}
 
 //		// 修改一筆產品資料
-		public ShopDetailBean updateProduct(ShopDetailBean sdb) {
-			Session session = factory.getCurrentSession();
-			ShopDetailBean sBean = session.get(ShopDetailBean.class, sdb.getProductno());
-			
-			if (sBean != null) {
-				sBean.setProductname(sdb.getProductname());
-				sBean.setPrice(sdb.getPrice());
-				sBean.setStock(sdb.getStock());
-				sBean.setProductinfo(sdb.getProductinfo());
-				sBean.setProductimage(sdb.getProductimage());
-			}
-			return sBean;
+	public ShopDetailBean updateProduct(ShopDetailBean sdb) {
+		Session session = factory.getCurrentSession();
+		ShopDetailBean sBean = session.get(ShopDetailBean.class, sdb.getProductno());
+
+		if (sBean != null) {
+			sBean.setProductname(sdb.getProductname());
+			sBean.setPrice(sdb.getPrice());
+			sBean.setStock(sdb.getStock());
+			sBean.setProductinfo(sdb.getProductinfo());
+			sBean.setProductimage(sdb.getProductimage());
+		}
+		return sBean;
 	}
 
 //	// 刪除該產品 用productno找
-	public boolean deleteProduct(int productno) throws SQLException {
+	public void deleteProduct(ShopDetailBean sdb) throws SQLException {
+
 		Session session = factory.getCurrentSession();
-		
-		ShopDetailBean sBean = session.get(ShopDetailBean.class, productno);
-		
-		if (sBean != null) {
-			session.delete(sBean);
-			return true;
+		session.beginTransaction();
+
+		try {
+			session.delete(sdb);
+			session.getTransaction().commit();
+			
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			System.out.println("hql刪除出事了!");
+			e.printStackTrace();
 		}
-		return false;
 	}
 
 }
