@@ -216,7 +216,7 @@
 				<div class="container1">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">功能名稱</h1>
+					<h1 class="h3 mb-4 text-gray-800">管理者功能: 車輛品牌產品維護</h1>
 					<table id="selectAllCar">
 						<thead>
 							<tr>
@@ -253,7 +253,7 @@
 							</tbody>
 						</c:forEach>
 					</table>
-					<a href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">回上一頁</a>
+					<a href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">回車輛主頁</a>
 				</div>
 				</div>
 				<!-- /.container-fluid -->

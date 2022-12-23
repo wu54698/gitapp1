@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import carDealer.dao.CarDealerDao;
 import carDealer.model.CarDealerBean;
+import tw.hibernatedemo.service.ISpanCarService;
 
 @MultipartConfig()
 @WebServlet("/DeleteCarDealerServlet.do")
@@ -24,11 +25,12 @@ public class DeleteCarDealerServlet extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			request.setCharacterEncoding("UTF-8");
-			CarDealerDao cDao = new CarDealerDao();
+//			CarDealerDao cDao = new CarDealerDao();
+			ISpanCarService iSpanService = new ISpanCarService();
 			String carDealName = request.getParameter("carDealName");
 
-			cDao.deleteCarDealer(carDealName);
-			List<CarDealerBean> list = cDao.findAllDealer();
+			iSpanService.deleteCarDealer(carDealName);
+			List<CarDealerBean> list = iSpanService.findAllDealer();
 			request.setAttribute("SelectAllDealer", list);
 			RequestDispatcher rd = request.getRequestDispatcher("/Car-Dearler/SelectAllDealer_frame.jsp");
 			rd.forward(request, response);

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import carInfo.dao.CarInfoDao;
 import carInfo.model.CarInfoBean;
+import tw.hibernatedemo.service.ISpanCarService;
 
 
 @WebServlet("/AllImageServlet.do")
@@ -25,9 +26,11 @@ public class AllImageServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String carNo = request.getParameter("carNo");
 		int carNumber = Integer.parseInt(carNo);
-		CarInfoDao infoDao = new CarInfoDao();
+//		CarInfoDao infoDao = new CarInfoDao();
+		ISpanCarService iSpanService = new ISpanCarService();
+		
 		try {
-			List<CarInfoBean> list = infoDao.findByCarNoLike(carNumber);
+			List<CarInfoBean> list = iSpanService.findByCarNoLike(carNumber);
 			
 			for(CarInfoBean infoBean : list) {
 				InputStream is = infoBean.getCarImage().getBinaryStream();

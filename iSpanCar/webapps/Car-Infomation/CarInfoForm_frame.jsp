@@ -207,14 +207,14 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">功能名稱</h1>
+					<h1 class="h3 mb-4 text-gray-800">管理者功能: 車輛品牌產品維護</h1>
 					<form name="carInfoA" action="" method="post"
 						enctype="multipart/form-data">
 						<table border="1" id="insertP">
         <thead>
             <tr bgcolor='transparent'>
                 <th height="60" colspan="2" align="center">
-                    <h2><b>找車輛</b></h2>
+                    <h2><b>--在店潮車。實車實價。車況保證--</b></h2>
                 </th>
             </tr>
         </thead>
@@ -275,7 +275,7 @@
                 <td height="50" colspan="2" align="center">
                     <input type="submit" value="新增" id="addCar" formaction="<c:url value='/CarInfoServlet.do'/>">
 <%--                     <input type="submit" value="刪除" formaction="<c:url value='/DeleteCarInfoServlet.do'/>"> --%>
-                    <input type="submit" value="修改車輛資訊" id="updateCarInfo" formaction="<c:url value='/UpdateCarInfoServlet.do'/>">
+                    <input type="submit" value="修改車輛資訊" id="" formaction="<c:url value='/Car-Infomation/JumpToUpdateCarInfoSheet_frame.jsp'/>">
                     <input type="submit" value="找品牌" id="findCarBrand" formaction="<c:url value='/FindCarBrandServlet.do'/>">
                     <input type="submit" value="搜尋全車輛" formaction="<c:url value='/ShowAllCarInfoServlet.do'/>">
                 </td>

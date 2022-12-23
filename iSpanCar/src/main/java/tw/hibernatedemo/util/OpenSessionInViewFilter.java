@@ -14,8 +14,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 //註冊filter
-@WebFilter(urlPatterns = {"/CarDealerServlet.do", "/DeleteCarDealerServlet.do", "/ShowAllDealerServlet.do", "/ShowDealerServlet.do", "/UpdateCarDealerServlet.do"
-		, "/AllImageServlet.do", "/CarInfoServlet.do", "/DeleteCarInfoServlet.do", "/FindCarBrandServlet.do", "/ShowAllCarInfoServlet.do", "/ShowCarInfoServlet.do", "/UpdateCarInfoServlet.do"})
+//@WebFilter(urlPatterns = {"/CarDealerServlet.do", "/DeleteCarDealerServlet.do", "/ShowAllDealerServlet.do", "/ShowDealerServlet.do", "/UpdateCarDealerServlet.do"
+//		, "/AllImageServlet.do", "/CarInfoServlet.do", "/DeleteCarInfoServlet.do", "/FindCarBrandServlet.do", "/ShowAllCarInfoServlet.do", "/ShowCarInfoServlet.do", "/UpdateCarInfoServlet.do"})
 public class OpenSessionInViewFilter extends HttpFilter implements Filter {
 
 	private Session session;

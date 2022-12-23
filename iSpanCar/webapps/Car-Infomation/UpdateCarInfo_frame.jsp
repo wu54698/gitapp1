@@ -28,10 +28,17 @@
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+<style>
+textarea {
+	background: transparent;
+	border-style: none;
+}
+</style>
+
 </head>
 
 <body id="page-top">
-<c:set value="${LoginOK}" var="login"/>
+	<c:set value="${LoginOK}" var="login" />
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
@@ -81,8 +88,9 @@
                     </div>
                 </div>
             </li> -->
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/memberSelectAll.do'/>">
-					<i class="fa-solid fa-user"></i> <span>會員</span>
+			<li class="nav-item"><a class="nav-link"
+				href="<c:url value='/memberSelectAll.do'/>"> <i
+					class="fa-solid fa-user"></i> <span>會員</span>
 			</a></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
@@ -104,13 +112,15 @@
             </div> -->
 
 			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/serviceSelectallServlet.do'/>">
-					<i class="fa-solid fa-screwdriver-wrench"></i> <span>保養廠</span>
+			<li class="nav-item"><a class="nav-link"
+				href="<c:url value='/serviceSelectallServlet.do'/>"> <i
+					class="fa-solid fa-screwdriver-wrench"></i> <span>保養廠</span>
 			</a></li>
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/dforum/threads.jsp'/>">
-					<i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
+			<li class="nav-item"><a class="nav-link"
+				href="<c:url value='/dforum/threads.jsp'/>"> <i
+					class="fa-brands fa-rocketchat"></i> <span>論壇</span>
 			</a></li>
 
 			<!-- Nav Item - Tables -->
@@ -118,8 +128,9 @@
 				href="<c:url value='/ProductListServlet.do'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrder.do'/>">
-					<i class="fa-solid fa-coins"></i> <span>訂單</span>
+			<li class="nav-item"><a class="nav-link"
+				href="<c:url value='/QueryAllOrder.do'/>"> <i
+					class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
@@ -179,8 +190,8 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">${login.accountnumber}</span> <img
-								class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small">${login.accountnumber}</span>
+								<img class="img-profile rounded-circle"
 								src="<c:url value='/ImageServletforPage.do'/>">
 						</a> <!-- Dropdown - User Information -->
 							<div
@@ -207,13 +218,13 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">功能名稱</h1>
+					<h1 class="h3 mb-4 text-gray-800">管理者功能: 車輛品牌產品維護</h1>
 					<table id="updateCarInfo">
 						<thead>
 							<tr>
 								<th>車輛編號</th>
 								<th>車商名稱</th>
-								<th>${login.accountnumber}</th>
+								<th>帳號</th>
 								<th>車輛品牌</th>
 								<th>車輛名稱</th>
 								<th>庫存</th>
@@ -222,7 +233,7 @@
 								<th>發布日期</th>
 							</tr>
 						</thead>
-						 <c:forEach var="car" items="${UpdateCarInfo}" varStatus="vs">
+						<c:forEach var="car" items="${UpdateCarInfo}" varStatus="vs">
 							<tbody>
 								<tr>
 									<td>${car.carNo}</td>
@@ -242,7 +253,7 @@
 							</tbody>
 						</c:forEach>
 					</table>
-					<a href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">回上一頁</a>
+					<a href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">回車輛主頁</a>
 				</div>
 				<!-- /.container-fluid -->
 
@@ -271,24 +282,29 @@
 	</a>
 
 	<!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">決定登出?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
-<!--                 <div class="modal-footer"> -->
-                   
-<!--                 </div> -->
-            </div>
-        </div>
-    </div>
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">決定登出?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">取消</button>
+					<a class="btn btn-primary"
+						href="<c:url value='/logoutServlet.do' />">登出</a>
+				</div>
+				<!--                 <div class="modal-footer"> -->
+
+				<!--                 </div> -->
+			</div>
+		</div>
+	</div>
 
 	<!-- Bootstrap core JavaScript-->
 	<script

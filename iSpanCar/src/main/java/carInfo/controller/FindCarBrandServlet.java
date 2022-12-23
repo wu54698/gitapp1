@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import carInfo.dao.CarInfoDao;
 import carInfo.model.CarInfoBean;
+import tw.hibernatedemo.service.ISpanCarService;
 
 @MultipartConfig()
 @WebServlet("/FindCarBrandServlet.do")
@@ -27,9 +28,10 @@ public class FindCarBrandServlet extends HttpServlet {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			String carBrand = request.getParameter("carBrand");
-			CarInfoDao infoDao = new CarInfoDao();
-
-			List<CarInfoBean> list = infoDao.findByCarBrandLike(carBrand);
+//			CarInfoDao infoDao = new CarInfoDao();
+			ISpanCarService iSpanService = new ISpanCarService();
+			
+			List<CarInfoBean> list = iSpanService.findByCarBrandLike(carBrand);
 			
 			request.setAttribute("Brand", list);
 			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/SelectCarByBrand_frame.jsp");

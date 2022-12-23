@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import carDealer.dao.CarDealerDao;
 import carDealer.model.CarDealerBean;
+import tw.hibernatedemo.service.ISpanCarService;
 
 //import iSpan_Car.dao.CarDealerDao;
 //import iSpan_Car.model.CarDealerBean;
@@ -26,9 +27,10 @@ public class ShowAllDealerServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			request.setCharacterEncoding("UTF-8");
-			CarDealerDao cDao = new CarDealerDao();
-
-			List<CarDealerBean> list = cDao.findAllDealer();
+//			CarDealerDao cDao = new CarDealerDao();
+			
+			ISpanCarService iSpanService = new ISpanCarService();
+			List<CarDealerBean> list = iSpanService.findAllDealer();
 			request.setAttribute("SelectAllDealer", list);
 			RequestDispatcher rd = request.getRequestDispatcher("/Car-Dearler/SelectAllDealer_frame.jsp");
 			rd.forward(request, response);

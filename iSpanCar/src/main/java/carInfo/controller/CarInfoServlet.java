@@ -17,6 +17,7 @@ import javax.servlet.http.Part;
 
 import carInfo.dao.CarInfoDao;
 import carInfo.model.CarInfoBean;
+import tw.hibernatedemo.service.ISpanCarService;
 
 //新增車輛資訊
 @MultipartConfig()
@@ -29,8 +30,11 @@ public class CarInfoServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			request.setCharacterEncoding("UTF-8");
-			CarInfoDao infoDao = new CarInfoDao();
-
+//			CarInfoDao infoDao = new CarInfoDao();
+			
+			ISpanCarService iSpanService = new ISpanCarService();
+			
+			
 			// 讀取瀏覽器送入的欄位內的資料
 //			String carNo = request.getParameter("carNo");
 //			int carNumber = Integer.parseInt(carNo);
@@ -46,15 +50,15 @@ public class CarInfoServlet extends HttpServlet {
 			InputStream is = filePart.getInputStream();
 			long size = filePart.getSize();
 
-			Blob blob = infoDao.filetoBlob(is, size);
+			Blob blob = iSpanService.filetoBlob(is, size);
 			
 			String carDescription = request.getParameter("carDescription");
 			String announceDate = request.getParameter("announceDate");
 			
 			CarInfoBean infoBean = new CarInfoBean
 					(carDealName, accountNumber, carBrand, carName, amount, blob, carDescription, announceDate);
-			infoDao.addCarInfo(infoBean);
-			List<CarInfoBean> newList = infoDao.findAllCar();
+			iSpanService.addCarInfo(infoBean);
+			List<CarInfoBean> newList = iSpanService.findAllCar();
 			
 			request.setAttribute("SelectAllCar", newList);
 			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/SelectAllCar_frame.jsp");

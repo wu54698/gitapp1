@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import carInfo.dao.CarInfoDao;
 import carInfo.model.CarInfoBean;
+import tw.hibernatedemo.service.ISpanCarService;
 
 @MultipartConfig
 @WebServlet("/DeleteCarInfoServlet.do")
@@ -26,13 +27,15 @@ public class DeleteCarInfoServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			request.setCharacterEncoding("UTF-8");
-			CarInfoDao infoDao = new CarInfoDao();
+//			CarInfoDao infoDao = new CarInfoDao();
+			ISpanCarService iSpanService = new ISpanCarService();
+			
 			String carNo = request.getParameter("carNo");
 //			System.out.println(Stock);
 			int amount = Integer.parseInt(carNo);
 
-			infoDao.deleteCarInfo(amount);
-			List<CarInfoBean> list = infoDao.findAllCar();
+			iSpanService.deleteCarInfo(amount);
+			List<CarInfoBean> list = iSpanService.findAllCar();
 			request.setAttribute("SelectAllCar", list);
 			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/SelectAllCar_frame.jsp");
 			rd.forward(request, response);

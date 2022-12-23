@@ -28,12 +28,8 @@
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
-	<style>
-textarea {
-	background: transparent;
-	border-style: none;
-}
-</style>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+ <link rel="stylesheet" href="/resources/demos/style.css">
 </head>
 
 <body id="page-top">
@@ -94,12 +90,10 @@ textarea {
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link"
 				href="<c:url value='/Car-Dearler/CarDealerForm_frame.jsp' />"> <i
-					class="fa-solid fa-car"></i> <span>車廠</span>
-			</a></li>
+					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
-			</a></li>
+				href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />"> <i
+					class="fa-solid fa-car"></i> <span>車輛</span></a></li>
 
 			<!-- Divider -->
 			<!-- <hr class="sidebar-divider"> -->
@@ -214,41 +208,82 @@ textarea {
 
 					<!-- Page Heading -->
 					<h1 class="h3 mb-4 text-gray-800">管理者功能: 車輛品牌產品維護</h1>
-					<table id="selectCarByBrand">
-						<thead>
-							<tr>
-								<th>車輛編號</th>
-								<th>車商名稱</th>
-								<th>帳號</th>
-								<th>車輛品牌</th>
-								<th>車輛名稱</th>
-								<th>庫存</th>
-								<th>車輛照片</th>
-								<th>車輛描述</th>
-								<th>發布日期</th>
-							</tr>
-						</thead>
-						<c:forEach var="car" items="${Brand}" varStatus="vs">
-							<tbody>
-								<tr>
-									<td>${car.carNo}</td>
-									<td>${car.carDealName}</td>
-									<td>${car.accountNumber}</td>
-									<td>${car.carBrand}</td>
-									<td>${car.carName}</td>
-									<td>${car.stock}</td>
-									<!--<td>${car.carImage}</td>-->
-									<td><img
-										src="http://localhost:8080/iSpanCar/AllImageServlet.do?carNo=${car.carNo}"
-										width="180px" height="120px"></td>
-									<td><textarea readonly cols="10" rows="5"
-											style="text-align: left">${car.carDescription}</textarea></td>
-									<td>${car.announceDate}</td>
-								</tr>
-							</tbody>
-						</c:forEach>
-					</table>
-					<a href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">回車輛首頁</a>
+					<form name="carInfoA" action="" method="post"
+						enctype="multipart/form-data">
+						<table border="1" id="insertP">
+        <thead>
+            <tr bgcolor='transparent'>
+                <th height="60" colspan="2" align="center">
+                    <h2><b>請在以下表單做車輛資訊修改</b></h2>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr bgcolor='transparent'>
+                <td width="120" height="40">車輛編號</td>
+                <td width="600" height="40" align="left"><input id="carNo" name="carNo" class="checkNotNull" value="${param.carNo}"
+                        type="text" size="14" style="text-align: left"></td>
+            </tr>
+            <tr bgcolor='transparent'>
+                <td width="120" height="40">車商名稱</td>
+                <td width="600" height="40" align="left"><input id="carDealName" name="carDealName" class="checkNotNull"
+                        value="${param.carDealName}" type="text" size="14" style="text-align: left"></td>
+            </tr>
+            <tr bgcolor='transparent'>
+                <td width="120" height="40">帳號</td>
+                <td width="600" height="40" align="left"><input id="accountNumber" name="accountNumber" class="checkNotNull"
+                        value="${param.accountNumber}" type="text" size="14" style="text-align: left">
+                </td>
+            </tr>
+            <tr bgcolor='transparent'>
+                <td width="120" height="40">車輛品牌</td>
+                <td width="600" height="40" align="left"><input id="carBrand" name="carBrand" class="checkNotNull" value="${param.carBrand}"
+                        type="text" size="14" style="text-align: left"></td>
+            </tr>
+            <tr bgcolor='transparent'>
+                <td width="120" height="40">車輛名稱</td>
+                <td width="600" height="40" align="left"><input id="carName" name="carName" class="checkNotNull" value="${param.carName}"
+                        type="text" size="14" style="text-align: left"></td>
+            </tr>
+            <tr bgcolor='transparent'>
+                <td width="120" height="40">庫存</td>
+                <td width="600" height="40" align="left"><input id="stock" name="stock" class="checkNotNull" value="${param.stock}"
+                        type="text" size="14" style="text-align: left">
+                </td>
+            </tr>
+            <tr bgcolor='transparent'>
+                <td width="120" height="80">車輛描述</td>
+                <td width="600" height="40" align="left">
+                    <textarea id="carDescription" name="carDescription" class="checkNotNull" value="${param.carDescription}" cols="30"
+                        rows="10" style="text-align: left"></textarea>
+                </td>
+            </tr>
+            <tr bgcolor='transparent'>
+                <td width="120" height="40">車輛照片</td>
+                <td width="600" height="40" align="left"><input id="carImage" name="carImage" class="checkNotNull" value="${param.carImage}"
+                        type="file"></td>
+            </tr>
+            <tr>
+            <tr>
+                <td width="120" height="40">發布日期</td>
+                <td width="600" height="40" align="left"><input id="announceDate" name="announceDate" class="checkNotNull"
+                        value="${param.announceDate}" type="text" size="14" style="text-align: left">
+                    <font color='blue' size="-1">&nbsp;&nbsp;格式為MM-dd-yyyy</font>
+                </td>
+            </tr>
+            <tr bgcolor='transparent'>
+                <td height="50" colspan="2" align="center">
+<%--                     <input type="submit" value="新增" id="addCar" formaction="<c:url value='/CarInfoServlet.do'/>"> --%>
+<%--                     <input type="submit" value="刪除" formaction="<c:url value='/DeleteCarInfoServlet.do'/>"> --%>
+                    <input type="submit" value="確認修改" id="updateCarInfo" formaction="<c:url value='/UpdateCarInfoServlet.do'/>">
+<%--                     <input type="submit" value="找品牌" id="findCarBrand" formaction="<c:url value='/FindCarBrandServlet.do'/>"> --%>
+                    <input type="submit" value="搜尋全車輛" formaction="<c:url value='/ShowAllCarInfoServlet.do'/>">
+                </td>
+            </tr>
+            <!-- 							</tbody> -->
+    </table>
+    <a href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">回車輛主頁</a>
+					</form>
 				</div>
 				<!-- /.container-fluid -->
 
@@ -306,7 +341,7 @@ textarea {
 	<script
 		src="http://localhost:8080/iSpanCar/script/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-	<!-- Custom scripts for all pages -->
+	<!-- Custom scripts for all pages-->
 	<script
 		src="http://localhost:8080/iSpanCar/script/js/sb-admin-2.min.js"></script>
 
@@ -315,10 +350,44 @@ textarea {
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
 	<script>
-		$(document).ready(function() {
-			$('#selectCarByBrand').DataTable();
-		});
+// 		$(document).ready(function() {
+// 			$('#carInfoForm').DataTable();
+// 		});
 	</script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  	<script>
+  		$( function() {
+    	$( "#announceDate" ).datepicker();
+ 		 } );
+  		
+  	//驗證欄位不為空
+		 $('#findCarBrand').on({
+			 click: function(){
+				 $('#carBrand').attr('required', true)
+			 }, mouseleave: function(){
+				 $('#carBrand').attr('required', false)
+			 }
+		 });
+		 $('#updateCarInfo').on({
+			 click: function(){
+				 $('#carNo').attr('required', true)
+			 }, mouseleave: function(){
+				 $('#carNo').attr('required', false)
+			 }
+		 });
+  		
+		 $('#addCar').on({
+	            click: function () {
+	                $('.checkNotNull').attr('required', true)
+	            }, mouseleave: function () {
+	                $('.checkNotNull').attr('required', false)
+	            },
+	        });
+  	
+  	
+  		
+  	</script>
 
 </body>
 
