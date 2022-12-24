@@ -29,9 +29,9 @@ public class DeleteShopDetailServlet extends HttpServlet {
 			for(ShopDetailBean sdb :list) {
 				sDao.deleteProduct(sdb);
 			}
-			RequestDispatcher rd = request.getRequestDispatcher("/SHOP_DETAIL/DeleteProductSucess.jsp");
-			rd.forward(request, response);
-			return;
+//			RequestDispatcher rd = request.getRequestDispatcher("/SHOP_DETAIL/DeleteProductSucess.jsp");
+//			rd.forward(request, response);
+//			return;
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}

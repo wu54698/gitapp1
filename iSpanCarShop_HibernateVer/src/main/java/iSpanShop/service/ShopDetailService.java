@@ -1,5 +1,6 @@
 package iSpanShop.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -34,8 +35,12 @@ public class ShopDetailService {
 //		return comDao.deleteCompany(id);
 //	}
 //
-//	public boolean deleteCompanyByEntity(ShopDetailBean comBean) {
-//		return comDao.deleteCompany(comBean);
-//	}
+	public void delete(ShopDetailBean sdb) {
+		try {
+			sDao.deleteProduct(sdb);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

@@ -75,12 +75,13 @@ public class ShopDetailDao {
 		Session session = factory.getCurrentSession();
 		session.beginTransaction();
 
-		ShopDetailBean shopDetailBean = session.get(ShopDetailBean.class, sdb.getProductno());
-		if (shopDetailBean == null) {
-			session.save(sdb);
-			return sdb;
-
-		}
+//		ShopDetailBean shopDetailBean = session.get(ShopDetailBean.class, sdb);
+//		if (shopDetailBean == null) {
+//			session.save(sdb);
+//			return sdb;
+//
+//		}
+		session.saveOrUpdate(sdb);
 		session.getTransaction().commit();
 		return null;
 	}
@@ -111,16 +112,24 @@ public class ShopDetailDao {
 //		// 修改一筆產品資料
 	public ShopDetailBean updateProduct(ShopDetailBean sdb) {
 		Session session = factory.getCurrentSession();
-		ShopDetailBean sBean = session.get(ShopDetailBean.class, sdb.getProductno());
-
+		session.beginTransaction();
+		
+		ShopDetailBean sBean = session.get(ShopDetailBean.class, sdb);
+		
+		
 		if (sBean != null) {
+			sBean.setProductno(sdb.getProductno());
 			sBean.setProductname(sdb.getProductname());
 			sBean.setPrice(sdb.getPrice());
 			sBean.setStock(sdb.getStock());
 			sBean.setProductinfo(sdb.getProductinfo());
 			sBean.setProductimage(sdb.getProductimage());
+			sBean.setProductimage_name(sdb.getProductimage_name());
+//			session.saveOrUpdate(sBean);
 		}
+		session.getTransaction().commit();
 		return sBean;
+		
 	}
 
 //	// 刪除該產品 用productno找
