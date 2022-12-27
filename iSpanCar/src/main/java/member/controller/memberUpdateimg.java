@@ -15,10 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import member.dao.MemberDao;
 import member.model.MemberBean;
+import member.service.MemberService;
+import util.HibernateUtil;
 
-@MultipartConfig
+@MultipartConfig()
 @WebServlet("/memberUpdateimg.do")
 public class memberUpdateimg extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,7 +32,16 @@ public class memberUpdateimg extends HttpServlet {
 		try {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=utf-8");
-		MemberDao mDao = new MemberDao();
+		
+
+		System.out.println("-----------memberUpdateimg------------");
+		
+		SessionFactory factory =HibernateUtil.getSessionFactory();
+		Session session = factory.openSession();
+		session.beginTransaction();
+		
+		
+		MemberService mService = new MemberService();
 		String accountnumber = request.getParameter("accountnumber");
 		
 		Part part = request.getPart("file");
@@ -35,15 +49,19 @@ public class memberUpdateimg extends HttpServlet {
 		InputStream is = part.getInputStream();
 		long size = part.getSize();
 		if(size==0) {
-			
+			session.getTransaction().rollback();
 		}else {
-			Blob blob =	mDao.fileToBlob(is, size);
+			Blob blob =	mService.fileToBlob(is, size);
 		
-			mDao.updateImgByAccount(accountnumber, blob);
+			MemberBean memberBean = session.get(MemberBean.class, accountnumber);
+			
+			memberBean.setFile(blob);
+			
+//			mDao.updateImgByAccount(accountnumber, blob);
+			session.getTransaction().commit();
 		}
 		
-		
-		
+		session.close();
 			
 		} catch (IOException e) {
 			e.printStackTrace();

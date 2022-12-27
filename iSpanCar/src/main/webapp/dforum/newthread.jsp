@@ -49,7 +49,7 @@
 			function() {
 				$("#time").val(new Date().getTime());
 				$.ajax({
-					url : "<c:url value='/categories'/>",
+					url : "categories",
 					method : "GET",
 					dataType : "json",
 					success : function(res) {
@@ -59,7 +59,7 @@
 						$(res).each(
 								function() {
 									sel.append($("<option>").attr('value',
-											this.SN).text(this.name));
+											this.id).text(this.name));
 								});
 
 					},
@@ -162,7 +162,7 @@
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 			</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrder.do'/>">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrderServlet.do'/>">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -249,49 +249,53 @@
 
 				<!-- Begin Page Content 內容 -->
 				<div class="container-fluid">
+		<div class="container">
+				<div class="header clearfix">
+					<nav>
+						<ul class="nav nav-pills float-right">
+							<li class="nav-item"></li>
+						</ul>
+					</nav>
+					<h3 class="text-muted">發表文章</h3>
+				</div>
 
-					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">發表文章</h1>
-					<div class="header clearfix">
-			<nav>
-				<ul class="nav nav-pills float-right">
-					<li class="nav-item"></li>
-				</ul>
-			</nav>
-			<form action="<c:url value='/thread.do'/>" method="post" accept-charset="UTF-8">
-				<div id="catediv" class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="inputGroup-sizing-sm">分類</span>
-					</div>
-	
+		<form action="<c:url value='/thread.do'/>" method="post" accept-charset="UTF-8">
+			<div id="catediv" class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="inputGroup-sizing-sm">分類</span>
 				</div>
-	
-	
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text">標題</span>
-					</div>
-					<input type="text" class="form-control" id="title" name="title" required>
+
+			</div>
+
+
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<span class="input-group-text">標題</span>
 				</div>
-	
-	
-	
-				<div id="newt" style="width: 100%; height: 100%">
-					<textarea id="body" name="body" class="form-control"
-						style="width: 100%; height: 100%" placeholder="在此輸入文章..." required></textarea>
-				</div>
-	
-				<div>
-					<input type="hidden" id="memberSN" name="memberSN" value="1" /> 
-					<input type="hidden" id="time" name="time" /> 
-					<input type="submit" class="btn btn-primary" />
-				</div>
-			</form>
+				<input type="text" class="form-control" id="title" name="title" required>
+			</div>
+
+
+
+			<div id="newt" style="width: 100%; height: 100%">
+				<textarea id="body" name="body" class="form-control"
+					style="width: 100%; height: 100%" placeholder="在此輸入文章..." required></textarea>
+			</div>
+
+			<div>
+				<input type="hidden" id="memberId" name="memberId" value="1" /> 
+				<input type="hidden" id="time" name="time" /> 
+				<input type="submit" class="btn btn-primary" />
+			</div>
+		</form>
+
 
 
 
 
 		<footer class="footer"> </footer>
+
+	</div>
 
 				</div>
 				<!-- /.container-fluid -->
@@ -332,7 +336,8 @@
                     </button>
                 </div>
                 <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
+                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a> </div>
+                    
 <!--                 <div class="modal-footer"> -->
                    
 <!--                 </div> -->

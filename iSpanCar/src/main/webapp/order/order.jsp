@@ -116,7 +116,7 @@
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/QueryAllOrder.do'/>"> <i
+				href="<c:url value='/QueryAllOrderServlet.do'/>"> <i
 					class="fas fa-fw fa-table"></i> <span>訂單</span></a></li>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">

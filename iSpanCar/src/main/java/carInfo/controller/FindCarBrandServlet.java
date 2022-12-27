@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import carDealer.model.ISpanCarService;
 import carInfo.dao.CarInfoDao;
 import carInfo.model.CarInfoBean;
 
@@ -27,16 +28,17 @@ public class FindCarBrandServlet extends HttpServlet {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			String carBrand = request.getParameter("carBrand");
-			CarInfoDao infoDao = new CarInfoDao();
-
-			List<CarInfoBean> list = infoDao.findByCarBrandLike(carBrand);
+//			CarInfoDao infoDao = new CarInfoDao();
+			ISpanCarService iSpanService = new ISpanCarService();
+			
+			List<CarInfoBean> list = iSpanService.findByCarBrandLike(carBrand);
 			
 			request.setAttribute("Brand", list);
 			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/SelectCarByBrand_frame.jsp");
 			rd.forward(request, response);
 			return;
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

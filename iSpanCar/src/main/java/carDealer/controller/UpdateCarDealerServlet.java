@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import carDealer.dao.CarDealerDao;
 import carDealer.model.CarDealerBean;
+import carDealer.model.ISpanCarService;
 
 //import iSpan_Car.dao.CarDealerDao;
 //import iSpan_Car.model.CarDealerBean;
@@ -35,8 +36,9 @@ public class UpdateCarDealerServlet extends HttpServlet {
 			
 			
 			request.setCharacterEncoding("UTF-8");
-			CarDealerDao cDao = new CarDealerDao();
-			List<CarDealerBean> verifyList = cDao.findAllDealer();
+//			CarDealerDao cDao = new CarDealerDao();
+			ISpanCarService iSpanService = new ISpanCarService();
+			List<CarDealerBean> verifyList = iSpanService.findAllDealer();
 			
 			// 讀取瀏覽器送入的欄位內的資料
 			String carDealName = request.getParameter("carDealName");
@@ -60,7 +62,7 @@ public class UpdateCarDealerServlet extends HttpServlet {
 			String carDealVATNumber = request.getParameter("carDealVATNumber");
 //		int VATNumber = Integer.parseInt(carDealVATNumber);
 
-			List<CarDealerBean> list = cDao.findByCarDealerName(carDealName);
+			List<CarDealerBean> list = iSpanService.findByCarDealerName(carDealName);
 			CarDealerBean originBean = new CarDealerBean();
 			for (CarDealerBean cdb : list) {
 				originBean.setCarDealName(cdb.getCarDealName());
@@ -88,13 +90,13 @@ public class UpdateCarDealerServlet extends HttpServlet {
 //		System.out.println(name+" "+mobile+" "+address+" "+time+" "+person+" "+VAT);
 			CarDealerBean dealerBean = new CarDealerBean(name, mobile, address, time, person, VAT);
 
-			cDao.updateByCarDealName(dealerBean);
-			List<CarDealerBean> newList = cDao.findByCarDealerName(carDealName);
+			iSpanService.updateByCarDealName(dealerBean);
+			List<CarDealerBean> newList = iSpanService.findByCarDealerName(carDealName);
 			request.setAttribute("UpdateDealer", newList);
 			RequestDispatcher rd = request.getRequestDispatcher("/Car-Dearler/UpdateDealer_frame.jsp");
 			rd.forward(request, response);
 			return;
-		} catch (SQLException | ParseException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

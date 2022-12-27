@@ -146,7 +146,7 @@ display:inline;
 				href="<c:url value='/ProductListServlet.do'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrder.do'/>">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrderServlet.do'/>">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -281,7 +281,7 @@ display:inline;
 									<td>${product.uptime}</td>
 									<td><textarea readonly>${product.productinfo}</textarea></td>
 									<td ><img style="border-radius:10%;"
-										src="<c:url value='/ProductImgServlet.do?productno=${product.productno}'/>"
+										src="<c:url value='/ProductImgServlet?productno=${product.productno}'/>"
 										width="180" height="180" /></td>
 									<td><button type="submit" class="btn1" id="btn1" onclick="foredit()" style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen fa-lg"></i></button></td>
 

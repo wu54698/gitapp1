@@ -21,6 +21,7 @@ import javax.sound.midi.Soundbank;
 
 import member.dao.MemberDao;
 import member.model.MemberBean;
+import member.service.MemberService;
 
 
 @MultipartConfig()
@@ -61,22 +62,22 @@ public class memberInsertServlet extends HttpServlet {
 		String card4 = request.getParameter("card4");
 		String cardnumber = card1 + "-" + card2 + "-" + card3 + "-" + card4;
 		
-		MemberDao mdao = new MemberDao();
+		MemberService mService = new MemberService();
 		
 		Part filePart = request.getPart("file");
 	
 		InputStream is = filePart.getInputStream();
 		long size = filePart.getSize();
 		
-		Blob blob = mdao.fileToBlob(is,size) ;
-		String filename = mdao.getFileName(filePart);
+		Blob blob = mService.fileToBlob(is,size) ;
+		String filename = mService.getFileName(filePart);
 		
 		
 		MemberBean bean = new MemberBean(account, password, name, phone, email,city + town+ address, platenumber, birthday, idnumber,cardnumber,blob,filename);
 		
 		
 		
-			mdao.insertMemberBean(bean);
+			mService.insertMemberBean(bean);
 		
 		String contextPath = request.getContextPath();
 		response.sendRedirect(contextPath +"/");

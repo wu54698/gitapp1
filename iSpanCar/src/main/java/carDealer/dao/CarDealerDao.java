@@ -18,134 +18,97 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.apache.taglibs.standard.lang.jstl.test.beans.PublicBean1;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+
 import carDealer.model.CarDealerBean;
+import util.HibernateUtil;
 
 
 
 public class CarDealerDao {
 	
-	DataSource ds = null;
-
-	public CarDealerDao() {
-		try {
-			Context context = new InitialContext();
-			ds = (DataSource) context.lookup("java:comp/env/iSpan_car_DataBase");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-	}
+	private SessionFactory factory;
 	
-	public java.sql.Time StringToTime(String time) throws ParseException {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		Date udate = dateFormat.parse(time);  //型態HH:mm:ss的字串轉util.date
-		Time sTime = new java.sql.Time(udate.getTime()); //轉sql.time
-		return sTime;
+	public CarDealerDao() {
+		this.factory = HibernateUtil.getSessionFactory();
 	}
-
-	//時間轉字串
-//	public String TimeToString(Time oTime) {
-//		SimpleDateFormat sdFormat = new SimpleDateFormat("HH:mm:ss");
-//		
-//	}
 	
 	
 	//新增車商
-	public void addCarDealer(CarDealerBean bean) throws SQLException, ParseException {
-		String sql = "insert into carDealerInfo values(?, ?, ?, ?, ?, ?)";
-		Connection conn = ds.getConnection();
-		PreparedStatement preState = conn.prepareStatement(sql);
-		preState.setString(1, bean.getCarDealName());
-		preState.setString(2, bean.getCarDealPhone());
-		preState.setString(3, bean.getCarDealAddress());
-		Time openTime = StringToTime(bean.getOpenTime());
-		preState.setTime(4, openTime);
-		preState.setString(5, bean.getContactPerson());
-		preState.setInt(6, bean.getCarDealVATNumber());
-		preState.execute();
-		preState.close();
-		conn.close();
+	public CarDealerBean addCarDealer(CarDealerBean dealBean) {
+		
+		Session session = factory.getCurrentSession();
+
+		CarDealerBean dealerBean = session.get(CarDealerBean.class, dealBean.getCarDealName());
+		
+		if (dealerBean == null ) {
+			session.save(dealBean);
+			return dealBean;
+		}
+		return null;
+	}
+	
+	//搜尋全車商
+	public List<CarDealerBean> findAllDealer() {
+		
+		Session session = factory.getCurrentSession();
+		
+		Query<CarDealerBean> query = session.createQuery("from CarDealerBean", CarDealerBean.class);
+		
+		List<CarDealerBean> result = query.getResultList();
+		return result;
 	}
 	
 	//透過車商名稱刪除車商
-	public void deleteCarDealer(String carDealName) throws SQLException {
-		String sql = "delete from carDealerInfo where carDealerName = ?";
-		Connection conn = ds.getConnection();
-		PreparedStatement preState = conn.prepareStatement(sql);
-		preState.setString(1, carDealName);
-		preState.execute();
-		System.out.println("刪除ok!");
-		preState.close();
-		conn.close();
+	public boolean deleteCarDealer(String carDealName) {
+		
+		Session session = factory.getCurrentSession();
+		
+		CarDealerBean dealerBean = session.get(CarDealerBean.class, carDealName);
+		
+		if(dealerBean != null) {
+			session.delete(dealerBean);
+			return true;
+		}
+		return false;
 	}
-
+	
 	//透過車商名稱改其他資訊
-	public void updateByCarDealName(CarDealerBean bean) throws SQLException, ParseException {
-		String sql = "update carDealerInfo set carDealerPhone = ?, carDealerAddress = ?, "
-				+ "openTime = ?, contactPerson = ?, carDealerVATNumber = ? where carDealerName = ?";
-		
-		Connection conn = ds.getConnection();
-		PreparedStatement preState = conn.prepareStatement(sql);
-		preState.setString(1, bean.getCarDealPhone());
-		preState.setString(2, bean.getCarDealAddress());
-		Time openTime = StringToTime(bean.getOpenTime());
-		preState.setTime(3, openTime);
-		preState.setString(4, bean.getContactPerson());
-		preState.setInt(5, bean.getCarDealVATNumber());
-		preState.setString(6, bean.getCarDealName());
-		preState.execute();
-		preState.close();
-		conn.close();
+	public CarDealerBean updateByCarDealName(CarDealerBean dealerBean) {
+		Session session = factory.getCurrentSession();
+		CarDealerBean cdBean = session.get(CarDealerBean.class, dealerBean.getCarDealName());
+		if(cdBean != null) {
+			cdBean.setCarDealPhone(dealerBean.getCarDealPhone());
+			cdBean.setCarDealAddress(dealerBean.getCarDealAddress());
+			cdBean.setOpenTime(dealerBean.getOpenTime());
+			cdBean.setContactPerson(dealerBean.getContactPerson());
+			cdBean.setCarDealVATNumber(dealerBean.getCarDealVATNumber());
+		}
+		return cdBean;
 	}
 	
-	//透過車商來搜尋車商資訊List
-	public List<CarDealerBean> findByCarDealerName(String carDealerName) throws SQLException{
-		String sql = "select * from carDealerInfo where carDealerName = ?";
-		Connection conn = ds.getConnection();
-		PreparedStatement preState = conn.prepareStatement(sql);
-		preState.setString(1, carDealerName);
-		ResultSet rs = preState.executeQuery();
+	//透過車商來搜尋車商資訊
+	public List<CarDealerBean> findByCarDealerName(String carDealName) {
 		
-		List<CarDealerBean> list = new LinkedList<>();
+		String hql = "from CarDealerBean where carDealName = :carDealName";
 		
-		while(rs.next()) {
-			CarDealerBean dealerBean = new CarDealerBean();
-			dealerBean.setCarDealName(rs.getString("carDealerName"));
-			dealerBean.setCarDealPhone(rs.getString("carDealerPhone"));
-			dealerBean.setCarDealAddress(rs.getString("carDealerAddress"));
-			dealerBean.setOpenTime(rs.getString("openTime"));
-			dealerBean.setContactPerson(rs.getString("contactPerson"));
-			dealerBean.setCarDealVATNumber(rs.getInt("carDealerVATNumber"));
-			list.add(dealerBean);
+		Session session = factory.getCurrentSession();
+		try {
+			Query<CarDealerBean> query = session.createQuery(hql, CarDealerBean.class)
+					.setParameter("carDealName", carDealName);
+			
+			List<CarDealerBean> result = query.getResultList();
+			return result;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
 		}
-			rs.close();
-			preState.close();
-			conn.close();
-			return list;
-		}
-	
-	//搜尋全車商
-	public List<CarDealerBean> findAllDealer() throws SQLException{
-		String sql = "select * from carDealerInfo";
-		Connection conn = ds.getConnection();
-		PreparedStatement preState = conn.prepareStatement(sql);
-		ResultSet rs = preState.executeQuery();
-		
-		List<CarDealerBean> list = new LinkedList<>();
-		
-		while(rs.next()) {
-			CarDealerBean dealerBean = new CarDealerBean();
-			dealerBean.setCarDealName(rs.getString("carDealerName"));
-			dealerBean.setCarDealPhone(rs.getString("carDealerPhone"));
-			dealerBean.setCarDealAddress(rs.getString("carDealerAddress"));
-			dealerBean.setOpenTime(rs.getString("openTime"));
-			dealerBean.setContactPerson(rs.getString("contactPerson"));
-			dealerBean.setCarDealVATNumber(rs.getInt("carDealerVATNumber"));
-			list.add(dealerBean);
-		}
-			rs.close();
-			preState.close();
-			conn.close();
-			return list;
 	}
-
+	
+	
 }

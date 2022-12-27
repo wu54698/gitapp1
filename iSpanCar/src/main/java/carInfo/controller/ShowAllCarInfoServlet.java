@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import carDealer.model.ISpanCarService;
 import carInfo.dao.CarInfoDao;
 import carInfo.model.CarInfoBean;
 
@@ -25,15 +26,16 @@ public class ShowAllCarInfoServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			request.setCharacterEncoding("UTF-8");
-			CarInfoDao infoDao = new CarInfoDao();
-
-			List<CarInfoBean> list = infoDao.findAllCar();
+//			CarInfoDao infoDao = new CarInfoDao();
+			ISpanCarService iSpanService = new ISpanCarService();
+			
+			List<CarInfoBean> list = iSpanService.findAllCar();
 			request.setAttribute("SelectAllCar", list);
 			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/SelectAllCar_frame.jsp");
 			rd.forward(request, response);
 			return;
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

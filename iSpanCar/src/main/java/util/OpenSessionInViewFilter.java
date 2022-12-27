@@ -13,7 +13,8 @@ import javax.servlet.http.HttpFilter;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-@WebFilter(urlPatterns = "/*")
+@WebFilter(filterName = "Transaction",urlPatterns ={"/CartDeleteServlet.do", "/CartInsertServlet","/CartUpdateServlet.do","/QueryAllCart.do","/QueryAllCartById.do"
+		,"/OrderInsertServlet.do","/OrderUpdateServlet.do","/QueryAllOrder.do","/OrderItemInsertServlet.do"})
 public class OpenSessionInViewFilter extends HttpFilter implements Filter {
        
 
@@ -25,20 +26,35 @@ public class OpenSessionInViewFilter extends HttpFilter implements Filter {
 			SessionFactory factory = HibernateUtil.getSessionFactory();
 			this.session = factory.getCurrentSession();
 			
-			session.beginTransaction();
-			System.out.println("Begin Transaction...");
+			System.out.println("Filter 上半部------"+(session.getTransaction().isActive()?"已經開":"開交易"));
+
+			if( !session.getTransaction().isActive()){
+				session.beginTransaction();
+				System.out.println("Begin Transaction...");
+			}
 			
 			chain.doFilter(request, response);
-		
-			session.getTransaction().commit();
-			System.out.println("Commit!!");
+			
+			System.out.println("Filter 下半部------"+(session.getTransaction().isActive()?"關交易":"沒交易"));
+			
+			if( session.getTransaction().isActive()){
+				session.getTransaction().commit();
+				System.out.println("Commit!!");
+				System.out.println("Session close!!");
+			}
+			
+			
 			
 		} catch (Exception e) {
-			session.getTransaction().rollback();
-			System.out.println("Rollback!!");
+			if( session.getTransaction().isActive()){
+				session.getTransaction().rollback();
+				System.out.println("Rollback!!");
+				System.out.println("Session close!!");
+			}
+			
 			e.printStackTrace();
 		}finally {
-			System.out.println("Session close!!");
+			//System.out.println("Session close!!");
 		}
 		
 		

@@ -16,6 +16,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.sql.DataSource;
 import javax.sql.rowset.serial.SerialBlob;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+
+import util.HibernateUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,16 +28,10 @@ import java.sql.Blob;
 
 public class ServiceDao {
 
-	DataSource ds = null;
+	private SessionFactory factory;
 
 	public ServiceDao() {
-		try {
-			Context context = new InitialContext();
-			ds = (DataSource) context.lookup("java:comp/env/iSpan_car_DataBase");
-		} catch (NamingException e) {
-			e.printStackTrace();
-			
-		}
+		this.factory = HibernateUtil.getSessionFactory();;
 	}
 
 	public Blob fileToBlob(InputStream is, long size) throws IOException, SQLException {
@@ -41,110 +40,81 @@ public class ServiceDao {
 		is.read(b);
 		sb = new SerialBlob(b);
 		return sb;
-		
+
 	}
 
 //增加
-	public void addCarbean(ServiceBean Sevice) throws SQLException {
-		Connection conn = ds.getConnection();
-		String sql = "insert into Service values(?,?,?,?,?,?)";
-		PreparedStatement preState = conn.prepareStatement(sql);
-		preState.setString(1, Sevice.getService_name());
-		preState.setBinaryStream(2, Sevice.getCarimage().getBinaryStream());
-		preState.setString(3, Sevice.getServicedescription());
-		preState.setString(4, Sevice.getServiceinfomation());
-		preState.setString(5, Sevice.getContactperson());
-		preState.setString(6, Sevice.getReseller_nonreseller());
-		int row = preState.executeUpdate();
-		System.out.println("新增了 " + row + "筆");
-		preState.close();
-		conn.close();
+	public ServiceBean addService(ServiceBean sBean) {
+		Session session = factory.getCurrentSession();
+		ServiceBean servicebean = session.get(ServiceBean.class, sBean.getService_name());
+
+		if (servicebean == null) {
+			session.save(sBean);
+			return sBean;
+		}
+		return null;
 	}
 
 //刪除
-	public void deleteService(String getService_name) throws SQLException {
-		Connection conn = ds.getConnection();
-		String sql = "delete from Service where Service_name = ?";
-		PreparedStatement preState = conn.prepareStatement(sql);
-		preState.setString(1, getService_name);
-		int row = preState.executeUpdate();
-		System.out.println("刪除了 " + row + "筆");
-		preState.close();
-		conn.close();
+	public boolean deleteCarDealer(String Service_name) {
+		Session session = factory.getCurrentSession();
+		ServiceBean servicebean = session.get(ServiceBean.class, Service_name);
+		
+		
+		if(servicebean != null) {
+			session.delete(servicebean);
+			return true;
+		}
+		return false;
+	
 	}
 
 //修改
-	public void updateService(ServiceBean bean) throws SQLException  {
-		Connection conn = ds.getConnection();
-		String sql = "update Service set Carimage = ? ,servicedescription = ? ,Serviceinfomation =?,Contactperson = ?,"
-				+ "Reseller_nonreseller = ? where service_name = ?";
-		PreparedStatement preState = conn.prepareStatement(sql);
+	public ServiceBean updateByServiceBean(ServiceBean serviceBean) {
+		Session session = factory.getCurrentSession();
+		ServiceBean sBean = session.get(ServiceBean.class, serviceBean.getService_name());
+		if(sBean!=null ) {
+					sBean.setService_name(serviceBean.getService_name());
+					sBean.setCarimage(serviceBean.getCarimage());
+					sBean.setServicedescription(serviceBean.getServicedescription());
+					sBean.setServiceinfomation(serviceBean.getServiceinfomation());
+					sBean.setContactperson(serviceBean.getContactperson());
+					sBean.setReseller_nonreseller(serviceBean.getReseller_nonreseller());
+		}
 		
-		preState.setBlob(1, bean.getCarimage());
-		preState.setString(2, bean.getServicedescription());
-		preState.setString(3, bean.getServiceinfomation());
-		preState.setString(4, bean.getContactperson());
-		preState.setString(5, bean.getReseller_nonreseller());
-		preState.setString(6, bean.getService_name());
-
-		preState.executeUpdate();
-
-		System.out.println("修改完成!!");
-
-		preState.close();
-		conn.close();
+		return sBean;
 	}
-
 //查詢
-	public ServiceBean findById(String Service_name) throws SQLException {
-		Connection conn = ds.getConnection();
-		String sql = "select * from Service where service_name = ?";
-		PreparedStatement preState = conn.prepareStatement(sql);
-		preState.setString(1, Service_name);
-
-		ResultSet rs = preState.executeQuery();
-		rs.next();
-
-		ServiceBean Service = new ServiceBean();
-
-		Service.setServicedescription(rs.getString("Servicedescription"));
-		Service.setContactperson(rs.getString("Contactperson"));
-		Service.setServiceinfomation(rs.getString("Serviceinfomation"));
-		Service.setCarimage(rs.getBlob("Carimage"));
-		Service.setService_name(rs.getString("Service_name"));
-		Service.setReseller_nonreseller(rs.getString("Reseller_nonreseller"));
-
-		rs.close();
-		preState.close();
-		conn.close();
-
-		return Service;
+	public List<ServiceBean> findByService(String Service_name) {
+		Session session = factory.getCurrentSession();
+		String hql = "from ServiceBean where Service_name = :Service_name";
+		try {
+			Query<ServiceBean> query = session.createQuery(hql, ServiceBean.class)
+					.setParameter("Service_name",Service_name);
+			List<ServiceBean> result = query.getResultList();
+			return result;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
-//查詢全部
-	public List<ServiceBean> findallservice() throws SQLException{
-		String sql = "select * from Service";
-		Connection conn = ds.getConnection();
-		PreparedStatement preState = conn.prepareStatement(sql);
-		ResultSet rs = preState.executeQuery();
-		
-		List<ServiceBean> list = new LinkedList<>();
-		
-		while(rs.next()) {
-			ServiceBean Service = new ServiceBean();
-			Service.setService_name(rs.getString("Service_name"));
-			Service.setCarimage(rs.getBlob("Carimage"));
-			Service.setServicedescription(rs.getString("Servicedescription"));
-			Service.setServiceinfomation(rs.getString("Serviceinfomation"));
-			Service.setContactperson(rs.getString("Contactperson"));
-			Service.setReseller_nonreseller(rs.getString("Reseller_nonreseller"));
 
-			list.add(Service);
-		}
-			rs.close();
-			preState.close();
-			conn.close();
-			return list;
+//查詢全部
+	public List<ServiceBean> findAllService() {
+		Session session = factory.getCurrentSession();
+		Query<ServiceBean> query = session.createQuery("from ServiceBean", ServiceBean.class);
+
+		List<ServiceBean> result = query.getResultList();
+		return result;
 	}
+
+	public ServiceBean findById(String Service_name) {
+		Session session = factory.getCurrentSession();
+		return session.get(ServiceBean.class,Service_name );
+	}
+
+
 
 }

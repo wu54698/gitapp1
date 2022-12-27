@@ -2,6 +2,7 @@ package Service;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 @WebServlet("/serviceDeleteServlet.do")
 public class serviceDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -19,16 +21,22 @@ public class serviceDeleteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			request.setCharacterEncoding("UTF-8");
-			ServiceDao sdao = new ServiceDao();
-			String servicename = request.getParameter("Servicename");
+			iSpanCarService iSpanService = new iSpanCarService();
+			String servicename = request.getParameter("Service_name");
+			System.out.println(servicename);
+			iSpanService.deleteCarDealer(servicename);
 			
-			sdao.deleteService(servicename);
+//			List<ServiceBean> serviceBean = iSpanService.findAllService();
+			
+			
+			
+			request.setAttribute("setService_name", servicename);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/Service/DeleteService4.jsp");
 			rd.forward(request, response);
 			return;
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -28,7 +28,7 @@ public class serviceUpdateServlet extends HttpServlet{
 
 			try {
 				request.setCharacterEncoding("UTF-8");
-				ServiceDao sdao = new ServiceDao();
+				iSpanCarService iSpanService = new iSpanCarService();
 
 				String Service_name = request.getParameter("servicename");
 				String Servicedescription = request.getParameter("Servicedescription");
@@ -40,16 +40,17 @@ public class serviceUpdateServlet extends HttpServlet{
 				InputStream is = filePart.getInputStream();
 				long size = filePart.getSize();
 
-				Blob blob = sdao.fileToBlob(is, size);
+				Blob blob = iSpanService.filetoBlob(is, size);
 
-				ServiceBean serviceBean = sdao.findById(Service_name);
+				List<ServiceBean> list = iSpanService.findByService(Service_name);
 				ServiceBean originBean = new ServiceBean();
-				originBean.setService_name(serviceBean.getService_name());
-				originBean.setCarimage(serviceBean.getCarimage());
-				originBean.setServicedescription(serviceBean.getServicedescription());
-				originBean.setServiceinfomation(serviceBean.getServiceinfomation());
-				originBean.setContactperson(serviceBean.getContactperson());
-				originBean.setReseller_nonreseller(serviceBean.getReseller_nonreseller());
+				for(ServiceBean sib : list) {
+				originBean.setService_name(sib.getService_name());
+				originBean.setCarimage(sib.getCarimage());
+				originBean.setServicedescription(sib.getServicedescription());
+				originBean.setServiceinfomation(sib.getServiceinfomation());
+				originBean.setContactperson(sib.getContactperson());
+				originBean.setReseller_nonreseller(sib.getReseller_nonreseller());
 				
 			String NewService_name = (Service_name.equals("")) ? originBean.getService_name() : Service_name;
 			Blob NewCarimage = 	(filePart.getSize()==0) ? originBean.getCarimage(): blob;
@@ -62,10 +63,10 @@ public class serviceUpdateServlet extends HttpServlet{
 				ServiceBean bean = new ServiceBean(NewService_name, NewCarimage, NewServicedescription, NewServiceinfomation,
 						NewContactperson, NewReseller_nonreseller);
 
-				sdao.updateService(bean);
+				iSpanService.updateByCarDealName(bean);
 				String contextPath = request.getContextPath();
 				response.sendRedirect(contextPath + "/Service/UpdateService4.jsp");
-
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (UnsupportedEncodingException e) {

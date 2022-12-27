@@ -130,7 +130,7 @@
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
             <li class="nav-item">
-                <a class="nav-link" href="<c:url value='/QueryAllOrder.do'/>">
+                <a class="nav-link" href="<c:url value='/QueryAllOrderServlet.do'/>">
                     <i class="fa-solid fa-coins"></i>
                     <span>訂單</span></a>
             </li>
@@ -220,7 +220,7 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">會員名稱</h1>
 						
-						<c:choose>
+		<c:choose>
 		<c:when test="${empty selectAll}">
 			<h3>查無任何會員資料</h3>
 		</c:when>
@@ -259,7 +259,7 @@
 						<td>${member.birthday}</td>
 						<td>${member.idnumber}</td>
 						<td>${member.cardnumber}</td>
-						<td><form id="imgform" class="imgform" enctype="multipart/form-data"><label><input type='hidden' class='file' id='file' name='file' style='display:none' ><img id="imgshow" class="imgshow" src="<c:url value='/ImageServlet?accountnumber=${member.accountnumber}'/>"  width="120" height="120" /></label></form></td>
+						<td><form id="imgform" class="imgform" enctype="multipart/form-data"><label><input type='hidden' class='file' id='file' name='file' style='display:none' ><img id="imgshow" class="imgshow" src="<c:url value='/ImageServlet.do?accountnumber=${member.accountnumber}'/>"  width="120" height="120" /></label></form></td>
 						<td class="button"><button class="update btn btn-info btn-circle"><i class="fa-solid fa-pen"></i></button></td>
 						<td class="button"><button class="delete btn btn-danger btn-circle"><i class="fas fa-trash"></i></button></td>
 					
@@ -352,6 +352,7 @@
 				                type: 'POST',
 				                url: "<c:url value='/memberDelete.do'/>",
 				                dataType: 'text',
+				                async: false,
 				                data:{ accountnumber : account },
 				                success: function (response) {
 				                	//alert(response);
@@ -436,6 +437,7 @@
 	   	             	context:this,
 	   	                url: "<c:url value='/memberReturnUpdateCancel.do'/>",
 	   	                dataType: 'json',
+	   	             	async: false,
 	   	                data:{ accountnumber : account },
 	   	                success: function (response) {
 	   	                	let member = response[0];
@@ -449,7 +451,7 @@
 	   	                	$(this).parent().parent().children('td').eq(8).text(member.idnumber)
 	   	                	$(this).parent().parent().children('td').eq(9).text(member.cardnumber)
 	   	                	$(this).parent().empty().append(buttonstring)
-	   	                	imgshow.attr('src',"http://localhost:8080/iSpanCar/ImageServlet?accountnumber="+member.accountnumber)
+	   	                	imgshow.attr('src',"http://localhost:8080/iSpanCar/ImageServlet.do?accountnumber="+member.accountnumber)
 	   	                	$('.file').attr('type','hidden')
 	               			$('label').attr('style','cursor:default')
 	   	                } ,
@@ -464,6 +466,7 @@
 	           $('#content').on('click', '.confirm', function () {//修改確認
 	               	let buttonstring = "<button class='update btn btn-info btn-circle'><i class='fa-solid fa-pen'></i></button>"
 	            	let account = $(this).closest('tr').find('.accountnumber').text();
+	               	console.log(account)
 	               	let memberarray = [];
 	               	let memberbeanlength = 12;
 	               	for(let i=1;i<(memberbeanlength -2) ;i++){
@@ -472,6 +475,7 @@
 	               	$.ajax({
 	   	                type: 'POST',
 	   	             	context:this,
+	   	                //async: false,
 	   	                url: "<c:url value='/memberReturnUpdate.do'/>",
 	   	                dataType: 'json',
 	   	                data:{ "accountnumber" : account,
@@ -511,12 +515,15 @@
 	           $('#content').on('click', '.confirm', function () {
 	        	   let account = $(this).closest('tr').find('.accountnumber').text();
 	        	   let form = $(this).closest('tr').find('.imgform')
+					
 	        	   var formData = new FormData(form[0]);
 // 	        	   formData.append("file",)
 	        	   formData.append("accountnumber",account)
 	        	   $.ajax({
 	        		   type:"POST",
+	        		   //async: false,
 	        		   data:formData,
+	        		   context:this,
 	        		   url:"<c:url value='/memberUpdateimg.do'/>",
 	        		   enctype:"multipart/form-data",
 	        		   cache: false,

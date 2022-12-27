@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import member.dao.MemberDao;
 import member.model.MemberBean;
+import member.service.MemberService;
 
 @WebServlet("/loginServlet.do")
 public class loginServlet extends HttpServlet {
@@ -27,15 +27,15 @@ public class loginServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String accountnumber = request.getParameter("accountnumber");
 		String memberpassword = request.getParameter("memberpassword");
-		HttpSession session = request.getSession();
-		String requestURI = (String) session.getAttribute("requestURI");
-		MemberDao mDao = new MemberDao();
-		String check = mDao.checkaccountnumberpassword(accountnumber, memberpassword);
-		List<MemberBean> list =	mDao.findbyaccountnumber(accountnumber);
+		HttpSession httpSession = request.getSession();
+		String requestURI = (String) httpSession.getAttribute("requestURI");
+		MemberService mService = new MemberService();
+		String check = mService.checkaccountnumberpassword(accountnumber, memberpassword);
+		List<MemberBean> list =	mService.findbyaccountnumber(accountnumber);
 		if(list.size()>0) {
 			for(MemberBean mb :list) {
 				if(check.equals("資料正確")) {
-					session.setAttribute("LoginOK", mb);
+					httpSession.setAttribute("LoginOK", mb);
 					
 						requestURI = (requestURI.length() == 0 ? request.getContextPath() : requestURI);
 						

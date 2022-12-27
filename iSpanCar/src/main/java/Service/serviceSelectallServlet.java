@@ -24,23 +24,18 @@ public class serviceSelectallServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		try {
-			request.setCharacterEncoding("UTF-8");
-			ServiceDao sDao = new ServiceDao();
-			List<ServiceBean> list = sDao.findallservice();
-			
-			for(ServiceBean sBean :list) {
-				sBean.toString();
-			}
-			request.setAttribute("serviceSelectall", list);
-			RequestDispatcher rd = request.getRequestDispatcher("/Service/SelectallService.jsp");
-			rd.forward(request, response);
-			return ;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		request.setCharacterEncoding("UTF-8");
+//		ServiceDao sDao = new ServiceDao();
+		iSpanCarService iSpanService = new iSpanCarService();
+		List<ServiceBean> list = iSpanService.findAllService();
+		
+//		for(ServiceBean sBean :list) {
+//			sBean.toString();
+//		}
+		request.setAttribute("serviceSelectall", list);
+		RequestDispatcher rd = request.getRequestDispatcher("/Service/SelectallService.jsp");
+		rd.forward(request, response);
+		return ;
 
 	}
 

@@ -15,8 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Session;
+
 import carDealer.dao.CarDealerDao;
 import carDealer.model.CarDealerBean;
+import carDealer.model.ISpanCarService;
 
 //新增車商資訊
 @WebServlet("/CarDealerServlet.do")
@@ -31,8 +34,9 @@ public class CarDealerServlet extends HttpServlet {
 			request.setAttribute("ErrorMsg", errorMessage);
 
 			request.setCharacterEncoding("UTF-8");
-			CarDealerDao cDao = new CarDealerDao();
-			List<CarDealerBean> newlist = cDao.findAllDealer();
+//			CarDealerDao cDao = new CarDealerDao();
+			ISpanCarService iSpanService = new ISpanCarService();
+			List<CarDealerBean> newlist = iSpanService.findAllDealer();
 			List<CarDealerBean> list = newlist;
 			// 讀取瀏覽器送入的欄位內的資料
 			String carDealName = request.getParameter("carDealName");
@@ -62,14 +66,14 @@ public class CarDealerServlet extends HttpServlet {
 			
 			CarDealerBean dealerBean = new CarDealerBean(carDealName, carDealPhone, carDealAddress, openTime,
 					contactPerson, VATNumber);
-			cDao.addCarDealer(dealerBean);
-			List<CarDealerBean> addlist = cDao.findAllDealer();
+			iSpanService.addDealer(dealerBean);
+			List<CarDealerBean> addlist = iSpanService.findAllDealer();
 			request.setAttribute("SelectAllDealer", addlist);
 			RequestDispatcher rd = request.getRequestDispatcher("/Car-Dearler/SelectAllDealer_frame.jsp");
 			rd.forward(request, response);
 			return;
 
-		} catch (ParseException | SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

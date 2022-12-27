@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import carDealer.model.ISpanCarService;
 import carInfo.dao.CarInfoDao;
 import carInfo.model.CarInfoBean;
 
@@ -29,11 +30,14 @@ public class CarInfoServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			request.setCharacterEncoding("UTF-8");
-			CarInfoDao infoDao = new CarInfoDao();
-
+//			CarInfoDao infoDao = new CarInfoDao();
+			
+			ISpanCarService iSpanService = new ISpanCarService();
+			
+			
 			// 讀取瀏覽器送入的欄位內的資料
-			String carNo = request.getParameter("carNo");
-			int carNumber = Integer.parseInt(carNo);
+//			String carNo = request.getParameter("carNo");
+//			int carNumber = Integer.parseInt(carNo);
 			String carDealName = request.getParameter("carDealName");
 			String accountNumber = request.getParameter("accountNumber");
 			String carBrand = request.getParameter("carBrand");
@@ -46,25 +50,20 @@ public class CarInfoServlet extends HttpServlet {
 			InputStream is = filePart.getInputStream();
 			long size = filePart.getSize();
 
-			Blob blob = infoDao.filetoBlob(is, size);
+			Blob blob = iSpanService.filetoBlob(is, size);
 			
 			String carDescription = request.getParameter("carDescription");
 			String announceDate = request.getParameter("announceDate");
 			
 			CarInfoBean infoBean = new CarInfoBean
-					(carNumber, carDealName, accountNumber, carBrand, carName, amount, blob, carDescription, announceDate);
-			infoDao.addCarInfo(infoBean);
-			List<CarInfoBean> newList = infoDao.findAllCar();
+					(carDealName, accountNumber, carBrand, carName, amount, blob, carDescription, announceDate);
+			iSpanService.addCarInfo(infoBean);
+			List<CarInfoBean> newList = iSpanService.findAllCar();
 			
 			request.setAttribute("SelectAllCar", newList);
 			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/SelectAllCar_frame.jsp");
 			rd.forward(request, response);
 			return;
-//			String contextPath = request.getContextPath();
-//			response.sendRedirect(
-//					contextPath + "/iSpan_Car/SelectAllCar.jsp"
-//					);
-			//RequestDispatcher rd = request.getRequestDispatcher("???????");
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

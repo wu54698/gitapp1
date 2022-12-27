@@ -44,14 +44,7 @@ public class MemberDao {
 		java.sql.Date sdate = new java.sql.Date(udate.getTime());
 		return sdate;
 	}
-	//inputstream ->blob
-	public Blob fileToBlob(InputStream is, long size) throws IOException, SQLException {
-		byte[] b = new byte[(int) size];
-		SerialBlob sb = null;
-		is.read(b);
-		sb = new SerialBlob(b);
-		return sb;
-	}
+	
 	//用帳號找資料
 	public List<MemberBean> findbyaccountnumber(String accountnumber) throws SQLException{
 		String hql ="from MemberBean where accountnumber = :accountnumber ";
@@ -63,10 +56,27 @@ public class MemberDao {
 		return resultList;
 
 	}
+	//圖
+	public MemberBean findImgbyaccountnumber(String accountnumber) throws SQLException{
+		Session session = factory.getCurrentSession();
+		
+		MemberBean result = null;
+	
+		String hql ="from MemberBean where accountnumber = :accountnumber ";
+		
+		Query<MemberBean> query = session.createQuery(hql,MemberBean.class)
+				.setParameter("accountnumber",accountnumber);
+		result = query.getSingleResult();
+		
+		return result;
+
+	}
 	//用帳號找資料不含圖
 	public MemberBean findbyaccountnumberwithoutimage(String accountnumber) throws SQLException{
 		
 		Session session = factory.getCurrentSession();
+		System.out.println(session +"DAO session");
+		
 		MemberBean memberBean = session.get(MemberBean.class, accountnumber);
 		MemberBean newBean = new MemberBean();
 		newBean.setAccountnumber(memberBean.getAccountnumber());
@@ -112,6 +122,7 @@ public class MemberDao {
 		Session session = factory.getCurrentSession();
 		
 		MemberBean memberBean = session.get(MemberBean.class, mb.getAccountnumber());
+		
 		memberBean.setMemberpassword(mb.getMemberpassword());
 		memberBean.setMemberName(mb.getMemberName());
 		memberBean.setPhonenumber(mb.getPhonenumber());
@@ -167,9 +178,11 @@ public class MemberDao {
 	public List<MemberBean> selectAll() throws SQLException{
 		Session session = factory.getCurrentSession();
 		
+		List<MemberBean> resultList = null;
+		
 		String hql = "from MemberBean";
 		Query<MemberBean> query = session.createQuery(hql,MemberBean.class);
-		List<MemberBean> resultList = query.getResultList();
+		resultList = query.getResultList();
 		
 		return resultList;
 	}

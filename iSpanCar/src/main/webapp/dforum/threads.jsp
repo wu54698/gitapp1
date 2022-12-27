@@ -132,7 +132,7 @@
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 			</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrder.do'/>">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrderServlet.do'/>">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -218,19 +218,18 @@
 				<!-- End of Topbar -->
 
 				<!-- Begin Page Content 內容 -->
-				<div class="container-fluid">
-
-					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">資車會論壇</h1>
-					<div class="header clearfix">
+				<div class="container">
+		<div class="header clearfix">
 			<nav>
 				<ul class="nav nav-pills float-right">
 					<li class="nav-item"></li>
 					<li class="nav-item"></li>
-					<li class="nav-item"><a type="button" href="newthread.jsp"
+					<li class="nav-item">
+					<a type="button" href="newthread.jsp"
 							class="btn btn-primary">發表文章</a></li>
 				</ul>
 			</nav>
+			<h3 class="text-muted">資車會論壇</h3>
 		</div>
 
 
@@ -248,8 +247,12 @@
 
 
 		</ul>
- 
-				</div>
+
+
+
+		<footer class="footer"> </footer>
+
+	</div>
 				<!-- /.container-fluid -->
 
 			</div>

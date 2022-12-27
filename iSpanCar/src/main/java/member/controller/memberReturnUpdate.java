@@ -12,11 +12,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import member.dao.MemberDao;
 import member.model.MemberBean;
+import member.service.MemberService;
+import util.HibernateUtil;
 
 @WebServlet("/memberReturnUpdate.do")
 public class memberReturnUpdate extends HttpServlet {
@@ -27,7 +32,8 @@ public class memberReturnUpdate extends HttpServlet {
 		try {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=utf-8");
-
+		
+		
 		String accountnumber = request.getParameter("accountnumber");
 		String memberpassword = request.getParameter("memberpassword");
 		String memberName = request.getParameter("memberName");
@@ -41,10 +47,23 @@ public class memberReturnUpdate extends HttpServlet {
 		
 		MemberBean mb = new MemberBean(accountnumber, memberpassword, memberName, phonenumber, email, memberaddress, platenumber, birthday, idnumber,cardnumber);
 		
-		MemberDao mDao = new MemberDao();
-		mDao.updateByAccountnumber(mb);
+		MemberService mService = new MemberService();
 		
-		MemberBean newMemberBean = mDao.findbyaccountnumberwithoutimage(accountnumber);
+//		SessionFactory factory =	HibernateUtil.getSessionFactory();
+//		Session session = factory.getCurrentSession();
+//		System.out.println(session);
+		
+		mService.updateByAccountnumber(mb);
+		
+		MemberBean newMemberBean = mService.findbyaccountnumberwithoutimage(accountnumber);
+		
+
+//		System.out.println("Commit from memberReturnUpdate!!-----");
+		
+//		Session session2 = factory.getCurrentSession();
+//		session2.beginTransaction();
+//		
+		
 		System.out.println(newMemberBean.toString());
 		List<MemberBean> list = new ArrayList();
 		list.add(newMemberBean);

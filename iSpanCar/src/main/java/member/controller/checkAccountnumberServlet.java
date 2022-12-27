@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.dao.MemberDao;
+import member.service.MemberService;
 
 @WebServlet("/checkAccountnumberServlet.do")
 public class checkAccountnumberServlet extends HttpServlet {
@@ -18,12 +19,14 @@ public class checkAccountnumberServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			System.out.println("---------checkAccountnumberServlet------------");
+			
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		String accountnumber = request.getParameter("accountnumber");
-		MemberDao mDao = new MemberDao();
+		MemberService mService = new MemberService();
 		
-		boolean check =	mDao.checkaccountnumber(accountnumber);
+		boolean check =	mService.checkaccountnumber(accountnumber);
 		String checkstring = "";
 			if(check) {
 				checkstring = "帳號已存在";

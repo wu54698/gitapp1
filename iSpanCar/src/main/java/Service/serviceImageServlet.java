@@ -19,11 +19,12 @@ public class serviceImageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String Service_name = request.getParameter("Service_name");
-		ServiceDao sdao = new ServiceDao();
+		
+		iSpanCarService iService = new iSpanCarService();		
 		try {
-			ServiceBean sBean = sdao.findById(Service_name);
-			
-				// 由圖片檔的檔名來得到檔案的MIME型態
+			List<ServiceBean> list = iService.findByService(Service_name);
+				for(ServiceBean sBean : list) {
+					// 由圖片檔的檔名來得到檔案的MIME型態
 				InputStream is =sBean.getCarimage().getBinaryStream();
 				OutputStream os=response.getOutputStream();
 				int len = 0;
@@ -31,7 +32,7 @@ public class serviceImageServlet extends HttpServlet {
 				while ((len = is.read(bytes)) != -1) {
 					os.write(bytes, 0, len);
 				}
-
+				}
 
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -12,10 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import member.dao.MemberDao;
 import member.model.MemberBean;
+import member.service.MemberService;
+import util.HibernateUtil;
 
-@WebServlet("/ImageServlet")
+@WebServlet("/ImageServlet.do")
 public class ImageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -27,17 +32,18 @@ public class ImageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String accountnumber = request.getParameter("accountnumber");
-		MemberDao mDao = new MemberDao();
+		MemberService mService = new MemberService();
+		
 		try {
-			List<MemberBean> list = mDao.findbyaccountnumber(accountnumber);
-
-			for (MemberBean mBean : list) {
+			
+			MemberBean mBean = mService.findImgbyaccountnumber(accountnumber);
+			
 				InputStream is = mBean.getFile().getBinaryStream();
 				OutputStream os = response.getOutputStream();
 
 				// 由圖片檔的檔名來得到檔案的MIME型態
-//				String mimeType = getServletContext().getMimeType(mBean.getFilename());
-//				response.setContentType(mimeType);
+				String mimeType = getServletContext().getMimeType(mBean.getFilename());
+				response.setContentType(mimeType);
 				
 				int len = 0;
 				byte[] bytes = new byte[8192];
@@ -46,8 +52,7 @@ public class ImageServlet extends HttpServlet {
 				}
 				os.close();
 				is.close();
-
-			}
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();

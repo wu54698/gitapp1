@@ -32,7 +32,7 @@
 </head>
 
 <body id="page-top">
-<c:set value="${LoginOK}" var="login"/>
+
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
@@ -82,17 +82,13 @@
                     </div>
                 </div>
             </li> -->
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/memberSelectAll.do'/>">
+			<li class="nav-item"><a class="nav-link" href="tables.html">
 					<i class="fa-solid fa-user"></i> <span>會員</span>
 			</a></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/Car-Dearler/CarDealerForm_frame.jsp' />"> <i
-					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
+			<li class="nav-item"><a class="nav-link" href="tables.html">
+					<i class="fa-solid fa-car"></i> <span>車廠</span>
 			</a></li>
 
 			<!-- Divider -->
@@ -110,16 +106,16 @@
 			</a></li>
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/dforum/threads.jsp'/>">
+			<li class="nav-item"><a class="nav-link" href="charts.html">
 					<i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
 			</a></li>
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListServlet.do'/>"> <i
-					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
+			<li class="nav-item"><a class="nav-link" href="tables.html">
+					<i class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span>
+			</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrder.do'/>">
+			<li class="nav-item"><a class="nav-link" href="tables.html">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -180,7 +176,7 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">${login.accountnumber}</span> <img
+								class="mr-2 d-none d-lg-inline text-gray-600 small">帳號</span> <img
 								class="img-profile rounded-circle"
 								src="<c:url value='/ImageServletforPage.do'/>">
 						</a> <!-- Dropdown - User Information -->
@@ -261,24 +257,27 @@
 	</a>
 
 	<!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">決定登出?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
-<!--                 <div class="modal-footer"> -->
-                   
-<!--                 </div> -->
-            </div>
-        </div>
-    </div>
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="login.html">Logout</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- Bootstrap core JavaScript-->
 	<script

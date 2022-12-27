@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.dao.MemberDao;
+import member.service.MemberService;
 
 @WebServlet("/checkAccountPasswordServlet.do")
 public class checkAccountPasswordServlet extends HttpServlet {
@@ -18,13 +19,15 @@ public class checkAccountPasswordServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			System.out.println("------checkAccountPasswordServlet---------");
+			
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html;charset=UTF-8");
 			String accountnumber = request.getParameter("accountnumber");
 			String memberpassword = request.getParameter("memberpassword");
-			MemberDao mDao = new MemberDao();
+			MemberService mService = new MemberService();
 		
-			String checkString =  mDao.checkaccountnumberpassword(accountnumber, memberpassword);
+			String checkString =  mService.checkaccountnumberpassword(accountnumber, memberpassword);
 //			String checkString = (check?"T":"F");
 			
 			response.getWriter().write(checkString);

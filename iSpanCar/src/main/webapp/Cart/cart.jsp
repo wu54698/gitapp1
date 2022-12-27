@@ -262,7 +262,7 @@
 					<div align="right">
 
 						總計:<span id="total"></span>元 <br>
-						<form action="<c:url value='/QueryAllCartById.do'/>" method="GET"
+						<form action="<c:url value='/QueryAllCartById.do'/>" method="POST"
 							enctype="multipart/form-data">
 							前往結帳<input type="text" readonly name="memberId" value="${login.accountnumber}">
 <!-- style="display: none" -->

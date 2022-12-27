@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.dao.MemberDao;
+import member.service.MemberService;
 
 @WebServlet("/memberDelete.do")
 public class memberDelete extends HttpServlet {
@@ -21,10 +22,9 @@ public class memberDelete extends HttpServlet {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			String accountnumber = request.getParameter("accountnumber");
-			MemberDao mDao = new MemberDao();
+			MemberService mService = new MemberService();
 			
-			mDao.deleteByAccountnumber(accountnumber);
-			
+			mService.deleteByAccountnumber(accountnumber);
 			
 			response.getWriter().write(accountnumber);
 			response.getWriter().flush();

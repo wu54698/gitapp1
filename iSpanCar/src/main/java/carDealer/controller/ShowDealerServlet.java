@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import carDealer.dao.CarDealerDao;
 import carDealer.model.CarDealerBean;
+import carDealer.model.ISpanCarService;
 
 //import iSpan_Car.dao.CarDealerDao;
 //import iSpan_Car.model.CarDealerBean;
@@ -28,15 +29,16 @@ public class ShowDealerServlet extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			String carDealName = request.getParameter("carDealName");
 			
-			CarDealerDao cDao = new CarDealerDao();
-
-			List<CarDealerBean> list = cDao.findByCarDealerName(carDealName);
+//			CarDealerDao cDao = new CarDealerDao();
+			ISpanCarService iSpanService = new ISpanCarService();
+			
+			List<CarDealerBean> list = iSpanService.findByCarDealerName(carDealName);
 			
 			request.setAttribute("selectcarDealName", list);
 			RequestDispatcher rd = request.getRequestDispatcher("/Car-Dearler/SelectDealer_frame.jsp");
 			rd.forward(request, response);
 			return;
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

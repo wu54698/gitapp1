@@ -16,28 +16,24 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/serviceSelectServlet.do")
 public class serviceSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
-	}
-	
+      
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
 		request.setCharacterEncoding("UTF-8");
 		
-		ServiceDao sdao = new ServiceDao();
-		String Service_name =request.getParameter("Service_name");	
-		ServiceBean sBean = sdao.findById(Service_name);
-		
-		request.setAttribute("Service", sBean);
-		
+		iSpanCarService iSpanService = new iSpanCarService();
+		String Service_name =request.getParameter("Servicename");	
+		List<ServiceBean> list = iSpanService.findByService(Service_name);
+		for(ServiceBean sb :list) {
+			request.setAttribute("Service", sb);
+		}
+//		for(ServiceBean sb:list) {
+//			System.out.println(sb.getService_name());
+//			
+//		}
 		RequestDispatcher rd = request.getRequestDispatcher("/Service/SelectService4.jsp");
 		rd.forward(request, response);
 		return;
-		
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		
 	}
 }

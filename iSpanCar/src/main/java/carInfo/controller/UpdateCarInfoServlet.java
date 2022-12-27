@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import carDealer.model.ISpanCarService;
 import carInfo.dao.CarInfoDao;
 import carInfo.model.CarInfoBean;
 
@@ -28,8 +29,9 @@ public class UpdateCarInfoServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			request.setCharacterEncoding("UTF-8");
-			CarInfoDao infoDao = new CarInfoDao();
-
+//			CarInfoDao infoDao = new CarInfoDao();
+			ISpanCarService iSpanService = new ISpanCarService();
+			
 			String carNo = request.getParameter("carNo");
 			int carNumber = Integer.parseInt(carNo);
 			String carDealName = request.getParameter("carDealName");
@@ -43,12 +45,12 @@ public class UpdateCarInfoServlet extends HttpServlet {
 			InputStream is = filePart.getInputStream();
 			long size = filePart.getSize();
 			//file to Blob方法
-			Blob blob = infoDao.filetoBlob(is, size);
+			Blob blob = iSpanService.filetoBlob(is, size);
 			
 			String carDescription = request.getParameter("carDescription");
 			String announceDate = request.getParameter("announceDate");
 
-			List<CarInfoBean> list = infoDao.findByCarNoLike(carNumber);
+			List<CarInfoBean> list = iSpanService.findByCarNoLike(carNumber);
 			CarInfoBean originInfoBean = new CarInfoBean();
 			for(CarInfoBean cib : list) {
 				originInfoBean.setCarNo(cib.getCarNo());
@@ -86,8 +88,8 @@ public class UpdateCarInfoServlet extends HttpServlet {
 			CarInfoBean infoBean = new CarInfoBean(number, dealer, account, 
 					brand, carModel, amount, carPhoto, carMemo, publishDate);
 			
-			infoDao.updateByCarNo(infoBean);
-			List<CarInfoBean> newList = infoDao.findByCarNoLike(carNumber);
+			iSpanService.updateByCarNo(infoBean);
+			List<CarInfoBean> newList = iSpanService.findByCarNoLike(carNumber);
 			
 			request.setAttribute("UpdateCarInfo", newList);
 			RequestDispatcher rd = request.getRequestDispatcher("/Car-Infomation/UpdateCarInfo_frame.jsp");

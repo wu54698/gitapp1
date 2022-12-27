@@ -104,7 +104,7 @@
 				    url: "<c:url value='/checkAccountPasswordServlet.do'/>",
 				    dataType: 'text',
 				    type:'POST',
-				    async:'false',
+				    async:false,
 				    data:{
 				    	accountnumber : $("#accountnumber").val(),
 				    	memberpassword : $("#memberpassword").val()

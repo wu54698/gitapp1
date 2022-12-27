@@ -33,20 +33,20 @@ public class serviceInsertServlet extends HttpServlet {
 		String Contactperson = request.getParameter("Contactperson");
 		String Reseller_nonreseller = request.getParameter("Reseller_nonreseller");
 		
-		ServiceDao sdao = new ServiceDao();
+		iSpanCarService iService = new iSpanCarService();
 		
 		Part filePart = request.getPart("Carimage");
 		InputStream is = filePart.getInputStream();
 		long size = filePart.getSize();
 		
-		Blob blob = sdao.fileToBlob(is,size) ;
+		Blob blob = iService.filetoBlob(is,size) ;
 	    
 		
 		ServiceBean bean = new ServiceBean(Service_name,blob,Servicedescription,Serviceinfomation,Contactperson,Reseller_nonreseller);
 		
 	
 		
-		sdao.addCarbean(bean);
+		iService.addService(bean);
 		
 		String contextPath = request.getContextPath();
 		response.sendRedirect(contextPath +"/Service/signin3.jsp");

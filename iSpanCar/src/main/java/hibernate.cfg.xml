@@ -23,7 +23,7 @@
         <property name="format_sql">true</property>
 		
 		<!-- hibernate 內建 連線池 -->
-		<property name="connection.pool_size">2</property>
+		<property name="connection.pool_size">20</property>
         
         <!-- setting auto generate table: update/validate  -->
 <!--         <property name="hbm2ddl.auto">update</property> -->
@@ -32,6 +32,19 @@
         
         <!--  class mapping -->
         <mapping class="member.model.MemberBean"/>
+        <mapping class="member.model.MemberPosition"/>
+        <mapping class="member.model.PermissionsOfPosition"/>
+        <mapping class="carDealer.model.CarDealerBean"/>
+        <mapping class="carInfo.model.CarInfoBean"/>
+        <mapping class="cart.model.CartBean"/>
+		<mapping class="order.model.OrderBean"/>	
+		<mapping class="orderItem.model.OrderItemBean"/>
+		<mapping class="iSpanShop.model.ShopDetailBean"/>
+		<mapping class="dforum.model.Thread"/>
+		<mapping class="dforum.model.Category"/>
+		<mapping class="dforum.model.Post"/>
+		<mapping class="dforum.model.ForumMember"/>
+		<mapping class="Service.ServiceBean"/>
 <!--         <mapping class="tw.hibernatedemo.model.Department"/> -->
 <!--         <mapping class="tw.hibernatedemo.model.Instructor"/> -->
 <!--         <mapping class="tw.hibernatedemo.model.InstructorDetail"/> -->

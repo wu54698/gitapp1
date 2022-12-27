@@ -110,7 +110,7 @@
 				href="<c:url value='/ProductListServlet.do'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-					<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrder.do'/>">
+					<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrderServlet.do'/>">
 							<i class="fa-solid fa-coins"></i> <span>訂單</span>
 						</a></li>
 					<!-- Divider -->
@@ -280,7 +280,7 @@
 			<script src="http://localhost:8080/iSpanCar/script/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 			<!-- Custom scripts for all pages-->
-			<script src="http://localhost:8080/iSpanCar/script/js/sb-admin-2.min.js"></script>
+			<script src="http://localhost:8080/iSpanCare/script/js/sb-admin-2.min.js"></script>
 
 			<script src="https://kit.fontawesome.com/dbb4662278.js" crossorigin="anonymous"></script>
 			<script type="text/javascript" charset="utf8"

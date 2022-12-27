@@ -14,7 +14,7 @@ import member.model.MemberBean;
 // 檢查的邏輯為：
 // 判斷該請求所要求的資源是否需要登入才能使用， 
 // 如果需要登入
-//		判斷是否已經登入，
+//		判斷是否已經登入，s
 //		如果已經登入，
 //			可以使用該資源
 //		否則要求他登入
@@ -22,13 +22,14 @@ import member.model.MemberBean;
 //		可以使用該資源
 // 所有需要登入才能使用的資源都以『前置路徑的對應關係』定義在本過濾器的起始參數。經由過濾器的init()
 // 方法讀入，放入List型別的實例變數 url 內。
-@WebFilter//(
-//		urlPatterns = { "/*" }, 
-//		initParams = { 
-//				@WebInitParam(name = "mustLogin1", value = "/member/*"),
-//				@WebInitParam(name = "mustLogin2", value = "/memberSelectAll.do"),
-//			@WebInitParam(name = "Login", value = "/member/insertMember2.jsp")
-//		})
+@WebFilter(
+		filterName = "loginfilter",
+		urlPatterns = { "/*" }, 
+		initParams = { 
+				//@WebInitParam(name = "mustLogin1", value = "/member/*"),
+				@WebInitParam(name = "mustLogin2", value = "/memberSelectAll.do"),
+			//@WebInitParam(name = "Login", value = "/member/insertMember2.jsp")
+		})
 public class LoginCheckingFilter implements Filter {
 	
 	

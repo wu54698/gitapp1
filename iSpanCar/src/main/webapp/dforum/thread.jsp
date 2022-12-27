@@ -138,7 +138,7 @@ function reloadpage(){
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 			</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrder.do'/>">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrderServlet.do'/>">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -228,33 +228,47 @@ function reloadpage(){
 
 					<!-- Page Heading -->
 					<h1 class="h3 mb-4 text-gray-800">討論串</h1>
- <div id="posts"></div>
+ <div class="container">
+		<div class="header clearfix">
+			<nav>
+				<ul class="nav nav-pills float-right">
+					<li class="nav-item"></li>
+				</ul>
+			</nav>
+			<h3 class="text-muted">討論串</h3>
+		</div>
 
-				<div class="row">
-				<div class="col-md-12">
-					<div class="card bg-default">
-	
-						<form action="<c:url value='/newpost2.do'/>" method="post" accept-charset="UTF-8">
-	
-							<div class="card-body" style="width: 100%; height: 100%">
-								<textarea id="body" name="body" class="form-control"
-									style="width: 100%; height: 100%;" placeholder="在此輸入回覆..."
-									required></textarea>
-							</div>
-	
-							<div>
-								<input type="hidden" id="memberSN" name="memberSN" value="1" /> 
-								<input type="hidden" id="time" name="time" />
-								<input type="hidden" id="threadSN" name="threadSN" />
-								<input type="hidden" id="title" name="title" value="" /> 
-								<input type="submit" class="btn btn-primary" onclick="reloadpage()" />
-							</div>
-						</form>
-	
-					</div>
+		<div id="posts"></div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card bg-default">
+
+					<form action="newpost" method="post" accept-charset="UTF-8">
+
+						<div class="card-body" style="width: 100%; height: 100%">
+							<textarea id="body" name="body" class="form-control"
+								style="width: 100%; height: 100%;" placeholder="在此輸入回覆..."
+								required></textarea>
+						</div>
+
+						<div>
+							<input type="hidden" id="memberId" name="memberId" value="1" /> 
+							<input type="hidden" id="time" name="time" />
+							<input type="hidden" id="threadId" name="threadId" />
+							<input type="hidden" id="title" name="title" value="" /> 
+							<input type="submit" class="btn btn-primary" onclick="reloadpage()" />
+						</div>
+					</form>
+
 				</div>
 			</div>
+		</div>
 
+
+		<footer class="footer"> </footer>
+
+	</div>
 
 
 	

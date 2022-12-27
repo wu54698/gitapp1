@@ -11,11 +11,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import member.dao.MemberDao;
 import member.model.MemberBean;
+import member.service.MemberService;
+import util.HibernateUtil;
 
 @WebServlet("/memberReturnUpdateCancel.do")
 public class memberReturnUpdateCancel extends HttpServlet {
@@ -27,13 +32,16 @@ public class memberReturnUpdateCancel extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html;charset=utf-8");
 			String accountnumber = request.getParameter("accountnumber");
-			MemberDao mDao = new MemberDao();
+			MemberService mService = new MemberService();
 			
-			MemberBean newMemberBean= mDao.findbyaccountnumberwithoutimage(accountnumber);
-			List<MemberBean> list = new ArrayList();
-			System.out.println(newMemberBean.toString());
+		
+			
+			MemberBean newMemberBean= mService.findbyaccountnumberwithoutimage(accountnumber);
+			List<MemberBean> list = new ArrayList<>();
+			
 			list.add(newMemberBean);
 			
+	
 			
 			GsonBuilder builder = new GsonBuilder();
 		    builder.serializeNulls();

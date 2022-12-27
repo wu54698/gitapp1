@@ -190,7 +190,7 @@ tr:last-of-type{
 				href="<c:url value='/ProductListServlet.do'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrder.do'/>">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrderServlet.do'/>">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -300,13 +300,13 @@ tr:last-of-type{
 							<c:forEach var='product' items='${queryallproduct}'
 								varStatus="vs">
 								<tr>
-								<form action="<c:url value='/CartInsertServlet.do'/>"  method="POST" enctype="multipart/form-data">
+								<form action="<c:url value='/CartInsertServlet'/>"  method="POST" enctype="multipart/form-data">
 								
 									<td id="productno">${product.productno} <input type="hidden" value="${product.productno}" name="productNumber"><input type="hidden" name="memberId" value="${login.accountnumber}"></td>
 									<td >${product.productname}<input type="hidden" value="${product.productname}" name="productName"></td>
 									<td >${product.price}<input type="hidden" value="${product.price}" name="productPrice"></td>
 									<td><img
-										src="<c:url value='/ProductImgServlet.do?productno=${product.productno}'/>"
+										src="<c:url value='/ProductImgServlet?productno=${product.productno}'/>"
 										width="180" height="180" /></td>
 									<td><input name="quantity" type="number" id="quantity" style="background-color:#6C7A89;width:55px;"></td>
 									<td><input style="border-radius:80%;width:90px;height:60px" type="submit"  value="加入購物車" ></td>

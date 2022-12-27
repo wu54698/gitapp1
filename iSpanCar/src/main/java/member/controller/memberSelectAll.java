@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import member.dao.MemberDao;
 import member.model.MemberBean;
+import member.service.MemberService;
 
 
 @WebServlet("/memberSelectAll.do")
@@ -26,10 +27,10 @@ public class memberSelectAll extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 		request.setCharacterEncoding("UTF-8");
-		MemberDao mDao = new MemberDao();
+		MemberService mService = new MemberService();
 		
 		List<MemberBean> list;
-			list = mDao.selectAll();
+			list = mService.selectAll();
 			
 		request.setAttribute("selectAll", list);
 		

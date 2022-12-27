@@ -118,7 +118,7 @@
 				href="<c:url value='/ProductListServlet.do'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrder.do'/>">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrderServlet.do'/>">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -207,23 +207,23 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">功能名稱</h1>
+					<h1 class="h3 mb-4 text-gray-800">管理者功能: 車輛品牌產品維護</h1>
 					<form name="carInfoA" action="" method="post"
 						enctype="multipart/form-data">
 						<table border="1" id="insertP">
         <thead>
             <tr bgcolor='transparent'>
                 <th height="60" colspan="2" align="center">
-                    <h2><b>找車輛</b></h2>
+                    <h2><b>--在店潮車。實車實價。車況保證--</b></h2>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr bgcolor='transparent'>
-                <td width="120" height="40">車輛編號</td>
-                <td width="600" height="40" align="left"><input id="carNo" name="carNo" class="checkNotNull" value="${param.carNo}"
-                        type="text" size="14" style="text-align: left"></td>
-            </tr>
+<!--             <tr bgcolor='transparent'> -->
+<!--                 <td width="120" height="40">車輛編號</td> -->
+<%--                 <td width="600" height="40" align="left"><input id="carNo" name="carNo" class="checkNotNull" value="${param.carNo}" --%>
+<!--                         type="text" size="14" style="text-align: left"></td> -->
+<!--             </tr> -->
             <tr bgcolor='transparent'>
                 <td width="120" height="40">車商名稱</td>
                 <td width="600" height="40" align="left"><input id="carDealName" name="carDealName" class="checkNotNull"
@@ -275,7 +275,7 @@
                 <td height="50" colspan="2" align="center">
                     <input type="submit" value="新增" id="addCar" formaction="<c:url value='/CarInfoServlet.do'/>">
 <%--                     <input type="submit" value="刪除" formaction="<c:url value='/DeleteCarInfoServlet.do'/>"> --%>
-                    <input type="submit" value="修改車輛資訊" id="updateCarInfo" formaction="<c:url value='/UpdateCarInfoServlet.do'/>">
+                    <input type="submit" value="修改車輛資訊" id="" formaction="<c:url value='/Car-Infomation/JumpToUpdateCarInfoSheet_frame.jsp'/>">
                     <input type="submit" value="找品牌" id="findCarBrand" formaction="<c:url value='/FindCarBrandServlet.do'/>">
                     <input type="submit" value="搜尋全車輛" formaction="<c:url value='/ShowAllCarInfoServlet.do'/>">
                 </td>

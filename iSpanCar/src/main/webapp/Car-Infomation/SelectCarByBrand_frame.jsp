@@ -28,6 +28,12 @@
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+	<style>
+textarea {
+	background: transparent;
+	border-style: none;
+}
+</style>
 </head>
 
 <body id="page-top">
@@ -118,7 +124,7 @@
 				href="<c:url value='/ProductListServlet.do'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrder.do'/>">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrderServlet.do'/>">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -207,13 +213,13 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">功能名稱</h1>
+					<h1 class="h3 mb-4 text-gray-800">管理者功能: 車輛品牌產品維護</h1>
 					<table id="selectCarByBrand">
 						<thead>
 							<tr>
 								<th>車輛編號</th>
 								<th>車商名稱</th>
-								<th>${login.accountnumber}</th>
+								<th>帳號</th>
 								<th>車輛品牌</th>
 								<th>車輛名稱</th>
 								<th>庫存</th>
@@ -242,7 +248,7 @@
 							</tbody>
 						</c:forEach>
 					</table>
-					<a href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">回上一頁</a>
+					<a href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">回車輛首頁</a>
 				</div>
 				<!-- /.container-fluid -->
 

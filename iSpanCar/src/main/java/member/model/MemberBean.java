@@ -1,17 +1,17 @@
 package member.model;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.Serializable;
 import java.sql.Blob;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "member")
-public class MemberBean {
+public class MemberBean implements Serializable{
 	
 	@Id
 	@Column(name = "accountnumber")
@@ -50,6 +50,9 @@ public class MemberBean {
 	@Column(name = "imgfilename")
 	private String filename;
 	
+	@OneToOne(mappedBy = "memberBean")
+	private MemberPosition memberPosition;
+	
 	@Override
 	public String toString() {
 		return "MemberBean [accountnumber=" + accountnumber + ", memberpassword=" + memberpassword + ", memberName="
@@ -63,8 +66,6 @@ public class MemberBean {
 	public String getCardnumber() {
 		return cardnumber;
 	}
-
-
 
 	public void setCardnumber(String cardnumber) {
 		this.cardnumber = cardnumber;
@@ -212,5 +213,17 @@ public class MemberBean {
 	public void setIdnumber(String idnumber) {
 		this.idnumber = idnumber;
 	}
+
+
+
+	public MemberPosition getMemberPosition() {
+		return memberPosition;
+	}
+
+
+	public void setMemberPosition(MemberPosition memberPosition) {
+		this.memberPosition = memberPosition;
+	}
+
 
 }
