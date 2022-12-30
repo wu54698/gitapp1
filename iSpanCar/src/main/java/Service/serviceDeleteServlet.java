@@ -22,7 +22,7 @@ public class serviceDeleteServlet extends HttpServlet {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			iSpanCarService iSpanService = new iSpanCarService();
-			String servicename = request.getParameter("Service_name");
+			String servicename = request.getParameter("Servicename");
 			System.out.println(servicename);
 			iSpanService.deleteCarDealer(servicename);
 			

@@ -49,7 +49,7 @@
 			function() {
 				$("#time").val(new Date().getTime());
 				$.ajax({
-					url : "categories",
+					url : "<c:url value='/categories'/>",
 					method : "GET",
 					dataType : "json",
 					success : function(res) {

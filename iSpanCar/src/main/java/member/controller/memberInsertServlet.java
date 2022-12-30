@@ -21,6 +21,8 @@ import javax.sound.midi.Soundbank;
 
 import member.dao.MemberDao;
 import member.model.MemberBean;
+import member.model.MemberPosition;
+import member.model.PermissionsOfPosition;
 import member.service.MemberService;
 
 
@@ -73,11 +75,10 @@ public class memberInsertServlet extends HttpServlet {
 		String filename = mService.getFileName(filePart);
 		
 		
+		
 		MemberBean bean = new MemberBean(account, password, name, phone, email,city + town+ address, platenumber, birthday, idnumber,cardnumber,blob,filename);
 		
-		
-		
-			mService.insertMemberBean(bean);
+		mService.insertMemberBean(bean);
 		
 		String contextPath = request.getContextPath();
 		response.sendRedirect(contextPath +"/");

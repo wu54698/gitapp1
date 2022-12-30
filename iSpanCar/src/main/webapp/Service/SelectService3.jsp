@@ -82,13 +82,17 @@
                     </div>
                 </div>
             </li> -->
-			<li class="nav-item"><a class="nav-link" href="tables.html">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/memberSelectAll.do'/>">
 					<i class="fa-solid fa-user"></i> <span>會員</span>
 			</a></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link" href="tables.html">
-					<i class="fa-solid fa-car"></i> <span>車廠</span>
+			<li class="nav-item"><a class="nav-link"
+				href="<c:url value='/Car-Dearler/CarDealerForm_frame.jsp' />"> <i
+					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
+			<li class="nav-item"><a class="nav-link"
+				href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">
+					<i class="fa-solid fa-car"></i> <span>車輛</span>
 			</a></li>
 
 			<!-- Divider -->
@@ -100,22 +104,22 @@
             </div> -->
 
 			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/serviceSelectallServlet.do'/>"> <i
-					class="fa-solid fa-screwdriver-wrench"></i> <span>保養廠</span>
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/serviceSelectallServlet.do'/>">
+					<i class="fa-solid fa-screwdriver-wrench"></i> <span>保養廠</span>
 			</a></li>
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="charts.html">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/dforum/threads.jsp'/>">
 					<i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
 			</a></li>
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="tables.html">
-					<i class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span>
+			<li class="nav-item"><a class="nav-link"
+				href="<c:url value='/ProductListServlet.do'/>"> <i
+					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 			</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="tables.html">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrderServlet.do'/>">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -210,10 +214,11 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
+					
 					<h1 class="h3 mb-4 text-gray-800">查詢保養廠</h1>
 					<form action="<c:url value='/serviceSelectServlet.do'/>"
 						method="POST">
-						<label>查詢保養廠名稱：</label><input type="text" name="Service_name"
+						<label>查詢保養廠名稱：</label><input type="text" name="Servicename"
 							required /><br> <input type="submit" value="提交"
 							formaction="<c:url value='/serviceSelectServlet.do'/>"> <input
 							type="button" value="查詢全部"
@@ -225,4 +230,74 @@
 						<input type="button" value="修改保養廠"
 							onclick="location.href='/iSpanCar/Service/UpdateService3.jsp'">
 					</form>
+					
 				</div>
+				<!-- /.container-fluid -->
+
+			</div>
+			<!-- End of Main Content -->
+
+			<!-- Footer -->
+			<footer class="sticky-footer bg-white">
+				<div class="container my-auto">
+					<div class="copyright text-center my-auto">
+						<span>Copyright &copy; Your Website 2020</span>
+					</div>
+				</div>
+			</footer>
+			<!-- End of Footer -->
+
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">決定登出?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
+<!--                 <div class="modal-footer"> -->
+                   
+<!--                 </div> -->
+            </div>
+        </div>
+    </div>
+
+	<!-- Bootstrap core JavaScript-->
+	<script src="http://localhost:8080/iSpanCar/script/vendor/jquery/jquery.min.js"></script>
+	<script src="http://localhost:8080/iSpanCar/script/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script src="http://localhost:8080/iSpanCar/script/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script src="http://localhost:8080/iSpanCar/script/js/sb-admin-2.min.js"></script>
+
+	<script src="https://kit.fontawesome.com/dbb4662278.js"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+	<script>
+// 		$(document).ready(function() {
+// 			$('#signin').DataTable();
+// 		});
+	</script>
+
+</body>
+
+</html>

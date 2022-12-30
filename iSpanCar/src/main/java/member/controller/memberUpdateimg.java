@@ -2,6 +2,7 @@ package member.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Iterator;
@@ -31,38 +32,36 @@ public class memberUpdateimg extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=utf-8");
-		
 
 		System.out.println("-----------memberUpdateimg------------");
-		
-		SessionFactory factory =HibernateUtil.getSessionFactory();
-		Session session = factory.openSession();
-		session.beginTransaction();
-		
 		
 		MemberService mService = new MemberService();
 		String accountnumber = request.getParameter("accountnumber");
 		
 		Part part = request.getPart("file");
-//		System.out.println(part);
 		InputStream is = part.getInputStream();
 		long size = part.getSize();
 		if(size==0) {
-			session.getTransaction().rollback();
+			
 		}else {
 			Blob blob =	mService.fileToBlob(is, size);
 		
-			MemberBean memberBean = session.get(MemberBean.class, accountnumber);
+			mService.updateImgByAccount(accountnumber, blob);
 			
-			memberBean.setFile(blob);
+//			response.setContentType(part.getContentType());
+//			OutputStream os = response.getOutputStream();
 			
-//			mDao.updateImgByAccount(accountnumber, blob);
-			session.getTransaction().commit();
+//			os.write(is.readAllBytes());
+//			int len = 0;
+//			byte[] bytes = new byte[8192];
+//			while ((len = is.read(bytes)) != -1) {
+//				os.write(bytes, 0, len);
+//			}
+//			os.close();
+//			is.close();
+			
 		}
 		
-		session.close();
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

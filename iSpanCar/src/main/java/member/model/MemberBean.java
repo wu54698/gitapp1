@@ -63,6 +63,44 @@ public class MemberBean implements Serializable{
 
 
 
+	public MemberBean(String accountnumber, String memberpassword, String memberName, String phonenumber, String email,
+			String memberaddress, String platenumber, String birthday, String idnumber, String cardnumber, Blob file,
+			String filename, MemberPosition memberPosition) {
+		super();
+		this.accountnumber = accountnumber;
+		this.memberpassword = memberpassword;
+		this.memberName = memberName;
+		this.phonenumber = phonenumber;
+		this.email = email;
+		this.memberaddress = memberaddress;
+		this.platenumber = platenumber;
+		this.birthday = birthday;
+		this.idnumber = idnumber;
+		this.cardnumber = cardnumber;
+		this.file = file;
+		this.filename = filename;
+		this.memberPosition = memberPosition;
+	}
+
+	public MemberBean(String accountnumber, String memberpassword, String memberName, String phonenumber, String email,
+			String memberaddress, String platenumber, String birthday, String idnumber, String cardnumber, Blob file,
+			String filename) {
+		super();
+		this.accountnumber = accountnumber;
+		this.memberpassword = memberpassword;
+		this.memberName = memberName;
+		this.phonenumber = phonenumber;
+		this.email = email;
+		this.memberaddress = memberaddress;
+		this.platenumber = platenumber;
+		this.birthday = birthday;
+		this.idnumber = idnumber;
+		this.cardnumber = cardnumber;
+		this.file = file;
+		this.filename = filename;
+	}
+
+
 	public String getCardnumber() {
 		return cardnumber;
 	}
@@ -100,23 +138,6 @@ public class MemberBean implements Serializable{
 
 
 
-	public MemberBean(String accountnumber, String memberpassword, String memberName, String phonenumber, String email,
-			String memberaddress, String platenumber, String birthday, String idnumber, String cardnumber, Blob file,
-			String filename) {
-		super();
-		this.accountnumber = accountnumber;
-		this.memberpassword = memberpassword;
-		this.memberName = memberName;
-		this.phonenumber = phonenumber;
-		this.email = email;
-		this.memberaddress = memberaddress;
-		this.platenumber = platenumber;
-		this.birthday = birthday;
-		this.idnumber = idnumber;
-		this.cardnumber = cardnumber;
-		this.file = file;
-		this.filename = filename;
-	}
 
 
 

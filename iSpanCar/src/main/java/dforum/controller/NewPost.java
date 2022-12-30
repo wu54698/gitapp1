@@ -17,7 +17,7 @@ import dforum.service.QueryHelper;
 /**
  * Servlet implementation class NewPost
  */
-@WebServlet("/newpost")
+@WebServlet("/newpost.do")
 public class NewPost extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	QueryHelper query;
@@ -49,7 +49,9 @@ public class NewPost extends HttpServlet {
 		post.setThread(thread);
 		query.newPost(post);
 		response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
-		response.setHeader("Location", "thread.jsp?id="+request.getParameter("threadId"));
+		String context = request.getContextPath();
+		response.sendRedirect(context+"/dforum/thread.jsp?id="+request.getParameter("threadId"));
+//		response.setHeader("Location", "thread.jsp?id="+request.getParameter("threadId"));
 
 	}
 	

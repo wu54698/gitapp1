@@ -86,13 +86,13 @@ function addListItem(res, list) {
 
 function deletePost(id) {
 	$.ajax({
-		url: "newpost?id=" + id,
+		url: "http://localhost:8080/iSpanCar/newpost.do?id=" + id,
 		method: "DELETE",
 		success: function(res) {
 			console.log(res);
 			location.reload(); 
 		},
-		error: function(err) { console.log(err) },
+		error: function(err) { console.log(err)},
 	});
 }
 

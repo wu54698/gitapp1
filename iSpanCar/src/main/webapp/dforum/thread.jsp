@@ -244,7 +244,7 @@ function reloadpage(){
 			<div class="col-md-12">
 				<div class="card bg-default">
 
-					<form action="newpost" method="post" accept-charset="UTF-8">
+					<form action="<c:url value='/newpost.do'/>" method="post" accept-charset="UTF-8">
 
 						<div class="card-body" style="width: 100%; height: 100%">
 							<textarea id="body" name="body" class="form-control"
@@ -312,6 +312,7 @@ function reloadpage(){
                 </div>
                 <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
                     <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
+                    
 <!--                 <div class="modal-footer"> -->
                    
 <!--                 </div> -->

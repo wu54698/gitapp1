@@ -25,6 +25,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 import member.model.MemberBean;
+import member.model.MemberPosition;
+import member.model.PermissionsOfPosition;
 import util.HibernateUtil;
 
 
@@ -103,9 +105,16 @@ public class MemberDao {
 	
 	//放入資料庫
 	public void insertMemberBean(MemberBean bean) throws SQLException, ParseException {
+		
 		Session session = factory.getCurrentSession();
 		if(bean != null) {
 			session.save(bean);
+			MemberPosition position = new MemberPosition();
+			position.setMemberBean(bean);
+			PermissionsOfPosition employee = new PermissionsOfPosition();
+			employee.setPositionPk("employee");
+			position.setPermissionsOfPosition(employee);
+			session.save(position);
 		}
 		
 	}
@@ -185,6 +194,15 @@ public class MemberDao {
 		resultList = query.getResultList();
 		
 		return resultList;
+	}
+	
+	//取得職位
+	public String getEmployeePosition() {
+		Session session = factory.getCurrentSession();
+		
+		PermissionsOfPosition employee = session.get(PermissionsOfPosition.class, "employee");
+		
+		return employee.getPositionPk();
 	}
 	
 }

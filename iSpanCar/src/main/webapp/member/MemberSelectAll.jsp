@@ -38,6 +38,7 @@
 
 <body id="page-top">
 	<c:set value="${LoginOK}" var="login"/>
+	<c:set value="${login.memberPosition.permissionsOfPosition}" var="memberPosition"/>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -191,7 +192,14 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.accountnumber}</span>
-                                <img class="img-profile rounded-circle" src="<c:url value='/ImageServletforPage.do'/>">
+                            <!-- 職位 -->
+                                <input type="hidden" value="${login.accountnumber}" id="myAccountnumber">
+                                <input type="hidden" value="${memberPosition.positionPk}" id="myPosition">
+                                <input type="hidden" value="${memberPosition.permissionsInsert}" id="myPositionInsert">
+                                <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
+                                <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
+                                <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
+                                <img class="img-profile rounded-circle" id="myImage" src="<c:url value='/ImageServletforPage.do'/>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -230,7 +238,7 @@
 					<c:out escapeXml='false' value="<table id='table_id'>" />
 					<thead>
 						<tr>
-							<th>${login.accountnumber}</th>
+							<th>帳號</th>
 							<th>密碼</th>
 							<th>姓名</th>
 							<th>電話</th>
@@ -330,68 +338,88 @@
         
         $(function () {
 			$('#content').on('click','.delete',function(){//刪除
-				let account = $(this).closest('tr').children('.accountnumber').text();
-				//console.log(account);
-						Swal.fire({
-						  title: '確定刪除?',
-						  text: "資料將被刪除",
-						  icon: 'warning',
-						  showCancelButton: true,
-						  confirmButtonColor: '#3085d6',
-						  cancelButtonColor: '#d33',
-						  confirmButtonText: '刪除',
-						  cancelButtonText: '取消'
-						}).then((result) => {
-						  if (result.isConfirmed) {
-						    Swal.fire(
-						      'Deleted!',
-						      'Your file has been deleted.',
-						      'success'
-						    )
-						    $.ajax({
-				                type: 'POST',
-				                url: "<c:url value='/memberDelete.do'/>",
-				                dataType: 'text',
-				                async: false,
-				                data:{ accountnumber : account },
-				                success: function (response) {
-				                	//alert(response);
-				                	 
-				                } ,
-				                error:function(xhr, ajaxOptions, thrownError){
-				                	 
-				                    alert(xhr.status+"\n"+thrownError);
-				                }
-				            })
-				            $(this).parent().parent().remove();
-						  }
+				//判斷有無權限
+				let myPositionDelete = $('#myPositionDelete').val();
+				if(myPositionDelete == 1){
+					let account = $(this).closest('tr').children('.accountnumber').text();
+					//console.log(account);
+							Swal.fire({
+							  title: '確定刪除?',
+							  text: "資料將被刪除",
+							  icon: 'warning',
+							  showCancelButton: true,
+							  confirmButtonColor: '#3085d6',
+							  cancelButtonColor: '#d33',
+							  confirmButtonText: '刪除',
+							  cancelButtonText: '取消'
+							}).then((result) => {
+							  if (result.isConfirmed) {
+							    Swal.fire(
+							      'Deleted!',
+							      'Your file has been deleted.',
+							      'success'
+							    )
+							    $.ajax({
+					                type: 'POST',
+					                url: "<c:url value='/memberDelete.do'/>",
+					                dataType: 'text',
+					                async: false,
+					                data:{ accountnumber : account },
+					                success: function (response) {
+					                	//alert(response);
+					                	 
+					                } ,
+					                error:function(xhr, ajaxOptions, thrownError){
+					                	 
+					                    alert(xhr.status+"\n"+thrownError);
+					                }
+					            })
+					            $(this).parent().parent().remove();
+							  }
+							})
+				}else{
+					Swal.fire({
+						  icon: 'error',
+						  title: '無法刪除',
+						  text: '無刪除權限',
+ 						  //footer: '<a href="">Why do I have this issue?</a>'
 						})
-				
+				}
 	           
 			})
 
 			$('#content').on('click', '.update', function () {//修改按鈕
-	               let test = $(this).closest('tr').children('.accountnumber').text();
-	               console.log(test);
-	
-	               let array = [];
-	
-	               $(this).closest('tr').find('td:not(.button)').each(function (index, ele) {
-	                   array.push($(this).text());
-	               })//陣列中加入.not以外的內文
-	               console.log(array)
-	               for (let i = 1; i < array.length-1; i++) {
-	                   let content = "<input type='text' size='7'class='form-control form-control-user updateinput' value='" + array[i] + "'>";
-	                   $(this).closest('tr').children('td').eq(i).text("");
-	                   $(this).closest('tr').children('td').eq(i).append(content);
-	               }
-	               //修改圖片
-	               let imgtag = $(this).closest('tr').children('td').eq(array.length-1).html()
-	               $(this).closest('tr').children('td').eq(array.length-1).find('.file').attr('type','file')
-	               $(this).closest('tr').children('td').eq(array.length-1).find('label').attr('style','cursor:pointer')
-	               
-	               let buttonstring = "<button class='confirm btn btn-success btn-circle btn-sm'><i class='fa-solid fa-check'></i></button><br><br><button class='cancel btn btn-danger btn-circle btn-sm'><i class='fa-solid fa-xmark'></i></button>"
-	               $(this).parent().empty().append(buttonstring)
+					let myPositionUpdate = $('#myPositionUpdate').val();
+					if(myPositionUpdate == 1){
+			               let test = $(this).closest('tr').children('.accountnumber').text();
+			               console.log(test);
+			
+			               let array = [];
+			
+			               $(this).closest('tr').find('td:not(.button)').each(function (index, ele) {
+			                   array.push($(this).text());
+			               })//陣列中加入.not以外的內文
+			               console.log(array)
+			               for (let i = 1; i < array.length-1; i++) {
+			                   let content = "<input type='text' size='7'class='form-control form-control-user updateinput' value='" + array[i] + "'>";
+			                   $(this).closest('tr').children('td').eq(i).text("");
+			                   $(this).closest('tr').children('td').eq(i).append(content);
+			               }
+			               //修改圖片
+			               let imgtag = $(this).closest('tr').children('td').eq(array.length-1).html()
+			               $(this).closest('tr').children('td').eq(array.length-1).find('.file').attr('type','file')
+			               $(this).closest('tr').children('td').eq(array.length-1).find('label').attr('style','cursor:pointer')
+			               
+			               let buttonstring = "<button class='confirm btn btn-success btn-circle btn-sm'><i class='fa-solid fa-check'></i></button><br><br><button class='cancel btn btn-danger btn-circle btn-sm'><i class='fa-solid fa-xmark'></i></button>"
+			               $(this).parent().empty().append(buttonstring)
+					}else{
+						Swal.fire({
+							  icon: 'error',
+							  title: '無法修改',
+							  text: '無修改權限',
+	 						  //footer: '<a href="">Why do I have this issue?</a>'
+							})
+					}
 	
 	           })
 	           $('#content').on('mouseover','.updateinput',function(){
@@ -405,6 +433,7 @@
 		            $(this).parent().html("<input type='text' size='7'class='form-control form-control-user updateinput' value='"+text+"'>")
 		        })
 	         	
+		        //圖片
 	           $('#content').on('change','.file',function(){
 	        	 //獲取input file的files文件數組;
 	        	    //$('#filed')獲取的是jQuery對象，.get(0)轉為原生對象;
@@ -451,7 +480,8 @@
 	   	                	$(this).parent().parent().children('td').eq(8).text(member.idnumber)
 	   	                	$(this).parent().parent().children('td').eq(9).text(member.cardnumber)
 	   	                	$(this).parent().empty().append(buttonstring)
-	   	                	imgshow.attr('src',"http://localhost:8080/iSpanCar/ImageServlet.do?accountnumber="+member.accountnumber)
+	   	                	let random = Math.random();
+	   	                	imgshow.attr('src',"http://localhost:8080/iSpanCar/ImageServlet.do?accountnumber="+member.accountnumber+"&r="+random)
 	   	                	$('.file').attr('type','hidden')
 	               			$('label').attr('style','cursor:default')
 	   	                } ,
@@ -513,6 +543,8 @@
 	           })
 	           //修改確認圖
 	           $('#content').on('click', '.confirm', function () {
+	        	   
+				   let myAccountnumber = $('#myAccountnumber').val();
 	        	   let account = $(this).closest('tr').find('.accountnumber').text();
 	        	   let form = $(this).closest('tr').find('.imgform')
 					
@@ -529,8 +561,12 @@
 	        		   cache: false,
 	        		   processData : false,  
 	        		   contentType : false,
+	        		  // dataType:'blob',
 	        		   success: function (response) {
-	   	                
+	        			   if(myAccountnumber == account){
+	        				   let random = Math.random();
+	        				   $('#myImage').attr('src',"http://localhost:8080/iSpanCar/ImageServletforPage.do?"+random)
+	        			   }
 	   	                } ,
 	   	                error:function(xhr, ajaxOptions, thrownError){
 	   	                	 

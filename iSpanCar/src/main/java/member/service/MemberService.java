@@ -15,6 +15,8 @@ import org.hibernate.SessionFactory;
 
 import member.dao.MemberDao;
 import member.model.MemberBean;
+import member.model.MemberPosition;
+import member.model.PermissionsOfPosition;
 import util.HibernateUtil;
 
 public class MemberService {
@@ -159,6 +161,21 @@ public class MemberService {
 			return null;
 		}
 	}
+	
+	//取得職位
+		public String getEmployeePosition() {
+			Session session = factory.getCurrentSession();
+			session.beginTransaction();
+			try {
+				String employee = mDao.getEmployeePosition();
+				session.getTransaction().commit();
+				return employee;
+			}catch (Exception e) {
+				session.getTransaction().rollback();
+				return null;
+			}
+		}
+	
 	
 	//inputstream ->blob
 	public Blob fileToBlob(InputStream is, long size) throws IOException, SQLException {

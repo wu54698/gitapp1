@@ -82,13 +82,17 @@
                     </div>
                 </div>
             </li> -->
-			<li class="nav-item"><a class="nav-link" href="tables.html">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/memberSelectAll.do'/>">
 					<i class="fa-solid fa-user"></i> <span>會員</span>
 			</a></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link" href="tables.html">
-					<i class="fa-solid fa-car"></i> <span>車廠</span>
+			<li class="nav-item"><a class="nav-link"
+				href="<c:url value='/Car-Dearler/CarDealerForm_frame.jsp' />"> <i
+					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
+			<li class="nav-item"><a class="nav-link"
+				href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">
+					<i class="fa-solid fa-car"></i> <span>車輛</span>
 			</a></li>
 
 			<!-- Divider -->
@@ -100,22 +104,22 @@
             </div> -->
 
 			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/serviceSelectallServlet.do'/>"> <i
-					class="fa-solid fa-screwdriver-wrench"></i> <span>保養廠</span>
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/serviceSelectallServlet.do'/>">
+					<i class="fa-solid fa-screwdriver-wrench"></i> <span>保養廠</span>
 			</a></li>
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="charts.html">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/dforum/threads.jsp'/>">
 					<i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
 			</a></li>
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="tables.html">
-					<i class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span>
+			<li class="nav-item"><a class="nav-link"
+				href="<c:url value='/ProductListServlet.do'/>"> <i
+					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 			</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="tables.html">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrderServlet.do'/>">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
