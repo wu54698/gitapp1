@@ -1,14 +1,14 @@
 package dforum.service;
 
 import dforum.model.ForumMember;
-import dforum.model.MemberDao;
+import dforum.model.DforumMemberDao;
 
 public class MemberLoginService {
 	
-	private MemberDao mDao;
+	private DforumMemberDao mDao;
 	
 	public MemberLoginService() {
-		this.mDao = new MemberDao();
+		this.mDao = new DforumMemberDao();
 	}
 	
 	public ForumMember checkLogin(String username, String pwd) {

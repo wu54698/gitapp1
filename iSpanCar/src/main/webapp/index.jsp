@@ -60,7 +60,7 @@
     </header>
 
     <footer class="footer bg-black small text-center text-white-50">
-        <div class="container px-4 px-lg-5"><a class="nav-link"  href = "<c:url value='/memberSelectAll.do'/>" >Copyright &copy; Your Website 2022</a></div>
+        <div class="container px-4 px-lg-5"><a class="nav-link"  href = "login" >Copyright &copy; Your Website 2022</a></div>
     </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
