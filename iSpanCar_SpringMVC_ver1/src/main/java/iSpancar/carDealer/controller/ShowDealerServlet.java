@@ -1,0 +1,44 @@
+package iSpancar.carDealer.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import iSpancar.carDealer.model.CarDealerBean;
+import iSpancar.tw.hibernatedemo.service.ISpanCarService;
+
+//import iSpan_Car.dao.CarDealerDao;
+//import iSpan_Car.model.CarDealerBean;
+
+
+//@WebServlet("/ShowDealerServlet.do")
+public class ShowDealerServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			request.setCharacterEncoding("UTF-8");
+			String carDealName = request.getParameter("carDealName");
+			
+			ISpanCarService iSpanService = new ISpanCarService();
+			
+			List<CarDealerBean> list = iSpanService.findByCarDealerName(carDealName);
+			
+			request.setAttribute("selectcarDealName", list);
+			RequestDispatcher rd = request.getRequestDispatcher("/Car-Dearler/SelectDealer_frame.jsp");
+			rd.forward(request, response);
+			return;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+}
