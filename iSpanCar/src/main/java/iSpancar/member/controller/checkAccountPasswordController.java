@@ -29,7 +29,18 @@ public class checkAccountPasswordController {
 	}
 	
 	@PostMapping(path = "/checkAccount.controller",produces="application/json;charset=UTF-8")
+	@ResponseBody
 	public String processAction(@RequestParam("accountnumber") String accountnumber) {
+		boolean check;
+		try {
+			check = memberService.checkaccountnumber(accountnumber);
+			if(check) {
+			return "帳號已存在";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
+		return  "OK";
 	}
 }

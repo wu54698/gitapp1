@@ -89,7 +89,6 @@ public class MemberService {
 	//確認帳密
 	public String checkaccountnumberpassword(String accountnumber,String password) throws SQLException {
 
-			System.out.println(mDao);
 			String checkString = mDao.checkaccountnumberpassword(accountnumber, password);
 			
 			return checkString;

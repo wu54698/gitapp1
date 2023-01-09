@@ -34,7 +34,7 @@ public class LoginController {
 					if(check.equals("資料正確")) {
 						model.addAttribute("LoginOK",mb);
 						
-						return "member/MemberSelectAll";
+						return "redirect: memberselectall.controller";
 					}else {
 						return "login/login";
 					}

@@ -70,7 +70,7 @@
 <!--                                         <a class="small" href="forgot-password.html">Forgot Password?</a> -->
 <!--                                     </div> -->
                                     <div class="text-center">
-                                        <a class="small" href="http://localhost:8080/iSpanCar/member/insertMember2.jsp">創建帳號</a>
+                                        <a class="small" href="memberInsert">創建帳號</a>
                                     </div>
                                 </div>
                             </div>

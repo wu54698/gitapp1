@@ -138,12 +138,6 @@ public class MemberBean implements Serializable{
 	}
 
 
-
-
-
-
-
-
 	//無圖
 	public MemberBean(String accountnumber, String memberpassword, String memberName, String phonenumber, String email,
 			String memberaddress, String platenumber, String birthday, String idnumber,String cardnumber) {

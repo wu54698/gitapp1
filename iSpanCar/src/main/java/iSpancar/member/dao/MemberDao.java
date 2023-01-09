@@ -111,6 +111,7 @@ public class MemberDao {
 		
 		Session session = factory.openSession();
 		if(bean != null) {
+			
 			session.save(bean);
 			MemberPosition position = new MemberPosition();
 			position.setMemberBean(bean);
@@ -118,6 +119,7 @@ public class MemberDao {
 			employee.setPositionPk("employee");
 			position.setPermissionsOfPosition(employee);
 			session.save(position);
+			session.flush();
 		}
 		session.close();
 		
@@ -127,8 +129,15 @@ public class MemberDao {
 	public void deleteByAccountnumber(String accountnumber) throws SQLException {
 		Session session = factory.openSession();
 
-		MemberBean bean = session.get(MemberBean.class, accountnumber);
-		session.delete(bean);
+		MemberPosition mpbean = session.get(MemberPosition.class, accountnumber);
+		MemberBean mbean = session.get(MemberBean.class, accountnumber);
+		if(mpbean != null) {
+			session.delete(mpbean);
+		}
+		if(mbean != null) {
+		session.delete(mbean);
+		}
+		session.flush();
 		session.close();
 	}
 	//用帳號修改
@@ -146,6 +155,7 @@ public class MemberDao {
 		memberBean.setBirthday(mb.getBirthday());
 		memberBean.setIdnumber(mb.getIdnumber());
 		memberBean.setCardnumber(mb.getCardnumber());
+		session.flush();
 		session.close();
 	}
 	
@@ -189,6 +199,7 @@ public class MemberDao {
 		MemberBean memberBean = session.get(MemberBean.class, accountnumber);
 		
 		memberBean.setFile(personalimg);
+		session.flush();
 		
 		session.close();
 	}

@@ -320,7 +320,7 @@
                     </button>
                 </div>
                 <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
+                    <a class="btn btn-primary" href="logout.controller">登出</a></div>
 <!--                 <div class="modal-footer"> -->
                    
 <!--                 </div> -->
@@ -360,11 +360,11 @@
 							      'success'
 							    )
 							    $.ajax({
-					                type: 'DELETE',
+					                type: 'POST',
 					                url: "memberdelete.controller",
 					                dataType: 'text',
-					                async: false,
-					                data:{ accountnumber : account },
+					                //async: false,
+					                data:{ "accountnumber" : account },
 					                success: function (response) {
 					                	//alert(response);
 					                	 
@@ -464,7 +464,7 @@
 	   				$.ajax({
 	   	                type: 'POST',
 	   	             	context:this,
-	   	                url: "<c:url value='/memberReturnUpdateCancel.do'/>",
+	   	                url: "memberupdatecancel.controller",
 	   	                dataType: 'json',
 	   	             	async: false,
 	   	                data:{ accountnumber : account },
@@ -481,7 +481,7 @@
 	   	                	$(this).parent().parent().children('td').eq(9).text(member.cardnumber)
 	   	                	$(this).parent().empty().append(buttonstring)
 	   	                	let random = Math.random();
-	   	                	imgshow.attr('src',"http://localhost:8080/iSpanCar/ImageServlet.do?accountnumber="+member.accountnumber+"&r="+random)
+	   	                	imgshow.attr('src',"showimage.controller?accountnumber="+member.accountnumber+"&r="+random)
 	   	                	$('.file').attr('type','hidden')
 	               			$('label').attr('style','cursor:default')
 	   	                } ,
@@ -506,7 +506,7 @@
 	   	                type: 'POST',
 	   	             	context:this,
 	   	                //async: false,
-	   	                url: "<c:url value='/memberReturnUpdate.do'/>",
+	   	                url: "memberupdate.controller",
 	   	                dataType: 'json',
 	   	                data:{ "accountnumber" : account,
 	   	                		"memberpassword": memberarray[0],
@@ -556,7 +556,7 @@
 	        		   //async: false,
 	        		   data:formData,
 	        		   context:this,
-	        		   url:"<c:url value='/memberUpdateimg.do'/>",
+	        		   url:"memberupdateimg.controller",
 	        		   enctype:"multipart/form-data",
 	        		   cache: false,
 	        		   processData : false,  
