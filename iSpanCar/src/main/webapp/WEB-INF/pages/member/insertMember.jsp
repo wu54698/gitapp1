@@ -177,7 +177,7 @@
 	        	if(($('#accountnumber').val().length >= 6) && ($('#accountnumber').val().length <= 20)){
 		            $.ajax({
 		                type: 'POST',
-		                url: "<c:url value='/checkAccountnumberServlet.do'/>",
+		                url: "checkAccount.controller",
 		                dataType: 'text',
 		                data:{ accountnumber : $('#accountnumber').val()},
 		                success: function (response) {
@@ -202,7 +202,7 @@
     	})
     	$('#createAccount').on('click', function () {
         if (accountnumberok && password1ok && password2ok && idnumberok && emailok && membernameok && cardok && accountnumberok2) {
-            $('#createAccountForm').attr('action', 'http://localhost:8080/iSpanCar/memberInsertServlet.do');
+            $('#createAccountForm').attr('action', 'memberinsert.controller');
             $('#createAccount').attr('type','submit');
         }
 
