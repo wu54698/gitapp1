@@ -80,10 +80,10 @@
 
 					<!-- Nav Item - Utilities Collapse Menu -->
 					<li class="nav-item"><a class="nav-link"
-							href="<c:url value='/Car-Dearler/CarDealerForm_frame.jsp' />"> <i
+							href="<c:url value='http://localhost:8080/iSpanCar/CarDealerForm' />"> <i
 								class="fa-solid fa-car"></i> <span>車廠</span></a></li>
 					<li class="nav-item"><a class="nav-link"
-							href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />"> <i
+							href="<c:url value='http://localhost:8080/iSpanCar/CarInfoForm' />"> <i
 								class="fa-solid fa-car"></i> <span>車輛</span></a></li>
 
 					<!-- Divider -->
@@ -258,16 +258,16 @@
             </tr>
             <tr bgcolor='transparent'>
                 <td height="50" colspan="2" align="center">
-                    <input type="submit" value="新增" id="addCar" formaction="<c:url value='/CarInfoServlet.do'/>">
+                    <input type="submit" value="新增" id="addCar" formaction="addCarInfo.controller">
 <%--                     <input type="submit" value="刪除" formaction="<c:url value='/DeleteCarInfoServlet.do'/>"> --%>
 <%--                     <input type="submit" value="修改車輛資訊" id="" formaction="<c:url value='/Car-Infomation/JumpToUpdateCarInfoSheet_frame.jsp'/>"> --%>
-                    <input type="submit" value="找品牌" id="findCarBrand" formaction="<c:url value='/FindCarBrandServlet.do'/>">
-                    <input type="submit" value="搜尋全車輛" formaction="<c:url value='/ShowAllCarInfoServlet.do'/>">
+                    <input type="submit" value="找品牌" id="findCarBrand" formaction="SelectCarByBrand.controller">
+                    <input type="submit" value="搜尋全車輛" formaction="SelectAllCar.controller">
                 </td>
             </tr>
             <!-- 							</tbody> -->
     </table>
-								<a href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">回車輛主頁</a>
+								<a href="<c:url value='http://localhost:8080/iSpanCar/CarInfoForm' />">回車輛主頁</a>
 							</form>
 						</div>
 						<!-- /.container-fluid -->

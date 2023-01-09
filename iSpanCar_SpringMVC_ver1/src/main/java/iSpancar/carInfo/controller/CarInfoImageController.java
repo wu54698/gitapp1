@@ -21,7 +21,7 @@ public class CarInfoImageController {
 	@Autowired
 	private ISpanCarService iSpanCarService;
 
-	@GetMapping("/carInfoImage.controller/")
+	@GetMapping("/carInfoImage.controller/{carNo}")
 	@ResponseBody
 	public byte[] processProductImageAction(@PathVariable("carNo") String carNo) {
 

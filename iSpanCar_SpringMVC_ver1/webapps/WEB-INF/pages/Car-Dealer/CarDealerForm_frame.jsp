@@ -88,10 +88,10 @@
 
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/Car-Dearler/CarDealerForm_frame.jsp' />"> <i
+				href="<c:url value='http://localhost:8080/iSpanCar/CarDealerForm' />"> <i
 					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">
+				href="<c:url value='http://localhost:8080/iSpanCar/CarInfoForm' />">
 					<i class="fa-solid fa-car"></i> <span>車輛</span>
 			</a></li>
 
@@ -246,15 +246,14 @@
 
 						</table>
 						<input type="submit" value="新增" id="addCarDealer"
-							formaction="<c:url value='/addCarDealer'/>"
-							onclick="add()" >
+							formaction="addCarDealer" onclick="add()">
 						<%--         <input type="submit" value="刪除" formaction="<c:url value='/DeleteCarDealerServlet.do'/>"> --%>
 						<input type="submit" value="改資訊" id="updateCarDealer"
 							formaction="updateCarDealer" >
 						<input type="submit" value="找車商" id="findCarDealer"
-							formaction="findDealer.controller" onclick="submit" > 
+							formaction="findDealer.controller" onclick="submit"> 
 						<input type="submit" value="搜尋全車商"
-							formaction="findAllDealer.controller" >
+							formaction="findAllDealer.controller">
 					</form>
 				</div>
 				<!-- /.container-fluid -->

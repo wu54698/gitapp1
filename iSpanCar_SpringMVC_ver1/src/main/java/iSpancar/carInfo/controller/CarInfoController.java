@@ -28,8 +28,8 @@ public class CarInfoController {
 	private ISpanCarService iSpanCarService;
 
 	// 新增車輛的controller
-	@PostMapping(path = "/addCarInfo")
-	public String addCarInfoAction(@RequestParam("carDealName") CarDealerBean carDealBean,
+	@PostMapping(path = "/addCarInfo.controller")
+	public String addCarInfoAction(@RequestParam("carDealName") String carDealBean,
 			@RequestParam("accountNumber") String accountNumber, @RequestParam("carBrand") String carBrand,
 			@RequestParam("carName") String carName, @RequestParam("stock") int stock,
 			@RequestParam("carImage") MultipartFile mf, @RequestParam("carDescription") String carDescription,
@@ -56,22 +56,20 @@ public class CarInfoController {
 		CarInfoBean infoBean = new CarInfoBean();
 
 		String sellerName = infoBean.getCarDealerBean().getCarDealName();
-
 		List<CarDealerBean> carDealerBean = iSpanCarService.findByCarDealerName(sellerName);
-
-//		CarInfoBean carInfoBean = new CarInfoBean(carDealBean, accountNumber, carBrand, carName, stock, imageblob, carDescription, announceDate);
-		// 透過service做新增
-		iSpanCarService.addCarInfo(carDealBean, accountNumber, carBrand, carName, stock, imageblob, carDescription,
-				announceDate);
-
+		
 		// 確認車商是否有登錄
-//		CarDealerBean firstSeller = null;
+		//從CarDealerBean的list取出cardealname
+		CarDealerBean firstSeller = null;
 		if (carDealerBean.size() == 0) {
 			errorMessage.put("carDealName", "該車商名稱尚未登錄");
+		}else {
+			firstSeller = carDealerBean.get(0);
 		}
-//		else {
-//			firstSeller = carDealerBean.get(0);
-//		}
+//		CarInfoBean carInfoBean = new CarInfoBean(carDealBean, accountNumber, carBrand, carName, stock, imageblob, carDescription, announceDate);
+		// 透過service做新增
+		iSpanCarService.addCarInfo(firstSeller, accountNumber, carBrand, carName, stock, imageblob, carDescription,
+				announceDate);
 
 		// 錯誤成立則跳轉至原頁面
 		if (!errorMessage.isEmpty()) {
@@ -113,7 +111,7 @@ public class CarInfoController {
 	}
 
 	// 修改車輛的controller
-	@PostMapping("/updateCarInfo")
+	@PostMapping("/updateCarInfo.controller")
 	public String updateCarInfoAction(@RequestParam("carNo") String carNo,
 			@RequestParam("carDealName") CarDealerBean carDealBean, @RequestParam("accountNumber") String accountNumber,
 			@RequestParam("carBrand") String carBrand, @RequestParam("carName") String carName,
@@ -135,9 +133,20 @@ public class CarInfoController {
 
 		return "Car-Infomation/UpdateCarInfo_frame";
 	}
-
+	
+	//透過Id接值進入修改頁面的controller(原selectIdToUpdate)
+	@PostMapping("/JumptoUpdateCarInfoSheet")
+	public String selectIdToUpdateAction(@RequestParam("carNo") String carNo, Model m) {
+		
+		int carNumber = Integer.parseInt(carNo);
+		List<CarInfoBean> list = iSpanCarService.findByCarNoLike(carNumber);
+		m.addAttribute("toUpdate", list);
+		
+		return "Car-Infomation/JumpToUpdateCarInfoSheet_frame";
+	}
+	
 	// 透過品牌查詢車輛的controller
-	@PostMapping("/SelectCarByBrand")
+	@PostMapping("/SelectCarByBrand.controller")
 	public String selectCarAction(@RequestParam("carBrand") String carBrand, Model m) {
 
 		List<CarInfoBean> list = iSpanCarService.findByCarBrandLike(carBrand);
@@ -147,7 +156,7 @@ public class CarInfoController {
 	}
 
 	// 查詢全部車輛
-	@PostMapping("/SelectAllCar")
+	@PostMapping("/SelectAllCar.controller")
 	public String selectAllCarAction(Model m) {
 
 		List<CarInfoBean> list = iSpanCarService.findAllCar();

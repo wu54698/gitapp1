@@ -51,6 +51,10 @@ public class WebAppConfig implements WebMvcConfigurer {
 		registry.addViewController("/CarDealerForm").setViewName("Car-Dealer/CarDealerForm_frame");
 		registry.addViewController("/SelectDealer").setViewName("Car-Dealer/SelectDealer_frame");
 		registry.addViewController("/SelectAllDealer").setViewName("Car-Dealer/SelectAllDealer_frame");
+		registry.addViewController("/CarInfoForm").setViewName("Car-Infomation/CarInfoForm_frame");
+		registry.addViewController("/JumptoUpdateCarInfoSheet").setViewName("Car-Infomation/JumptoUpdateCarInfoSheet_frame");
+		registry.addViewController("/UpdateCarInfo").setViewName("Car-Infomation/UpdateCarInfo_frame");
+		registry.addViewController("/SelectAllCar").setViewName("Car-Infomation/SelectAllCar_frame");
 	}
 	
 	//上傳檔案用

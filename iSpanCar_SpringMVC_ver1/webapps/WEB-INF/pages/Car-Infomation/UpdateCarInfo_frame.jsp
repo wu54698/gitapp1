@@ -95,11 +95,11 @@ textarea {
 
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/Car-Dearler/CarDealerForm_frame.jsp' />"> <i
+				href="<c:url value='http://localhost:8080/iSpanCar/CarDealerForm' />"> <i
 					class="fa-solid fa-car"></i> <span>車廠</span>
 			</a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">
+				href="<c:url value='http://localhost:8080/iSpanCar/CarInfoForm' />">
 					<i class="fa-solid fa-car"></i> <span>車輛</span>
 			</a></li>
 
@@ -245,7 +245,7 @@ textarea {
 									<td>${car.stock}</td>
 									<!--<td>${car.carImage}</td>-->
 									<td><img
-										src="http://localhost:8080/iSpanCar/AllImageServlet.do?carNo=${car.carNo}"
+										src="carInfoImage.controller/{car.carNo}"
 										width="180px" height="120px"></td>
 									<td><textarea readonly cols="10" rows="5"
 											style="text-align: left">${car.carDescription}</textarea></td>
@@ -255,7 +255,7 @@ textarea {
 							</tbody>
 						</c:forEach>
 					</table>
-					<a href="<c:url value='/Car-Infomation/CarInfoForm_frame.jsp' />">回車輛主頁</a>
+					<a href="<c:url value='http://localhost:8080/iSpanCar/CarInfoForm' />">回車輛主頁</a>
 				</div>
 				<!-- /.container-fluid -->
 
