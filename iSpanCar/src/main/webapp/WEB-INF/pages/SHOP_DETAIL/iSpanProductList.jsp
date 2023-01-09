@@ -243,8 +243,8 @@ display:inline;
 							method="get">
 							<input type="submit" value="新增產品"  style="width:100px;height:45px;text-align:center">
 						</form>
-						<form action="<c:url value='/Shop_CartServlet.do'/>"
-							method="POST">
+						<form action="<c:url value='/Shop_Cart.controller'/>"
+							method="get">
 							<input type="submit" value="購物車測試"  style="width:100px;height:45px;text-align:center">
 						</form>
 						<p>

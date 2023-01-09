@@ -306,7 +306,7 @@ tr:last-of-type{
 									<td >${product.productname}<input type="hidden" value="${product.productname}" name="productName"></td>
 									<td >${product.price}<input type="hidden" value="${product.price}" name="productPrice"></td>
 									<td><img
-										src="<c:url value='/ProductImgServlet?productno=${product.productno}'/>"
+										src="productimg.controller/${product.productno}"
 										width="180" height="180" /></td>
 									<td><input name="quantity" type="number" id="quantity" style="background-color:#6C7A89;width:55px;"></td>
 									<td><input style="border-radius:80%;width:90px;height:60px" type="submit"  value="加入購物車" ></td>
