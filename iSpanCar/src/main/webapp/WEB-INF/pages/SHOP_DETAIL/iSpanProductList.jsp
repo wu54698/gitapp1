@@ -146,7 +146,7 @@ display:inline;
 				href="<c:url value='/ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrderServlet.do'/>">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->

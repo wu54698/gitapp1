@@ -187,10 +187,10 @@ tr:last-of-type{
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListServlet.do'/>"> <i
+				href="<c:url value='/ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/QueryAllOrderServlet.do'/>">
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -282,7 +282,7 @@ tr:last-of-type{
 					<!-- Page Heading -->
 					<h1 class="h3 mb-4 text-gray-800">商城</h1>
 					<div class="wrap">
-					<form action="<c:url value='/QueryAllCart.do'/>" method="get">
+					<form action="<c:url value='/QueryAllCart.controller'/>" method="get">
 						<input type="submit" value="購物車" />
 					</form>
 					<table>
@@ -300,7 +300,7 @@ tr:last-of-type{
 							<c:forEach var='product' items='${queryallproduct}'
 								varStatus="vs">
 								<tr>
-								<form action="<c:url value='/CartInsertServlet'/>"  method="POST" enctype="multipart/form-data">
+								<form action="<c:url value='/cartInsert.controller'/>"  method="POST" enctype="multipart/form-data">
 								
 									<td id="productno">${product.productno} <input type="hidden" value="${product.productno}" name="productNumber"><input type="hidden" name="memberId" value="${login.accountnumber}"></td>
 									<td >${product.productname}<input type="hidden" value="${product.productname}" name="productName"></td>

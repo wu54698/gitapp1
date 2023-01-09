@@ -48,6 +48,10 @@ public class WebAppConfig implements WebMvcConfigurer {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addRedirectViewController("/", "membersmain.controller");
+		registry.addViewController("/Cart").setViewName("Cart/cart");
+		registry.addViewController("/mall").setViewName("Cart/mall");
+		registry.addViewController("/orderForm").setViewName("order/orderForm");
+		registry.addViewController("/order").setViewName("order/order");
 		registry.addViewController("/iSpanProductList").setViewName("SHOP_DETAIL/iSpanProductList");
 		registry.addViewController("/iSpanProductInsert").setViewName("SHOP_DETAIL/iSpanShopInsert");
 		registry.addViewController("/iSpanProductUpdateForm").setViewName("SHOP_DETAIL/UpdateProduct_form");
