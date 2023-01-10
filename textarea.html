@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地區選擇</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="js/jquery.twzipcode.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <style>
+        table{
+            width: 100px;
+        }
+        td{
+            overflow: visible;
+        }
+        input{
+            overflow: visible;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="twzipcode"></div>
+    <div class="div1">
+    <table id="myTable">
+        <thead>
+            <tr>
+            <td>國家</td>
+            <td>首都</td>
+            <td>人口</td>
+            <td>語言</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td>USA</td>
+            <td><input id="test" type="text" value="Washington D.C.Washington D.C.Washington D.C.Washington D.C.Washington D.C.Washington D.C.Washington D.C.Washington D.C.Washington D.C.Washington D.C.Washington D.C.Washington D.C." size="100"> </td>
+            <td>309 million</td>
+            <td>English</td>
+            </tr>
+            <tr>
+            <td>Sweden</td>
+            <td>Stockholm</td>
+            <td>9 million</td>
+            <td>Swedish</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+
+        $('#myTable').on('mouseover','#test',function(){
+            value = $(this).val()
+            $(this).parent().html('<textarea name="" id="textarea" cols="30" rows="10">'+value+'</textarea>')
+            console.log(value)
+        })
+        $('#myTable').on('mouseleave','#textarea',function(){
+            $(this).parent().html('<input id="test" type="text" size="100" value="'+value+'">')
+        })
+    $("#twzipcode").twzipcode();
+
+    $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+    </script>
+
+</body>
+</html>
