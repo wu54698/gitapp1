@@ -3,27 +3,22 @@ package iSpancar.dforum.controller;
 import iSpancar.dforum.model.ForumMember;
 import iSpancar.dforum.model.Post;
 import iSpancar.dforum.model.Thread;
-import iSpancar.dforum.service.PostService;
+import iSpancar.dforum.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Controller
 @RequestMapping("/post")
 public class NewpostController {
 
     @Autowired
-    private PostService postService;
+    private PostRepository postService;
 
     @PostMapping
     public void processNewpostAction(
@@ -54,12 +49,9 @@ public class NewpostController {
             e.printStackTrace();
         }
     }
-    
-    //no save ......
 
-    @DeleteMapping
-	@ResponseBody
-    protected ResponseEntity processdoDeleteAction(@RequestParam("Id") Integer id) {
+    @DeleteMapping("/{id}")
+    protected ResponseEntity processdoDeleteAction(@PathVariable Integer id) {
         postService.deleteById(id);
         return ResponseEntity.ok().build();
     }

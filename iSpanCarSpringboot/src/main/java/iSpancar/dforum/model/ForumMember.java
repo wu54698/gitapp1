@@ -1,7 +1,5 @@
 package iSpancar.dforum.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity

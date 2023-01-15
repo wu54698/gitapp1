@@ -1,4 +1,4 @@
-﻿package iSpancar.Service;
+package iSpancar.Service;
 
 import java.sql.SQLException;
 import java.util.List;

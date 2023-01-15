@@ -1,7 +1,7 @@
 package iSpancar.dforum.controller;
 
 import iSpancar.dforum.model.Category;
-import iSpancar.dforum.service.CategoryService;
+import iSpancar.dforum.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ import java.util.List;
 public class CategoriesController {
 
 	@Autowired
-	private CategoryService categoryService;
+	private CategoryRepository categoryService;
 
 	@GetMapping("/all")
 	@ResponseBody
