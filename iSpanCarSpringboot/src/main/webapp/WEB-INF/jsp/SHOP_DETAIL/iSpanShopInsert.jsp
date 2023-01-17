@@ -148,7 +148,7 @@ opacity:0.6;
 						</a></li>
 
 					<!-- Nav Item - Tables -->
-					<li class="nav-item"><a class="nav-link" href="<c:url value='/ProductListAll'/>"> <i
+					<li class="nav-item"><a class="nav-link" href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
 								class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
 					<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
@@ -239,14 +239,14 @@ opacity:0.6;
 
 						<!-- Begin Page Content 內容 -->
 						<div class="container-fluid">
-						<form action="<c:url value='/ProductListAll'/>"
+						<form action="<c:url value='/iSpancarShop.ProductListAll'/>"
 							method="get">
 							<input type="submit" value="回商城管理頁面" class="backshopbtn">
 						</form>
 
 							<!--                     Page Heading -->
 							<!--                     <h1 class="h3 mb-4 text-gray-800">商城商品新增</h1> -->
-							<form name="insertProductFormA" action="<c:url value='/InsertShopDetail.controller'/>"
+							<form name="insertProductFormA" action="<c:url value='/iSpancarShop.InsertShopDetail.controller'/>"
 								method="POST" enctype="multipart/form-data">
 								<table border="1" id="insertP">
 									<thead>

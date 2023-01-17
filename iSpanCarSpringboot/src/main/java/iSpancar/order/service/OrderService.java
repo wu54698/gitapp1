@@ -10,32 +10,32 @@ import javax.transaction.TransactionScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import iSpancar.order.model.OrderBean;
 import iSpancar.order.model.OrderDao;
+import iSpancar.order.model.OrderRepository;
 @Service
-@TransactionScoped
+@Transactional
 public class OrderService {
 
 	@Autowired
-	private OrderDao oDao;
+	private OrderRepository oRepo;
 	
-	public OrderService() {
-		this.oDao=new OrderDao();
-	}
+	
 
 	public void insertOrderBean(OrderBean bean) {
-		 oDao.insertOrderBean(bean);
+		oRepo.save(bean);
 
 	}
 	
 	public List<OrderBean> findAllOrder() throws Exception{
-		List<OrderBean> allOrder = oDao.findAllOrder();
+		List<OrderBean> allOrder = oRepo.findAll();
 		return allOrder;
 	}
 	
-	public void updateOrderSatusByOrderId (String Satus,Timestamp newDate,String orderId ) throws SQLException, ParseException {
-		oDao.updateOrderSatusByOrderId(Satus,newDate, orderId);
+	public void updateOrderSatusByOrderId (String Satus,Timestamp newDate,String orderId )  {
+		oRepo.updateOrderSatusByOrderId(Satus,newDate,orderId);
 	}
 	
 }

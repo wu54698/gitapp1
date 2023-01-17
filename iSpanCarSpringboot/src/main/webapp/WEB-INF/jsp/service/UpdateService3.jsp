@@ -226,7 +226,7 @@
 						<textarea name="Servicedescription" rows="6" cols="40" ></textarea><br>
 <label>保養廠資訊：</label><input type="text" name="Serviceinfomation" value=""><br>
 <label>保養廠聯繫：</label><input type="text" name="Contactperson" value="" ><br>
-<label>原場副廠：</label><select name="Reseller_nonreseller"  value="">
+<label>原場副廠：</label><select name="Resellernonreseller"  value="">
   <option value="0">原廠</option>
   <option value="1">副廠</option></select><br>
 <label>保養廠圖片</label><input type="file" name="Carimage"><br>
@@ -234,9 +234,9 @@
 <input type="submit"  value="更改" formaction="<c:url value='/serviceUpdateController'/>"><br>
 	<br>
 							<br>
-<input type="button" value="新增保養廠" onclick="location.href='/iSpanCar/service.signinService'">
-<input type="button" value="刪除保養廠" onclick="location.href='/iSpanCar/service.deleteService'">
-<input type="button" value="查詢保養廠" onclick="location.href='/iSpanCar/service.SelectService'">
+<input type="button" value="新增保養廠" onclick="location.href='/service.signinService'">
+<input type="button" value="刪除保養廠" onclick="location.href='/service.deleteService'">
+<input type="button" value="查詢保養廠" onclick="location.href='/service.UpdateService'">
 <br>
 </form>
 				</div>

@@ -223,7 +223,7 @@
 						<br> <label>保養廠資訊：</label><input type="text"
 							name="Serviceinfomation"><br> <label>保養廠聯繫：</label><input
 							type="text" name="Contactperson"><br> <label>原場副廠：</label><select
-							name="Reseller_nonreseller">
+							name="Resellernonreseller">
 							<option value="0">原廠</option>
 							<option value="1">副廠</option>
 						</select><br> <label>保養廠圖片</label><input type="file" name="Carimage"><br>
@@ -231,11 +231,11 @@
 						<input type="submit" value="新增"
 							formaction="serviceInsert.controller"><br>
 						<br> <br> <input type="button" value="刪除保養廠"
-							onclick="location.href='/iSpanCar/service.deleteService'">
+							onclick="location.href='/service.deleteService'">
 						<input type="button" value="修改保養廠"
-							onclick="location.href='/iSpanCar/service.UpdateService'">
+							onclick="location.href='/service.UpdateService'">
 						<input type="button" value="查詢保養廠"
-							onclick="location.href='/iSpanCar/service.SelectService'"><br>
+							onclick="location.href='/service.SelectService'"><br>
 					</form>
 				</div>
 				<!-- /.container-fluid -->

@@ -11,25 +11,23 @@ import org.springframework.stereotype.Service;
 
 import iSpancar.orderItem.model.OrderItemBean;
 import iSpancar.orderItem.model.OrderItemDao;
+import iSpancar.orderItem.model.OrderItemRepository;
 @Service
 @Transactional
 public class OrderItemService {
 	
 	@Autowired
-private OrderItemDao oiDao;
+	private OrderItemRepository oiRepo;
 	
-	public OrderItemService() {
-		this.oiDao=new OrderItemDao();
-	}
-
+	
 	public OrderItemBean insertOrderItemBean(OrderItemBean bean) throws SQLException, ParseException {
-		OrderItemBean oibean = oiDao.insertOrderItemBean(bean);
+		OrderItemBean oibean = oiRepo.save(bean);
 		return oibean;
 	}
 	
 	public List<OrderItemBean> findAllOrderItem() throws Exception{
-		List<OrderItemBean> allOrderItem = oiDao.findAllOrderItem();
+		List<OrderItemBean> allOrderItem = oiRepo.findAll();
 		return allOrderItem;
 	}
-	
+		
 }

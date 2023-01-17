@@ -149,7 +149,7 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
 			<li class="nav-item"><a class="nav-link"
@@ -250,11 +250,11 @@
 					<h2>商城管理</h2>
 					<%-- <a href="<c:url value='/SHOP_DETAIL/iSpanShopInsert.jsp' />">新增產品</a> --%>
 					<div>
-						<form action="<c:url value='/ProductListAll'/>" method="get">
+						<form action="<c:url value='/iSpancarShop.ProductListAll'/>" method="get">
 							<input type="submit" value="回商城管理頁面" class="backshopbtn">
 						</form>
 						<form name="updateProductForm"
-							action="<c:url value='/UpdateShopDetail.controller'/>"
+							action="<c:url value='/iSpancarShop.UpdateShopDetail.controller'/>"
 							method="POST" enctype="multipart/form-data"
 							>
 							<table border="1">

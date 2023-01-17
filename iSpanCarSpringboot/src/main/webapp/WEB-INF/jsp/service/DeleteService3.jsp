@@ -225,9 +225,9 @@
 <input type="submit"  value="刪除" ><br>
 	<br>
 							<br>
-<input type="button" value="新增保養廠" onclick="location.href='/iSpanCar/service.signinService'">
-<input type="button" value="修改保養廠" onclick="location.href='/iSpanCar/service.UpdateService'">
-<input type="button" value="查詢保養廠" onclick="location.href='/iSpanCar/service.SelectService'"><br>
+<input type="button" value="新增保養廠" onclick="location.href='/service.signinService'">
+<input type="button" value="修改保養廠" onclick="location.href='/service.UpdateService'">
+<input type="button" value="查詢保養廠" onclick="location.href='/service.SelectService'"><br>
 	</form>
 				</div>
 				<!-- /.container-fluid -->

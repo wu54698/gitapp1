@@ -150,7 +150,7 @@ opacity:0.6;
 
             <!-- Nav Item - Tables -->
             <li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
             <li class="nav-item">
@@ -253,7 +253,7 @@ opacity:0.6;
 					<h3>新增產品 成功!!!</h3>
 					<p>
 					<p>
-	<form action="<c:url value='/ProductListAll'/>" method="get" >
+	<form action="<c:url value='/iSpancarShop/ProductListAll'/>" method="get" >
 		<input type="submit" value="回商城管理頁面" class="backshopbtn" />
 	</form>
 					
@@ -326,6 +326,25 @@ opacity:0.6;
 			crossorigin="anonymous"></script>
 		<script type="text/javascript" charset="utf8"
 			src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+			
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		<script>
+		window.onload = function showAlert() {
+  		Swal.fire({
+    	title: '新增成功 !',
+    	text: "該產品已新增完成",
+    	icon: 'success',
+    	confirmButtonColor: '#3085d6',
+    	confirmButtonText: '確定'
+  		}).then((result) => {
+    if (result.value) {
+      //點擊跳轉
+      window.location.href = 'http://localhost:8080/iSpancarShop.ProductListAll';
+    }
+
+  })
+}
+</script>
 </body>
 
 </html>

@@ -235,12 +235,12 @@
 											
 				</tr>
 			<tr>
-				<td>${Service.service_name}</td>
-				<td><img src="serviceimage.controller?service_name=${Service.service_name}"  width="180" height="180"/></td>
+				<td>${Service.servicename}</td>
+				<td><img src="serviceimage.controller?servicename=${Service.servicename}"  width="180" height="180"/></td>
 				<td>${Service.servicedescription}</td>
 				<td>${Service.serviceinfomation}</td>
 				<td>${Service.contactperson}</td>
-				<td>${Service.reseller_nonreseller}</td>
+				<td>${Service.resellernonreseller}</td>
 				
 			</tr>
 		

@@ -150,7 +150,7 @@ opacity:0.6;
 
             <!-- Nav Item - Tables -->
             <li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
             <li class="nav-item">
@@ -331,15 +331,15 @@ opacity:0.6;
 
 		window.onload = function showAlert() {
   		Swal.fire({
-    	title: 'Update OK',
-    	text: "Update seccessfully!",
+    	title: '修改成功 !',
+    	text: "該產品已修改完成",
     	icon: 'success',
     	confirmButtonColor: '#3085d6',
-    	confirmButtonText: 'Continue'
+    	confirmButtonText: '確定'
   		}).then((result) => {
     if (result.value) {
       //點擊跳轉
-      window.location.href = 'http://localhost:8080/iSpanCar/ProductListAll';
+      window.location.href = 'http://localhost:8080/iSpancarShop.ProductListAll';
     }
 
   })

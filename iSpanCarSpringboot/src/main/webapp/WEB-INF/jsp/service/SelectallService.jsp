@@ -269,14 +269,14 @@
 									</tr>
 
 									<tr>
-										<td>${Service.service_name}</td>
+										<td>${Service.servicename}</td>
 										<td><img
-											src="serviceimage.controller?service_name=${Service.service_name}"
+											src="serviceimage.controller?servicename=${Service.servicename}"
 											width="180" height="180" /></td>
 										<td>${Service.servicedescription}</td>
 										<td>${Service.serviceinfomation}</td>
 										<td>${Service.contactperson}</td>
-										<td>${Service.reseller_nonreseller}</td>
+										<td>${Service.resellernonreseller}</td>
 
 									</tr>
 
@@ -286,7 +286,7 @@
 
 							<input type="button" onclick="history.back()" value="回到上一頁"></input>
 							<input type="button"
-								onclick="location.href='/iSpanCar/service.SelectService'"
+								onclick="location.href='/service.SelectService'"
 								value="查詢保養廠"></input>
 						</div>
 						<!-- /.container-fluid -->
