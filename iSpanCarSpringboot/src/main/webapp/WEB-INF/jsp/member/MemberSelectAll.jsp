@@ -259,7 +259,7 @@
 				<tr>
 					
 						<td class="accountnumber">${member.accountnumber}</td>
-						<td>${member.memberpassword}</td>
+						<td class="memberpassword">${member.memberpassword}</td>
 						<td>${member.memberName}</td>
 						<td>${member.phonenumber}</td>
 						<td>${member.email}</td>
@@ -338,11 +338,12 @@
         });
         
         $(function () {
+        	$('.memberpassword').html('***');
         	//判斷查詢權限
         	let myPositionSelect = $('#myPositionSelect').val();
         	if(myPositionSelect == 0){
         		$('.accountnumber').each(function(index,element){
-        			$(this).next().html('******');
+        			//$(this).next().html('******');
         			$(this).parent().children('.idnumber').html('******');
         		})
         	}
@@ -495,6 +496,7 @@
 	   	                	imgshow.attr('src',"showimage.controller?accountnumber="+member.accountnumber+"&r="+random)
 	   	                	$('.file').attr('type','hidden')
 	               			$('label').attr('style','cursor:default')
+	               			$('.memberpassword').html('***');
 	   	                } ,
 	   	                error:function(xhr, ajaxOptions, thrownError){
 	   	                	 
@@ -544,6 +546,7 @@
 	   	                	$(this).parent().empty().append(buttonstring)
 	   	                	$('.file').attr('type','hidden')
 	               			$('label').attr('style','cursor:default')
+	               			$('.memberpassword').html('***');
 	   	                } ,
 	   	                error:function(xhr, ajaxOptions, thrownError){
 	   	                	 

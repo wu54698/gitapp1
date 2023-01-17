@@ -44,19 +44,19 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">請輸入帳密</h1>
                                     </div>
-                                    <form class="user" action="login.controller" method="POST">
+                                    <form class="user" action="login" method="POST">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" value="${param.accountnumber}"
-                                                id="accountnumber" name ="accountnumber" aria-describedby="emailHelp"
+                                                id="accountnumber" name ="username" aria-describedby="emailHelp"
                                                 placeholder="請輸入帳號">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user" value="${param.memberpassword}"
-                                                id="memberpassword" name="memberpassword" placeholder="請輸入密碼">
+                                                id="memberpassword" name="password" placeholder="請輸入密碼">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck" name="remember-me">
+                                                <input type="checkbox" class="custom-control-input" id="rememberMe-key" name="rememberMe-key">
                                                 <label class="custom-control-label" for="customCheck">Remember
                                                     Me</label>
                                             </div>

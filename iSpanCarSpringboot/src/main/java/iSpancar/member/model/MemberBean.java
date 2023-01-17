@@ -2,6 +2,7 @@ package iSpancar.member.model;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "member")
@@ -39,7 +42,9 @@ public class MemberBean implements Serializable{
 	private String platenumber;// 車牌
 	
 	@Column(name = "birthday")
-	private String birthday;// 生日
+	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")//時間需這樣設定
+	private Date birthday;// 生日
+	
 	
 	@Column(name = "idnumber")
 	private String idnumber;// 身分證號碼
@@ -67,7 +72,7 @@ public class MemberBean implements Serializable{
 
 
 	public MemberBean(String accountnumber, String memberpassword, String memberName, String phonenumber, String email,
-			String memberaddress, String platenumber, String birthday, String idnumber, String cardnumber, Blob file,
+			String memberaddress, String platenumber, Date birthday, String idnumber, String cardnumber, Blob file,
 			String filename, MemberPosition memberPosition) {
 		super();
 		this.accountnumber = accountnumber;
@@ -86,7 +91,7 @@ public class MemberBean implements Serializable{
 	}
 
 	public MemberBean(String accountnumber, String memberpassword, String memberName, String phonenumber, String email,
-			String memberaddress, String platenumber, String birthday, String idnumber, String cardnumber, Blob file,
+			String memberaddress, String platenumber, Date birthday, String idnumber, String cardnumber, Blob file,
 			String filename) {
 		super();
 		this.accountnumber = accountnumber;
@@ -140,7 +145,7 @@ public class MemberBean implements Serializable{
 
 	//無圖
 	public MemberBean(String accountnumber, String memberpassword, String memberName, String phonenumber, String email,
-			String memberaddress, String platenumber, String birthday, String idnumber,String cardnumber) {
+			String memberaddress, String platenumber, Date birthday, String idnumber,String cardnumber) {
 		super();
 		this.accountnumber = accountnumber;
 		this.memberpassword = memberpassword;
@@ -216,11 +221,11 @@ public class MemberBean implements Serializable{
 		this.platenumber = platenumber;
 	}
 
-	public String getBirthday() {
+	public Date getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(String birthday) {
+	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 

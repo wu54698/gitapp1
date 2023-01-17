@@ -4,12 +4,15 @@ import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,14 +34,17 @@ public class MemberInsertController {
 			@RequestParam("date")@Nullable String date ,@RequestParam("idnumber") String idnumber,@RequestParam("card1") String card1,@RequestParam("card2") String card2,
 			@RequestParam("card3") String card3,@RequestParam("card4") String card4,@RequestParam("file") MultipartFile mf) {
 		try {
-			
+			System.out.println("---------------insertcontroller---------------");
 		String birthday = null;
+		Date birthDate = null;
 		if(date != null) {
 			
 			int borthdaylength = month.length();
 			month = month.substring(0,borthdaylength-5);
 			
 			birthday = year.substring(0,4) +"-"+ month +"-"+ date;
+			
+			birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(birthday);
 		}
 		
 		
@@ -54,9 +60,11 @@ public class MemberInsertController {
 		}else {
 			blob = new SerialBlob(bytes);
 		}
+		String encodePwd = new BCryptPasswordEncoder().encode(memberpassword);//密碼加密
+
 		
 		
-		MemberBean bean = new MemberBean(accountnumber, memberpassword, membername, phonenumber, email, city+town+memberaddress, platenumber, birthday, idnumber, cardnumber,blob,filename);
+		MemberBean bean = new MemberBean(accountnumber, encodePwd, membername, phonenumber, email, city+town+memberaddress, platenumber, birthDate, idnumber, cardnumber,blob,filename);
 		memberService.insertMemberBean(bean);
 		
 		

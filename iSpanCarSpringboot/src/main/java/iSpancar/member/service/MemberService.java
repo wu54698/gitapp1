@@ -17,6 +17,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -111,14 +112,14 @@ public class MemberService {
 	}
 	
 	//用帳號修改不含圖
-	public void updateByAccountnumber(MemberBean mb) throws SQLException, ParseException {
+	public MemberBean updateByAccountnumber(MemberBean mb) throws SQLException, ParseException {
 		Optional<MemberBean> op = mRepository.findById(mb.getAccountnumber());
 		MemberBean memberBean = null;
 		if(op.isPresent()) {//Optional非空值
 			 memberBean = op.get();
 		}
 		mb.setFile(memberBean.getFile());
-		mRepository.save(mb);
+		return mRepository.save(mb);
 	}
 	
 	//確認有無帳號
@@ -133,9 +134,11 @@ public class MemberService {
 	public String checkaccountnumberpassword(String accountnumber,String password) throws SQLException {
 
 //			String checkString = mDao.checkaccountnumberpassword(accountnumber, password);
-			MemberBean mb = mRepository.findByAccountnumberAndMemberpassword(accountnumber, password);
+			Optional<MemberBean> op = mRepository.findById(accountnumber);
+			MemberBean mBean = op.get();
+			boolean matches = new BCryptPasswordEncoder().matches(password,mBean.getMemberpassword());//密碼核對
 			String check;
-			if(mb !=null) {
+			if(matches) {
 				check = "資料正確";
 			}else {
 				check = "資料有誤";
