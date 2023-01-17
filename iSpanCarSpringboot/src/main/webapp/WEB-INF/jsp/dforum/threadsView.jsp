@@ -26,9 +26,7 @@
 <style>
 textarea {
 	background:transparent; 
-	border-style:none; 
-	text-indent:75px;
-	
+	border-style:none; 	
 }
 .container{
 margin:30px ;

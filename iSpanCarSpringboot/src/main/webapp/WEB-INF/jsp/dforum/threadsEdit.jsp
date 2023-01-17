@@ -26,9 +26,7 @@
 <style>
 textarea {
 	background:transparent; 
-	border-style:none; 
-	text-indent:75px;
-	
+	border-style:none;
 }
 .container{
 margin:30px ;
@@ -214,7 +212,7 @@ display:inline;
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                 <!--<img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}"> -->
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -238,62 +236,44 @@ display:inline;
 
 				<!-- Begin Page Content 內容 -->
 				<div class="container">
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-4 text-gray-800">文章詳情</h1>
 
-					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">論壇管理</h1>
-					 <div class="row">
-                        <div class="col-4 form-floating">
-                         <input id="postTitle"  type="input" value="${title}" class="form-control" type="text" placeholder="請輸入標題">
+                        <div>
+                            <input type="button" onclick="history.go(-1)" class="btn btn-danger" value="返回">
+                            <input type="button" style="background-color:#2db5c2;border-color:#2db5c2" onclick='$("#submitBtn").click()' class="btn btn-primary" value="提交">
                         </div>
-                        <div class="col-4">
-                         <select id="postSelect" class="form-control form-select" aria-label="請選擇類別">
 
-                         </select>
-                        </div>
-                        <div class="col-4">
-                         <input type="button" style="background-color:#2db5c2;border-color:#2db5c2" onclick="doSearch()" class="btn btn-primary" value="查詢">
-                        </div>
-                      </div>
+                        <br/>
 
-                      <br/>
-                      <div class="row">
-                        <div class="col-12">
-                          <input type="button" style="background-color:#2db5c2;border-color:#2db5c2" onclick="location.href='/thread/newthread'" class="btn btn-primary" value="新增文章">
-                        </div>
-                      </div>
+                		<form id="postForm" action="/thread" method="post" accept-charset="UTF-8">
+                            <div id="catediv" class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">分類</span>
+                                </div>
+                            </div>
 
-					<br/>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">標題</span>
+                                </div>
+                                <input type="text" name="title" class="form-control"value="${post.title}">
+                            </div>
 
-					<table id="threadList" style="width:1270px;">
-						<thead>
-							<tr>
-							    <th>id</th>
-								<th>類別</th>
-								<th>標題</th>
-								<th>創建人</th>
-								<th>創建時間</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<tbody>
-                            <c:forEach var='post' items='${postList}' varStatus="vs">
-                                <tr id="pos_row_${post.id}">
-                                    <td>${post.id}</td>
-                                    <td>${post.thread.category.name}</td>
-                                    <td> <a href="/thread/${post.id}">${post.title}</a></td>
-                                    <td>${post.member.name}</td>
-                                    <td>${post.time}</td>
-                                    <td>
-                                     <a href="/thread/${post.id}?edit=true">修改</a>
-                                     <a href="javascript: deletePost(${post.id})">刪除</a>
-                                     <a href="/thread/${post.id}">詳情</a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-					</table>
-				</div>
-				<script src="https://kit.fontawesome.com/f9c412c6fd.js" crossorigin="anonymous"></script>
+                            <div id="newt" style="width: 100%; height: 100%">
+                                <textarea name="body" class="form-control" style="width: 100%; height: 100%" >${post.body}</textarea>
+                            </div>
+
+                            <div>
+                                <input type="hidden" id="memberId" name="memberId" value="1" />
+                                <input type="hidden" value="${post.id}" name="id" />
+                                <button id="submitBtn" type="submit" style="display:none" >提交</button>
+                            </div>
+                        </form>
+                		<footer class="footer"> </footer>
+
+                	</div>
+                	<!-- /container -->
 				<!-- /.container-fluid -->
 
 			</div>
@@ -360,77 +340,30 @@ display:inline;
 		src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script>
-		$(document).ready(function() {
-			$('#threadList').DataTable({
-                bPaginate: false,
-                searching: false,
-			});
-		});
-	</script>
-	<script>
-    function deletePost(id){
-        Swal.fire({
-          title: '確定刪除?',
-          text: "資料將被刪除",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: '刪除',
-          cancelButtonText: '取消'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            $.ajax({
-                  type : "DELETE",
-                  url : "/post/"+id,
-                  success : function(response) {
-                      $("#pos_row_"+id).remove();
-                      Swal.fire("刪除成功!","已成功刪除該論壇","success",{button:"確定"});
-                  }
-              })
-          }
-        })
-    }
+    <script type="text/javascript">
+        $(document).ready(
+                function() {
+                    $.ajax({
+                        url : "/category/all",
+                        method : "GET",
+                        dataType : "json",
+                        success : function(res) {
+                            console.log(res);
 
-    $(document).ready(
-        function() {
-            $.ajax({
-                url : "/category/all",
-                method : "GET",
-                dataType : "json",
-                success : function(res) {
-                     $("#postSelect").append("<option value=''>請選擇</option>")
-                     for(data of res){
-                        $("#postSelect").append("<option value="+data.id+">"+data.name+"</option>")
-                     }
-                     $("#postSelect").val(${categoryId})
-                }
-            });
+                            var sel = $('<select>',{class:'custom-select',name:'category'}).appendTo('#catediv');
+                            $(res).each(function() {
+                                sel.append($("<option>").attr('value',
+                                        this.id).text(this.name));
+                            });
+                            $(".custom-select").val(${post.thread.category.id})
+                        },
+                        error : function(err) {
+                            console.log(err)
+                        },
+                    });
 
-        });
-
-    function doSearch(){
-      var title = $("#postTitle").val();
-      var categoryId = $("#postSelect").val();
-      window.location.href = 'threadsView?title='+title +"&categoryId="+categoryId;
-    }
-	</script>
-<!-- <script> -->
-
-<!-- </script> -->
-	<script>
-		var aa;
-		$(".btn1").on('mouseover',function(){
-			aa = $(this).parent().parent().children('#productno').text();
-			console.log(aa)
-		});
-		function foredit(){
-			console.log(aa);
-			let bb = $(this).parent().parent().children('#productno').text();
-			window.open("http://localhost:8080/iSpanCar/SendIdToUpdate.controller?productno=" + aa);
-		}
-	</script>
+                });
+    </script>
 </body>
 
 </html>

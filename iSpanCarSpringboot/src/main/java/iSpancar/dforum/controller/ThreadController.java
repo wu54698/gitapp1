@@ -20,6 +20,7 @@ import javax.persistence.criteria.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -56,10 +57,10 @@ public class ThreadController {
     }
 
     @GetMapping("/thread/{postId}")
-    public String threadsView(@PathVariable Integer postId, Model model) {
+    public String threadsView(@PathVariable Integer postId, @RequestParam(required = false, defaultValue = "false") Boolean edit, Model model) {
         Post post = threadService.findOneById(postId);
-        model.addAttribute("post",post);
-        return "dforum/threadsView";
+        model.addAttribute("post", post);
+        return edit ? "dforum/threadsEdit" : "dforum/threadsView";
     }
 
     @RequestMapping("/thread/newthread")
@@ -68,11 +69,12 @@ public class ThreadController {
     }
 
     @PostMapping("/thread")
+    @ResponseBody
     @Transactional(rollbackFor = Exception.class)
-    protected void processdoPostAction(
+    protected void save(
             HttpServletResponse rsp,
+            @RequestParam(value = "id", required = false) Integer id,
             @RequestParam("memberId") Integer memberId,
-            @RequestParam("time") String time,
             @RequestParam("body") String body,
             @RequestParam("title") String title,
             @RequestParam("category") Integer category
@@ -81,16 +83,17 @@ public class ThreadController {
         Thread saveThread = categoryService.findById(category).map((cat) -> {
             Thread thread = new Thread();
             thread.setCategory(cat);
-            thread.setTime(new Timestamp(Long.parseLong(time)));
+            thread.setTime(new Date());
             threadRepository.save(thread);
             return thread;
         }).orElse(null);
         Post post = new Post();
         post.setOP(true);
+        post.setId(id);
         ForumMember member = new ForumMember();
         member.setId(memberId);
         post.setMember(member);
-        post.setTime(new Timestamp(Long.parseLong(time)));
+        post.setTime(new Date());
         post.setBody(body);
         post.setTitle(title);
         post.setThread(saveThread);

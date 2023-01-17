@@ -26,9 +26,7 @@
 <style>
 textarea {
 	background:transparent; 
-	border-style:none; 
-	text-indent:75px;
-	
+	border-style:none;
 }
 .container{
 margin:30px ;
@@ -273,7 +271,7 @@ display:inline;
                 			<div>
                 				<input type="hidden" id="memberId" name="memberId" value="1" />
                 				<input type="hidden" id="time" name="time" />
-                				<button id="submitBtn" type="submit" style=display:none >提交</button>
+                				<button id="submitBtn" type="submit" style="display:none" >提交</button>
                 			</div>
                 		</form>
 
