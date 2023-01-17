@@ -389,7 +389,7 @@ display:inline;
                   url : "/post/"+id,
                   success : function(response) {
                       $("#pos_row_"+id).remove();
-                      Swal.fire("刪除成功!","已成功刪除該論壇","success",{button:"確定"});
+                      Swal.fire("刪除成功!","已成功刪除該文章","success",{button:"確定"});
                   }
               })
           }
