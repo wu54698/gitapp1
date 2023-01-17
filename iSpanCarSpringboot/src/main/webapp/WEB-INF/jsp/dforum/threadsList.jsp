@@ -50,6 +50,9 @@ form{
 display:inline;
 }
 
+.td-info{
+    cursor: pointer;
+}
 
 </style>
 </head>
@@ -277,16 +280,16 @@ display:inline;
 						</thead>
 						<tbody>
                             <c:forEach var='post' items='${postList}' varStatus="vs">
-                                <tr id="pos_row_${post.id}">
-                                    <td>${post.id}</td>
-                                    <td>${post.thread.category.name}</td>
-                                    <td> <a href="/thread/${post.id}">${post.title}</a></td>
-                                    <td>${post.member.name}</td>
-                                    <td>${post.time}</td>
+                                <tr data-post-id="${post.id}" id="pos_row_${post.id}">
+                                    <td class="td-info">${post.id}</td>
+                                    <td class="td-info">${post.thread.category.name}</td>
+                                    <td class="td-info">${post.title}</td>
+                                    <td class="td-info">${post.member.name}</td>
+                                    <td class="td-info">${post.time}</td>
                                     <td>
-                                     <a href="/thread/${post.id}?edit=true">修改</a>
-                                     <a href="javascript: deletePost(${post.id})">刪除</a>
-                                     <a href="/thread/${post.id}">詳情</a>
+                                     <button onclick="location.href = '/thread/${post.id}?edit=true'" class="btn btn-info btn-circle"><i class="fa-solid fa-pen"></i></button>
+                                     <button onclick="deletePost(${post.id})" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button>
+                                     <!-- <button onclick="location.href = '/thread/${post.id}'" class="btn btn-info btn-circle"><i class="fa-regular fa-circle-info"></i></button>-->
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -415,10 +418,12 @@ display:inline;
       var categoryId = $("#postSelect").val();
       window.location.href = 'threadsView?title='+title +"&categoryId="+categoryId;
     }
-	</script>
-<!-- <script> -->
 
-<!-- </script> -->
+    $(".td-info").click(function(target){
+        location.href = '/thread/' + $(target.target).parent().data("post-id")
+    })
+
+	</script>
 	<script>
 		var aa;
 		$(".btn1").on('mouseover',function(){
