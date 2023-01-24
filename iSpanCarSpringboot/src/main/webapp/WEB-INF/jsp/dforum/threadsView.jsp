@@ -261,8 +261,7 @@
 
 
                     <div id="newt" style="width: 100%; height: 100%">
-                				<textarea readonly name="body" class="form-control"
-                                          style="width: 100%; height: 100%">${post.body}</textarea>
+                        ${post.body}
                     </div>
 
                     <div>

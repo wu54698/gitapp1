@@ -22,7 +22,21 @@
             href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"
             rel="stylesheet">
 
+    <link href="https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css" rel="stylesheet">
+    <style>
+        #editor—wrapper {
+            border: 1px solid #ccc;
+            z-index: 100; /* 按需定义 */
+        }
 
+        #toolbar-container {
+            border-bottom: 1px solid #ccc;
+        }
+
+        #editor-container {
+            height: 500px;
+        }
+    </style>
     <style>
         textarea {
             background: transparent;
@@ -249,7 +263,7 @@
                 <div>
                     <input type="button" onclick="history.go(-1)" class="btn btn-danger" value="返回">
                     <input type="button" style="background-color:#2db5c2;border-color:#2db5c2"
-                           onclick='$("#submitBtn").click()' class="btn btn-primary" value="提交">
+                           onclick='submitPost()' class="btn btn-primary" value="提交">
                 </div>
 
                 <br/>
@@ -269,8 +283,11 @@
                     </div>
 
                     <div id="newt" style="width: 100%; height: 100%">
-                        <textarea name="body" class="form-control"
-                                  style="width: 100%; height: 100%">${post.body}</textarea>
+                        <input id="body" type="hidden" name="body">
+                        <div id="editor—wrapper">
+                            <div id="toolbar-container"><!-- 工具栏 --></div>
+                            <div id="editor-container"><!-- 编辑器 --></div>
+                        </div>
                     </div>
 
                     <div>
@@ -358,8 +375,6 @@
                 method: "GET",
                 dataType: "json",
                 success: function (res) {
-                    console.log(res);
-
                     var sel = $('<select>', {class: 'custom-select', name: 'category'}).appendTo('#catediv');
                     $(res).each(function () {
                         sel.append($("<option>").attr('value',
@@ -373,6 +388,187 @@
             });
 
         });
+</script>
+<script src="https://unpkg.com/@wangeditor/editor@latest/dist/index.js"></script>
+<script>
+    const {createEditor, createToolbar, i18nChangeLanguage, i18nGetResources, i18nAddResources} = window.wangEditor
+
+    const twLang = {
+        "editor": {
+            "more": "更多",
+            "justify": "對齊",
+            "indent": "縮進",
+            "image": "圖片",
+            "video": "視頻"
+        },
+        "common": {
+            "ok": "確定",
+            "delete": "刪除",
+            "enter": "回車"
+        },
+        "blockQuote": {
+            "title": "引用"
+        },
+        "codeBlock": {
+            "title": "代碼塊"
+        },
+        "color": {
+            "color": "文字顏色",
+            "bgColor": "背景色",
+            "default": "默認顏色",
+            "clear": "清除背景色"
+        },
+        "divider": {
+            "title": "分割線"
+        },
+        "emotion": {
+            "title": "表情"
+        },
+        "fontSize": {
+            "title": "字號",
+            "default": "默認字號"
+        },
+        "fontFamily": {
+            "title": "字體",
+            "default": "默認字體"
+        },
+        "fullScreen": {
+            "title": "全屏"
+        },
+        "header": {
+            "title": "標題",
+            "text": "正文"
+        },
+        "image": {
+            "netImage": "網絡圖片",
+            "delete": "刪除圖片",
+            "edit": "編輯圖片",
+            "viewLink": "查看鏈接",
+            "src": "圖片地址",
+            "desc": "圖片描述",
+            "link": "圖片鏈接"
+        },
+        "indent": {
+            "decrease": "減少縮進",
+            "increase": "增加縮進"
+        },
+        "justify": {
+            "left": "左對齊",
+            "right": "右對齊",
+            "center": "居中對齊",
+            "justify": "兩端對齊"
+        },
+        "lineHeight": {
+            "title": "行高",
+            "default": "默認行高"
+        },
+        "link": {
+            "insert": "插入鏈接",
+            "text": "鏈接文本",
+            "url": "鏈接地址",
+            "unLink": "取消鏈接",
+            "edit": "修改鏈接",
+            "view": "查看鏈接"
+        },
+        "textStyle": {
+            "bold": "粗體",
+            "clear": "清除格式",
+            "code": "行內代碼",
+            "italic": "斜體",
+            "sub": "下標",
+            "sup": "上標",
+            "through": "刪除線",
+            "underline": "下劃線"
+        },
+        "undo": {
+            "undo": "撤銷",
+            "redo": "重做"
+        },
+        "todo": {
+            "todo": "待辦"
+        },
+        "listModule": {
+            "unOrderedList": "無序列表",
+            "orderedList": "有序列表"
+        },
+        "tableModule": {
+            "deleteCol": "刪除列",
+            "deleteRow": "刪除行",
+            "deleteTable": "刪除表格",
+            "widthAuto": "寬度自適應",
+            "insertCol": "插入列",
+            "insertRow": "插入行",
+            "insertTable": "插入表格",
+            "header": "表頭"
+        },
+        "videoModule": {
+            "delete": "刪除視頻",
+            "uploadVideo": "上傳視頻",
+            "insertVideo": "插入視頻",
+            "videoSrc": "視頻地址",
+            "videoSrcPlaceHolder": "視頻文件 url 或第三方 <iframe>",
+            "videoPoster": "視頻封面",
+            "videoPosterPlaceHolder": "封面圖片 url",
+            "ok": "確定",
+            "editSize": "修改尺寸",
+            "width": "寬度",
+            "height": "高度"
+        },
+        "uploadImgModule": {
+            "uploadImage": "上傳圖片",
+            "uploadError": "{{fileName}} 上傳出錯"
+        },
+        "highLightModule": {
+            "selectLang": "選擇語言"
+        }
+    }
+
+    i18nAddResources('tw',twLang)
+    i18nChangeLanguage('tw')
+
+
+    const editorConfig = {
+        placeholder: '請輸入論壇内容',
+        MENU_CONF: {
+            uploadImage: {
+                // 小于该值就插入 base64 格式（而不上传），默认为 0
+                server: '/api/upload-image',
+                base64LimitSize: 50000 * 1024 // 50000kb
+            }
+        },
+        onChange(editor) {
+            const html = editor.getHtml()
+            // 也可以同步到 <textarea>
+        }
+    }
+
+    const editor = createEditor({
+        selector: '#editor-container',
+        html: '<p><br></p>',
+        config: editorConfig,
+        mode: 'default', // or 'simple'
+    })
+
+    const toolbarConfig = {
+        excludeKeys: ['group-video'],
+    }
+
+    const toolbar = createToolbar({
+        editor,
+        selector: '#toolbar-container',
+        config: toolbarConfig,
+        mode: 'default', // or 'simple'
+    })
+
+    editor.setHtml('${post.body}')
+
+    function submitPost() {
+        // 獲取html文本
+        $("#body").val(editor.getHtml())
+
+        // 點擊提交
+        $("#submitBtn").click();
+    }
 </script>
 </body>
 
