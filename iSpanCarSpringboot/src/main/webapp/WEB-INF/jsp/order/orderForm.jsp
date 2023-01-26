@@ -16,14 +16,14 @@
     <title>Order Form</title>
 
     <!-- Custom fonts for this template-->
-    <link href="http://localhost:8080/iSpanCar/script/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="/iSpanCar/script/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="http://localhost:8080/iSpanCar/script/css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="http://localhost:8080/iSpanCar/script/css/order.css" rel="stylesheet">
+    <link href="/iSpanCar/script/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/iSpanCar/script/css/order.css" rel="stylesheet">
 
 
 </head>
@@ -357,15 +357,15 @@
     </div>
 
         <!-- Bootstrap core JavaScript-->
-        <script src="http://localhost:8080/iSpanCar/script/vendor/jquery/jquery.min.js"></script>
-        <script src="http://localhost:8080/iSpanCar/script/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/iSpanCar/script/vendor/jquery/jquery.min.js"></script>
+        <script src="/iSpanCar/script/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="https://kit.fontawesome.com/7065f74436.js" crossorigin="anonymous"></script>
 
         <!-- Core plugin JavaScript-->
-        <script src="http://localhost:8080/iSpanCar/script/vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="/iSpanCar/script/vendor/jquery-easing/jquery.easing.min.js"></script>
 
         <!-- Custom scripts for all pages-->
-        <script src="http://localhost:8080/iSpanCar/script/js/sb-admin-2.min.js"></script>
+        <script src="/iSpanCar/script/js/sb-admin-2.min.js"></script>
         <script>
 
             $(document).ready(function () {
