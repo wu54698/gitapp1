@@ -295,7 +295,7 @@
                             <td class="td-info">${post.id}</td>
                             <td class="td-info">${post.thread.category.name}</td>
                             <td class="td-info">${post.title}</td>
-                            <td class="td-info">${post.member.name}</td>
+                            <td class="td-info">${post.member.accountnumber}</td>
                             <td class="td-info">${post.time}</td>
                             <td>
                                 <button onclick="location.href = '/thread/${post.id}?edit=true'"
@@ -400,10 +400,14 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "DELETE",
-                    url: "/post/" + id,
-                    success: function (response) {
-                        $("#pos_row_" + id).remove();
-                        Swal.fire("刪除成功!", "已成功刪除該文章", "success", {button: "確定"});
+                    url: "/thread/" + id,
+                    success: function (res) {
+                        if(res == '操作成功！'){
+                            $("#pos_row_" + id).remove();
+                            Swal.fire(res, "", "success", {button: "確定"});
+                            return;
+                        }
+                        Swal.fire(res, "", "error", {button: "確定"});
                     }
                 })
             }

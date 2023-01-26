@@ -263,12 +263,12 @@
                 <div>
                     <input type="button" onclick="history.go(-1)" class="btn btn-danger" value="返回">
                     <input type="button" style="background-color:#2db5c2;border-color:#2db5c2"
-                           onclick='submitPost()' class="btn btn-primary" value="提交">
+                           onclick='handleSave()' class="btn btn-primary" value="提交">
                 </div>
 
                 <br/>
 
-                <form id="postForm" action="/thread" method="post" accept-charset="UTF-8">
+                <form id="saveForm" method="post" accept-charset="UTF-8">
                     <div id="catediv" class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-sm">分類</span>
@@ -291,9 +291,7 @@
                     </div>
 
                     <div>
-                        <input type="hidden" id="memberId" name="memberId" value="1"/>
                         <input type="hidden" value="${post.id}" name="id"/>
-                        <button id="submitBtn" type="submit" style="display:none">提交</button>
                     </div>
                 </form>
                 <footer class="footer"></footer>
@@ -390,6 +388,7 @@
         });
 </script>
 <script src="https://unpkg.com/@wangeditor/editor@latest/dist/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
 <script>
     const {createEditor, createToolbar, i18nChangeLanguage, i18nGetResources, i18nAddResources} = window.wangEditor
 
@@ -562,12 +561,46 @@
 
     editor.setHtml('${post.body}')
 
-    function submitPost() {
+    function formVail() {
+        let formData = $("#saveForm").serializeArray();
+        let formDataJson = {};
+        for (row of formData) {
+            let inputName = row.name
+            let text = '';
+            switch (inputName) {
+                case "title":
+                    text = '標題';
+                    break;
+                case "body":
+                    text = '帖子内容';
+                    break;
+            }
+            if (row.name !== 'id' && !row.value) {
+                Swal.fire( '請填寫' + text, "", "error");
+                return;
+            }
+            formDataJson[row.name] = row.value;
+        }
+        return formDataJson;
+    }
+
+    function handleSave() {
         // 獲取html文本
         $("#body").val(editor.getHtml())
+        let formDataJson = formVail()
+        if (formDataJson) {
+            axios.post('/thread', formDataJson).then((res) => {
+                if(res.data === "no login"){
+                    Swal.fire("未登錄！請先登錄!", "", "error");
+                    return;
+                }
+                Swal.fire("操作成功!", "", "success").then(r=>{
+                    window.location.href = "/threadsView"
+                });
+            }).catch((error) => {
 
-        // 點擊提交
-        $("#submitBtn").click();
+            });
+        }
     }
 </script>
 </body>

@@ -256,7 +256,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">發佈人</span>
                         </div>
-                        <input readonly type="text" class="form-control" value="${post.member.name}">
+                        <input readonly type="text" class="form-control" value="${post.member.accountnumber}">
                     </div>
 
 
@@ -349,31 +349,36 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    $(function() {
+    $(function () {
         listMessage();
     })
 
     function submitMessage() {
         let val = $("#messageContent").val()
         if (!val) {
-            Swal.fire("操作提醒!", "請輸入留言内容！");
+            Swal.fire("操作提醒!", "請輸入留言内容！","error");
         }
         $.ajax({
             type: "POST",
             url: "/post/message",
-            data:  JSON.stringify({content: val, member: {id: 1}, post: {id: ${post.id}}}),
+            data: JSON.stringify({content: val, member: {id: 1}, post: {id: ${post.id}}}),
             contentType: 'application/json',
             success: (res) => {
-                Swal.fire(res);
+                if ("no login" === res) {
+                    Swal.fire("未登录，请先登录!", "", "error");
+                    return;
+                }
+                Swal.fire(res,"","success");
                 listMessage();
                 $("#messageContent").val("")
             }
         })
     }
+
     function listMessage() {
         $.ajax({
             type: "GET",
-            url: "/post/message",
+            url: "/post/message/${post.id}",
             dataType: "json",
             success: (res) => {
                 let html = '';
@@ -382,7 +387,7 @@
                     i--;
                     html += `
                         <div class="list-group-item">
-                            <div>陌生人:</div>
+                            <div>\${r.member.accountnumber}:</div>
                             <p class="list-group-item-text">\${r.content}</p>
                             <div style="text-align: right"><span style="color: red">\${i}樓</span>&nbsp;&nbsp;\${r.time}</div>
                         </div>

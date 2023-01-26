@@ -1,8 +1,18 @@
 package iSpancar.dforum.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import iSpancar.member.model.MemberBean;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
 
 @Entity
@@ -23,11 +33,22 @@ public class PostMessage {
 
 	@ManyToOne
 	@JoinColumn(name = "memberId")
-	private ForumMember member;
+	private MemberBean member;
+
+	@ManyToOne
+	@JoinColumn(name = "replyMemberId")
+	private MemberBean replyMember;
 
 	@ManyToOne
 	@JoinColumn(name = "postId")
-	private Post post;
+	@JsonIgnore
+	private PostMain post;
+
+	@Transient
+	private boolean liked;
+
+	@Transient
+	private boolean disliked;
 
 	public Integer getId() {
 		return id;
@@ -53,19 +74,43 @@ public class PostMessage {
 		this.time = time;
 	}
 
-	public ForumMember getMember() {
+	public MemberBean getMember() {
 		return member;
 	}
 
-	public void setMember(ForumMember member) {
+	public void setMember(MemberBean member) {
 		this.member = member;
 	}
 
-	public Post getPost() {
+	public PostMain getPost() {
 		return post;
 	}
 
-	public void setPost(Post post) {
+	public void setPost(PostMain post) {
 		this.post = post;
+	}
+
+	public MemberBean getReplyMember() {
+		return replyMember;
+	}
+
+	public void setReplyMember(MemberBean replyMember) {
+		this.replyMember = replyMember;
+	}
+
+	public boolean getLiked() {
+		return liked;
+	}
+
+	public void setLiked(boolean liked) {
+		this.liked = liked;
+	}
+
+	public boolean getDisliked() {
+		return disliked;
+	}
+
+	public void setDisliked(boolean disliked) {
+		this.disliked = disliked;
 	}
 }

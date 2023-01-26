@@ -1,17 +1,20 @@
 package iSpancar.dforum.service;
 
 import iSpancar.dforum.model.Category;
-import iSpancar.dforum.model.Post;
+import iSpancar.dforum.model.PostMain;
 import iSpancar.dforum.model.Thread;
 import iSpancar.dforum.repository.ThreadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Service
@@ -23,12 +26,12 @@ public class ThreadService {
     @Autowired
     private EntityManager entityManager;
 
-    public List<Post> findList(Integer categoryId, String title) {
+    public List<PostMain> findList(Integer categoryId, String title) {
         CriteriaBuilder criteria = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Post> q = criteria.createQuery(Post.class);
-        Root<Post> root = q.from(Post.class);
+        CriteriaQuery<PostMain> q = criteria.createQuery(PostMain.class);
+        Root<PostMain> root = q.from(PostMain.class);
         root.join("member", JoinType.LEFT);
-        Join<Post, Thread> c = root.join("thread", JoinType.INNER);
+        Join<PostMain, Thread> c = root.join("thread", JoinType.INNER);
         Join<Thread, Category> d = c.join("category", JoinType.LEFT);
 
         q.where(
@@ -47,16 +50,16 @@ public class ThreadService {
             );
         }
 
-        List<Post> resultList = entityManager.createQuery(q).getResultList();
+        List<PostMain> resultList = entityManager.createQuery(q).getResultList();
         return resultList;
     }
 
-    public Post findOneById(Integer postId) {
+    public PostMain findOneById(Integer postId) {
         CriteriaBuilder criteria = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Post> q = criteria.createQuery(Post.class);
-        Root<Post> root = q.from(Post.class);
+        CriteriaQuery<PostMain> q = criteria.createQuery(PostMain.class);
+        Root<PostMain> root = q.from(PostMain.class);
         root.join("member", JoinType.LEFT);
-        Join<Post, Thread> c = root.join("thread", JoinType.INNER);
+        Join<PostMain, Thread> c = root.join("thread", JoinType.INNER);
         Join<Thread, Category> d = c.join("category", JoinType.LEFT);
         q.where(
                 criteria.equal(root.get("isOP"), 1)
@@ -67,7 +70,7 @@ public class ThreadService {
                     criteria.equal(root.get("id"), postId)
             );
         }
-        List<Post> resultList = entityManager.createQuery(q).getResultList();
+        List<PostMain> resultList = entityManager.createQuery(q).getResultList();
         return resultList.get(0);
     }
 }
