@@ -187,7 +187,7 @@ public class PortalPostController {
 
 
 	/**
-	 * add post message
+	 * 帖子樓層留言
 	 *
 	 * @param postMessage
 	 */
@@ -238,7 +238,7 @@ public class PortalPostController {
 
 
 	/**
-	 * add like
+	 * 點贊 or 踩
 	 *
 	 * @param postLike
 	 */
@@ -282,6 +282,11 @@ public class PortalPostController {
 	}
 
 
+	/**
+	 * 跟帖子
+	 * @param postMainSaveParam
+	 * @return
+	 */
 	@PostMapping("/post")
 	@Transactional(rollbackFor = Exception.class)
 	protected Result save(@RequestBody PostMainSaveParam postMainSaveParam) {
