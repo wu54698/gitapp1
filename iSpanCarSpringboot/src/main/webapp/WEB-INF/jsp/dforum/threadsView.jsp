@@ -361,7 +361,7 @@
         $.ajax({
             type: "POST",
             url: "/post/message",
-            data: JSON.stringify({content: val, member: {id: 1}, post: {id: ${post.id}}}),
+            data: JSON.stringify({content: val, post: {id: ${post.id}}}),
             contentType: 'application/json',
             success: (res) => {
                 if ("no login" === res) {

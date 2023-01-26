@@ -1,45 +1,28 @@
-package iSpancar.dforum.model;
+package iSpancar.dforum.query;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import iSpancar.dforum.model.PostMain;
 import iSpancar.member.model.MemberBean;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name = "post_message")
-public class PostMessage {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+public class PostMessageParam {
+
 	private Integer id;
 	
-	@Column(name = "content")
+
 	private String content ;
 
-	@Column(name = "time")
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date time ;
 
-	@ManyToOne
-	@JoinColumn(name = "memberId")
 	private MemberBean member;
 
-	@ManyToOne
-	@JoinColumn(name = "replyMemberId")
 	private MemberBean replyMember;
 
-	@ManyToOne
-	@JoinColumn(name = "postId")
-	@JsonIgnore
 	private PostMain post;
 
-	@Transient
 	private boolean liked;
 
-	@Transient
 	private boolean disliked;
 
 	public Integer getId() {
