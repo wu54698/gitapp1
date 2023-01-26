@@ -2,6 +2,8 @@ package iSpancar.dforum.model;
 
 public class PostMainSaveParam {
 
+	private Integer id;
+
 	private String body;
 
 	private String title;
@@ -40,5 +42,13 @@ public class PostMainSaveParam {
 
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }

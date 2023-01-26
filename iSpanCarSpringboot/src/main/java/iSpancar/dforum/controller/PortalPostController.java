@@ -4,6 +4,7 @@ import iSpancar.dforum.model.PostLike;
 import iSpancar.dforum.model.PostMain;
 import iSpancar.dforum.model.PostMainSaveParam;
 import iSpancar.dforum.model.PostMessage;
+import iSpancar.dforum.model.Result;
 import iSpancar.dforum.model.Thread;
 import iSpancar.dforum.query.PostQuery;
 import iSpancar.dforum.repository.PostLikeRepository;
@@ -21,7 +22,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,7 +72,7 @@ public class PortalPostController {
 	 * @return
 	 */
 	@GetMapping("/post")
-	public ResponseEntity<Page<PostMain>> postList(PostQuery postQuery) {
+	public Result postList(PostQuery postQuery) {
 		Specification<PostMain> where = new Specification<>() {
 			/**
 			 * 定义查询条件
@@ -107,7 +107,7 @@ public class PortalPostController {
 			postMain.setBody(null);
 			postMain.setPostMessages(Collections.emptyList());
 		}
-		return ResponseEntity.ok(page);
+		return Result.ok(page);
 	}
 
 
@@ -118,13 +118,13 @@ public class PortalPostController {
 	 * @return
 	 */
 	@GetMapping("/post/{uuid}")
-	public ResponseEntity<Object> postDetail(@PathVariable String uuid,
+	public Result postDetail(@PathVariable String uuid,
 											 @RequestParam(required = false) Integer postId,
 											 @RequestParam int pageSize,
 											 @RequestParam int pageNum) {
 		MemberBean loginUser = webContextService.getCurrUser();
 		if (loginUser == null) {
-			return ResponseEntity.ok("no login");
+			return Result.fail("no login");
 		}
 
 		Specification<PostMain> where = new Specification<>() {
@@ -182,7 +182,7 @@ public class PortalPostController {
 		}
 
 
-		return ResponseEntity.ok(page);
+		return Result.ok(page);
 	}
 
 
@@ -192,18 +192,18 @@ public class PortalPostController {
 	 * @param postMessage
 	 */
 	@PostMapping("/post/message")
-	public ResponseEntity<String> message(@RequestBody PostMessage postMessage) {
+	public Result message(@RequestBody PostMessage postMessage) {
 		postMessage.setTime(new Date());
 		MemberBean loginUser = webContextService.getCurrUser();
 		if (loginUser == null) {
-			return ResponseEntity.ok("no login");
+			return Result.fail("no login");
 		}
 		postMessage.setMember(loginUser);
 		postMessageRepository.save(postMessage);
 		final String uuid = postMessage.getPost().getUuid();
 
 		incPostMainCountData(uuid, loginUser);
-		return ResponseEntity.ok("留言成功！");
+		return Result.ok(postMessage);
 	}
 
 	/**
@@ -243,21 +243,21 @@ public class PortalPostController {
 	 * @param postLike
 	 */
 	@PostMapping("/like")
-	public ResponseEntity<String> postLike(@RequestBody PostLike postLike) {
+	public Result postLike(@RequestBody PostLike postLike) {
 		MemberBean loginUser = webContextService.getCurrUser();
 		if (loginUser == null) {
-			return ResponseEntity.ok("no login");
+			return Result.fail("no login");
 		}
 
 		// 刪除
 		PostLike oldLike = postLikeRepository.findFirstByDataIdAndTypeAndLikedAndMember(postLike.getDataId(), postLike.getType(), postLike.getLiked(), loginUser.getAccountnumber());
 		boolean delete = oldLike != null;
 
-		if(!delete){
+		if (!delete) {
 			postLike.setMember(loginUser.getAccountnumber());
 			postLike.setTime(new Date());
 			postLikeRepository.save(postLike);
-		}else {
+		} else {
 			postLikeRepository.delete(oldLike);
 		}
 
@@ -278,13 +278,13 @@ public class PortalPostController {
 			post.setLikeCount(post.getLikeCount() + 1);
 			postRepository.save(post);
 		}
-		return ResponseEntity.ok("操作成功！");
+		return Result.ok(postLike);
 	}
 
 
 	@PostMapping("/post")
 	@Transactional(rollbackFor = Exception.class)
-	protected ResponseEntity<String> save(@RequestBody PostMainSaveParam postMainSaveParam) {
+	protected Result save(@RequestBody PostMainSaveParam postMainSaveParam) {
 
 		Thread saveThread = categoryService.findById(postMainSaveParam.getCategory()).map((cat) -> {
 			Thread thread = new Thread();
@@ -298,7 +298,7 @@ public class PortalPostController {
 		post.setUuid(postMainSaveParam.getUuid());
 		MemberBean currUser = webContextService.getCurrUser();
 		if (currUser == null) {
-			return ResponseEntity.ok("no login");
+			return Result.fail("no login");
 		}
 		post.setMember(currUser);
 		post.setTime(new Date());
@@ -321,7 +321,6 @@ public class PortalPostController {
 		post.setInteractiveCount(1);
 		post.setPopularityCount(1);
 		postRepository.save(post);
-
-		return ResponseEntity.ok("操作成功!");
+		return Result.ok(post);
 	}
 }
