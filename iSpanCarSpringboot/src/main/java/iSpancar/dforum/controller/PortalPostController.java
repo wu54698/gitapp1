@@ -1,5 +1,6 @@
 package iSpancar.dforum.controller;
 
+import iSpancar.dforum.model.Category;
 import iSpancar.dforum.model.PostLike;
 import iSpancar.dforum.model.PostMain;
 import iSpancar.dforum.model.PostMainSaveParam;
@@ -24,6 +25,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +46,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/dforum")
 public class PortalPostController {
 
@@ -64,6 +67,12 @@ public class PortalPostController {
 
 	@Autowired
 	private ThreadRepository threadRepository;
+
+	@GetMapping("/category")
+	public Result categorys() {
+		List<Category> categories = categoryService.findAll();
+		return Result.ok(categories);
+	}
 
 	/**
 	 * 帖子列表查詢
@@ -149,7 +158,7 @@ public class PortalPostController {
 			}
 		};
 
-		PageRequest of = PageRequest.of(pageNum, pageSize, Sort.sort(PostMain.class).by(PostMain::getId).descending());
+		PageRequest of = PageRequest.of(pageNum, pageSize, Sort.sort(PostMain.class).by(PostMain::getId).ascending());
 		Page<PostMain> page = postRepository.findAll(where, of);
 
 		// 查詢當前登陸人是否有點贊，踩記錄
