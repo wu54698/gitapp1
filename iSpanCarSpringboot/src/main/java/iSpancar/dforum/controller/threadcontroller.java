@@ -1,69 +1,119 @@
 package iSpancar.dforum.controller;
 
-import java.io.IOException;
-import java.sql.Timestamp;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-
+import iSpancar.dforum.model.Category;
 import iSpancar.dforum.model.ForumMember;
 import iSpancar.dforum.model.Post;
 import iSpancar.dforum.model.Thread;
-import iSpancar.dforum.service.QueryHelper;
+import iSpancar.dforum.repository.CategoryRepository;
+import iSpancar.dforum.repository.PostRepository;
+import iSpancar.dforum.repository.ThreadRepository;
+import iSpancar.dforum.service.ThreadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.*;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.List;
 
 @Controller
-public class threadcontroller {
-	@Autowired
-	private QueryHelper query;
-	
-	@GetMapping("/thread.controller")
-	@ResponseBody
-	protected String processdoGetAction(@RequestParam("id") String id)
-			throws ServletException, IOException {
-		return(query.getThread(Integer.parseInt(id)));
-	}
-	
-	@PostMapping("/thread.controller")
-	protected String processdoPostAction(@RequestParam("memberId") String memberId,@RequestParam("time")String time,
-			@RequestParam("body")String body,@RequestParam("title")String title,@RequestParam("category")String category)
-			throws ServletException, IOException {
+public class ThreadController {
 
-		Thread thread = query.newThread(Integer.parseInt(category));
+    @Autowired
+    private ThreadRepository threadRepository;
 
-		Post post = new Post();
-		post.setOP(true);
-		ForumMember member = new ForumMember();
-		member.setId(Integer.parseInt(memberId));
-		post.setMember(member);
-		post.setTime(new Timestamp(Long.parseLong(time)));
-		post.setBody(body);
-		post.setTitle(title) ;
-		post.setThread(thread);
-		query.newPost(post);
+    @Autowired
+    private ThreadService threadService;
 
-		return "dforum/threads";
+    @Autowired
+    private CategoryRepository categoryService;
 
-		//response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
-		//response.setHeader("Location", "threads.jsp");
-		
+    @Autowired
+    private PostRepository postService;
 
-}
+    @Autowired
+    private EntityManager entityManager;
 
-	
+    @GetMapping
+    @ResponseBody
+    protected ResponseEntity get(@RequestParam("id") Integer id) {
+        return ResponseEntity.ok(threadRepository.findById(id));
+    }
+
+    @GetMapping("/threadsView")
+    public String threadsView(Model view, @RequestParam(required = false) Integer categoryId, @RequestParam(required = false) String title) {
+        List<Post> threadsList = threadService.findList(categoryId, title);
+        view.addAttribute("postList", threadsList);
+        view.addAttribute("categoryId", categoryId);
+        view.addAttribute("title", title);
+        return "dforum/threadsList";
+    }
+
+    @GetMapping("/thread/{postId}")
+    public String threadsView(@PathVariable Integer postId, Model model) {
+        Post post = threadService.findOneById(postId);
+        model.addAttribute("post",post);
+        return "dforum/threadsView";
+    }
+
+    @RequestMapping("/thread/newthread")
+    public String newThread() {
+        return "dforum/threadsAdd";
+    }
+
+    @PostMapping("/thread")
+    @Transactional(rollbackFor = Exception.class)
+    protected void processdoPostAction(
+            HttpServletResponse rsp,
+            @RequestParam("memberId") Integer memberId,
+            @RequestParam("time") String time,
+            @RequestParam("body") String body,
+            @RequestParam("title") String title,
+            @RequestParam("category") Integer category
+    ) {
+
+        Thread saveThread = categoryService.findById(category).map((cat) -> {
+            Thread thread = new Thread();
+            thread.setCategory(cat);
+            thread.setTime(new Timestamp(Long.parseLong(time)));
+            threadRepository.save(thread);
+            return thread;
+        }).orElse(null);
+        Post post = new Post();
+        post.setOP(true);
+        ForumMember member = new ForumMember();
+        member.setId(memberId);
+        post.setMember(member);
+        post.setTime(new Timestamp(Long.parseLong(time)));
+        post.setBody(body);
+        post.setTitle(title);
+        post.setThread(saveThread);
+        postService.save(post);
+        try {
+            rsp.sendRedirect("threadsView");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @GetMapping("/thread/all")
+    public ResponseEntity<List<Post>> processThreadsAction() {
+        CriteriaBuilder criteria = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Post> q = criteria.createQuery(Post.class);
+        Root<Post> root = q.from(Post.class);
+        root.join("member", JoinType.LEFT);
+        Join<Post, Thread> c = root.join("thread", JoinType.INNER);
+        Join<Thread, Category> d = c.join("category", JoinType.LEFT);
+        q.where(criteria.equal(root.get("isOP"), 1));
+        return ResponseEntity.ok(entityManager.createQuery(q).getResultList());
+
+    }
+
 
 }

@@ -1,29 +1,28 @@
 package iSpancar.dforum.controller;
 
+import iSpancar.dforum.model.Category;
+import iSpancar.dforum.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import iSpancar.dforum.service.QueryHelper;
+import java.util.List;
 
 @Controller
-public class categoriescontroller {
+@RequestMapping("/category")
+public class CategoriesController {
 
 	@Autowired
-	private QueryHelper query;
-	
-	@GetMapping("/categories.controller")
+	private CategoryRepository categoryService;
+
+	@GetMapping("/all")
 	@ResponseBody
-	public String processCategoriesAction() {
-		try {
-			return query.getCategories();
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return null;
+	public ResponseEntity<List<Category>> processCategoriesAction() {
+		List<Category> categories = categoryService.findAll();
+
+		return ResponseEntity.ok(categories);
 	}
 }

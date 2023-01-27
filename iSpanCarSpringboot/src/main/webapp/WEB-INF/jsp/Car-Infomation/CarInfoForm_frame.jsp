@@ -105,7 +105,7 @@
 						</a></li>
 
 					<!-- Nav Item - Tables -->
-					<li class="nav-item"><a class="nav-link" href="<c:url value='/ProductListAll'/>"> <i
+					<li class="nav-item"><a class="nav-link" href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
 								class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
 					<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
@@ -217,7 +217,10 @@
             <tr bgcolor='transparent'>
                 <td width="120" height="40">車商名稱</td>
                 <td width="600" height="40" align="left"><input id="carDealName" name="carDealName" class="checkNotNull"
-                        value="${param.carDealName}" type="text" size="14" style="text-align: left"></td>
+                        value="${param.carDealName}" type="text" size="14" style="text-align: left">
+                        <small><font color='red' size="-1">${ErrorMsg.carDealName}</font></small>
+                </td>
+             
             </tr>
             <tr bgcolor='transparent'>
                 <td width="120" height="40">帳號</td>

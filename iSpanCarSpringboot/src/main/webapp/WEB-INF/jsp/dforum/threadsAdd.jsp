@@ -6,7 +6,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>產品修改成功</title>
+<title>所有論壇列表</title>
 <!-- Custom fonts for this template-->
 <link
 	href="http://localhost:8080/iSpanCar/script/vendor/fontawesome-free/css/all.min.css"
@@ -21,46 +21,39 @@
 <link
 	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"
 	rel="stylesheet">
-	<style>
-/* textarea { */
-/* 	background:transparent;  */
-/* 	border-style:none;  */
-/* 	text-indent:75px; */
-	
-/* } */
+
+
+<style>
+textarea {
+	background:transparent; 
+	border-style:none;
+}
 .container{
 margin:30px ;
 padding:0;
 }
-.sendbtn{
+input{
 border:0;
 background-color:#2db5c2;
 color:#fff;
 border-radius:10px;
-height:30px;
-width:80px;
 opacity:1;
 }
-.sendbtn:hover{
+input:hover{
+
 opacity:0.6;
 }
-.backshopbtn{
-border:0;
-background-color:#2db5c2;
-color:#fff;
-border-radius:8px;
-height:40px;
-width:122px;
-opacity:1;
+
+form{
+display:inline;
 }
-.backshopbtn:hover{
-opacity:0.6;
-}
+
+
 </style>
 </head>
 
 <body id="page-top">
-
+<c:set value="${LoginOK}" var="login"/>
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
@@ -141,23 +134,19 @@ opacity:0.6;
                     <span>保養廠</span></a>
             </li>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">H
-                <a class="nav-link" href="threadsView">
-                    <i class="fa-brands fa-rocketchat"></i>
-                    <span>論壇</span></a>
-            </li>
+			<!-- Nav Item - Charts -->
+			<li class="nav-item"><a class="nav-link" href="threadsView">
+					<i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
+			</a></li>
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item"><a class="nav-link"
-				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
+			<!-- Nav Item - Tables -->
+			<li class="nav-item"><a class="nav-link"
+				href=""<c:url value='/iSpancarShop.ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
-                    <i class="fa-solid fa-coins"></i>
-                    <span>訂單</span></a>
-            </li>
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+					<i class="fa-solid fa-coins"></i> <span>訂單</span>
+			</a></li>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
 
@@ -213,8 +202,7 @@ opacity:0.6;
 						<div class="topbar-divider d-none d-sm-block"></div>
 
 						<!-- Nav Item - User Information -->
-						<li class="nav-item dropdown no-arrow">
-						<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+						<li class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.accountnumber}</span>
                             <!-- 職位 -->
@@ -224,7 +212,7 @@ opacity:0.6;
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                 <!--<img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}"> -->
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -248,103 +236,146 @@ opacity:0.6;
 
 				<!-- Begin Page Content 內容 -->
 				<div class="container">
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-4 text-gray-800">發表文章</h1>
 
-					<!-- Page Heading -->
-					
-					<p>
-					<p>
-	<form action="<c:url value='/iSpancarShop.ProductListAll'/>" method="get" >
-		<input type="submit" value="回商城管理頁面" class="backshopbtn" />
-	</form>
-					
-					
-					<!-- /.container-fluid -->
+                        <div>
+                            <input type="button" onclick="history.go(-1)" class="btn btn-danger" value="返回">
+                            <input type="button" style="background-color:#2db5c2;border-color:#2db5c2" onclick='$("#submitBtn").click()' class="btn btn-primary" value="提交">
+                        </div>
 
-				</div>
-				<!-- End of Main Content -->
+                        <br/>
 
-				<!-- Footer -->
-				<footer class="sticky-footer bg-white">
-					<div class="container my-auto">
-						<div class="copyright text-center my-auto">
-							<span>Copyright &copy; Your Website 2020</span>
-						</div>
-					</div>
-				</footer>
-				<!-- End of Footer -->
+                		<form id="postForm" action="/thread" method="post" accept-charset="UTF-8">
+                			<div id="catediv" class="input-group mb-3">
+                				<div class="input-group-prepend">
+                					<span class="input-group-text" id="inputGroup-sizing-sm">分類</span>
+                				</div>
+                			</div>
+
+
+                			<div class="input-group mb-3">
+                				<div class="input-group-prepend">
+                					<span class="input-group-text">標題</span>
+                				</div>
+                				<input type="text" class="form-control" id="title" name="title" required>
+                			</div>
+
+
+
+                			<div id="newt" style="width: 100%; height: 100%">
+                				<textarea id="body" name="body" class="form-control"
+                					style="width: 100%; height: 100%" placeholder="在此輸入文章..." required></textarea>
+                			</div>
+
+                			<div>
+                				<input type="hidden" id="memberId" name="memberId" value="1" />
+                				<input type="hidden" id="time" name="time" />
+                				<button id="submitBtn" type="submit" style="display:none" >提交</button>
+                			</div>
+                		</form>
+
+
+
+
+
+                		<footer class="footer"> </footer>
+
+                	</div>
+                	<!-- /container -->
+				<!-- /.container-fluid -->
 
 			</div>
-			<!-- End of Content Wrapper -->
+			<!-- End of Main Content -->
 
-		</div>
-		<!-- End of Page Wrapper -->
-
-		<!-- Scroll to Top Button-->
-		<a class="scroll-to-top rounded" href="#page-top"> <i
-			class="fas fa-angle-up"></i>
-		</a>
-
-		<!-- Logout Modal-->
-		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Ready to
-							Leave?</h5>
-						<button class="close" type="button" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">Select "Logout" below if you are
-						ready to end your current session.</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button"
-							data-dismiss="modal">Cancel</button>
-						<a class="btn btn-primary" href="login.html">Logout</a>
+			<!-- Footer -->
+			<footer class="sticky-footer bg-white">
+				<div class="container my-auto">
+					<div class="copyright text-center my-auto">
+						<span>Copyright &copy; Your Website 2020</span>
 					</div>
 				</div>
-			</div>
+			</footer>
+			<!-- End of Footer -->
+
 		</div>
+		<!-- End of Content Wrapper -->
 
-		<!-- Bootstrap core JavaScript-->
-		<script
-			src="http://localhost:8080/iSpanCar/script/vendor/jquery/jquery.min.js"></script>
-		<script
-			src="http://localhost:8080/iSpanCar/script/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	</div>
+	<!-- End of Page Wrapper -->
 
-		<!-- Core plugin JavaScript-->
-		<script
-			src="http://localhost:8080/iSpanCar/script/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
 
-		<!-- Custom scripts for all pages-->
-		<script
-			src="http://localhost:8080/iSpanCar/script/js/sb-admin-2.min.js"></script>
+	<!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">決定登出?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
+<!--                 <div class="modal-footer"> -->
 
-		<script src="https://kit.fontawesome.com/dbb4662278.js"
-			crossorigin="anonymous"></script>
-		<script type="text/javascript" charset="utf8"
-			src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-			<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-		<script>
+<!--                 </div> -->
+            </div>
+        </div>
+    </div>
 
-		window.onload = function showAlert() {
-  		Swal.fire({
-    	title: '修改成功 !',
-    	text: "該產品已修改完成",
-    	icon: 'success',
-    	confirmButtonColor: '#3085d6',
-    	confirmButtonText: '確定'
-  		}).then((result) => {
-    if (result.value) {
-      //點擊跳轉
-      window.location.href = 'http://localhost:8080/iSpancarShop.ProductListAll';
-    }
+	<!-- Bootstrap core JavaScript-->
+	<script
+		src="http://localhost:8080/iSpanCar/script/vendor/jquery/jquery.min.js"></script>
+	<script
+		src="http://localhost:8080/iSpanCar/script/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  })
-}
-</script>
+	<!-- Core plugin JavaScript-->
+	<script
+		src="http://localhost:8080/iSpanCar/script/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script
+		src="http://localhost:8080/iSpanCar/script/js/sb-admin-2.min.js"></script>
+
+	<script src="https://kit.fontawesome.com/dbb4662278.js"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript" charset="utf8"
+		src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script type="text/javascript">
+    	$(document).ready(
+    			function() {
+    				$("#time").val(new Date().getTime());
+    				$.ajax({
+    					url : "/category/all",
+    					method : "GET",
+    					dataType : "json",
+    					success : function(res) {
+    						console.log(res);
+
+    						var sel = $('<select>',{class:'custom-select',name:'category'}).appendTo('#catediv');
+    						$(res).each(
+    								function() {
+    									sel.append($("<option>").attr('value',
+    											this.id).text(this.name));
+    								});
+
+    					},
+    					error : function(err) {
+    						console.log(err)
+    					},
+    				});
+
+    			});
+    </script>
+<!-- <script> -->
 </body>
 
 </html>

@@ -121,7 +121,7 @@ textarea {
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
 			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
@@ -243,7 +243,7 @@ textarea {
 									<td>${car.stock}</td>
 									<!--<td>${car.carImage}</td>-->
 									<td><img
-										src="carInfoImage.controller/{car.carNo}"
+										src="carInfoImage.controller/${car.carNo}"
 										width="180px" height="120px"></td>
 									<td><textarea readonly cols="10" rows="5"
 											style="text-align: left">${car.carDescription}</textarea></td>

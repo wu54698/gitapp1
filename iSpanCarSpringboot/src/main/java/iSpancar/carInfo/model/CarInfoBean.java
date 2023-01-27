@@ -18,39 +18,39 @@ import iSpancar.carDealer.model.CarDealerBean;
 
 
 @Entity
-@Table(name = "carInfo")
+@Table(name = "carinfo")
 @Component
 public class CarInfoBean {
 	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "carNo")
+	@Column(name = "carno")
 	private int carNo;						//車輛編號
 
 	@ManyToOne
-	@JoinColumn(name = "carDealName")
-	private CarDealerBean carDealerBean;	//車商名稱
+	@JoinColumn(name = "cardealname")
+	private CarDealerBean cardealerbean;	//車商名稱
 	
-	@Column(name = "accountNumber")
+	@Column(name = "accountnumber")
 	private String accountNumber;			//帳號
 	
-	@Column(name = "carBrand")
+	@Column(name = "carbrand")
 	private String carBrand;				//車輛品牌
 	
-	@Column(name = "carName")
+	@Column(name = "carname")
 	private String carName;					//車輛名稱
 	
 	@Column(name = "stock")
 	private int stock;						//庫存
 	
-	@Column(name = "carImage")
+	@Column(name = "carimage")
 	private Blob carImage;					//車輛照片
 	
-	@Column(name = "carDescription")
+	@Column(name = "cardescription")
 	private String carDescription;			//車輛描述
 	
-	@Column(name = "announceDate")
+	@Column(name = "announcedate")
 	private String announceDate;			//發布日期
 	
 	public CarInfoBean() {
@@ -63,7 +63,7 @@ public class CarInfoBean {
 			int stock, Blob carImage, String carDescription, String announceDate) {
 		super();
 		this.carNo = carNo;
-		this.carDealerBean = carDealerBean;
+		this.cardealerbean = carDealerBean;
 		this.accountNumber = accountNumber;
 		this.carBrand = carBrand;
 		this.carName = carName;
@@ -78,7 +78,7 @@ public class CarInfoBean {
 	public CarInfoBean(CarDealerBean carDealerBean, String accountNumber, String carBrand, String carName,
 			int stock, Blob carImage, String carDescription, String announceDate) {
 		super();
-		this.carDealerBean = carDealerBean;
+		this.cardealerbean = carDealerBean;
 		this.accountNumber = accountNumber;
 		this.carBrand = carBrand;
 		this.carName = carName;
@@ -101,11 +101,11 @@ public class CarInfoBean {
 	
 
 	public CarDealerBean getCarDealerBean() {
-		return carDealerBean;
+		return cardealerbean;
 	}
 
 	public void setCarDealerBean(CarDealerBean carDealerBean) {
-		this.carDealerBean = carDealerBean;
+		this.cardealerbean = carDealerBean;
 	}
 
 	public String getAccountNumber() {
@@ -170,7 +170,7 @@ public class CarInfoBean {
 		builder.append("CarInfoBean [carNo=");
 		builder.append(carNo);
 		builder.append(", carDealerBean=");
-		builder.append(carDealerBean);
+		builder.append(cardealerbean);
 		builder.append(", accountNumber=");
 		builder.append(accountNumber);
 		builder.append(", carBrand=");

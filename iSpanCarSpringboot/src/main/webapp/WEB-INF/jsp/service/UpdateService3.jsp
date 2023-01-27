@@ -116,7 +116,7 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 			</a></li>
 
@@ -236,7 +236,7 @@
 							<br>
 <input type="button" value="新增保養廠" onclick="location.href='/service.signinService'">
 <input type="button" value="刪除保養廠" onclick="location.href='/service.deleteService'">
-<input type="button" value="查詢保養廠" onclick="location.href='/service.UpdateService'">
+<input type="button" value="查詢保養廠" onclick="location.href='/service.SelectService'">
 <br>
 </form>
 				</div>

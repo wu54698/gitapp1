@@ -9,16 +9,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import iSpancar.shop.model.ShopDetailBean;
 import iSpancar.shop.model.ShopDetailDao;
+import iSpancar.shop.service.ShopDetailService;
 
 @Controller
 public class ShopCartController {
 	@Autowired
-	private ShopDetailDao sDao;
+	private ShopDetailService service;
 	
-	@GetMapping("/Shop_Cart.controller")
+	@GetMapping("/iSpancarShop.Shop_Cart.controller")
 	public String processToShopCart(Model m) {
 
-		List<ShopDetailBean> list = sDao.findAllProduct();
+		List<ShopDetailBean> list = service.findAll();
 		m.addAttribute("queryallproduct", list);
 
 		return "SHOP_DETAIL/Shop_Cart";

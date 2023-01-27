@@ -55,29 +55,45 @@ public class CarInfoController {
 		// 讀取瀏覽器送入的欄位內的資料
 		// 透過bean找到車商名稱的參數值
 		List<CarDealerBean> carDealerBean = iSpanCarService.findByCarDealerName(carDealName);
-		
+
 		// 確認車商是否有登錄
-		//從CarDealerBean的list取出cardealname
-		CarDealerBean firstSeller = null;
+		// 從CarDealerBean的list取出cardealname
+		CarDealerBean sellerBean = null;
+		String firstSeller = null;
 		if (carDealerBean.size() == 0) {
 			errorMessage.put("carDealName", "該車商名稱尚未登錄");
-		}else {
-			firstSeller = carDealerBean.get(0);
+		} else {
+			sellerBean = carDealerBean.get(0);
+			firstSeller = sellerBean.getCarDealName();
 		}
-		// 透過service做新增
-		iSpanCarService.addCarInfo(firstSeller, accountNumber, carBrand, carName, stock, imageblob, carDescription,
-				announceDate);
+
+		// new一個bean，透過bean set車輛資訊進去
+		CarInfoBean carInfoBean = new CarInfoBean();
+		carInfoBean.setCarDealerBean(sellerBean);
+		carInfoBean.setAccountNumber(accountNumber);
+		carInfoBean.setCarBrand(carBrand);
+		carInfoBean.setCarName(carName);
+		carInfoBean.setStock(stock);
+		carInfoBean.setCarImage(imageblob);
+		carInfoBean.setCarDescription(carDescription);
+		carInfoBean.setAnnounceDate(announceDate);
 
 		// 錯誤成立則跳轉至原頁面
 		if (!errorMessage.isEmpty()) {
 			return "/Car-Infomation/CarInfoForm_frame";
+		} else {
+
+			// 透過service新增車輛資訊進資料庫
+			iSpanCarService.addCarInfo(carInfoBean);
+
+			// 新增成功後，跳轉至找全部車輛的jsp頁面
+			List<CarInfoBean> newList = iSpanCarService.findAllCar();
+			m.addAttribute("SelectAllCar", newList);
+			
+			//跳轉至
+			return "Car-Infomation/SelectAllCar_frame";
 		}
 
-		// 新增成功後，跳轉至找全部車輛的jsp頁面
-		List<CarInfoBean> newList = iSpanCarService.findAllCar();
-		m.addAttribute("SelectAllCar", newList);
-
-		return "Car-Infomation/SelectAllCar_frame";
 	}
 
 	// 刪除車輛的Controller
@@ -104,12 +120,12 @@ public class CarInfoController {
 		String image = mf.getOriginalFilename();
 		byte[] bytes = mf.getBytes();
 		Blob productImage = new SerialBlob(bytes);
-		
+
 		List<CarInfoBean> list = iSpanCarService.findByCarNoLike(carNumber);
-		
-		//取原來的值
+
+		// 取原來的值
 		CarInfoBean originInfoBean = new CarInfoBean();
-		for(CarInfoBean cib : list) {
+		for (CarInfoBean cib : list) {
 			originInfoBean.setCarNo(cib.getCarNo());
 			originInfoBean.setCarDealerBean(cib.getCarDealerBean());
 			originInfoBean.setAccountNumber(cib.getAccountNumber());
@@ -120,38 +136,31 @@ public class CarInfoController {
 			originInfoBean.setCarDescription(cib.getCarDescription());
 			originInfoBean.setAnnounceDate(cib.getAnnounceDate());
 		}
-		
-		//從CarDealBean取原來的值的carDealName
+
+		// 從CarDealBean取原來的值的carDealName
 		String sellerName = originInfoBean.getCarDealerBean().getCarDealName();
-		
-		Integer number = (carNo.equals("")) ? 
-				originInfoBean.getCarNo() : carNumber;
-		String dealer = (carDealName.equals("")) ? 
-				sellerName : carDealName;
-		String account = (accountNumber.equals("")) ? 
-				originInfoBean.getAccountNumber() : accountNumber;
-		String brand = (carBrand.equals("")) ? 
-				originInfoBean.getCarBrand() : carBrand;
-		String carModel = (carName.equals("")) ? 
-				originInfoBean.getCarName() : carName;
-		Integer inventory = (stock.equals("")) ? 
-				originInfoBean.getStock() : Integer.parseInt(stock);
-		Blob carPhoto = (bytes.length==0) ? 
-				originInfoBean.getCarImage() : productImage;
-		String carMemo = (carDescription.equals("")) ? 
-				originInfoBean.getCarDescription() : carDescription;
-		String publishDate = (announceDate.equals("")) ? 
-				originInfoBean.getAnnounceDate() : announceDate;
-		
-		
+
+		Integer number = (carNo.equals("")) ? originInfoBean.getCarNo() : carNumber;
+		String dealer = (carDealName.equals("")) ? sellerName : carDealName;
+		String account = (accountNumber.equals("")) ? originInfoBean.getAccountNumber() : accountNumber;
+		String brand = (carBrand.equals("")) ? originInfoBean.getCarBrand() : carBrand;
+		String carModel = (carName.equals("")) ? originInfoBean.getCarName() : carName;
+		Integer inventory = (stock.equals("")) ? originInfoBean.getStock() : Integer.parseInt(stock);
+		Blob carPhoto = (bytes.length == 0) ? originInfoBean.getCarImage() : productImage;
+		String carMemo = (carDescription.equals("")) ? originInfoBean.getCarDescription() : carDescription;
+		String publishDate = (announceDate.equals("")) ? originInfoBean.getAnnounceDate() : announceDate;
+
 		// 讀取瀏覽器送入的欄位內的資料
 		// 透過bean找到車商名稱的參數值
 		List<CarDealerBean> carDealerBean = iSpanCarService.findByCarDealerName(carDealName);
 		
 		CarDealerBean sellerBean = carDealerBean.get(0);
 		
-		CarInfoBean infoBean = new CarInfoBean(number, sellerBean, account, brand, carModel, inventory,
-				carPhoto, carMemo, publishDate);
+		//將三元判斷的結果與取出的車商名稱放進bean中
+		CarInfoBean infoBean = new CarInfoBean(number, sellerBean, account, brand, carModel, inventory, carPhoto,
+				carMemo, publishDate);
+		
+		//透過service寫進資料庫
 		iSpanCarService.updateByCarNo(infoBean);
 		ArrayList<CarInfoBean> updateList = new ArrayList<CarInfoBean>();
 		updateList.add(infoBean);
@@ -159,19 +168,19 @@ public class CarInfoController {
 
 		return "Car-Infomation/UpdateCarInfo_frame";
 	}
-	
+
 	//透過Id接值進入修改頁面的controller(原selectIdToUpdate)
 	@PostMapping("/JumptoUpdateCarInfoSheet")
 	public String selectIdToUpdateAction(@RequestParam("carNo") String carNo, Model m) {
-		
+
 		int carNumber = Integer.parseInt(carNo);
 		List<CarInfoBean> list = iSpanCarService.findByCarNoLike(carNumber);
 		m.addAttribute("toUpdate", list);
-		
+
 		return "Car-Infomation/JumpToUpdateCarInfoSheet_frame";
 	}
-	
-	// 透過品牌查詢車輛的controller
+
+	//透過品牌查詢車輛的controller
 	@PostMapping("/SelectCarByBrand.controller")
 	public String selectCarAction(@RequestParam("carBrand") String carBrand, Model m) {
 
@@ -181,7 +190,7 @@ public class CarInfoController {
 		return "Car-Infomation/SelectCarByBrand_frame";
 	}
 
-	// 查詢全部車輛
+	//查詢全部車輛
 	@PostMapping("/SelectAllCar.controller")
 	public String selectAllCarAction(Model m) {
 

@@ -2,18 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
+<html>
 
 <head>
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-
-<title>SB Admin 2 - Blank</title>
-
+<meta charset="UTF-8">
+<title>所有論壇列表</title>
 <!-- Custom fonts for this template-->
 <link
 	href="http://localhost:8080/iSpanCar/script/vendor/fontawesome-free/css/all.min.css"
@@ -21,14 +14,47 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
-
 <!-- Custom styles for this template-->
 <link
 	href="http://localhost:8080/iSpanCar/script/css/sb-admin-2.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+<link
+	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"
+	rel="stylesheet">
+
+
+<style>
+textarea {
+	background:transparent; 
+	border-style:none; 
+	text-indent:75px;
+	
+}
+.container{
+margin:30px ;
+padding:0;
+}
+input{
+border:0;
+background-color:#2db5c2;
+color:#fff;
+border-radius:10px;
+opacity:1;
+}
+input:hover{
+
+opacity:0.6;
+}
+
+form{
+display:inline;
+}
+
+.td-info{
+    cursor: pointer;
+}
+
+</style>
 </head>
 
 <body id="page-top">
@@ -82,31 +108,36 @@
                     </div>
                 </div>
             </li> -->
-			<li class="nav-item"><a class="nav-link" href="memberselectall.controller">
-					<i class="fa-solid fa-user"></i> <span>會員</span>
-			</a></li>
+			<li class="nav-item">
+                <a class="nav-link" href="memberselectall.controller">
+                    <i class="fa-solid fa-user"></i>
+                    <span>會員</span></a>
+            </li>
 
-			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link"
-				href="CarDealerForm"> <i
-					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="CarInfoForm">
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item"><a class="nav-link"
+							href="CarDealerForm">
+							<i class="fa-solid fa-car"></i> <span>車廠</span>
+						</a></li>
+            <li class="nav-item"><a class="nav-link"
+							href="CarInfoForm">
 					<i class="fa-solid fa-car"></i> <span>車輛</span>
-			</a></li>
+						</a></li>
 
-			<!-- Divider -->
-			<!-- <hr class="sidebar-divider"> -->
+            <!-- Divider -->
+            <!-- <hr class="sidebar-divider"> -->
 
-			<!-- Heading -->
-			<!-- <div class="sidebar-heading">
+            <!-- Heading -->
+            <!-- <div class="sidebar-heading">
                 Addons
             </div> -->
 
-			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item"><a class="nav-link" href="serviceAllController">
-					<i class="fa-solid fa-screwdriver-wrench"></i> <span>保養廠</span>
-			</a></li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="serviceAllController">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <span>保養廠</span></a>
+            </li>
 
 			<!-- Nav Item - Charts -->
 			<li class="nav-item"><a class="nav-link" href="threadsView">
@@ -115,9 +146,8 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
+				href=""<c:url value='/iSpancarShop.ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
-			</a></li>
 
 			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
@@ -138,6 +168,7 @@
 
 			<!-- Main Content -->
 			<div id="content">
+
 
 				<!-- Topbar -->
 				<nav
@@ -209,57 +240,63 @@
 				<!-- End of Topbar -->
 
 				<!-- Begin Page Content 內容 -->
-				<div class="container-fluid">
+				<div class="container">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">功能名稱</h1>
-					<form name="carDealerInfoA" action="" method="post" id="dealer">
-						<table id="carDealer">
-							<thead>
-								<tr>
-									<th>車商名稱</th>
-									<th>車商電話</th>
-									<th>地址</th>
-									<th>營業時間</th>
-									<th>聯絡人</th>
-									<th>統一編號</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><input id="carDealName" name="carDealName" class="checkNotNull"
-										value="${param.carDealName}" type="text" size="10"
-										placeholder="輸入車商名稱">
-										<div style="color:#FF0000; font-size:60%; display: inline">${ErrorMsg.carDealName}</div>
-										<div style="color:#FF0000; font-size:60%; display: inline">${NotFoundMsg.carDealName}</div>
-										</td>
-									<td><input id="carDealPhone" name="carDealPhone" class="checkNotNull"
-										value="${param.carDealPhone}" type="text" size="10"></td>
-									<td><input id="carDealAddress" name="carDealAddress" class="checkNotNull"
-										value="${param.carDealAddress}" type="text" size="10">
-									</td>
-									<td><input id="openTime" name="openTime" class="checkNotNull"
-										value="${param.openTime}" type="text" placeholder="HH:MM:SS"
-										size="10"></td>
-									<td><input id="contactPerson" name="contactPerson" class="checkNotNull"
-										value="${param.contactPerson}" type="text" size="10"></td>
-									<td><input id="carDealVATNumber" name="carDealVATNumber" class="checkNotNull"
-										value="${param.carDealVATNumber}" type="text" size="10"></td>
-								</tr>
-							</tbody>
+					<h1 class="h3 mb-4 text-gray-800">論壇管理</h1>
+					 <div class="row">
+                        <div class="col-4 form-floating">
+                         <input id="postTitle"  type="input" value="${title}" class="form-control" type="text" placeholder="請輸入標題">
+                        </div>
+                        <div class="col-4">
+                         <select id="postSelect" class="form-control form-select" aria-label="請選擇類別">
 
-						</table>
-						<input type="submit" value="新增" id="addCarDealer"
-							formaction="addCarDealer" onclick="add()">
-						<%--         <input type="submit" value="刪除" formaction="<c:url value='/DeleteCarDealerServlet.do'/>"> --%>
-						<input type="submit" value="改資訊" id="updateCarDealer"
-							formaction="updateCarDealer" >
-						<input type="submit" value="找車商" id="findCarDealer"
-							formaction="findDealer.controller" onclick="submit"> 
-						<input type="submit" value="搜尋全車商"
-							formaction="findAllDealer.controller">
-					</form>
+                         </select>
+                        </div>
+                        <div class="col-4">
+                         <input type="button" style="background-color:#2db5c2;border-color:#2db5c2" onclick="doSearch()" class="btn btn-primary" value="查詢">
+                        </div>
+                      </div>
+
+                      <br/>
+                      <div class="row">
+                        <div class="col-12">
+                          <input type="button" style="background-color:#2db5c2;border-color:#2db5c2" onclick="location.href='/thread/newthread'" class="btn btn-primary" value="新增文章">
+                        </div>
+                      </div>
+
+					<br/>
+
+					<table id="threadList" style="width:1270px;">
+						<thead>
+							<tr>
+							    <th>id</th>
+								<th>類別</th>
+								<th>標題</th>
+								<th>創建人</th>
+								<th>創建時間</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+                            <c:forEach var='post' items='${postList}' varStatus="vs">
+                                <tr data-post-id="${post.id}" id="pos_row_${post.id}">
+                                    <td class="td-info">${post.id}</td>
+                                    <td class="td-info">${post.thread.category.name}</td>
+                                    <td class="td-info">${post.title}</td>
+                                    <td class="td-info">${post.member.name}</td>
+                                    <td class="td-info">${post.time}</td>
+                                    <td>
+                                     <button onclick="location.href = '/thread/${post.id}?edit=true'" class="btn btn-info btn-circle"><i class="fa-solid fa-pen"></i></button>
+                                     <button onclick="deletePost(${post.id})" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button>
+                                     <!-- <button onclick="location.href = '/thread/${post.id}'" class="btn btn-info btn-circle"><i class="fa-regular fa-circle-info"></i></button>-->
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+					</table>
 				</div>
+				<script src="https://kit.fontawesome.com/f9c412c6fd.js" crossorigin="anonymous"></script>
 				<!-- /.container-fluid -->
 
 			</div>
@@ -300,7 +337,7 @@
                 <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
                     <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
 <!--                 <div class="modal-footer"> -->
-                   
+
 <!--                 </div> -->
             </div>
         </div>
@@ -324,46 +361,81 @@
 		crossorigin="anonymous"></script>
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-		
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
 		$(document).ready(function() {
-			$('#carDealer').DataTable();
+			$('#threadList').DataTable({
+                bPaginate: false,
+                searching: false,
+			});
 		});
-		
-		$(document).ready(function(){
-		    $('#openTime').timepicker({
-		    	timeFormat: 'HH:mm:ss',
-		    });
-		});
-		
-		//驗證欄位不為空
-		 $('#findCarDealer').on({
-			 click: function(){
-				 $('#carDealName').attr('required', true)
-			 }, mouseleave: function(){
-				 $('#carDealName').attr('required', false)
-			 }
-		 });
-		
-		 $('#updateCarDealer').on({
-			 click: function(){
-				 $('#carDealName').attr('required', true)
-			 }, mouseleave: function(){
-				 $('#carDealName').attr('required', false)
-			 }
-		 });
-		 
-		 $('#addCarDealer').on({
-	            click: function () {
-	                $('.checkNotNull').attr('required', true)
-	            }, mouseleave: function () {
-	                $('.checkNotNull').attr('required', false)
-	            },
-	        });
+	</script>
+	<script>
+    function deletePost(id){
+        Swal.fire({
+          title: '確定刪除?',
+          text: "資料將被刪除",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: '刪除',
+          cancelButtonText: '取消'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+                  type : "DELETE",
+                  url : "/post/"+id,
+                  success : function(response) {
+                      $("#pos_row_"+id).remove();
+                      Swal.fire("刪除成功!","已成功刪除該文章","success",{button:"確定"});
+                  }
+              })
+          }
+        })
+    }
+
+    $(document).ready(
+        function() {
+            $.ajax({
+                url : "/category/all",
+                method : "GET",
+                dataType : "json",
+                success : function(res) {
+                     $("#postSelect").append("<option value=''>請選擇</option>")
+                     for(data of res){
+                        $("#postSelect").append("<option value="+data.id+">"+data.name+"</option>")
+                     }
+                     $("#postSelect").val(${categoryId})
+                }
+            });
+
+        });
+
+    function doSearch(){
+      var title = $("#postTitle").val();
+      var categoryId = $("#postSelect").val();
+      window.location.href = 'threadsView?title='+title +"&categoryId="+categoryId;
+    }
+
+    $(".td-info").click(function(target){
+        location.href = '/thread/' + $(target.target).parent().data("post-id")
+    })
 
 	</script>
-	
+	<script>
+		var aa;
+		$(".btn1").on('mouseover',function(){
+			aa = $(this).parent().parent().children('#productno').text();
+			console.log(aa)
+		});
+		function foredit(){
+			console.log(aa);
+			let bb = $(this).parent().parent().children('#productno').text();
+			window.open("http://localhost:8080/iSpanCar/SendIdToUpdate.controller?productno=" + aa);
+		}
+	</script>
 </body>
 
 </html>

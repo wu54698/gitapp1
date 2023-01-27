@@ -1,16 +1,8 @@
 package iSpancar.dforum.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.springframework.stereotype.Component;
+import javax.persistence.*;
 
 @Entity
-@Component
 @Table(name = "forummember")
 public class ForumMember {
 
@@ -21,9 +13,6 @@ public class ForumMember {
 
 	@Column(name = "name")
 	private String name;
-
-	public ForumMember() {
-	}
 
 	public Integer getId() {
 		return id;
@@ -41,4 +30,5 @@ public class ForumMember {
 		this.name = name;
 	}
 
+	
 }

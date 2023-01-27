@@ -128,7 +128,7 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
             <li class="nav-item">
@@ -265,7 +265,7 @@
 						<td>${member.email}</td>
 						<td>${member.memberaddress}</td>
 						<td>${member.platenumber}</td>
-						<td>${member.birthday}</td>
+						<td class="birthday">${member.birthday}</td>
 						<td class="idnumber">${member.idnumber}</td>
 						<td>${member.cardnumber}</td>
 						<td><form id="imgform" class="imgform" enctype="multipart/form-data"><label><input type='hidden' class='file' id='file' name='file' style='display:none' ><img id="imgshow" class="imgshow" src="showimage.controller?accountnumber=${member.accountnumber}"  width="120" height="120" /></label></form></td>
@@ -338,6 +338,13 @@
         });
         
         $(function () {
+        	
+        	$('.birthday').each(function(){
+        		var birthstr = $(this).text();
+        		var str = birthstr.substring(0,10);
+        		$(this).text(str);
+        	})
+        	
         	$('.memberpassword').html('***');
         	//判斷查詢權限
         	let myPositionSelect = $('#myPositionSelect').val();
@@ -367,7 +374,7 @@
 							}).then((result) => {
 							  if (result.isConfirmed) {
 							    Swal.fire(
-							      'Deleted!',
+							      '已刪除!',
 							      'Your file has been deleted.',
 							      'success'
 							    )
@@ -412,7 +419,7 @@
 			                   array.push($(this).text());
 			               })//陣列中加入.not以外的內文
 			               console.log(array)
-			               for (let i = 1; i < array.length-1; i++) {
+			               for (let i = 2; i < array.length-1; i++) {
 			                   let content = "<input type='text' size='7'class='form-control form-control-user updateinput' value='" + array[i] + "'>";
 			                   $(this).closest('tr').children('td').eq(i).text("");
 			                   $(this).closest('tr').children('td').eq(i).append(content);

@@ -35,38 +35,38 @@ import org.springframework.web.multipart.MultipartFile;
 
 import iSpancar.shop.model.ShopDetailBean;
 import iSpancar.shop.model.ShopDetailDao;
+import iSpancar.shop.service.ShopDetailService;
 
 @Controller
 public class ProductListController {
 
 	@Autowired
-	private ShopDetailDao sDao;
+	private ShopDetailService service;
 
-	@GetMapping("/ProductListAll")
+	@GetMapping("/iSpancarShop.ProductListAll")
 	public String processQueryAll(Model m) {
 
-		List<ShopDetailBean> list = sDao.findAllProduct();
+		List<ShopDetailBean> list = service.findAll();
 		m.addAttribute("queryallproduct", list);
 
 		return "SHOP_DETAIL/iSpanProductList";
 	}
 
-	@PostMapping("/DeleteShopDetail.controller")
+	@PostMapping("/iSpancarShop.DeleteShopDetail.controller")
 	@ResponseBody
 	public String processDelete(@RequestParam("productno") String productno) {
 		System.out.println("-------");
 		try {
-			System.out.println("trytrytry");
-			List<ShopDetailBean> list = sDao.findByProductno(productno);
+			List<ShopDetailBean> list = service.findByProductno(productno);
 			for (ShopDetailBean sdb : list) {
-				sDao.deleteProduct(sdb);
+				service.delete(sdb);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "delete";
 	}
-	@PostMapping("/InsertShopDetail.controller")
+	@PostMapping("/iSpancarShop.InsertShopDetail.controller")
     public String processInsertAction(@RequestParam("productname") String productname,@RequestParam("type") String type,@RequestParam("spec") String spec
     				,@RequestParam("price") int price,@RequestParam("stock") int stock,@RequestParam("uptime") String uptime,@RequestParam("productinfo") String productinfo,@RequestParam("productimage") MultipartFile mf) {
 		
@@ -81,7 +81,7 @@ public class ProductListController {
             		}
             		ShopDetailBean shopDetailBean = new ShopDetailBean(productname,type,spec,price,stock,uptime,productinfo,imageblob,imgname);
             		
-            		sDao.insertProduct(shopDetailBean);
+            		service.insertProduct(shopDetailBean);
                 } catch (IOException e) {
         			e.printStackTrace();
         		} catch (SerialException e) {
@@ -94,18 +94,14 @@ public class ProductListController {
         		return "SHOP_DETAIL/InsertProductSuccess";
         	}
 	
-	@GetMapping("/SendIdToUpdate.controller")
+	@PostMapping("/iSpancarShop.SendIdToUpdate.controller")
 	public String processSendIdToUpdateAction(@RequestParam("productno") String productno,Model m) {
-		try {
-			List<ShopDetailBean> list = sDao.findByProductno(productno);
-			m.addAttribute("sentno",list);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		List<ShopDetailBean> list = service.findByProductno(productno);
+		m.addAttribute("sentno",list);
 		return "SHOP_DETAIL/UpdateProduct_form";
 	}
 	
-	@PostMapping("/UpdateShopDetail.controller")
+	@PostMapping("/iSpancarShop.UpdateShopDetail.controller")
 	public String processUpdateAction(@RequestParam("productno") String productno,@RequestParam("productname") String productname, @RequestParam("price") String price,@RequestParam("stock") String stock,@RequestParam("productinfo") String productinfo,@RequestParam("productimage") MultipartFile mf, Model success) {
 		try {
 			Integer productnoint = Integer.parseInt(productno);
@@ -116,8 +112,7 @@ public class ProductListController {
 			byte[] bytes = mf.getBytes();
 			SerialBlob productImg = new SerialBlob(bytes);
 				ShopDetailBean sBean = new ShopDetailBean(productnoint,productname,priceint,stockint,productinfo,productImg,imgname);
-				sDao.updateProduct(sBean);
-//				success.addAttribute("success",success);
+				service.updateByProductno(sBean);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (SerialException e) {
@@ -127,6 +122,12 @@ public class ProductListController {
 		}
 		return "SHOP_DETAIL/UpdateProductSucess";
 	}
-        }
+	
+	@GetMapping("/iSpancarShop.insertpage")
+    public String forward() {
+        return "forward:/WEB-INF/jsp/SHOP_DETAIL/iSpanShopInsert.jsp";
+    }
+}
+        
 
 

@@ -16,18 +16,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import iSpancar.shop.model.ShopDetailBean;
 import iSpancar.shop.model.ShopDetailDao;
+import iSpancar.shop.service.ShopDetailService;
 @Controller
 public class ProductImgController {
 
 	@Autowired
-	private ShopDetailDao sDao;
+	private ShopDetailService service;
 	
-	@GetMapping("/productimg.controller/{productno}")
+	@GetMapping("productimg.controller")
 	@ResponseBody
-	public byte[] processProductImgAction(@PathVariable("productno") String productno) {
+	public byte[] processProductImgAction(@RequestParam("productno") String productno) {
 		System.out.println("aaaaaaaaaaaaaaaaaaa");
 		try {
-			ShopDetailBean sBean = sDao.findImgbyproductno(productno);
+			ShopDetailBean sBean = service.findImgByProductno(productno);
 			InputStream is = sBean.getProductimage().getBinaryStream();
 			
 			return IOUtils.toByteArray(is);

@@ -1,18 +1,9 @@
 package iSpancar.dforum.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.springframework.stereotype.Component;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-@Component
 @Table(name = "post")
 public class Post {
 
@@ -28,22 +19,18 @@ public class Post {
 	private String body ;
 
 	@Column(name = "time")
-	private java.sql.Timestamp time ;
-
+	private Date time ;
 
 	@Column(name = "isOP")
 	private boolean isOP ;
 
 	@ManyToOne
-	@JoinColumn(name = "memberId")
+	@JoinColumn(name = "memberid")
 	private ForumMember member;
 	
 	@ManyToOne
-	@JoinColumn(name = "threadId")
+	@JoinColumn(name = "threadid")
 	private Thread thread;
-
-	public Post() {
-	}
 
 	public Integer getId() {
 		return id;
@@ -69,11 +56,11 @@ public class Post {
 		this.body = body;
 	}
 
-	public java.sql.Timestamp getTime() {
+	public Date getTime() {
 		return time;
 	}
 
-	public void setTime(java.sql.Timestamp time) {
+	public void setTime(Date time) {
 		this.time = time;
 	}
 
@@ -101,6 +88,5 @@ public class Post {
 		this.thread = thread;
 	}
 
-
-
+	
 }
