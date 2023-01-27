@@ -7,6 +7,7 @@ import iSpancar.dforum.model.PostMainSaveParam;
 import iSpancar.dforum.model.PostMessage;
 import iSpancar.dforum.model.Result;
 import iSpancar.dforum.model.Thread;
+import iSpancar.dforum.query.PostMessageParam;
 import iSpancar.dforum.query.PostQuery;
 import iSpancar.dforum.repository.PostLikeRepository;
 import iSpancar.dforum.repository.PostMessageRepository;
@@ -18,6 +19,7 @@ import iSpancar.member.model.MemberBean;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -128,9 +130,9 @@ public class PortalPostController {
 	 */
 	@GetMapping("/post/{uuid}")
 	public Result postDetail(@PathVariable String uuid,
-											 @RequestParam(required = false) Integer postId,
-											 @RequestParam int pageSize,
-											 @RequestParam int pageNum) {
+							 @RequestParam(required = false) Integer postId,
+							 @RequestParam int pageSize,
+							 @RequestParam int pageNum) {
 		MemberBean loginUser = webContextService.getCurrUser();
 		if (loginUser == null) {
 			return Result.fail("no login");
@@ -201,15 +203,17 @@ public class PortalPostController {
 	 * @param postMessage
 	 */
 	@PostMapping("/post/message")
-	public Result message(@RequestBody PostMessage postMessage) {
+	public Result message(@RequestBody PostMessageParam postMessage) {
 		postMessage.setTime(new Date());
 		MemberBean loginUser = webContextService.getCurrUser();
 		if (loginUser == null) {
 			return Result.fail("no login");
 		}
 		postMessage.setMember(loginUser);
-		postMessageRepository.save(postMessage);
-		final String uuid = postMessage.getPost().getUuid();
+		PostMessage createMessage = new PostMessage();
+		BeanUtils.copyProperties(postMessage, createMessage);
+		postMessageRepository.save(createMessage);
+		final String uuid = postRepository.findById(createMessage.getPost().getId()).get().getUuid();
 
 		incPostMainCountData(uuid, loginUser);
 		return Result.ok(postMessage);
@@ -293,6 +297,7 @@ public class PortalPostController {
 
 	/**
 	 * 跟帖子
+	 *
 	 * @param postMainSaveParam
 	 * @return
 	 */
