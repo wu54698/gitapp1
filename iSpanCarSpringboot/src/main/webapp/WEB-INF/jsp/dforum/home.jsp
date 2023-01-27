@@ -298,8 +298,7 @@ pageEncoding="UTF-8" %>
           <span>草稿已儲存於 2023-1-25 9:8，共 389 個 byte</span>
         </div>
 
-        <h1 class="re-c-post__header__title header_title2">
-          RE:【閒聊】為什麼我的姆姆比人家難刷
+        <h1 class="re-c-post__header__title header_title2" id="editTitle">
         </h1>
         <!-- 文章信息 -->
 
@@ -327,7 +326,7 @@ pageEncoding="UTF-8" %>
       </div>
     </div>
     <script>
-      const { createEditor, createToolbar } = window.wangEditor;
+      const { createEditor, createToolbar, i18nAddResources, i18nChangeLanguage } = window.wangEditor;
 
       const editorConfig = {
         placeholder:
@@ -346,6 +345,139 @@ pageEncoding="UTF-8" %>
         mode: "default", // or 'simple'
       });
 
+      const twLang = {
+        "editor": {
+          "more": "更多",
+          "justify": "對齊",
+          "indent": "縮進",
+          "image": "圖片",
+          "video": "視頻"
+        },
+        "common": {
+          "ok": "確定",
+          "delete": "刪除",
+          "enter": "回車"
+        },
+        "blockQuote": {
+          "title": "引用"
+        },
+        "codeBlock": {
+          "title": "代碼塊"
+        },
+        "color": {
+          "color": "文字顏色",
+          "bgColor": "背景色",
+          "default": "默認顏色",
+          "clear": "清除背景色"
+        },
+        "divider": {
+          "title": "分割線"
+        },
+        "emotion": {
+          "title": "表情"
+        },
+        "fontSize": {
+          "title": "字號",
+          "default": "默認字號"
+        },
+        "fontFamily": {
+          "title": "字體",
+          "default": "默認字體"
+        },
+        "fullScreen": {
+          "title": "全屏"
+        },
+        "header": {
+          "title": "標題",
+          "text": "正文"
+        },
+        "image": {
+          "netImage": "網絡圖片",
+          "delete": "刪除圖片",
+          "edit": "編輯圖片",
+          "viewLink": "查看鏈接",
+          "src": "圖片地址",
+          "desc": "圖片描述",
+          "link": "圖片鏈接"
+        },
+        "indent": {
+          "decrease": "減少縮進",
+          "increase": "增加縮進"
+        },
+        "justify": {
+          "left": "左對齊",
+          "right": "右對齊",
+          "center": "居中對齊",
+          "justify": "兩端對齊"
+        },
+        "lineHeight": {
+          "title": "行高",
+          "default": "默認行高"
+        },
+        "link": {
+          "insert": "插入鏈接",
+          "text": "鏈接文本",
+          "url": "鏈接地址",
+          "unLink": "取消鏈接",
+          "edit": "修改鏈接",
+          "view": "查看鏈接"
+        },
+        "textStyle": {
+          "bold": "粗體",
+          "clear": "清除格式",
+          "code": "行內代碼",
+          "italic": "斜體",
+          "sub": "下標",
+          "sup": "上標",
+          "through": "刪除線",
+          "underline": "下劃線"
+        },
+        "undo": {
+          "undo": "撤銷",
+          "redo": "重做"
+        },
+        "todo": {
+          "todo": "待辦"
+        },
+        "listModule": {
+          "unOrderedList": "無序列表",
+          "orderedList": "有序列表"
+        },
+        "tableModule": {
+          "deleteCol": "刪除列",
+          "deleteRow": "刪除行",
+          "deleteTable": "刪除表格",
+          "widthAuto": "寬度自適應",
+          "insertCol": "插入列",
+          "insertRow": "插入行",
+          "insertTable": "插入表格",
+          "header": "表頭"
+        },
+        "videoModule": {
+          "delete": "刪除視頻",
+          "uploadVideo": "上傳視頻",
+          "insertVideo": "插入視頻",
+          "videoSrc": "視頻地址",
+          "videoSrcPlaceHolder": "視頻文件 url 或第三方 <iframe>",
+          "videoPoster": "視頻封面",
+          "videoPosterPlaceHolder": "封面圖片 url",
+          "ok": "確定",
+          "editSize": "修改尺寸",
+          "width": "寬度",
+          "height": "高度"
+        },
+        "uploadImgModule": {
+          "uploadImage": "上傳圖片",
+          "uploadError": "{{fileName}} 上傳出錯"
+        },
+        "highLightModule": {
+          "selectLang": "選擇語言"
+        }
+      }
+
+      i18nAddResources('tw', twLang)
+      i18nChangeLanguage('tw')
+
       const toolbarConfig = {
         excludeKeys: ["fullScreen"],
       };
@@ -362,9 +494,6 @@ pageEncoding="UTF-8" %>
         document.getElementById("editor").style.display = "none";
       }
 
-      function onpublishWZ() {
-        console.log("发布文章");
-      }
     </script>
 
     <!-- 回复结束…………………………………………………………………………………………………………………………………………………………………………………………………………………………………… -->
@@ -390,37 +519,17 @@ pageEncoding="UTF-8" %>
       }
 
       //   详情回复
-      function toReply() {
-        console.log("详情回复");
+      function toReply(str) {
+        const item = tiezeList.filter(it => it.id == str);
+        selectTiziItem = item[0];
+        const title = selectTiziItem.title;
+        console.log("详情回复", title);
         document.getElementById("editor").style.display = "block";
+        $('#editTitle').append(`RE:` + title)
       }
 
-      function replyToFloor(e, e1, e2) {
-        console.log("回复楼层");
-      }
-      const jq$ = $;
-      // 留言回车监听
-      document
-        .getElementById("lyenter")
-        .addEventListener("keydown", function (e) {
-          if (e.keyCode == 13) {
-            var content = $("#lyenter").val();
-            content = jq$.emojiParse({
-              content: content,
-              emojis: [
-                { type: "qq", path: "img/qq/", code: ":" },
-                { path: "img/tieba/", code: ";", type: "tieba" },
-                { path: "img/emoji/", code: ",", type: "emoji" },
-              ],
-            });
-            $("#lyenter").val("");
-            console.log("回车监听");
-            e.preventDefault();
-          }
-        });
 
       // 赞一个
-      function commentGp(e) {}
       // 踩一个
       function commentBp(e) {}
       // 插入表情

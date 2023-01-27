@@ -2,6 +2,14 @@ refreshPage(1, 0);
 changePage({ pageNum: 0, pageSize: 10 });
 var ListData = [];
 
+var globalMember = {};
+var tiezeList = [];
+var selectTiziItem = {};
+var tieList = [];
+
+
+var selectMen = selectTiziItem.member && selectTiziItem.member.accountnumber || "";
+
 function changePage({ pageNum, pageSize, best, likeCountEnd, likeCountStart }) {
   getList({
     pageNum,
@@ -131,16 +139,64 @@ function getDetail(uuid) {
     })
 }
 
-let globalMember = {};
+let selectPoId = selectTiziItem.id;
+function replyToFloor(e, id, name, i) {
+    selectPoId = id;
+    selectMen = name;
+    console.log("回复楼层", name);
+    $(`#lyenter${i}`).html(e+`#`)
+}
+
+function xrhfinput(i) {
+    // 留言回车监听
+    const jq$ = $;
+    document
+        .getElementById(`lyenter${i}`)
+        .addEventListener("keydown",  (e) => {
+            if (e.keyCode == 13) {
+                const tiezeItem = tiezeList[i];
+                console.log('&&&&&&&&&&&&', tiezeItem);
+                var content = $(`#lyenter${i}`).val();
+                console.log("回车监听");
+                content = jq$.emojiParse({
+                    content: content,
+                    emojis: [
+                        { type: "qq", path: "img/qq/", code: ":" },
+                        { path: "img/tieba/", code: ";", type: "tieba" },
+                        { path: "img/emoji/", code: ",", type: "emoji" },
+                    ],
+                });
+
+
+
+                const data = {
+                    content,
+                    replyMember: {
+                        accountnumber: tiezeItem.member.accountnumber
+                    },
+                    post: {
+                        id:  tiezeItem.id,
+                    },
+                };
+                sendFloorMsg(data).then(res => {
+                    if (res.code == 200) {
+                        getDetail(uuidglobal);
+                        $(`#lyenter${i}`).val("");
+                    }
+
+                })
+            }
+        });
+}
 function xrtiezeDetail(content) {
     if (!content.length) {
         return;
     }
-
+    tiezeList = content;
     let str = '';
     for(let i = 0; i < content.length; i++) {
         const item = content[i];
-        const { body, member, title, time, floorCount, postMessages } = item;
+        const { body, member, title, time, floorCount, postMessages, likeCount, disliked, liked } = item;
         if (floorCount == 1) {
             globalMember = member;
         }
@@ -203,8 +259,8 @@ function xrtiezeDetail(content) {
                       <div class="buttonbar">
                         <button
                           type="button"
-                          onclick="commentGp(this);"
-                          class="gp"
+                          onclick="commentGp(1, ${commItem.id});"
+                          class="gp ${commItem.liked ? 'is-highlight' : ''}"
                           title="推一個！"
                         >
                           <i class="material-icons"></i>
@@ -212,7 +268,7 @@ function xrtiezeDetail(content) {
                         <a data-gp="0" href="javascript:;" class="gp-count"></a>
                         <button
                           type="button"
-                          onclick="commentBp(this);"
+                          onclick="commentBp(2, ${commItem.id});"
                           class="bp"
                           title="我要噓…"
                         >
@@ -222,7 +278,7 @@ function xrtiezeDetail(content) {
                         <button
                           class="tag"
                           type="button"
-                          onclick="replyToFloor(4020110, 3372715, 4);"
+                          onclick="replyToFloor(${member.accountnumber}, ${commItem.id}, ${commItem.member.accountnumber}, ${i});"
                         >
                           回覆
                         </button>
@@ -309,7 +365,7 @@ function xrtiezeDetail(content) {
                 data-tooltipped=""
                 aria-describedby="tippy-tooltip-26"
                 data-original-title="只看此樓"
-                >${floorCount == 1 ? '樓主' : floorCount + '楼'}</a
+                >${floorCount == 1 ? '樓主' : (floorCount + '楼')}</a
               >
               <a href="javascript:;" class="username">${memberName || '未知'}</a>
               <a href="javascript:;" class="userid">${accountnumber}</a>
@@ -343,8 +399,8 @@ function xrtiezeDetail(content) {
               <div>
                 <div class="gp" style="">
                   <button
-                    class="ef-btn ef-firework tippy-gpbp"
-                    onclick="addgpbp(this, 23805, 4020110, 1, event)"
+                    class="ef-btn ef-firework tippy-gpbp ${liked ? 'is-active': ''}"
+                    onclick="addgpbp(1, ${item.id})"
                     type="button"
                     id="gp_4020110"
                     data-tooltipped=""
@@ -368,13 +424,13 @@ function xrtiezeDetail(content) {
                     data-tippy='{"bsn":23805,"sn":4020110,"type":1}'
                     data-tooltipped=""
                     aria-describedby="tippy-tooltip-37"
-                    >1</a
+                    >${likeCount}</a
                   >
                 </div>
                 <div class="bp" style="">
                   <button
                     class="ef-btn ef-bounce tippy-gpbp"
-                    onclick="addgpbp(this, 23805, 4020110, 2, event)"
+                    onclick="addgpbp(2, ${item.id})"
                     type="button"
                     id="bp_4020110"
                     data-tooltipped=""
@@ -401,7 +457,7 @@ function xrtiezeDetail(content) {
                     class="article-footer_right-btn"
                     style=""
                     href="javascript:;"
-                    onclick="toReply()"
+                    onclick="toReply(${item.id})"
                   >
                     <img
                       src="https://i2.bahamut.com.tw/icon/msg_regular.png"
@@ -441,7 +497,7 @@ function xrtiezeDetail(content) {
                   data-snb="4020110"
                   class="content-edit"
                   placeholder="留言⋯"
-                  id="lyenter"
+                  id="lyenter${i}"
                 ></textarea>
                 <div class="comment_icon">
                   <a
@@ -466,15 +522,50 @@ function xrtiezeDetail(content) {
         </div>
       </section>
         `;
+
     }
 
     $('#liuyanId').html(str);
+
+    setTimeout(() => {
+        for(let k = 0; k <  content.length; k++) {
+            xrhfinput(k)
+        }
+    }, 1000)
 }
 
 //跟贴列表
 function posttz(uuid, postid) {
     postDetail({ uuid, postId }).then(res => {
         console.log('+++++++++++++++++', res);
+    })
+}
+
+// 帖子点赞
+function addgpbp(type, id) {
+    const data = {
+        type: 1,
+        liked: type,
+        dataId: id,
+    };
+    likeApi(data).then(res => {
+        if (res.code == 200) {
+            getDetail(uuidglobal);
+        }
+    })
+}
+
+function commentGp(type, id) {
+
+    const data = {
+        type: 2,
+        liked: type,
+        dataId: id,
+    };
+    likeApi(data).then(res => {
+        if (res.code == 200) {
+            getDetail(uuidglobal);
+        }
     })
 }
 
@@ -522,11 +613,34 @@ function quickPost() {
         "body": $('#floortextarea').val(),
         "title": $('#floorTitle').val(),
         "uuid": uuidglobal,
-        "category": {
-            id: categoryId,
-        }
+        "category": categoryId
     }
     genTiezi(data).then(res => {
+        if (res.code == 200) {
+            getDetail(uuidglobal);
+            $('#floortextarea').val("");
+            $('#floorTitle').val("");
+        }
+
+    })
+}
+
+// 发布文章
+
+function onpublishWZ() {
+    const html = editor.getHtml();
+    const data = {
+        content: html,
+        replyMember: selectTiziItem.member,
+        post: {
+            id: selectTiziItem.id,
+        },
+    };
+    sendFloorMsg(data).then(res => {
+        if (res.code == 200) {
+            getDetail(uuidglobal);
+            onBackDetail();
+        }
 
     })
 }
