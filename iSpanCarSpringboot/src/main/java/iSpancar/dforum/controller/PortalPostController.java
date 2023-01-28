@@ -290,6 +290,9 @@ public class PortalPostController {
 		if (postLike.getLiked() == 1 && !delete) {
 			post.setLikeCount(post.getLikeCount() + 1);
 			postRepository.save(post);
+		} else {
+			post.setLikeCount(post.getLikeCount() - 1);
+			postRepository.save(post);
 		}
 		return Result.ok(postLike);
 	}
