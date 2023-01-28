@@ -10,13 +10,63 @@ var tieList = [];
 
 var selectMen = selectTiziItem.member && selectTiziItem.member.accountnumber || "";
 
-function changePage({ pageNum, pageSize, best, likeCountEnd, likeCountStart }) {
+
+
+/**
+ * 弹出消息提示框，采用浏览器布局，位于整个页面中央，默认显示3秒
+ * 后面的消息会覆盖原来的消息
+ * @param message：待显示的消息
+ * @param type：消息类型，0：错误消息，1：成功消息
+ */
+function showMessage(message, type) {
+    let messageJQ= $("<div class='showMessage'>" + message + "</div>");
+    if (type == 0) {
+        messageJQ.addClass("showMessageError");
+    } else if (type == 1) {
+        messageJQ.addClass("showMessageSuccess");
+    }
+    // 先将原始隐藏，然后添加到页面，最后以400毫秒的速度下拉显示出来
+    messageJQ.hide().appendTo("body").slideDown(400);
+    // 4秒之后自动删除生成的元素
+    window.setTimeout(function() {
+        messageJQ.show().slideUp(400, function() {
+            messageJQ.remove();
+        })
+    }, 4000);
+}
+
+// 分类列表
+var categoryActive = 1;
+var categoryList = [];
+getCategory().then(res => {
+    const { data } = res;
+    categoryList = data;
+    refreshcategory(data);
+})
+
+function refreshcategory(data) {
+
+    let str = "";
+    data && data.forEach(item => {
+        str += `<div onclick="categoryClick(${item.id})" id="${item.id}" class="cataItem ${categoryActive == item.id ? 'active' : ''}">${item.name}</div>`;
+
+    })
+    $('#catetrys').html(str)
+}
+function categoryClick(id) {
+    categoryActive = id;
+    refreshcategory(categoryList);
+
+    changePage({pageNum: 0, pageSize: 10, categoryId: id})
+}
+function changePage({ pageNum, pageSize, best, likeCountEnd, likeCountStart, categoryId }) {
   getList({
     pageNum,
     pageSize,
     best,
     likeCountEnd,
     likeCountStart,
+      categoryId,
     callBack: (data) => {
       const { content, totalElements, totalPages } = data;
       ListData = content;
@@ -134,8 +184,14 @@ function getDetail(uuid) {
         },
     }).then(res => {
         const { code, msg, data } = res;
-        const { content } = data;
-        xrtiezeDetail(content);
+        const { content } = data || {};
+        xrtiezeDetail(content || []);
+
+        if (code == 401) {
+            console.log('未登录');
+            showMessage('未登录', 0);
+            return;
+        }
     })
 }
 
@@ -150,6 +206,8 @@ function replyToFloor(e, id, name, i) {
 function xrhfinput(i) {
     // 留言回车监听
     const jq$ = $;
+
+
     document
         .getElementById(`lyenter${i}`)
         .addEventListener("keydown",  (e) => {
@@ -161,9 +219,9 @@ function xrhfinput(i) {
                 content = jq$.emojiParse({
                     content: content,
                     emojis: [
-                        { type: "qq", path: "img/qq/", code: ":" },
-                        { path: "img/tieba/", code: ";", type: "tieba" },
-                        { path: "img/emoji/", code: ",", type: "emoji" },
+                        { type: "qq", path: "/iSpanCar/script/img/qq/", code: ":" },
+                        { path: "/iSpanCar/script/img/tieba/", code: ";", type: "tieba" },
+                        { path: "/iSpanCar/script/img/emoji/", code: ",", type: "emoji" },
                     ],
                 });
 
@@ -182,11 +240,27 @@ function xrhfinput(i) {
                     if (res.code == 200) {
                         getDetail(uuidglobal);
                         $(`#lyenter${i}`).val("");
+                    } else if (res.code == 401) {
+                        showMessage('未登录', 0);
                     }
 
                 })
             }
         });
+
+
+
+    $.Lemoji({
+        emojiInput: "#lyenter" + i,
+        emojiBtn: "#emojibtn" + i,
+        position: "LEFTBOTTOM",
+        length: 8,
+        emojis: {
+            qq: { path: "/iSpanCar/script/img/qq/", code: ":", name: "QQ表情" },
+            tieba: { path: "/iSpanCar/script/img/tieba", code: ";", name: "贴吧表情" },
+            emoji: { path: "/iSpanCar/script/img/emoji", code: ",", name: "Emoji表情" },
+        },
+    });
 }
 function xrtiezeDetail(content) {
     if (!content.length) {
@@ -268,8 +342,8 @@ function xrtiezeDetail(content) {
                         <a data-gp="0" href="javascript:;" class="gp-count"></a>
                         <button
                           type="button"
-                          onclick="commentBp(2, ${commItem.id});"
-                          class="bp"
+                          onclick="commentGp(2, ${commItem.id});"
+                          class="bp ${commItem.disliked ? 'is-highlight' : ''}"
                           title="我要噓…"
                         >
                           <i class="material-icons"></i>
@@ -429,7 +503,7 @@ function xrtiezeDetail(content) {
                 </div>
                 <div class="bp" style="">
                   <button
-                    class="ef-btn ef-bounce tippy-gpbp"
+                    class="ef-btn ef-bounce tippy-gpbp ${disliked ? 'is-active': ''}"
                     onclick="addgpbp(2, ${item.id})"
                     type="button"
                     id="bp_4020110"
@@ -503,7 +577,7 @@ function xrtiezeDetail(content) {
                   <a
                     class="gif_box gif_box_emoji"
                     href="javascript:;"
-                    id="emojibtn"
+                    id="emojibtn${i}"
                     data-tooltipped=""
                     aria-describedby="tippy-tooltip-51"
                     data-original-title="插入表情符號"
@@ -551,6 +625,8 @@ function addgpbp(type, id) {
     likeApi(data).then(res => {
         if (res.code == 200) {
             getDetail(uuidglobal);
+        } else if (res.code == 401) {
+            showMessage('未登录', 0);
         }
     })
 }
@@ -565,6 +641,8 @@ function commentGp(type, id) {
     likeApi(data).then(res => {
         if (res.code == 200) {
             getDetail(uuidglobal);
+        } else if (res.code == 401) {
+            showMessage('未登录', 0);
         }
     })
 }
@@ -620,6 +698,8 @@ function quickPost() {
             getDetail(uuidglobal);
             $('#floortextarea').val("");
             $('#floorTitle').val("");
+        } else if (res.code == 401) {
+            showMessage('未登录', 0);
         }
 
     })
@@ -640,6 +720,8 @@ function onpublishWZ() {
         if (res.code == 200) {
             getDetail(uuidglobal);
             onBackDetail();
+        } else if (res.code == 401) {
+            showMessage('未登录', 0);
         }
 
     })

@@ -7,6 +7,11 @@ axios.interceptors.response.use(
     },
     err => {}
 )
+
+// 分类
+function getCategory() {
+  return axios.get('api/dforum/category')
+}
 // 列表
 /**
  * pageNum  int    
@@ -22,6 +27,7 @@ function getList({
   best,
   likeCountStart,
   likeCountEnd,
+  categoryId,
   callBack,
 }) {
   $.get(
@@ -32,6 +38,7 @@ function getList({
       best,
       likeCountEnd,
       likeCountStart,
+      categoryId,
     },
     function (res) {
       const { content, totalElements, totalPages } = res.data;

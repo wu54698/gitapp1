@@ -157,6 +157,9 @@ pageEncoding="UTF-8" %>
 
         <!-- 分页器结束 -->
 
+        <!-- 分类 -->
+      <div id="catetrys">
+      </div>
         <!-- 列表开始 -->
 
         <form
@@ -500,18 +503,6 @@ pageEncoding="UTF-8" %>
 
     <script type="text/javascript" src="/iSpanCar/script/js/emoji_jQuery.min.js"></script>
     <script>
-      $.Lemoji({
-        emojiInput: "#lyenter",
-        emojiBtn: "#emojibtn",
-        position: "LEFTBOTTOM",
-        length: 8,
-        emojis: {
-          qq: { path: "/iSpanCar/script/img/qq/", code: ":", name: "QQ表情" },
-          tieba: { path: "/iSpanCar/script/img/tieba", code: ";", name: "贴吧表情" },
-          emoji: { path: "/iSpanCar/script/img/emoji", code: ",", name: "Emoji表情" },
-        },
-      });
-
       function backList() {
         document.getElementById("BH-wrapper").style.display = "block";
         document.getElementsByClassName("detailshow")[0].style.display =
