@@ -45,6 +45,9 @@ public class PostMain {
 	@Column(name = "likeCount")
 	private Integer likeCount;
 
+	@Column(name = "disLikeCount")
+	private Integer disLikeCount;
+
 	/**
 	 * 樓層數量
 	 */
@@ -270,5 +273,21 @@ public class PostMain {
 
 	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public Integer getDisLikeCount() {
+		return disLikeCount;
+	}
+
+	public void setDisLikeCount(Integer disLikeCount) {
+		this.disLikeCount = disLikeCount;
+	}
+
+	public boolean isLiked() {
+		return liked;
+	}
+
+	public boolean isDisliked() {
+		return disliked;
 	}
 }
