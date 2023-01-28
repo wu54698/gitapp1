@@ -80,6 +80,9 @@ public class PostMain {
 	@JoinColumn(name = "memberId")
 	private MemberBean member;
 
+	@Column(name = "categoryId")
+	private Integer categoryId;
+
 	@ManyToOne
 	@JoinColumn(name = "threadId")
 	private Thread thread;
@@ -259,5 +262,13 @@ public class PostMain {
 
 	public void setDisliked(boolean disliked) {
 		this.disliked = disliked;
+	}
+
+	public Integer getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
 	}
 }

@@ -103,6 +103,10 @@ public class PortalPostController {
 					list.add(criteriaBuilder.equal(root.get("best"), postQuery.isBest()));
 				}
 
+				if (postQuery.getCategoryId() != null) {
+					list.add(criteriaBuilder.equal(root.get("categoryId"), postQuery.getCategoryId()));
+				}
+
 				if (postQuery.getLikeCountStart() != null && postQuery.getLikeCountEnd() != null) {
 					list.add(criteriaBuilder.between(root.get("likeCount"), postQuery.getLikeCountStart(), postQuery.getLikeCountEnd()));
 				}
@@ -342,6 +346,7 @@ public class PortalPostController {
 		post.setLikeCount(0);
 		post.setInteractiveCount(1);
 		post.setPopularityCount(1);
+		post.setCategoryId(postMainSaveParam.getCategory());
 		postRepository.save(post);
 		return Result.ok(post);
 	}

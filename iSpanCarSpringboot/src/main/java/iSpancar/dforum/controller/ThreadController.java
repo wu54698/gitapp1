@@ -129,6 +129,7 @@ public class ThreadController {
 		post.setLikeCount(0);
 		post.setInteractiveCount(1);
 		post.setPopularityCount(1);
+		post.setCategoryId(postMainSaveParam.getCategory());
 		postService.save(post);
 
 		return ResponseEntity.ok("操作成功!");

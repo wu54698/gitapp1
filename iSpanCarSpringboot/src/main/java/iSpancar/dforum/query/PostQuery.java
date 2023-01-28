@@ -12,6 +12,8 @@ public class PostQuery {
 
 	private Integer likeCountEnd;
 
+	private Integer categoryId;
+
 	public Boolean isBest() {
 		return best;
 	}
@@ -56,4 +58,11 @@ public class PostQuery {
 		return best;
 	}
 
+	public Integer getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
+	}
 }
