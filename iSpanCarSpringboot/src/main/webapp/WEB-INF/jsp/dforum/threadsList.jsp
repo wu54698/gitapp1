@@ -273,6 +273,8 @@
                     <div class="col-12">
                         <input type="button" style="background-color:#2db5c2;border-color:#2db5c2"
                                onclick="location.href='/thread/newthread'" class="btn btn-primary" value="新增文章">
+                        <input type="button" style="background-color:#2db5c2;border-color:#2db5c2"
+                               onclick="location.href='/dforum/home'" class="btn btn-primary" value="論壇首頁">
                     </div>
                 </div>
 

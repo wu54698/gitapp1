@@ -282,6 +282,16 @@
                         <input type="text" name="title" class="form-control" value="${post.title}">
                     </div>
 
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">精華</span>
+                        </div>
+                        <select class="form-control form-select" name="best">
+                            <option ${post.best?'selected':''} value="true">是</option>
+                            <option ${!post.best?'selected':''} value="false">否</option>
+                        </select>
+                    </div>
+
                     <div id="newt" style="width: 100%; height: 100%">
                         <input id="body" type="hidden" name="body">
                         <div id="editor—wrapper">

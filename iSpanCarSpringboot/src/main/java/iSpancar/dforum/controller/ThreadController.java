@@ -125,6 +125,7 @@ public class ThreadController {
 		}
 		post.setTitle(postMainSaveParam.getTitle());
 		post.setThread(saveThread);
+		post.setBest(postMainSaveParam.getBest());
 		post.setFloorCount(1);
 		post.setLikeCount(0);
 		post.setDisLikeCount(0);
