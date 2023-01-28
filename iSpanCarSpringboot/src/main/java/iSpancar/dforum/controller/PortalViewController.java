@@ -10,4 +10,8 @@ public class PortalViewController {
 	public String threadsView() {
 		return "dforum/test";
 	}
+	@GetMapping("/home")
+	public String threadsView2() {
+		return "dforum/home";
+	}
 }
