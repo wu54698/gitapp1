@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.csrf().disable()//關閉csrf 
 			.formLogin().loginPage("/login")//登入頁面
 			//.loginProcessingUrl("")登錄送出的Controller
-			.defaultSuccessUrl("/memberselectall.controller");//成功頁面
+			.defaultSuccessUrl("/index");//成功頁面
 			
 			
 	}
