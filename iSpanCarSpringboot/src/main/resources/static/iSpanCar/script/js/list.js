@@ -270,7 +270,7 @@ function xrtiezeDetail(content) {
     let str = '';
     for(let i = 0; i < content.length; i++) {
         const item = content[i];
-        const { body, member, title, time, floorCount, postMessages, likeCount, disliked, liked } = item;
+        const { body, member, title, time, floorCount, postMessages, likeCount, disliked, liked, disLikeCount } = item;
         if (floorCount == 1) {
             globalMember = member;
         }
@@ -521,7 +521,7 @@ function xrtiezeDetail(content) {
                     data-tippy='{"bsn":23805,"sn":4020110,"type":2}'
                     data-tooltipped=""
                     aria-describedby="tippy-tooltip-38"
-                    >-</a
+                    >${disLikeCount || '-'}</a
                   >
                 </div>
               </div>

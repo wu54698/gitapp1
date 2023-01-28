@@ -8834,6 +8834,7 @@ svg.editor-icon {
   overflow: hidden;
   background-size: cover;
   background-position: center;
+  object-fit: aspectFit;
 }
 
 .b-imglist-wrap .b-imglist-item .b-list__img .b-list__imgbox {

@@ -8807,3 +8807,8 @@ textarea {
   background-color: #148aa4;
   color: white !important;
 }
+
+#list_img img{
+  object-fit: contain;
+  height: 60px;
+}
