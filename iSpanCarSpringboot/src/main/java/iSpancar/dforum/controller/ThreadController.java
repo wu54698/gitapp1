@@ -127,6 +127,7 @@ public class ThreadController {
 		post.setThread(saveThread);
 		post.setFloorCount(1);
 		post.setLikeCount(0);
+		post.setDisLikeCount(0);
 		post.setInteractiveCount(1);
 		post.setPopularityCount(1);
 		post.setCategoryId(postMainSaveParam.getCategory());

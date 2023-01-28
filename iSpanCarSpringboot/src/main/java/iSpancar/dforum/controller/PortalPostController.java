@@ -291,12 +291,24 @@ public class PortalPostController {
 		final String uuid = post.getUuid();
 		post = incPostMainCountData(uuid, loginUser);
 		// 喜歡數量+1
-		if (postLike.getLiked() == 1 && !delete) {
-			post.setLikeCount(post.getLikeCount() + 1);
-			postRepository.save(post);
-		} else {
-			post.setLikeCount(post.getLikeCount() - 1);
-			postRepository.save(post);
+		if(delete){
+			if (postLike.getLiked() == 1) {
+				post.setLikeCount(post.getLikeCount() - 1);
+				postRepository.save(post);
+			}
+			if(postLike.getLiked() == 2) {
+				post.setDisLikeCount(post.getDisLikeCount() - 1);
+				postRepository.save(post);
+			}
+		}else{
+			if (postLike.getLiked() == 1) {
+				post.setLikeCount(post.getLikeCount() + 1);
+				postRepository.save(post);
+			}
+			if(postLike.getLiked() == 2) {
+				post.setDisLikeCount(post.getDisLikeCount() + 1);
+				postRepository.save(post);
+			}
 		}
 		return Result.ok(postLike);
 	}
@@ -344,6 +356,7 @@ public class PortalPostController {
 		post.setThread(saveThread);
 		post.setFloorCount(1);
 		post.setLikeCount(0);
+		post.setDisLikeCount(0);
 		post.setInteractiveCount(1);
 		post.setPopularityCount(1);
 		post.setCategoryId(postMainSaveParam.getCategory());

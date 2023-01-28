@@ -6,11 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PortalViewController {
 
-	@GetMapping("/test")
-	public String threadsView() {
-		return "dforum/test";
-	}
-	@GetMapping("/home")
+	@GetMapping("/dforum/home")
 	public String threadsView2() {
 		return "dforum/home";
 	}
