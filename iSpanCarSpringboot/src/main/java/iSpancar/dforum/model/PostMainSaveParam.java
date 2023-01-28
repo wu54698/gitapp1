@@ -12,6 +12,8 @@ public class PostMainSaveParam {
 
 	private Integer category;
 
+	private Boolean best;
+
 	public String getBody() {
 		return body;
 	}
@@ -50,5 +52,13 @@ public class PostMainSaveParam {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Boolean getBest() {
+		return best;
+	}
+
+	public void setBest(Boolean best) {
+		this.best = best;
 	}
 }
