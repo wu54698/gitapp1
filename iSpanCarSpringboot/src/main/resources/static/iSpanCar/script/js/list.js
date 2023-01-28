@@ -95,7 +95,7 @@ function xrList(content) {
         <td class="b-list__summary">
           <a name="687636"></a>
           <p class="b-list__summary__sort">
-            <span data-subbsn="4">攻略心得</span>
+            <span data-subbsn="4">${thread.category.name}</span>
           </p>
           <span class="b-list__summary__gp b-gp b-gp--normal">${floorCount}</span>
         </td>
@@ -128,13 +128,13 @@ function xrList(content) {
         <td class="b-list__count">
           <p class="b-list__count__number">
             <span title="互動：9">${interactiveCount}</span>/
-            <span title="人氣：${popularityCount}">3741</span>
+            <span title="人氣：">${popularityCount}</span>
           </p>
           <p class="b-list__count__user">
             <a
               href="https://home.gamer.com.tw/foreverHei"
               target="_blank"
-              >foreverHei</a
+              ></a
             >
           </p>
         </td>
@@ -143,7 +143,7 @@ function xrList(content) {
             <a
               data-gtm="B頁文章列表-縮圖"
               title="觀看最新回覆文章"
-              >${lastReplyTime && window.moment(lastReplyTime).format('YYYY/MM/DD')}</a
+              >${lastReplyTime || ''}</a
             >
           </p>
           <p class="b-list__time__user">
@@ -270,7 +270,8 @@ function xrtiezeDetail(content) {
     let str = '';
     for(let i = 0; i < content.length; i++) {
         const item = content[i];
-        const { body, member, title, time, floorCount, postMessages, likeCount, disliked, liked, disLikeCount } = item;
+        console.log('详情', item);
+        const { body, member, title, time, floorCount, postMessages, likeCount, disliked, liked, disLikeCount, thread } = item;
         if (floorCount == 1) {
             globalMember = member;
         }
@@ -428,7 +429,7 @@ function xrtiezeDetail(content) {
             <h1 class="c-post__header__title">${title}</h1>
             <div class="tag-category">
               <a href="javascript:;">
-                <div class="tag-category_item">綜合討論</div>
+                <div class="tag-category_item">${thread.category.name}</div>
               </a>
             </div>
             <div class="c-post__header__author">
@@ -521,12 +522,12 @@ function xrtiezeDetail(content) {
                     data-tippy='{"bsn":23805,"sn":4020110,"type":2}'
                     data-tooltipped=""
                     aria-describedby="tippy-tooltip-38"
-                    >${disLikeCount || '-'}</a
+                    >${disLikeCount ?? '-'}</a
                   >
                 </div>
               </div>
               <div>
-                <div class="article-footer_right">
+               <!-- <div class="article-footer_right">
                   <a
                     class="article-footer_right-btn"
                     style=""
@@ -540,7 +541,7 @@ function xrtiezeDetail(content) {
                     />
                     <p>回覆</p>
                   </a>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -671,7 +672,7 @@ function selectListChange(e) {
     if (!e.value) {
         return;
     }
-    changePage({ pageNum: 0, pageSize: 10, likeCountStart: dict[e.value], likeCountEnd: e.value});
+    changePage({ pageNum: 0, pageSize: 10, likeCountStart:  e.value, likeCountEnd: dict[e.value]});
 }
 
 var best = false;
@@ -687,8 +688,10 @@ function darenList() {
 
 //回复楼层
 function quickPost() {
+
+    const html = editor.getHtml();
     const data = {
-        "body": $('#floortextarea').val(),
+        "body": html,
         "title": $('#floorTitle').val(),
         "uuid": uuidglobal,
         "category": categoryId
@@ -696,7 +699,7 @@ function quickPost() {
     genTiezi(data).then(res => {
         if (res.code == 200) {
             getDetail(uuidglobal);
-            $('#floortextarea').val("");
+            editor.clear();
             $('#floorTitle').val("");
         } else if (res.code == 401) {
             showMessage('未登录', 0);

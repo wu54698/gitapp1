@@ -8596,8 +8596,7 @@ textarea {
 }
 #toolbar-container {
   border-bottom: 1px solid #ccc;
-  margin-bottom: 20px;
-  margin-left: -180px;
+  margin-left: 0px;
 }
 #editor-container {
   height: 500px;
@@ -8810,5 +8809,6 @@ textarea {
 
 #list_img img{
   object-fit: contain;
-  height: 60px;
+  width: 130px !important;
+  height: auto !important;
 }

@@ -226,7 +226,7 @@ pageEncoding="UTF-8" %>
                   </div>
                 </td>
                 <td>互動 / 人氣</td>
-                <td>最新回覆</td>
+                <td style="width: 200px;">最新回覆</td>
               </tr>
             </table>
             <table  id="tab-list" class="b-list">
@@ -272,7 +272,10 @@ pageEncoding="UTF-8" %>
           <div class="c-editor__input option floorOption">
             <input id="floorTitle" placeholder="请输入标题">
             <div class="line"></div>
-            <textarea id="floortextarea" placeholder="请输入内容"></textarea>
+            <!-- 楼层 -->
+<%--            <textarea id="floortextarea" placeholder="请输入内容"></textarea>--%>
+            <div id="toolbar-container"></div>
+            <div id="floortextarea"></div>
             <div class="floorsend">
               <input
                 type="button"
@@ -293,7 +296,7 @@ pageEncoding="UTF-8" %>
 
     <div class="modal-custom" tabindex="-1" id="editor">
       <div id="editor—wrapper">
-        <div id="toolbar-container"></div>
+<%--        <div id="toolbar-container"></div>--%>
 
         <!-- 文章信息 -->
         <div class="c-post__header c-post__header_custom">
@@ -332,8 +335,15 @@ pageEncoding="UTF-8" %>
       const { createEditor, createToolbar, i18nAddResources, i18nChangeLanguage } = window.wangEditor;
 
       const editorConfig = {
+        MENU_CONF: {
+          uploadImage: {
+            // 小于该值就插入 base64 格式（而不上传），默认为 0
+            server: '/api/upload-image',
+            base64LimitSize: 50000 * 1024 // 50000kb
+          }
+        },
         placeholder:
-          "※ 引述《tgvqnkq5bw (阿嚕嚕嚕嚕)》之銘言> 不是全部都10體力嗎，是我搞錯了嗎",
+          "請輸入内容...",
         onChange(editor) {
           const html = editor.getHtml();
           console.log("editor content", html);
@@ -342,7 +352,7 @@ pageEncoding="UTF-8" %>
       };
 
       const editor = createEditor({
-        selector: "#editor-container",
+        selector: "#floortextarea",
         html: "<p><br></p>",
         config: editorConfig,
         mode: "default", // or 'simple'

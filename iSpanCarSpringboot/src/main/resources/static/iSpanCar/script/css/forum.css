@@ -8198,6 +8198,7 @@ svg.editor-icon {
 
 .b-list__summary__sort {
   font-size: 12px;
+  margin-top: -12px;
 }
 
 .b-list__summary__sort a {
@@ -8364,7 +8365,7 @@ svg.editor-icon {
 
 .b-list__time {
   padding: 7px 12px;
-  width: 100px;
+  width: 200px;
   min-width: 100px;
   text-align: center;
   font-size: 12px;
@@ -8822,7 +8823,7 @@ svg.editor-icon {
 }
 
 .b-imglist-wrap .b-imglist-item .b-list__summary__gp {
-  margin: 8px 0 0;
+  margin: -8px 0 0;
 }
 
 .b-imglist-wrap .b-imglist-item .b-list__img {
@@ -9487,7 +9488,7 @@ svg.editor-icon {
 .b-imglist-wrap03 .b-list__summary {
   position: relative;
   display: table-cell;
-  padding: 7px 10px 7px 20px;
+  padding: 0px 10px 7px 20px;
   width: 100px;
   text-align: center;
   font-size: 12px;
