@@ -35,6 +35,7 @@ public class MemberCrud {
 	@Autowired
 	private MemberService memberService;
 	
+	//Delete
 	@PostMapping("/memberdelete.controller")
 	@ResponseBody
 	public String processDeleteAction(@RequestParam("accountnumber") String accountnumber) {
@@ -46,6 +47,7 @@ public class MemberCrud {
 		return "delete";
 	}
 	
+	//update
 	@PostMapping("/memberupdate.controller")
 	@ResponseBody
 	public List<MemberBean> processUpdateAction(@RequestParam("accountnumber") String accountnumber,@RequestParam("memberpassword")@Nullable String memberpassword,@RequestParam("memberName") String memberName
@@ -70,6 +72,7 @@ public class MemberCrud {
 		return list;
 	}
 	
+	//updatecancel
 	@PostMapping("/memberupdatecancel.controller")
 	@ResponseBody
 	public List<MemberBean> processUpdateCancel(@RequestParam("accountnumber") String accountnumber){
@@ -85,6 +88,7 @@ public class MemberCrud {
 		return list;
 	}
 	
+	//updateimage
 	@PostMapping("/memberupdateimg.controller")
 	@ResponseBody
 	public void processUpdateAction(@RequestParam("accountnumber") String accountnumber,@RequestParam("file") MultipartFile mf) {

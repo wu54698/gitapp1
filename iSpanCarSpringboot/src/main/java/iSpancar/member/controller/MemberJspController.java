@@ -16,5 +16,10 @@ public class MemberJspController {
 		return "index";
 	}
 	
+	@GetMapping("/memberInsertForEmployee")
+	public String processViewControllerForEmployee() {
+		return "member/insertForEmployee";
+	}
+	
 	
 }

@@ -24,7 +24,7 @@
 
 </head>
 
-<body class="bg-gradient-primary" onload="createmonth(),creatyear()">
+<body class="bg-info bg-gradient" onload="createmonth(),creatyear()">
 
     <div class="container">
 	
@@ -37,7 +37,7 @@
                     <div class="col-lg-8">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                <h1 class="h4 text-gray-900 mb-4">創建員工帳號</h1>
                             </div>
                             <form action="" method="POST" enctype="multipart/form-data" id="createAccountForm" class="user">
                                 <div class="form-group">
@@ -134,7 +134,7 @@
                                 <a class="small" href="forgot-password.html">Forgot Password?</a>
                             </div> -->
                             <div class="text-center">
-                                <a class="small" href= "checkogin.controller">已有帳號</a>
+                                <a class="small" href= "memberselectall.controller">回後台</a>
                             </div>
                         </div>
                     </div>
@@ -202,19 +202,19 @@
     	})
     	$('#createAccount').on('click', function () {
         if (accountnumberok && password1ok && password2ok && idnumberok && emailok && membernameok && cardok && accountnumberok2) {
-            $('#createAccountForm').attr('action', 'memberinsert.controller');
+            $('#createAccountForm').attr('action', 'memberinsertforemployee.controller');
             $('#createAccount').attr('type','submit');
         }
 
 	    })
 	    
 	    $('#inputform').on('click',function(){
-	            $('#accountnumber').val('andy888')
+	            $('#accountnumber').val('employee')
 	            $('#memberpassword').attr('value','Dd123456')
 	            $('#RepeatPassword').attr('value','Dd123456')
-	            $('#membername').attr('value','andy')
+	            $('#membername').attr('value','eric')
 	            $('#phonenumber').attr('value','0955662778')
-	            $('#email').attr('value','andy888@gmail.com')
+	            $('#email').attr('value','eric777@gmail.com')
 	            $('#memberaddress').attr('value','新生路2段421號')
 	            $('#platenumber').attr('value','V6-8929')
 	            $('#idnumber').attr('value','H173107890')

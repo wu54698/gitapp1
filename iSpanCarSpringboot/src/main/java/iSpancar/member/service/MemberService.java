@@ -120,6 +120,20 @@ public class MemberService {
 		mRepository.insertMemberPosition(bean.getAccountnumber(), "user");
 		
 	}
+	//employee資料
+	public void insertForEmployee(MemberBean bean) throws SQLException, ParseException {
+		
+		MemberPosition position = new MemberPosition();
+		position.setMemberBean(bean);
+		PermissionsOfPosition employee = new PermissionsOfPosition();
+		employee.setPositionPk("employee");
+		position.setPermissionsofposition(employee);
+		
+		mRepository.save(bean);
+		
+		mRepository.insertMemberPosition(bean.getAccountnumber(), "employee");
+		
+	}
 	//用帳號刪除資料
 	public void deleteByAccountnumber(String accountnumber) throws SQLException {
 

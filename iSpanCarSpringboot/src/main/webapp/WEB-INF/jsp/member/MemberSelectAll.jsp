@@ -227,7 +227,11 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">會員資料</h1>
+                    <div class="row">
+		                   <div class="col-sm-10 "> <h1 class="h3 mb-4 text-gray-800">會員資料</h1></div>
+		                   <div class="col-sm-2"><span class="mr-2">創建員工帳號</span><button class="insert btn btn-success btn-circle" ><i class="fa-solid fa-user-plus"></i></button></div>
+					</div>
+                    
 						
 		<c:choose>
 		<c:when test="${empty selectAll}">
@@ -345,6 +349,10 @@
         		$(this).text(str);
         	})
         	
+        	//跳轉新增員工頁面
+        	$('.insert').on('click',function(){
+        		location.href = "memberInsertForEmployee";
+        	})
         	//$('.memberpassword').html('***');
         	//判斷查詢權限
 //         	let myPositionSelect = $('#myPositionSelect').val();
