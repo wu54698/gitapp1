@@ -10,7 +10,7 @@ axios.interceptors.response.use(
 
 // 分类
 function getCategory() {
-  return axios.get('api/dforum/category')
+  return axios.get('/api/dforum/category')
 }
 // 列表
 /**
