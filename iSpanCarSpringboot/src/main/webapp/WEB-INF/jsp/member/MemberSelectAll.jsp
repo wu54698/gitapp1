@@ -227,7 +227,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">會員名稱</h1>
+                    <h1 class="h3 mb-4 text-gray-800">會員資料</h1>
 						
 		<c:choose>
 		<c:when test="${empty selectAll}">
@@ -240,7 +240,7 @@
 					<thead>
 						<tr>
 							<th>帳號</th>
-							<th>密碼</th>
+							<th>身分</th>
 							<th>姓名</th>
 							<th>電話</th>
 							<th>e-mail</th>
@@ -259,7 +259,7 @@
 				<tr>
 					
 						<td class="accountnumber">${member.accountnumber}</td>
-						<td class="memberpassword">${member.memberpassword}</td>
+						<td class="memberpassword">${member.memberPosition.permissionsofposition.positionPk}</td>
 						<td>${member.memberName}</td>
 						<td>${member.phonenumber}</td>
 						<td>${member.email}</td>
@@ -345,15 +345,15 @@
         		$(this).text(str);
         	})
         	
-        	$('.memberpassword').html('***');
+        	//$('.memberpassword').html('***');
         	//判斷查詢權限
-        	let myPositionSelect = $('#myPositionSelect').val();
-        	if(myPositionSelect == 0){
-        		$('.accountnumber').each(function(index,element){
-        			//$(this).next().html('******');
-        			$(this).parent().children('.idnumber').html('******');
-        		})
-        	}
+//         	let myPositionSelect = $('#myPositionSelect').val();
+//         	if(myPositionSelect == 0){
+//         		$('.accountnumber').each(function(index,element){
+//         			//$(this).next().html('******');
+//         			$(this).parent().children('.idnumber').html('******');
+//         		})
+//         	}
         	
         	
 			$('#content').on('click','.delete',function(){//刪除
@@ -489,7 +489,7 @@
 	   	                data:{ accountnumber : account },
 	   	                success: function (response) {
 	   	                	let member = response[0];
-	   	                	$(this).parent().parent().children('td').eq(1).text(member.memberpassword)
+	   	                	//$(this).parent().parent().children('td').eq(1).text(member.memberPosition.permissionsofposition.positionPk)
 	   	                	$(this).parent().parent().children('td').eq(2).text(member.memberName)
 	   	                	$(this).parent().parent().children('td').eq(3).text(member.phonenumber)
 	   	                	$(this).parent().parent().children('td').eq(4).text(member.email)
@@ -503,7 +503,6 @@
 	   	                	imgshow.attr('src',"showimage.controller?accountnumber="+member.accountnumber+"&r="+random)
 	   	                	$('.file').attr('type','hidden')
 	               			$('label').attr('style','cursor:default')
-	               			$('.memberpassword').html('***');
 	   	                } ,
 	   	                error:function(xhr, ajaxOptions, thrownError){
 	   	                	 
@@ -541,7 +540,7 @@
 	   	                },
 	   	                success: function (response) {
 	   	                	let member = response[0];
-	   	                	$(this).parent().parent().children('td').eq(1).text(member.memberpassword)
+	   	                	//$(this).parent().parent().children('td').eq(1).text(member.memberPosition.permissionsofposition.positionPk)
 	   	                	$(this).parent().parent().children('td').eq(2).text(member.memberName)
 	   	                	$(this).parent().parent().children('td').eq(3).text(member.phonenumber)
 	   	                	$(this).parent().parent().children('td').eq(4).text(member.email)
@@ -553,7 +552,6 @@
 	   	                	$(this).parent().empty().append(buttonstring)
 	   	                	$('.file').attr('type','hidden')
 	               			$('label').attr('style','cursor:default')
-	               			$('.memberpassword').html('***');
 	   	                } ,
 	   	                error:function(xhr, ajaxOptions, thrownError){
 	   	                	 

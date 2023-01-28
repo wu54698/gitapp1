@@ -65,7 +65,7 @@ public class MemberInsertController {
 		
 		
 		MemberBean bean = new MemberBean(accountnumber, encodePwd, membername, phonenumber, email, city+town+memberaddress, platenumber, birthDate, idnumber, cardnumber,blob,filename);
-		memberService.insertMemberBean(bean);
+		memberService.insertForUser(bean);
 		
 		
 		} catch (IOException e) {

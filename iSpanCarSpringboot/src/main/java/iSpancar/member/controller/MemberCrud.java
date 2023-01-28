@@ -48,7 +48,7 @@ public class MemberCrud {
 	
 	@PostMapping("/memberupdate.controller")
 	@ResponseBody
-	public List<MemberBean> processUpdateAction(@RequestParam("accountnumber") String accountnumber,@RequestParam("memberpassword") String memberpassword,@RequestParam("memberName") String memberName
+	public List<MemberBean> processUpdateAction(@RequestParam("accountnumber") String accountnumber,@RequestParam("memberpassword")@Nullable String memberpassword,@RequestParam("memberName") String memberName
 			,@RequestParam("phonenumber") String phonenumber,@RequestParam("email") String email,@RequestParam("memberaddress") String memberaddress,@RequestParam String platenumber
 			,@RequestParam("birthday")@Nullable String birthday,@RequestParam("idnumber") String idnumber,@RequestParam("cardnumber") String cardnumber) {
 		List<MemberBean> list = new ArrayList<MemberBean>();
@@ -58,8 +58,8 @@ public class MemberCrud {
 			if(!birthday.equals("")) {
 			 birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(birthday);
 			}
-		MemberBean oldmb = memberService.findbyaccountnumberwithoutimage(accountnumber);
-		MemberBean mb = new MemberBean(accountnumber, oldmb.getMemberpassword(), memberName, phonenumber, email, memberaddress, platenumber, birthDate, idnumber,cardnumber);
+			MemberBean oldmb = memberService.findByAccountReturnBean(accountnumber);//找舊的資料
+			MemberBean mb = new MemberBean(accountnumber, oldmb.getMemberpassword(), memberName, phonenumber, email, memberaddress, platenumber, birthDate, idnumber,cardnumber);
 			MemberBean mBean = memberService.updateByAccountnumber(mb);
 			mBean.setFile(null);//json格式中有BLOB會錯誤
 			list.add(mBean);
@@ -75,7 +75,9 @@ public class MemberCrud {
 	public List<MemberBean> processUpdateCancel(@RequestParam("accountnumber") String accountnumber){
 		List<MemberBean> list = new ArrayList<>();
 		try {
-			MemberBean newMemberBean = memberService.findbyaccountnumberwithoutimage(accountnumber);
+			MemberBean newMemberBean = memberService.findByAccountReturnBean(accountnumber);
+			newMemberBean.setFile(null);
+			newMemberBean.setMemberPosition(null);//不然會無限迴圈
 			list.add(newMemberBean);
 		} catch (SQLException e) {
 			e.printStackTrace();

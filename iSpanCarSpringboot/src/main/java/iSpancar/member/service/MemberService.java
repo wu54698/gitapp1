@@ -70,23 +70,26 @@ public class MemberService {
 		return list;
 	}
 	
+	//用帳號找資料回傳Bean
+	public MemberBean findByAccountReturnBean(String accountnumber) throws SQLException {
+		Optional<MemberBean> op =  mRepository.findById(accountnumber);
+		MemberBean memberBean = null;
+		if(op.isPresent()) {//Optional非空值
+			memberBean = op.get();
+		}
+		//mBean = mDao.findbyaccountnumberwithoutimage(accountnumber);
+		
+		return memberBean;
+	}
+	
 	//圖
 	public MemberBean findImgbyaccountnumber(String accountnumber) throws SQLException {
 		Optional<MemberBean> op =  mRepository.findById(accountnumber);
 		MemberBean memberBean = null;
 		if(op.isPresent()) {//Optional非空值
-			 memberBean = op.get();
+			memberBean = op.get();
 		}
 		return memberBean;
-	}
-	
-	//用帳號找資料不含圖
-	public MemberBean findbyaccountnumberwithoutimage(String accountnumber) throws SQLException {
-		MemberBean mBean = null;
-		
-		mBean = mDao.findbyaccountnumberwithoutimage(accountnumber);
-		
-		return mBean;
 	}
 	
 	//放入資料庫
@@ -103,7 +106,20 @@ public class MemberService {
 		mRepository.insertMemberPosition(bean.getAccountnumber(), "employee");
 			
 	}
-
+	//user資料
+	public void insertForUser(MemberBean bean) throws SQLException, ParseException {
+		
+		MemberPosition position = new MemberPosition();
+		position.setMemberBean(bean);
+		PermissionsOfPosition user = new PermissionsOfPosition();
+		user.setPositionPk("user");
+		position.setPermissionsofposition(user);
+		
+		mRepository.save(bean);
+		
+		mRepository.insertMemberPosition(bean.getAccountnumber(), "user");
+		
+	}
 	//用帳號刪除資料
 	public void deleteByAccountnumber(String accountnumber) throws SQLException {
 
@@ -135,16 +151,18 @@ public class MemberService {
 
 //			String checkString = mDao.checkaccountnumberpassword(accountnumber, password);
 			Optional<MemberBean> op = mRepository.findById(accountnumber);
+			if(op.isPresent()) {
 			MemberBean mBean = op.get();
-			boolean matches = new BCryptPasswordEncoder().matches(password,mBean.getMemberpassword());//密碼核對
-			String check;
-			if(matches) {
-				check = "資料正確";
-			}else {
-				check = "資料有誤";
+				boolean matches = new BCryptPasswordEncoder().matches(password,mBean.getMemberpassword());//密碼核對
+				String check;
+				if(matches) {
+					check = "資料正確";
+				}else {
+					check = "資料有誤";
+				}
+				return check;
 			}
-			
-			return check;
+			return "資料有誤";
 	}
 	
 	//修改圖片

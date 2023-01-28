@@ -11,9 +11,15 @@ public class WebAppConfig implements WebMvcConfigurer {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/login").setViewName("login/login");
+		registry.addViewController("/unauth").setViewName("login/unauth");
+		registry.addViewController("/test").setViewName("userpages/test");
 
 	}
 
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("*.js").addResourceLocations("/WEB-INF/js/");
+	}
 	
 
 }
