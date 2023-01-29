@@ -16,12 +16,12 @@ public class PostLike {
 	private Integer id;
 
 	/**
-	 * 1 帖子 2 留言
+	 * 1 貼文 2 留言
 	 */
 	private Integer type;
 
 	/**
-	 * 1 贊  2踩
+	 * 1 讚  2倒讚
 	 */
 	private Integer liked;
 

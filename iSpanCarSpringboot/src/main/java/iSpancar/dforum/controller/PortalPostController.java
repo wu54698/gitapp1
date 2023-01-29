@@ -61,7 +61,7 @@ public class PortalPostController {
     }
 
     /**
-     * 帖子列表查詢
+     * 貼文列表查詢
      *
      * @param postQuery
      * @return
@@ -70,10 +70,10 @@ public class PortalPostController {
     public Result postList(PostQuery postQuery) {
         Specification<PostMain> where = new Specification<>() {
             /**
-             * 定义查询条件
-             * @param root 根对象  封装查询条件的对象
-             * @param criteriaQuery 基本的查询
-             * @param criteriaBuilder 创建查询条件
+             * 定義查詢條件
+             * @param root 根對象 封裝查詢條件
+             * @param criteriaQuery 基本的查詢
+             * @param criteriaBuilder 創建查詢條件
              * @return
              */
             @Override
@@ -111,7 +111,7 @@ public class PortalPostController {
 
 
     /**
-     * 帖子詳情查詢
+     * 貼文詳情查詢
      *
      * @param uuid
      * @return
@@ -125,10 +125,10 @@ public class PortalPostController {
 
         Specification<PostMain> where = new Specification<>() {
             /**
-             * 定义查询条件
-             * @param root 根对象  封装查询条件的对象
-             * @param criteriaQuery 基本的查询
-             * @param criteriaBuilder 创建查询条件
+             * 定義查詢條件
+             * @param root 根對象 封裝查詢的條件對象
+             * @param criteriaQuery 基本的查詢
+             * @param criteriaBuilder 創建查詢條件
              * @return
              */
             @Override
@@ -148,11 +148,11 @@ public class PortalPostController {
         PageRequest of = PageRequest.of(pageNum, pageSize, Sort.sort(PostMain.class).by(PostMain::getId).ascending());
         Page<PostMain> page = postRepository.findAll(where, of);
 
-        // 查詢當前登陸人是否有點贊，踩記錄
+        // 查詢當前登陸人是否有點讚的紀錄
         List<PostMain> content = page.getContent();
         if (loginUser != null) {
             for (PostMain postMain : content) {
-                // 帖子喜歡查詢
+                // 貼文喜歡查詢
                 Integer id = postMain.getId();
                 List<PostLike> postLikes = postLikeRepository.findPostLikeByDataIdAndTypeAndMember(id, 1, loginUser.getAccountnumber());
                 for (PostLike postLike : postLikes) {
@@ -163,7 +163,7 @@ public class PortalPostController {
                     }
                 }
 
-                // 帖子留言喜歡查詢
+                // 貼文留言喜歡查詢
                 List<PostMessage> postMessages = postMain.getPostMessages();
                 for (PostMessage postMessage : postMessages) {
                     Integer msgId = postMessage.getId();
@@ -185,7 +185,7 @@ public class PortalPostController {
 
 
     /**
-     * 帖子樓層留言
+     * 貼文樓層留言
      *
      * @param postMessage
      */
@@ -238,7 +238,7 @@ public class PortalPostController {
 
 
     /**
-     * 點贊 or 踩
+     * 點讚 or倒讚
      *
      * @param postLike
      */
@@ -261,7 +261,7 @@ public class PortalPostController {
             postLikeRepository.delete(oldLike);
         }
 
-        // 如果是留言，獲取到帖子，
+        // 如果是留言，獲取到貼文
         Integer dataId = postLike.getDataId();
         PostMain post;
         if (postLike.getType() == 2) {
@@ -298,7 +298,7 @@ public class PortalPostController {
 
 
     /**
-     * 跟帖子
+     * 跟貼文
      *
      * @param postMainSaveParam
      * @return

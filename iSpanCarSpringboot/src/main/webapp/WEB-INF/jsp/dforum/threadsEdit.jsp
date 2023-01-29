@@ -26,7 +26,7 @@
     <style>
         #editor—wrapper {
             border: 1px solid #ccc;
-            z-index: 100; /* 按需定义 */
+            z-index: 100; /* 按需定義 */
         }
 
         #toolbar-container {
@@ -295,8 +295,8 @@
                     <div id="newt" style="width: 100%; height: 100%">
                         <input id="body" type="hidden" name="body">
                         <div id="editor—wrapper">
-                            <div id="toolbar-container"><!-- 工具栏 --></div>
-                            <div id="editor-container"><!-- 编辑器 --></div>
+                            <div id="toolbar-container"><!-- 工具欄 --></div>
+                            <div id="editor-container"><!-- 編輯器 --></div>
                         </div>
                     </div>
 

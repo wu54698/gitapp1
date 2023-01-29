@@ -33,7 +33,7 @@ public class PostMain {
     private Date time;
 
     /**
-     * 是否為頂級帖
+     * 是否為頂級貼文
      */
     @Column(name = "isOP")
     private boolean isOP;
@@ -76,7 +76,7 @@ public class PostMain {
     private Date lastReplyTime;
 
     /**
-     * 最新回復人
+     * 最新回覆人
      */
     @ManyToOne
     @JoinColumn(name = "lastReplyId")

@@ -11,6 +11,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "member")
 @Component
@@ -54,6 +56,7 @@ public class MemberBean implements Serializable{
 	private String filename;
 	
 	@OneToOne(mappedBy = "memberbean")
+	@JsonIgnore
 	private MemberPosition memberPosition;
 	
 	@Override
@@ -243,5 +246,6 @@ public class MemberBean implements Serializable{
 		this.memberPosition = memberPosition;
 	}
 
+	
 
 }
