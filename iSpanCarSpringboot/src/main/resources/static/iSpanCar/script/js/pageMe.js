@@ -22,7 +22,7 @@
             var pageNum = me.options.pageNum;
             var totalNum = me.options.totalNum;
             var totalList = me.options.totalList;
-            content.push("<button type='button' id='prePage'>◄</button><button type='button' id='firstPage'>首页</button>");
+            content.push("<button type='button' id='prePage'>◄</button><button type='button' id='firstPage'>首頁</button>");
             // 总页数大于6必显示省略号
             if (totalNum > 6) {
                 // 1、当前页码小于5且总页码大于6 省略号显示后面+总页码
@@ -72,7 +72,7 @@
                     }
                 }
             }
-            content.push("<button type='button' id='lastPage'>尾页</button><button type='button' id='nextPage'>►</button>");
+            content.push("<button type='button' id='lastPage'>尾頁</button><button type='button' id='nextPage'>►</button>");
             // content.push("<span class='totalNum'> 共 " + totalNum + " 页 </span>");
             // content.push("<span class='totalList'> 共 " + totalList + " 条记录 </span>");
             me.element.html(content.join(''));
