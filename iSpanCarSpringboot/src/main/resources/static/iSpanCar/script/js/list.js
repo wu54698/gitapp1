@@ -372,37 +372,6 @@ function xrtiezeDetail(content) {
            <section class="c-section" id="post_4020110">
         <div class="c-section__side">
           <div class="c-user">
-            <div class="c-user__side">
-              <div class="usericon userlevel beginner">
-                <span>LV.</span>
-                1
-              </div>
-              <div
-                class="usericon usergp beginner"
-                data-tooltipped=""
-                aria-describedby="tippy-tooltip-23"
-                data-original-title="0"
-              >
-                <span>GP</span>
-                0
-              </div>
-              <div
-                class="usericon usercareer"
-                data-tooltipped=""
-                aria-describedby="tippy-tooltip-24"
-                data-original-title="初心者"
-              >
-                <img src="https://i2.bahamut.com.tw/forum/icons/noob.png" />
-              </div>
-              <div
-                class="usericon userrace"
-                data-tooltipped=""
-                aria-describedby="tippy-tooltip-25"
-                data-original-title="人類"
-              >
-                <img src="https://i2.bahamut.com.tw/forum/icons/human.png" />
-              </div>
-            </div>
             <a
               class="c-user__avatar gamercard"
               data-gamercard-userid="john19945646"
