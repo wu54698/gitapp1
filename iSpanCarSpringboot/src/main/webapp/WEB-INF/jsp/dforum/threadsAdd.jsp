@@ -25,7 +25,7 @@
     <style>
         #editor—wrapper {
             border: 1px solid #ccc;
-            z-index: 100; /* 按需定义 */
+            z-index: 100; /* 按需定義 */
         }
 
         #toolbar-container {
@@ -297,8 +297,8 @@
                     <div id="newt" style="width: 100%; height: 100%">
                         <input id="body" type="hidden" name="body">
                         <div id="editor—wrapper">
-                            <div id="toolbar-container"><!-- 工具栏 --></div>
-                            <div id="editor-container"><!-- 编辑器 --></div>
+                            <div id="toolbar-container"><!-- 工具欄 --></div>
+                            <div id="editor-container"><!-- 編輯器 --></div>
                         </div>
                     </div>
                 </form>
@@ -543,7 +543,7 @@
         placeholder: '請輸入論壇内容',
         MENU_CONF: {
             uploadImage: {
-                // 小于该值就插入 base64 格式（而不上传），默认为 0
+                // 小於該值就插入 base64 格式（而不上傳），默認為 0
                 server: '/api/upload-image',
                 base64LimitSize: 50000 * 1024 // 50000kb
             }

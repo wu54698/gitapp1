@@ -6,7 +6,7 @@ pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
-    <!-- 必须的 meta 标签 -->
+    <!-- 必須的 meta 標籤 -->
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -145,22 +145,22 @@ pageEncoding="UTF-8" %>
     <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.2.3/axios.js"></script>
     <script src="/iSpanCar/script/js/request.js"></script>
     
-    <title>贴吧</title>
+    <title>貼文</title>
   </head>
   <body>
     <div id="BH-wrapper">
       <div id="BH-master">
-        <!-- 分页器 -->
+        <!-- 分頁器 -->
 
         <div id="page" class="page_div" style="margin-top: 20px;"></div>
         </div>
 
-        <!-- 分页器结束 -->
+        <!-- 分頁器结束 -->
 
-        <!-- 分类 -->
+        <!-- 分類 -->
       <div id="catetrys">
       </div>
-        <!-- 列表开始 -->
+        <!-- 列表開始 -->
 
         <form
           name="formm"
@@ -237,17 +237,17 @@ pageEncoding="UTF-8" %>
           </div>
         </form>
         <!--列表結束-->
-        <!-- 分页器 -->
+        <!-- 分頁器 -->
 
         <div id="page2" class="page_div" style="margin-top: 20px;"></div>
         <script src="/iSpanCar/script/js/list.js"></script>
         <script>
         </script>
-        <!-- 分页器结束 -->
+        <!-- 分頁器结束 -->
       </div>
     </div>
 
-    <!-- ------------------------------------详情---------------------------------------------------------------- -->
+    <!-- ------------------------------------詳情---------------------------------------------------------------- -->
 
     <div id="BH-master" class="detailshow" style="position: relative">
       
@@ -266,14 +266,14 @@ pageEncoding="UTF-8" %>
       </div>
       <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-      <!--------------------------------------------------------------------- 加入楼层 ------------------------------>
+      <!--------------------------------------------------------------------- 加入樓層 ------------------------------>
       <section class="c-section">
         <div class="c-section__main c-editor c-quick-reply replysection">
           <div class="c-editor__input option floorOption">
-            <input id="floorTitle" placeholder="请输入标题">
+            <input id="floorTitle" placeholder="請輸入標題">
             <div class="line"></div>
-            <!-- 楼层 -->
-<%--            <textarea id="floortextarea" placeholder="请输入内容"></textarea>--%>
+            <!-- 樓層 -->
+<%--            <textarea id="floortextarea" placeholder="請輸入內容"></textarea>--%>
             <div id="toolbar-container"></div>
             <div id="floortextarea"></div>
             <div class="floorsend">
@@ -287,12 +287,12 @@ pageEncoding="UTF-8" %>
           </div>
         </div>
       </section>
-      <!--------------------------------------------------------------------- 加入楼层完 ------------------------------>
+      <!--------------------------------------------------------------------- 加入樓層完畢 ------------------------------>
     </div>
 
-    <!-- ------------------------------------详情结束---------------------------------------------------------------- -->
+    <!-- ------------------------------------詳情結束---------------------------------------------------------------- -->
 
-    <!-- 回复…………………………………………………………………………………………………………………………………………………………………………………………………………………………………… -->
+    <!-- 回覆…………………………………………………………………………………………………………………………………………………………………………………………………………………………………… -->
 
     <div class="modal-custom" tabindex="-1" id="editor">
       <div id="editor—wrapper">
@@ -314,7 +314,7 @@ pageEncoding="UTF-8" %>
           </div>
         </div>
 
-        <!-- 提交按钮 -->
+        <!-- 提交按鈕 -->
 
         <div class="menu__post__btn">
           <div class="menu_cancel" onclick="onBackDetail()">
@@ -328,7 +328,7 @@ pageEncoding="UTF-8" %>
           </div>
         </div>
 
-        <!-- 提交按钮后 -->
+        <!-- 提交按鈕後 -->
       </div>
     </div>
     <script>
@@ -337,7 +337,7 @@ pageEncoding="UTF-8" %>
       const editorConfig = {
         MENU_CONF: {
           uploadImage: {
-            // 小于该值就插入 base64 格式（而不上传），默认为 0
+            // 小於該值就插入 base64 格式（而不上傳），默認為 0
             server: '/api/upload-image',
             base64LimitSize: 50000 * 1024 // 50000kb
           }
@@ -509,7 +509,7 @@ pageEncoding="UTF-8" %>
 
     </script>
 
-    <!-- 回复结束…………………………………………………………………………………………………………………………………………………………………………………………………………………………………… -->
+    <!-- 回覆结束…………………………………………………………………………………………………………………………………………………………………………………………………………………………………… -->
 
     <script type="text/javascript" src="/iSpanCar/script/js/emoji_jQuery.min.js"></script>
     <script>
@@ -519,19 +519,19 @@ pageEncoding="UTF-8" %>
           "none";
       }
 
-      //   详情回复
+      //   詳情回覆
       function toReply(str) {
         const item = tiezeList.filter(it => it.id == str);
         selectTiziItem = item[0];
         const title = selectTiziItem.title;
-        console.log("详情回复", title);
+        console.log("詳情回覆", title);
         document.getElementById("editor").style.display = "block";
         $('#editTitle').append(`RE:` + title)
       }
 
 
-      // 赞一个
-      // 踩一个
+      // 讚一個
+      // 倒讚一個
       function commentBp(e) {}
       // 插入表情
 
@@ -539,9 +539,9 @@ pageEncoding="UTF-8" %>
         console.log("插入表情");
       }
 
-      // 回复
+      // 回覆
     </script>
-    <!-- 选项 1：jQuery 和 Bootstrap 集成包（集成了 Popper） -->
+    <!-- 選項 1：jQuery 和 Bootstrap 集成包（集成了 Popper） -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
