@@ -5,6 +5,7 @@ import iSpancar.dforum.model.PostMain;
 import iSpancar.dforum.model.PostMainSaveParam;
 import iSpancar.dforum.model.Thread;
 import iSpancar.dforum.repository.CategoryRepository;
+import iSpancar.dforum.repository.PostMessageRepository;
 import iSpancar.dforum.repository.PostRepository;
 import iSpancar.dforum.repository.ThreadRepository;
 import iSpancar.dforum.service.ThreadService;
@@ -19,10 +20,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -41,6 +53,9 @@ public class ThreadController {
 
 	@Autowired
 	private PostRepository postService;
+
+	@Autowired
+	private PostMessageRepository postMessageRepository;
 
 	@Autowired
 	private EntityManager entityManager;
@@ -144,6 +159,9 @@ public class ThreadController {
 	@DeleteMapping("/thread/{id}")
 	public ResponseEntity<String> delete(@PathVariable Integer id) {
 		try {
+			PostMain delPost = new PostMain();
+			delPost.setId(id);
+			postMessageRepository.deleteByPost(delPost);
 			postService.deleteById(id);
 		}catch (Exception e){
 			return ResponseEntity.ok("刪除失敗，已有留言！");

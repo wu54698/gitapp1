@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public interface PostMessageRepository extends JpaRepository<PostMessage, Integer> {
 
+	void deleteByPost(PostMain postMain);
+
 	List<PostMessage> findPostMessageByPost(PostMain postMain);
 
 }
