@@ -80,9 +80,9 @@
     		
     		var loginhtml = '<b><a class="nav-link " href="" id="userDropdown" role="button"'+
                 'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+account+'&nbsp'+
-    		'<img class="img-profile rounded-circle" id="myImage" width="25px" src="showimageforthismember.controller?accountnumber='+account+'"></a></b>';
+    		'<img class="img-profile rounded-circle" id="myImage" width="25px" src="/showimageforthismember.controller\?accountnumber='+account+'"></a></b>';
     		
-    		var logouttext = '<li class="nav-item"><b><a class="nav-link" href="logout.controller">登出</a></b></li>';
+    		var logouttext = '<li class="nav-item"><b><a class="nav-link" href="/logout.controller">登出</a></b></li>';
     		
     		$('.login-info').html(loginhtml).after(logouttext);
     	}else{

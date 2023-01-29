@@ -202,7 +202,7 @@
     	})
     	$('#createAccount').on('click', function () {
         if (accountnumberok && password1ok && password2ok && idnumberok && emailok && membernameok && cardok && accountnumberok2) {
-            $('#createAccountForm').attr('action', 'memberinsert.controller');
+            $('#createAccountForm').attr('action', '/backstage/memberinsert.controller');
             $('#createAccount').attr('type','submit');
         }
 

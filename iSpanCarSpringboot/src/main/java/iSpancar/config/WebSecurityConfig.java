@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http
 			.authorizeRequests()//定義那些需要認證才能進 
-			.antMatchers(HttpMethod.GET,"/memberselectall.controller").hasAnyAuthority("manager,employee")//需管理的路徑
+			.antMatchers(HttpMethod.GET,"/backstage/**").hasAnyAuthority("manager,employee")//需管理的路徑
 			//.antMatchers("/memberselectall.controller").hasAuthority("admins")
 			//只有具admins權限才可訪問此路徑，只能寫單一角色
 			//.antMatchers("/memberselectall.controller").hasAnyAuthority("admins,manager").hasAnyAuthority("manager")
@@ -46,7 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			//.antMatchers("/memberselectall.controller").hasRole("admins,manager")	
 			//使用hasRole前面要加"ROLE_"+角色名
 			.antMatchers(HttpMethod.GET).permitAll()//沒在上面設定的不用驗證
-			.antMatchers(HttpMethod.POST,"/users/**").authenticated()
+			//.antMatchers(HttpMethod.POST,"/backstage/**").authenticated()
+			.antMatchers(HttpMethod.POST,"/backstage/**").hasAnyAuthority("manager,employee")
 			.antMatchers(HttpMethod.POST).permitAll()
 			.anyRequest().authenticated()
 			.and()

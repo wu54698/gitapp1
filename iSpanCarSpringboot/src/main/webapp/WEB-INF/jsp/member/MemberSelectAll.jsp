@@ -47,7 +47,7 @@
             id="accordionSidebar">
 
             <!-- Sidebar - Brand 左上標誌 -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index" >
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index" >
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fa-solid fa-car-rear"></i>
                 </div>
@@ -200,7 +200,7 @@
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -272,7 +272,7 @@
 						<td class="birthday">${member.birthday}</td>
 						<td class="idnumber">${member.idnumber}</td>
 						<td>${member.cardnumber}</td>
-						<td><form id="imgform" class="imgform" enctype="multipart/form-data"><label><input type='hidden' class='file' id='file' name='file' style='display:none' ><img id="imgshow" class="imgshow" src="showimage.controller?accountnumber=${member.accountnumber}"  width="120" height="120" /></label></form></td>
+						<td><form id="imgform" class="imgform" enctype="multipart/form-data"><label><input type='hidden' class='file' id='file' name='file' style='display:none' ><img id="imgshow" class="imgshow" src="/showimage.controller?accountnumber=${member.accountnumber}"  width="120" height="120" /></label></form></td>
 						<td class="button"><button class="update btn btn-info btn-circle"><i class="fa-solid fa-pen"></i></button></td>
 						<td class="button"><button class="delete btn btn-danger btn-circle"><i class="fas fa-trash"></i></button></td>
 					
@@ -325,7 +325,7 @@
                     </button>
                 </div>
                 <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="logout.controller">登出</a></div>
+                    <a class="btn btn-primary" href="/logout.controller">登出</a></div>
 <!--                 <div class="modal-footer"> -->
                    
 <!--                 </div> -->
@@ -351,7 +351,17 @@
         	
         	//跳轉新增員工頁面
         	$('.insert').on('click',function(){
-        		location.href = "memberInsertForEmployee";
+        		let myPositionInsert = $('#myPositionInsert').val();
+        		if(myPositionInsert == 1){
+        			location.href = "/memberInsertForEmployee";
+        		}else{
+        			Swal.fire({
+						  icon: 'error',
+						  title: '無法新增',
+						  text: '無新增權限',
+						  //footer: '<a href="">Why do I have this issue?</a>'
+						})
+        		}
         	})
         	//$('.memberpassword').html('***');
         	//判斷查詢權限
@@ -592,7 +602,7 @@
 	        		   success: function (response) {
 	        			   if(myAccountnumber == account){
 	        				   let random = Math.random();
-	        				   $('#myImage').attr('src',"showimageforthismember.controller?accountnumber="+account+"&"+random)
+	        				   $('#myImage').attr('src',"/showimageforthismember.controller\?accountnumber="+account+"&"+random)
 	        			   }
 	   	                } ,
 	   	                error:function(xhr, ajaxOptions, thrownError){

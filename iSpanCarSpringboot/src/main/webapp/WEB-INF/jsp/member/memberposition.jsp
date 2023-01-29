@@ -200,7 +200,7 @@
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -305,7 +305,7 @@
                     </button>
                 </div>
                 <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="logout.controller">登出</a></div>
+                    <a class="btn btn-primary" href="/logout.controller">登出</a></div>
 <!--                 <div class="modal-footer"> -->
                    
 <!--                 </div> -->
@@ -319,31 +319,47 @@
  <script>
  
 	 $(document).ready(function () {
-	     $('#table_id').DataTable();
+	     $('#table_id').DataTable({
+	    		 "columnDefs":[{
+	    			 "orderable":false,
+	    			 "targets":[0,1,2,3,4]
+	    		 }]
+	     });
 	 });
  
 	 $(function(){
 		 //用controller傳來的值判斷是否要打勾
-		$('.Insertbox').each(function(){
-			if($(this).val() == 1){
-				$(this).prop('checked',true);
-			}
-		})
-		$('.Updatebox').each(function(){
-			if($(this).val() == 1){
-				$(this).prop('checked',true);
-			}
-		})
-		$('.Deletebox').each(function(){
-			if($(this).val() == 1){
-				$(this).prop('checked',true);
-			}
-		})
-		$('.Selectbox').each(function(){
-			if($(this).val() == 1){
-				$(this).prop('checked',true);
-			}
-		})
+		 function toCheck(){
+			$('.Insertbox').each(function(){
+				if($(this).val() == 1){
+					$(this).prop('checked',true);
+				}else{
+					$(this).prop('checked',false);
+				}
+			})
+			$('.Updatebox').each(function(){
+				if($(this).val() == 1){
+					$(this).prop('checked',true);
+				}else{
+					$(this).prop('checked',false);
+				}
+			})
+			$('.Deletebox').each(function(){
+				if($(this).val() == 1){
+					$(this).prop('checked',true);
+				}else{
+					$(this).prop('checked',false);
+				}
+			})
+			$('.Selectbox').each(function(){
+				if($(this).val() == 1){
+					$(this).prop('checked',true);
+				}else{
+					$(this).prop('checked',false);
+				}
+			})
+		 }
+		 toCheck();//執行
 		//一開始不能修改
 		$('.mybox').attr('disabled','disabled');
 		//修改按鈕
@@ -354,6 +370,25 @@
 		})
 		//取消按鈕
 		 $('#content').on('click', '.cancel', function () {
+			 $.ajax({
+					type:'POST',
+					context:this,
+		            url:'memberpositioncancel.controller',
+		            dataType:'json',
+		            success: function (response) {
+			            	$('.tr-block').each(function(i,e){
+			            		$(this).find('.Insertbox').val(response[i].permissionsInsert);
+			            		$(this).find('.Updatebox').val(response[i].permissionsUpdate);
+			            		$(this).find('.Deletebox').val(response[i].permissionsDelete);
+			            		$(this).find('.Selectbox').val(response[i].permissionsSelect);
+			            	})
+			            	toCheck();
+		                } ,
+		                error:function(xhr, ajaxOptions, thrownError){
+		                    alert(xhr.status+"\n"+thrownError);
+		                }
+				 })
+			 
 			//按鈕變回修改
 			 let buttonstring = "<button class='update btn btn-info btn-circle'><i class='fa-solid fa-pen btn-sm'></i></button>"
 				 $('.mybox').attr('disabled','disabled');

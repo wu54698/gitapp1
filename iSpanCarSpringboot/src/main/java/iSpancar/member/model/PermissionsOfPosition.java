@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "permissionsofposition")
 @Component
@@ -33,6 +35,7 @@ public class PermissionsOfPosition implements Serializable {
 	@Column( name = "permissionsselect")
 	private String permissionsSelect;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "permissionsofposition")
 	private Set<MemberPosition> memberposition;
 	

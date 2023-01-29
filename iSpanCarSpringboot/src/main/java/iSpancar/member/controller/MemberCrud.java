@@ -13,14 +13,18 @@ import java.util.Map;
 
 import javax.servlet.http.Part;
 import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,11 +34,143 @@ import iSpancar.member.model.PermissionsOfPosition;
 import iSpancar.member.service.MemberService;
 
 @Controller
+@RequestMapping("/backstage")
 public class MemberCrud {
 	
 	@Autowired
 	private MemberService memberService;
+//----------------------select----------------------
+	//select all
+	@GetMapping("/memberselectall.controller")
+	public String processAction(Model model) {
+		
+		try {
+			List<MemberBean> list = memberService.findAll();
+			model.addAttribute("selectAll", list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "member/MemberSelectAll";
+		
+	}
+	//select position-------------------權限---------------------
+	@GetMapping("/memberposition.controller")
+	public String processPositionAction(Model model) {
+		
+		List<PermissionsOfPosition> list = memberService.findAllPermissions();
+		model.addAttribute("selectAll", list);
+		
+		return "member/memberposition";
+	}
 	
+	@PostMapping("/memberpositioncancel.controller")
+	@ResponseBody
+	public List<PermissionsOfPosition> processPositionActionForCancel() {
+		
+		List<PermissionsOfPosition> list = memberService.findAllPermissions();
+		
+		return list;
+	}
+//----------------------insert----------------------
+	//insert user
+	@PostMapping("memberinsert.controller")
+	public String processInsertAction(@RequestParam("accountnumber") String accountnumber,@RequestParam("memberpassword") String memberpassword,@RequestParam("membername") String membername,
+			@RequestParam("phonenumber") String phonenumber,@RequestParam("email") String email,@RequestParam("city") String city,@RequestParam("town") String town,
+			@RequestParam("memberaddress") String memberaddress,@RequestParam("platenumber") String platenumber,@RequestParam("year") String year,@RequestParam("month") String month,
+			@RequestParam("date")@Nullable String date ,@RequestParam("idnumber") String idnumber,@RequestParam("card1") String card1,@RequestParam("card2") String card2,
+			@RequestParam("card3") String card3,@RequestParam("card4") String card4,@RequestParam("file") MultipartFile mf) {
+		try {
+		String birthday = null;
+		Date birthDate = null;
+		if(date != null) {
+			
+			int borthdaylength = month.length();
+			month = month.substring(0,borthdaylength-5);
+			
+			birthday = year.substring(0,4) +"-"+ month +"-"+ date;
+			
+			birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(birthday);
+		}
+		
+		String cardnumber = card1 + "-" + card2 + "-" + card3 + "-" + card4;
+		
+		String filename = mf.getOriginalFilename();
+		
+		byte[] bytes = mf.getBytes();
+		
+		Blob blob = null;
+		if(bytes.length==0) {
+			
+		}else {
+			blob = new SerialBlob(bytes);
+		}
+		String encodePwd = new BCryptPasswordEncoder().encode(memberpassword);//密碼加密
+
+		MemberBean bean = new MemberBean(accountnumber, encodePwd, membername, phonenumber, email, city+town+memberaddress, platenumber, birthDate, idnumber, cardnumber,blob,filename);
+		memberService.insertForUser(bean);
+		
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SerialException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return "index";
+	}
+	//insert employee
+	@PostMapping("memberinsertforemployee.controller")
+	public String processInsertActionForEmployee(@RequestParam("accountnumber") String accountnumber,@RequestParam("memberpassword") String memberpassword,@RequestParam("membername") String membername,
+			@RequestParam("phonenumber") String phonenumber,@RequestParam("email") String email,@RequestParam("city") String city,@RequestParam("town") String town,
+			@RequestParam("memberaddress") String memberaddress,@RequestParam("platenumber") String platenumber,@RequestParam("year") String year,@RequestParam("month") String month,
+			@RequestParam("date")@Nullable String date ,@RequestParam("idnumber") String idnumber,@RequestParam("card1") String card1,@RequestParam("card2") String card2,
+			@RequestParam("card3") String card3,@RequestParam("card4") String card4,@RequestParam("file") MultipartFile mf) {
+		try {
+			String birthday = null;
+			Date birthDate = null;
+			if(date != null) {
+				
+				int borthdaylength = month.length();
+				month = month.substring(0,borthdaylength-5);
+				
+				birthday = year.substring(0,4) +"-"+ month +"-"+ date;
+				
+				birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(birthday);
+			}
+			
+			String cardnumber = card1 + "-" + card2 + "-" + card3 + "-" + card4;
+			
+			String filename = mf.getOriginalFilename();
+			
+			byte[] bytes = mf.getBytes();
+			
+			Blob blob = null;
+			if(bytes.length==0) {
+				
+			}else {
+				blob = new SerialBlob(bytes);
+			}
+			String encodePwd = new BCryptPasswordEncoder().encode(memberpassword);//密碼加密
+			
+			MemberBean bean = new MemberBean(accountnumber, encodePwd, membername, phonenumber, email, city+town+memberaddress, platenumber, birthDate, idnumber, cardnumber,blob,filename);
+			memberService.insertForEmployee(bean);
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SerialException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return "redirect:memberselectall.controller";
+	}
+//--------------------delete------------------
 	//Delete
 	@PostMapping("/memberdelete.controller")
 	@ResponseBody
@@ -46,7 +182,7 @@ public class MemberCrud {
 		}
 		return "delete";
 	}
-	
+//----------------------update--------------------
 	//update
 	@PostMapping("/memberupdate.controller")
 	@ResponseBody
@@ -108,7 +244,7 @@ public class MemberCrud {
 			e.printStackTrace();
 		}
 	}
-		//---------------------------------權限---------------------------------------
+//---------------------------------權限---------------------------------------
 	@PostMapping("/permissionupdate.controller")
 	@ResponseBody
 	public List<PermissionsOfPosition> processUpdatePermission(@RequestBody List<PermissionsOfPosition> list) {
