@@ -157,6 +157,7 @@ public class ThreadController {
 	}
 
 	@DeleteMapping("/thread/{id}")
+	@Transactional
 	public ResponseEntity<String> delete(@PathVariable Integer id) {
 		try {
 			PostMain delPost = new PostMain();
