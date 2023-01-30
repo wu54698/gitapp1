@@ -16,7 +16,7 @@ public interface CarInfoRepository extends JpaRepository<CarInfoBean, Integer> {
 	//新增的車輛的dao
 	@Modifying
 	@Query(value = "insert into carinfo values (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)", nativeQuery = true)
-	public CarInfoBean addCarInfo(CarDealerBean dealerBean, String accountNumber, String carBrand, String carName,
+	public CarInfoBean addCarInfo(String sellerName, String accountNumber, String carBrand, String carName,
 			int stock, Blob carImage, String carDescription, String announceDate);
 	
 	//刪除的車輛dao
@@ -26,8 +26,14 @@ public interface CarInfoRepository extends JpaRepository<CarInfoBean, Integer> {
 	
 	//用品牌查詢的車輛dao
 	@Modifying
-	@Query(value = "select * from carinfo where carbrand =?3", nativeQuery = true)
+	@Query(value = "select * from carinfo where carbrand =?1", nativeQuery = true)
 	public List<CarInfoBean> findByCarBrandLike(String carBrand);
+	
+	
+	//查詢車商底下所有車輛
+	@Modifying
+	@Query(value = "select * from carinfo where cardealname =?1", nativeQuery = true)
+	public List<CarInfoBean> findByCarDealerNameLike(String cardealname);
 	
 	// 透過carNo找車輛(圖片用)dao
 	@Modifying

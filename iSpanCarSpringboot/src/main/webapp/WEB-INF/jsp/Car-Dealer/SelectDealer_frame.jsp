@@ -88,11 +88,10 @@
 
 					<!-- Nav Item - Utilities Collapse Menu -->
 					<li class="nav-item"><a class="nav-link"
-							href="CarDealerForm">
-							<i class="fa-solid fa-car"></i> <span>車廠</span>
-						</a></li>
+					href="findAllDealer.controller"><i
+					class="fa-solid fa-car"></i><span>車廠</span></a></li>
 					<li class="nav-item"><a class="nav-link"
-							href="CarInfoForm">
+							href="SelectAllCar.controller">
 					<i class="fa-solid fa-car"></i> <span>車輛</span>
 						</a></li>
 

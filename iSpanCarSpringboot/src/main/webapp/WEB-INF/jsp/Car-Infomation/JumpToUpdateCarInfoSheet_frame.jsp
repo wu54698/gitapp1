@@ -89,10 +89,10 @@
 
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link"
-				href="CarDealerForm"> <i
-					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
+				href="findAllDealer.controller"><i
+					class="fa-solid fa-car"></i><span>車廠</span></a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="CarInfoForm"> <i
+				href="SelectAllCar.controller"> <i
 					class="fa-solid fa-car"></i> <span>車輛</span></a></li>
 
 			<!-- Divider -->
@@ -212,8 +212,7 @@
 
 					<!-- Page Heading -->
 					<h1 class="h3 mb-4 text-gray-800">管理者功能: 車輛品牌產品維護</h1>
-					<form name="selectToUpdate" action="<c:url value='/UpdateCarInfoServlet.do'/>" method="POST"
-						enctype="multipart/form-data">
+					<form name="selectToUpdate" action="" method="POST" enctype="multipart/form-data">
 						<table border="1" id="insertP">
         <thead>
             <tr bgcolor='transparent'>
@@ -280,15 +279,15 @@
                 <td height="50" colspan="2" align="center">
 <%--                     <input type="submit" value="新增" id="addCar" formaction="<c:url value='/CarInfoServlet.do'/>"> --%>
 <%--                     <input type="submit" value="刪除" formaction="<c:url value='/DeleteCarInfoServlet.do'/>"> --%>
-                    <input type="submit" value="確認修改" id="updateCarInfo" formaction="updateCarInfo.controller">
+                    <input type="submit" value="確認修改" id="updateCarInfo" formaction="/updateCarInfo.controller">
 <%--                     <input type="submit" value="找品牌" id="findCarBrand" formaction="<c:url value='/FindCarBrandServlet.do'/>"> --%>
-                    <input type="submit" value="搜尋全車輛" formaction="SelectAllCar.controller">
+                    <input type="submit" value="搜尋全車輛" formaction="/SelectAllCar.controller">
                 </td>
             </tr>
 		</c:forEach>
         </tbody>
     </table>
-    <a href="CarInfoForm">回車輛主頁</a>
+    <a href= "SelectAllCar.controller">回車輛主頁</a>
 					</form>
 				</div>
 				<!-- /.container-fluid -->

@@ -80,10 +80,10 @@
 
 					<!-- Nav Item - Utilities Collapse Menu -->
 					<li class="nav-item"><a class="nav-link"
-							href="CarDealerForm"> <i
-								class="fa-solid fa-car"></i> <span>車廠</span></a></li>
+					href="findAllDealer.controller"><i
+					class="fa-solid fa-car"></i><span>車廠</span></a></li>
 					<li class="nav-item"><a class="nav-link"
-							href="CarInfoForm"> <i
+							href="SelectAllCar.controller"> <i
 								class="fa-solid fa-car"></i> <span>車輛</span></a></li>
 
 					<!-- Divider -->
@@ -209,6 +209,7 @@
             </tr>
         </thead>
         <tbody>
+        <c:forEach var='addCar' items='${addCar}' varStatus="vs">
 <!--             <tr bgcolor='transparent'> -->
 <!--                 <td width="120" height="40">車輛編號</td> -->
 <%--                 <td width="600" height="40" align="left"><input id="carNo" name="carNo" class="checkNotNull" value="${param.carNo}" --%>
@@ -217,7 +218,10 @@
             <tr bgcolor='transparent'>
                 <td width="120" height="40">車商名稱</td>
                 <td width="600" height="40" align="left"><input id="carDealName" name="carDealName" class="checkNotNull"
-                        value="${param.carDealName}" type="text" size="14" style="text-align: left"></td>
+                        value="${addCar.carDealName}" type="text" size="14" style="text-align: left" readonly>
+                        <small><font color='red' size="-1">${ErrorMsg.carDealName}</font></small>
+                </td>
+             
             </tr>
             <tr bgcolor='transparent'>
                 <td width="120" height="40">帳號</td>
@@ -263,16 +267,14 @@
             </tr>
             <tr bgcolor='transparent'>
                 <td height="50" colspan="2" align="center">
-                    <input type="submit" value="新增" id="addCar" formaction="addCarInfo.controller">
-<%--                     <input type="submit" value="刪除" formaction="<c:url value='/DeleteCarInfoServlet.do'/>"> --%>
-<%--                     <input type="submit" value="修改車輛資訊" id="" formaction="<c:url value='/Car-Infomation/JumpToUpdateCarInfoSheet_frame.jsp'/>"> --%>
-                    <input type="submit" value="找品牌" id="findCarBrand" formaction="SelectCarByBrand.controller">
-                    <input type="submit" value="搜尋全車輛" formaction="SelectAllCar.controller">
+                    <input type="submit" value="新增" id="addCar" formaction="addCarInfo.controller" class="btn btn-info">
+                    <input type="submit" value="找品牌" id="findCarBrand" formaction="SelectCarByBrand.controller" class="btn btn-info">
+                    <input type="submit" value="搜尋全車輛" formaction="SelectAllCar.controller" class="btn btn-info">
                 </td>
             </tr>
-            <!-- 							</tbody> -->
+            </c:forEach>
+           </tbody>
     </table>
-								<a href="CarInfoForm">回車輛主頁</a>
 							</form>
 						</div>
 						<!-- /.container-fluid -->

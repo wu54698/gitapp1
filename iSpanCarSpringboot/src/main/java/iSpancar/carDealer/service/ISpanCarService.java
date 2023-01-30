@@ -27,16 +27,11 @@ import iSpancar.carInfo.model.CarInfoBean;
 @Transactional
 public class ISpanCarService {
 
-//	@Autowired
-//	private CarDealerDao dealerDao;
 	@Autowired
 	private CarDealerRepository dealerRepository;
 	
 	@Autowired
 	private CarInfoRepository carInfoRepository;
-
-//	@Autowired
-//	private CarInfoDao infoDao;
 
 	public Blob filetoBlob(InputStream is, long size) throws IOException, SerialException, SQLException {
 		byte[] b = new byte[(int) size];
@@ -78,21 +73,20 @@ public class ISpanCarService {
 
 	// 透過車商來搜尋車商資訊
 	public List<CarDealerBean> findByCarDealerName(String carDealName) {
-
+		System.out.println("車商銘" + carDealName );
 		List<CarDealerBean> dealerBeans = dealerRepository.findByCarDealerName(carDealName);
+		System.out.println("車商銘二" + carDealName );
 		return dealerBeans;
 	}
 
 	// 車輛的Service
-	// 新增車輛商品
-	public CarInfoBean addCarInfo(CarDealerBean dealerBean, String accountNumber, String carBrand, String carName,
-			int stock, Blob carImage, String carDescription, String announceDate) {
-
-			CarInfoBean carInfoBean = carInfoRepository.addCarInfo(dealerBean, accountNumber, carBrand, carName, stock, carImage,
-					carDescription, announceDate);
-
-			return carInfoBean;
-		}
+	// 新增車輛商品	
+	public CarInfoBean addCarInfo(CarInfoBean carBean) {
+		
+		carInfoRepository.save(carBean);
+		return carBean;
+	}
+	
 
 	// 搜尋全車輛
 	public List<CarInfoBean> findAllCar() {
@@ -119,6 +113,13 @@ public class ISpanCarService {
 
 			List<CarInfoBean> carInfoBean = carInfoRepository.findByCarBrandLike(carBrand);
 			return carInfoBean;
+	}
+	
+	//查詢車商底下所有車輛
+	public List<CarInfoBean> findByCarDealerNameLike(String cardealname){
+		
+		List<CarInfoBean> carInfoBean = carInfoRepository.findByCarDealerNameLike(cardealname);
+		return carInfoBean;
 	}
 
 	// 透過carNo找車輛(圖片用)

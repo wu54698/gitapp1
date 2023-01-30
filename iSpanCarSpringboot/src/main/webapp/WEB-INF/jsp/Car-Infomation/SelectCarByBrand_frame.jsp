@@ -93,11 +93,10 @@ textarea {
 
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link"
-				href="CarDealerForm"> <i
-					class="fa-solid fa-car"></i> <span>車廠</span>
-			</a></li>
+				href="findAllDealer.controller"><i
+					class="fa-solid fa-car"></i><span>車廠</span></a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="CarInfoForm">
+				href="SelectAllCar.controller">
 					<i class="fa-solid fa-car"></i> <span>車輛</span>
 			</a></li>
 
@@ -243,7 +242,7 @@ textarea {
 									<td>${car.stock}</td>
 									<!--<td>${car.carImage}</td>-->
 									<td><img
-										src="carInfoImage.controller/{car.carNo}"
+										src="carInfoImage.controller/${car.carNo}"
 										width="180px" height="120px"></td>
 									<td><textarea readonly cols="10" rows="5"
 											style="text-align: left">${car.carDescription}</textarea></td>
@@ -252,7 +251,7 @@ textarea {
 							</tbody>
 						</c:forEach>
 					</table>
-					<a href="CarInfoForm">回車輛首頁</a>
+					<a href="SelectAllCar.controller">回車輛首頁</a>
 				</div>
 				<!-- /.container-fluid -->
 

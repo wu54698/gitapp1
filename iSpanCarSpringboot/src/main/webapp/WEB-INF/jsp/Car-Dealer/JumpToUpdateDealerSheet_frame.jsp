@@ -28,11 +28,13 @@
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+ <link rel="stylesheet" href="/resources/demos/style.css">
+ <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 </head>
 
 <body id="page-top">
-	<c:set value="${LoginOK}" var="login" />
+<c:set value="${LoginOK}" var="login"/>
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
@@ -82,19 +84,17 @@
                     </div>
                 </div>
             </li> -->
-			<li class="nav-item"><a class="nav-link"
-				href="memberselectall.controller"> <i
-					class="fa-solid fa-user"></i> <span>會員</span>
+			<li class="nav-item"><a class="nav-link" href="memberselectall.controller">
+					<i class="fa-solid fa-user"></i> <span>會員</span>
 			</a></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link"
-				href="findAllDealer.controller"><i
-					class="fa-solid fa-car"></i><span>車廠</span></a></li>
+				href="findAllDealer.controller"> <i
+					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="SelectAllCar.controller">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
-			</a></li>
+				href="SelectAllCar.controller"> <i
+					class="fa-solid fa-car"></i> <span>車輛</span></a></li>
 
 			<!-- Divider -->
 			<!-- <hr class="sidebar-divider"> -->
@@ -105,15 +105,13 @@
             </div> -->
 
 			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item"><a class="nav-link"
-				href="serviceAllController"> <i
-					class="fa-solid fa-screwdriver-wrench"></i> <span>保養廠</span>
+			<li class="nav-item"><a class="nav-link" href="serviceAllController">
+					<i class="fa-solid fa-screwdriver-wrench"></i> <span>保養廠</span>
 			</a></li>
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link"
-				href="threadsView"> <i
-					class="fa-brands fa-rocketchat"></i> <span>論壇</span>
+			<li class="nav-item"><a class="nav-link" href="threadsView">
+					<i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
 			</a></li>
 
 			<!-- Nav Item - Tables -->
@@ -121,9 +119,8 @@
 				href="<c:url value='/ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/orderQueryAll.controller'/>"> <i
-					class="fa-solid fa-coins"></i> <span>訂單</span>
+			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
@@ -215,33 +212,65 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-4 text-gray-800">功能名稱</h1>
-					<table id="UpdateDealer">
-						<thead>
-							<tr>
-								<th>車商名稱</th>
-								<th>車商電話</th>
-								<th>地址</th>
-								<th>營業時間</th>
-								<th>聯絡人</th>
-								<th>統一編號</th>
-							</tr>
-						</thead>
-						<c:forEach var="dealer" items="${UpdateDealer}" varStatus="vs">
-							<tbody>
-								<tr>
-									<td>${dealer.carDealName}</td>
-									<td>${dealer.carDealPhone}</td>
-									<td>${dealer.carDealAddress}</td>
-									<td>${dealer.openTime}</td>
-									<td>${dealer.contactPerson}</td>
-									<td>${dealer.carDealVATNumber}</td>
-								</tr>
-							</tbody>
-						</c:forEach>
-
-					</table>
-					<a href="findAllDealer.controller">回車商主頁</a>
+					<h1 class="h3 mb-4 text-gray-800">管理者功能: 車輛品牌產品維護</h1>
+					<form name="selectToUpdate" action="" method="POST"
+						enctype="multipart/form-data">
+						<table border="1" id="insertP">
+        <thead>
+            <tr bgcolor='transparent'>
+                <th height="60" colspan="2" align="center">
+                    <h2><b>請在以下表單做車輛資訊修改</b></h2>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+			<c:forEach var='toUpdate' items='${updateDealer}' varStatus="vs">
+            <tr bgcolor='transparent'>
+                <td width="120" height="40">車商名稱</td>
+                <td width="600" height="40" align="left"><input id="carDealName" name="carDealName" class="checkNotNull" value="${toUpdate.carDealName}"
+                        type="text" size="26" style="text-align: left; background-color: transparent; border-style:none;" readonly></td>
+            </tr>
+            <tr bgcolor='transparent'>
+                <td width="120" height="40">車商電話</td>
+                <td width="600" height="40" align="left"><input id="carDealPhone" name="carDealPhone" class="checkNotNull"
+                        value="${toUpdate.carDealPhone}" type="text" size="26" style="text-align: left"></td>
+            </tr>
+            <tr bgcolor='transparent'>
+                <td width="120" height="40">地址</td>
+                <td width="600" height="40" align="left"><input id="carDealAddress" name="carDealAddress" class="checkNotNull"
+                        value="${toUpdate.carDealAddress}" type="text" size="26" style="text-align: left">
+                </td>
+            </tr>
+            <tr bgcolor='transparent'>
+                <td width="120" height="40">營業時間</td>
+                <td width="600" height="40" align="left"><input id="openTime" name="openTime" class="checkNotNull" value="${toUpdate.openTime}"
+                        type="text" size="26" style="text-align: left"></td>
+            </tr>
+            <tr bgcolor='transparent'>
+                <td width="120" height="40">聯絡人</td>
+                <td width="600" height="40" align="left"><input id="contactPerson" name="contactPerson" class="checkNotNull" value="${toUpdate.contactPerson}"
+                        type="text" size="26" style="text-align: left"></td>
+            </tr>
+            <tr bgcolor='transparent'>
+                <td width="120" height="40">統一編號</td>
+                <td width="600" height="40" align="left"><input id="carDealVATNumber" name="carDealVATNumber" class="checkNotNull" value="${toUpdate.carDealVATNumber}"
+                        type="text" size="26" style="text-align: left">
+                </td>
+            </tr>
+           
+            <tr bgcolor='transparent'>
+                <td height="50" colspan="2" align="center">
+<%--                     <input type="submit" value="新增" id="addCar" formaction="<c:url value='/CarInfoServlet.do'/>"> --%>
+<%--                     <input type="submit" value="刪除" formaction="<c:url value='/DeleteCarInfoServlet.do'/>"> --%>
+                    <input type="submit" value="確認修改" id="updateCarInfo" formaction="updateCarDealer.controller">
+<%--                     <input type="submit" value="找品牌" id="findCarBrand" formaction="<c:url value='/FindCarBrandServlet.do'/>"> --%>
+                </td>
+            </tr>
+		</c:forEach>
+        </tbody>
+    </table>
+    <a href="findAllDealer.controller">回車商主頁</a>
+					</form>
 				</div>
 				<!-- /.container-fluid -->
 
@@ -270,29 +299,24 @@
 	</a>
 
 	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">決定登出?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">取消</button>
-					<a class="btn btn-primary"
-						href="<c:url value='/logoutServlet.do' />">登出</a>
-				</div>
-				<!--                 <div class="modal-footer"> -->
-
-				<!--                 </div> -->
-			</div>
-		</div>
-	</div>
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">決定登出?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
+<!--                 <div class="modal-footer"> -->
+                   
+<!--                 </div> -->
+            </div>
+        </div>
+    </div>
 
 	<!-- Bootstrap core JavaScript-->
 	<script
@@ -313,10 +337,47 @@
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
 	<script>
-		$(document).ready(function() {
-			$('#UpdateDealer').DataTable();
-		});
+// 		$(document).ready(function() {
+// 			$('#carInfoForm').DataTable();
+// 		});
 	</script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  	<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+  	<script>
+  		$(document).ready(function(){
+	    	$('#openTime').timepicker({
+	    		timeFormat: 'HH:mm:ss',
+	  	  });
+		});
+  		
+  	//驗證欄位不為空
+		 $('#findCarBrand').on({
+			 click: function(){
+				 $('#carBrand').attr('required', true)
+			 }, mouseleave: function(){
+				 $('#carBrand').attr('required', false)
+			 }
+		 });
+		 $('#updateCarInfo').on({
+			 click: function(){
+				 $('#carNo').attr('required', true)
+			 }, mouseleave: function(){
+				 $('#carNo').attr('required', false)
+			 }
+		 });
+  		
+		 $('#addCar').on({
+	            click: function () {
+	                $('.checkNotNull').attr('required', true)
+	            }, mouseleave: function () {
+	                $('.checkNotNull').attr('required', false)
+	            },
+	        });
+  	
+  	
+  		
+  	</script>
 
 </body>
 
