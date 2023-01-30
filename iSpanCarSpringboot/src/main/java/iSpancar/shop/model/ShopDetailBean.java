@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name = "SHOP_DETAIL")
+@Table(name = "SHOPDETAIL")
 @Component
 public class ShopDetailBean implements Serializable {
 	
@@ -47,12 +47,12 @@ public class ShopDetailBean implements Serializable {
 	@Column(name = "productimage")
 	private Blob productimage;
 	
-	@Column(name = "productimage_name")
-	private String productimage_name;
+	@Column(name = "productimagename")
+	private String productimagename;
 
 	
 	public ShopDetailBean(String productname, String type, String spec, Integer price, Integer stock, String uptime,
-			String productinfo, Blob productimage, String productimage_name) {
+			String productinfo, Blob productimage, String productimagename) {
 		super();
 		this.productname = productname;
 		this.type = type;
@@ -62,7 +62,7 @@ public class ShopDetailBean implements Serializable {
 		this.uptime = uptime;
 		this.productinfo = productinfo;
 		this.productimage = productimage;
-		this.productimage_name = productimage_name;
+		this.productimagename = productimagename;
 	}
 
 
@@ -75,7 +75,7 @@ public class ShopDetailBean implements Serializable {
 
 
 
-	public ShopDetailBean(Integer productno, String productname, Integer price, Integer stock,String productinfo, Blob productimage,String productimage_name) {
+	public ShopDetailBean(Integer productno, String productname, Integer price, Integer stock,String productinfo, Blob productimage,String productimagename) {
 		super();
 		this.productno = productno;
 		this.productname = productname;
@@ -83,7 +83,7 @@ public class ShopDetailBean implements Serializable {
 		this.stock = stock;
 		this.productinfo = productinfo;
 		this.productimage = productimage;
-		this.productimage_name = productimage_name;
+		this.productimagename = productimagename;
 	}
 	
 
@@ -123,8 +123,8 @@ public class ShopDetailBean implements Serializable {
 		builder.append(productinfo);
 		builder.append(", productimage=");
 		builder.append(productimage);
-		builder.append(", productimage_name=");
-		builder.append(productimage_name);
+		builder.append(", productimagename=");
+		builder.append(productimagename);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -201,12 +201,12 @@ public class ShopDetailBean implements Serializable {
 		this.productimage = productimage;
 	}
 
-	public String getProductimage_name() {
-		return productimage_name;
+	public String getProductimagename() {
+		return productimagename;
 	}
 
-	public void setProductimage_name(String productimage_name) {
-		this.productimage_name = productimage_name;
+	public void setProductimagename(String productimagename) {
+		this.productimagename = productimagename;
 	}
 
 }

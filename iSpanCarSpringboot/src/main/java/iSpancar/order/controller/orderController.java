@@ -111,10 +111,11 @@ public class orderController {
 	@RequestMapping(path="/orderQueryAll.controller" , method= RequestMethod.GET)
 	public String orderQueryAll (Model order) throws Exception {
 		Collection<OrderBean>  coll = oService.findAllOrder() ;
-		
-		
-		
 		order.addAttribute("AllOrder", coll);
+		Collection<OrderItemBean>  oicoll = oiService.findAllOrderItem() ;
+		order.addAttribute("AllOrderItme", oicoll);
+
+		
 		return  "order/order";
 	}
 	

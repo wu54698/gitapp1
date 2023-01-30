@@ -143,7 +143,7 @@ display:inline;
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
 			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
@@ -214,7 +214,7 @@ display:inline;
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -243,11 +243,12 @@ display:inline;
 					<h1 class="h3 mb-4 text-gray-800">商城管理</h1>
 					<%-- <a href="<c:url value='/SHOP_DETAIL/iSpanShopInsert.jsp' />">新增產品</a> --%>
 					<div>
-						<form action="<c:url value='/iSpanProductInsert'/>"
+						<form action="<c:url value='/iSpancarShop.insertpage'/>"
 							method="get">
 							<input type="submit" value="新增產品"  style="width:100px;height:45px;text-align:center">
 						</form>
-						<form action="<c:url value='/Shop_Cart.controller'/>"
+	
+						<form action="<c:url value='/iSpancarShop.Shop_Cart.controller'/>"
 							method="get">
 							<input type="submit" value="購物車測試"  style="width:100px;height:45px;text-align:center">
 						</form>
@@ -276,7 +277,7 @@ display:inline;
 								varStatus="vs">
 								<tr>
 									<form method="POST" action="">
-									<td id="productno" style="text-align:center;">${product.productno}</td>
+									<td id="productno" style="text-align:center;">${product.productno}<input type="hidden" name="productno" value="${product.productno}"></td>
 									<td style="width:80px">${product.productname}</td>
 									<td>${product.type}</td>
 									<td>${product.spec}</td>
@@ -285,9 +286,9 @@ display:inline;
 									<td>${product.uptime}</td>
 									<td><textarea readonly>${product.productinfo}</textarea></td>
 									<td ><img style="border-radius:10%;"
-										src="productimg.controller/${product.productno}"
+										src="productimg.controller?productno=${product.productno}"
 										width="180" height="180" /></td>
-									<td><form method="get" id="idform" class="idform"><button type="submit" class="btn1" id="btn1" onclick="foredit()" style="border-radius:80%;width:40px;height:40px"></form><i class="fa-solid fa-pen fa-lg"></i></button></td>
+									<td><button type="submit" class="btn1" id="btn1" onclick="foredit()" style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen fa-lg"></i></button></td>
 
 									<td><button type="button" id="btn2" style="border-radius:80%;width:40px;height:40px"><i class="fa-sharp fa-solid fa-trash-can fa-lg" ></i></button></td>
 									</form>
@@ -374,7 +375,7 @@ display:inline;
 				function() {
 					$.ajax({
 						type : "POST",
-						url : "<c:url value='/DeleteShopDetail.controller'/>",
+						url : "<c:url value='/iSpancarShop.DeleteShopDetail.controller'/>",
 						context : this,
 						dataType : "text",
 						data : {
@@ -383,7 +384,7 @@ display:inline;
 						},
 						success : function(response) {
 							console.log("OK")
-							swal("刪除成功!","已成功刪除該產品","success",{button:"確定"});
+							swal("刪除成功 !","該產品已刪除","success",{button:"確定"});
 							$(this).parent().parent().remove();
 						}
 					})
@@ -400,8 +401,11 @@ display:inline;
 		});
 		function foredit(){
 			console.log(aa);
+			
 			let bb = $(this).parent().parent().children('#productno').text();
-			window.open("http://localhost:8080/iSpanCar/SendIdToUpdate.controller?productno=" + aa);
+// 			window.open("http://localhost:8080/iSpancarShop/SendIdToUpdate.controller?productno=" + aa);
+// 			document.location.href = "http://localhost:8080/iSpancarShop/SendIdToUpdate.controller?productno=" + aa;
+			$('form').attr("action","http://localhost:8080/iSpancarShop.SendIdToUpdate.controller");
 		}
 	</script>
 </body>

@@ -55,9 +55,9 @@ public class serviceCrudController {
 	
 	@GetMapping("/serviceimage.controller")
 	@ResponseBody
-	public byte[] serviceimage(@RequestParam("service_name") String service_name){
+	public byte[] serviceimage(@RequestParam("servicename") String servicename){
 		try {
-			ServiceBean sBean = iSpanCarService.findCarimage(service_name);
+			ServiceBean sBean = iSpanCarService.findCarimage(servicename);
 			InputStream is = sBean.getCarimage().getBinaryStream();
 			return IOUtils.toByteArray(is);
 			
@@ -77,19 +77,19 @@ public class serviceCrudController {
 			                    @RequestParam("Servicedescription") String Servicedescription,
 			                    @RequestParam("Serviceinfomation") String Serviceinfomation,
 			                    @RequestParam("Contactperson") String Contactperson,
-			                    @RequestParam("Reseller_nonreseller") String Reseller_nonreseller)
+			                    @RequestParam("Resellernonreseller") String Resellernonreseller)
 	{
 		try {
 		ServiceBean sBean = new ServiceBean();
 		byte[] bytes;
 			bytes = mf.getBytes();
 		Blob blob = new SerialBlob(bytes);
-		sBean.setService_name(servicename);
+		sBean.setServicename(servicename);
 		sBean.setCarimage(blob);
 		sBean.setServicedescription(Servicedescription);
 		sBean.setServiceinfomation(Serviceinfomation);
 		sBean.setContactperson(Contactperson);
-		sBean.setReseller_nonreseller(Reseller_nonreseller);
+		sBean.setResellernonreseller(Resellernonreseller);
 		
 		sService.insert(sBean);
 		} catch (IOException e) {
@@ -104,8 +104,8 @@ public class serviceCrudController {
 	}
 	
 	@PostMapping("/serviceSelect.controller") 
-	public String findByService(@RequestParam("service_name") String service_name,Model m) {
-		 ServiceBean resultBean = sService.findByService(service_name);
+	public String findByService(@RequestParam("servicename") String servicename,Model m) {
+		 ServiceBean resultBean = sService.findByService(servicename);
 		 
 		 
 		
@@ -126,7 +126,7 @@ public class serviceCrudController {
           @RequestParam("Servicedescription") String Servicedescription,
           @RequestParam("Serviceinfomation") String Serviceinfomation,
           @RequestParam("Contactperson") String Contactperson,
-          @RequestParam("Reseller_nonreseller") String Reseller_nonreseller) {
+          @RequestParam("Resellernonreseller") String Resellernonreseller) {
 
 				try {
 
@@ -139,23 +139,23 @@ public class serviceCrudController {
 					list.add(sBean);
 					ServiceBean originBean = new ServiceBean();
 					for(ServiceBean sib : list) {
-					originBean.setService_name(sib.getService_name());
+					originBean.setServicename(sib.getServicename());
 					originBean.setCarimage(sib.getCarimage());
 					originBean.setServicedescription(sib.getServicedescription());
 					originBean.setServiceinfomation(sib.getServiceinfomation());
 					originBean.setContactperson(sib.getContactperson());
-					originBean.setReseller_nonreseller(sib.getReseller_nonreseller());
+					originBean.setResellernonreseller(sib.getResellernonreseller());
 					
-				String NewService_name = (servicename.equals("")) ? originBean.getService_name() : servicename;
+				String NewServicename = (servicename.equals("")) ? originBean.getServicename() : servicename;
 				Blob NewCarimage = 	(bytes.length==0) ? originBean.getCarimage(): blob;
 				String NewServicedescription = (Servicedescription.equals("")) ? originBean.getServicedescription() : Servicedescription;
 				String NewServiceinfomation = (Serviceinfomation.equals("")) ? originBean.getServiceinfomation() : Serviceinfomation;
 				String NewContactperson = (Contactperson.equals("")) ? originBean.getContactperson() : Contactperson;
-				String NewReseller_nonreseller = (Reseller_nonreseller.equals("")) ? originBean.getReseller_nonreseller() : Reseller_nonreseller;
+				String NewResellernonreseller = (Resellernonreseller.equals("")) ? originBean.getResellernonreseller() : Resellernonreseller;
 
 //				System.out.println(name+" "+mobile+" "+address+" "+time+" "+person+" "+VAT);
-					ServiceBean bean = new ServiceBean(NewService_name, NewCarimage, NewServicedescription, NewServiceinfomation,
-							NewContactperson, NewReseller_nonreseller);
+					ServiceBean bean = new ServiceBean(NewServicename, NewCarimage, NewServicedescription, NewServiceinfomation,
+							NewContactperson, NewResellernonreseller);
 
 					iSpanCarService.updateByCarDealName(bean);
 					
@@ -184,7 +184,7 @@ public class serviceCrudController {
 //            @RequestParam("Reseller_nonreseller") String Reseller_nonreseller) 
 			{
 		ServiceBean sBean3 = new ServiceBean();
-		sBean3.setService_name(servicename);
+		sBean3.setServicename(servicename);
 		sService.deleteService(sBean3);
 		return "/service/DeleteService4";
 	}

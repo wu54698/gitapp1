@@ -27,7 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Repository
+@Repository(value = "sDao")
 @Transactional
 public class ShopDetailDao {
 
@@ -41,7 +41,7 @@ public class ShopDetailDao {
 //		return update;
 //	}
 
-	public Blob fileToBlob(InputStream is, long size) throws IOException, SQLException {
+	public Blob productImgToBlob(InputStream is, long size) throws IOException, SQLException {
 		byte[] b = new byte[(int) size];
 		SerialBlob sb = null;
 		is.read(b);
@@ -49,7 +49,7 @@ public class ShopDetailDao {
 		return sb;
 	}
 
-	public String getFileName(Part part) {
+	public String getproductImgName(Part part) {
 		for (String content : part.getHeader("content-disposition").split(";")) {
 			if (content.trim().startsWith("filename")) {
 				return content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
@@ -129,7 +129,7 @@ public class ShopDetailDao {
 			sBean.setStock(sdb.getStock());
 			sBean.setProductinfo(sdb.getProductinfo());
 			sBean.setProductimage(sdb.getProductimage());
-			sBean.setProductimage_name(sdb.getProductimage_name());
+			sBean.setProductimagename(sdb.getProductimagename());
 //			session.saveOrUpdate(sBean);
 		}
 		// session.getTransaction().commit();
@@ -139,7 +139,7 @@ public class ShopDetailDao {
 
 	}
 
-//	// 刪除該產品 用productno找
+//	// 刪除該產品
 	public void deleteProduct(ShopDetailBean sdb) throws SQLException {
 
 		Session session = factory.openSession();

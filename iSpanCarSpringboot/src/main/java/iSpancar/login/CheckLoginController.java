@@ -17,7 +17,7 @@ public class CheckLoginController {
 		if(sessionmb==null) {
 			return "login/login";
 		}
-		return "redirect:memberselectall.controller";
+		return "redirect:backstage/memberselectall.controller";
 	}
 	
 }

@@ -116,7 +116,7 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 			</a></li>
 
@@ -187,7 +187,7 @@
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -222,17 +222,17 @@
 					
 					<h1 class="h3 mb-4 text-gray-800">查詢保養廠</h1>
 					<form method="POST">
-						<label>查詢保養廠名稱：</label><input type="text" name="service_name"
+						<label>查詢保養廠名稱：</label><input type="text" name="servicename"
 							required /><br> <input type="submit" value="提交"
 							formaction="serviceSelect.controller"> <input
 							type="button" value="查詢全部"
 							onclick="location.href='serviceAllController'">
 						<br> <br> <input type="button" value="新增保養廠"
-							onclick="location.href='/iSpanCar/service.signinService'">
+							onclick="location.href='/service.signinService'">
 						<input type="button" value="刪除保養廠"
-							onclick="location.href='/iSpanCar/service.deleteService'">
+							onclick="location.href='/service.deleteService'">
 						<input type="button" value="修改保養廠"
-							onclick="location.href='/iSpanCar/service.UpdateService'">
+							onclick="location.href='/service.UpdateService'">
 					</form>
 					
 				</div>

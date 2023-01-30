@@ -187,7 +187,7 @@ tr:last-of-type{
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
 			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
@@ -258,7 +258,7 @@ tr:last-of-type{
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -310,7 +310,7 @@ tr:last-of-type{
 									<td >${product.productname}<input type="hidden" value="${product.productname}" name="productName"></td>
 									<td >${product.price}<input type="hidden" value="${product.price}" name="productPrice"></td>
 									<td><img
-										src="productimg.controller/${product.productno}"
+										src="productimg.controller?productno=${product.productno}"
 										width="180" height="180" /></td>
 									<td><input name="quantity" type="number" id="quantity" style="background-color:#6C7A89;width:55px;"></td>
 									<td><input style="border-radius:80%;width:90px;height:60px" type="submit"  value="加入購物車" ></td>

@@ -119,7 +119,7 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 			</a>
 			</li>
@@ -192,7 +192,7 @@
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -269,14 +269,14 @@
 									</tr>
 
 									<tr>
-										<td>${Service.service_name}</td>
+										<td>${Service.servicename}</td>
 										<td><img
-											src="serviceimage.controller?service_name=${Service.service_name}"
+											src="serviceimage.controller?servicename=${Service.servicename}"
 											width="180" height="180" /></td>
 										<td>${Service.servicedescription}</td>
 										<td>${Service.serviceinfomation}</td>
 										<td>${Service.contactperson}</td>
-										<td>${Service.reseller_nonreseller}</td>
+										<td>${Service.resellernonreseller}</td>
 
 									</tr>
 
@@ -286,7 +286,7 @@
 
 							<input type="button" onclick="history.back()" value="回到上一頁"></input>
 							<input type="button"
-								onclick="location.href='/iSpanCar/service.SelectService'"
+								onclick="location.href='/service.SelectService'"
 								value="查詢保養廠"></input>
 						</div>
 						<!-- /.container-fluid -->
