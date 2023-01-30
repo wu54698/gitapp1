@@ -54,6 +54,7 @@ public class MemberBean implements Serializable{
 	private String cardnumber;//信用卡
 	
 	@Column(name = "personalimg")
+	@JsonIgnore
 	private Blob file;//圖
 	
 	@Column(name = "imgfilename")

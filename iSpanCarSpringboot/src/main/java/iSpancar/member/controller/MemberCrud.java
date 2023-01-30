@@ -62,7 +62,7 @@ public class MemberCrud {
 		
 		return "member/memberposition";
 	}
-	
+	//for ajax
 	@PostMapping("/memberpositioncancel.controller")
 	@ResponseBody
 	public List<PermissionsOfPosition> processPositionActionForCancel() {

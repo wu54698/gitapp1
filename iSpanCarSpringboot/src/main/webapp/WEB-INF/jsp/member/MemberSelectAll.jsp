@@ -263,7 +263,7 @@
 				<tr>
 					
 						<td class="accountnumber">${member.accountnumber}</td>
-						<td class="memberpassword">${member.memberPosition.permissionsofposition.positionPk}</td>
+						<td class="thisposition">${member.memberPosition.permissionsofposition.positionPk}</td>
 						<td>${member.memberName}</td>
 						<td>${member.phonenumber}</td>
 						<td>${member.email}</td>
@@ -430,9 +430,36 @@
 					if(myPositionUpdate == 1){
 			               let test = $(this).closest('tr').children('.accountnumber').text();
 			               console.log(test);
-			
+			               let thisposition = $(this).closest('tr').children('.thisposition').text();
+			               console.log(thisposition);
+			               
+			             //身分修改
+			               $.ajax({
+				                type: 'POST',
+				                url: "memberpositioncancel.controller",
+				                dataType: 'json',
+			   	                async: false,
+				                context:this,
+				                success: function (response) {
+				                	positionarray = [];
+				                	var txt ='<select name="selectposition">';
+				                	response.forEach(item =>{
+				                		if(thisposition == item.positionPk)
+				                		positionarray.push(item.positionPk);
+				                		txt += '<option value="'+item.positionPk+'">'+item.positionPk+'</option>';
+				                	})
+				                	txt += '</select>';
+				                	$(this).parent().parent().children('.thisposition').html(txt);
+									
+				                	
+				                } ,
+				                error:function(xhr, ajaxOptions, thrownError){
+				                	 
+				                    alert(xhr.status+"\n"+thrownError);
+				                }
+				            })
+			               
 			               let array = [];
-			
 			               $(this).closest('tr').find('td:not(.button)').each(function (index, ele) {
 			                   array.push($(this).text());
 			               })//陣列中加入.not以外的內文
@@ -449,6 +476,11 @@
 			               
 			               let buttonstring = "<button class='confirm btn btn-success btn-circle btn-sm'><i class='fa-solid fa-check'></i></button><br><br><button class='cancel btn btn-danger btn-circle btn-sm'><i class='fa-solid fa-xmark'></i></button>"
 			               $(this).parent().empty().append(buttonstring)
+			               
+			               
+			               
+			               
+			               
 					}else{
 						Swal.fire({
 							  icon: 'error',
@@ -518,7 +550,7 @@
 	   	                	$(this).parent().parent().children('td').eq(9).text(member.cardnumber)
 	   	                	$(this).parent().empty().append(buttonstring)
 	   	                	let random = Math.random();
-	   	                	imgshow.attr('src',"showimage.controller?accountnumber="+member.accountnumber+"&r="+random)
+	   	                	imgshow.attr('src',"/showimage.controller?accountnumber="+member.accountnumber+"&r="+random)
 	   	                	$('.file').attr('type','hidden')
 	               			$('label').attr('style','cursor:default')
 	   	                } ,
@@ -602,7 +634,7 @@
 	        		   success: function (response) {
 	        			   if(myAccountnumber == account){
 	        				   let random = Math.random();
-	        				   $('#myImage').attr('src',"/showimageforthismember.controller\?accountnumber="+account+"&"+random)
+	        				   $('#myImage').attr('src',"/showimageforthismember.controller?accountnumber="+account+"&"+random)
 	        			   }
 	   	                } ,
 	   	                error:function(xhr, ajaxOptions, thrownError){
@@ -611,6 +643,7 @@
 	   	                }
 	        	   })
 	           })
+	           
 	           
 		
 	})

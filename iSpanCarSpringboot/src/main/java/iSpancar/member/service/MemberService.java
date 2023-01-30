@@ -21,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import iSpancar.dforum.service.WebContextService;
 import iSpancar.member.dao.MemberDao;
 import iSpancar.member.dao.MemberRepository;
 import iSpancar.member.dao.PermissionsRepository;
@@ -41,6 +42,9 @@ public class MemberService {
 	
 	@Autowired
 	private PermissionsRepository pRepository;
+	
+	@Autowired
+	private WebContextService webContextService;
 	
 	public MemberService() {
 	}
@@ -170,6 +174,7 @@ public class MemberService {
 				boolean matches = new BCryptPasswordEncoder().matches(password,mBean.getMemberpassword());//密碼核對
 				String check;
 				if(matches) {
+					webContextService.setCurrUser(mBean);
 					check = "資料正確";
 				}else {
 					check = "資料有誤";

@@ -16,7 +16,7 @@ public class Thread {
 	private Date time ;
 
 	@ManyToOne
-	@JoinColumn(name = "categoryid")
+	@JoinColumn(name = "categoryId")
 	private Category category;
 
 	public Integer getId() {
