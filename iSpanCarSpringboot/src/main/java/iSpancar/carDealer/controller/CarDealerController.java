@@ -73,13 +73,13 @@ public class CarDealerController {
 
 	// 刪除車商的controller
 	@PostMapping("/deleteCarDealer")
-	public String deleteDealerAction(@RequestParam String carDealName) {
+	public String deleteDealerAction(@RequestParam("carDealName") String carDealName) {
 		iSpanCarService.deleteCarDealer(carDealName);
 		return "Car-Dealer/SelectAllDealer_frame";
 	}
 
 	// 修改的車商controller
-	@PostMapping("/updateCarDealer")
+	@PostMapping("/updateCarDealer.controller")
 	public String updateDealerAction(@RequestParam("carDealName") String carDealName,
 			@RequestParam("carDealPhone") String carDealPhone, @RequestParam("carDealAddress") String carDealAddress,
 			@RequestParam("openTime") String openTime, @RequestParam("contactPerson") String contactPerson,
@@ -150,6 +150,16 @@ public class CarDealerController {
 
 		return "Car-Dealer/UpdateDealer_frame";
 	}
+	
+	//透過車商名稱進入修改頁面並將選取的車商的參數帶入
+	@PostMapping("/JumpToUpdateDealerSheet.controller")
+	public String selectDealerNametoUpdateAction(@RequestParam("carDealName") String carDealName, Model m) {
+		
+		List<CarDealerBean> list = iSpanCarService.findByCarDealerName(carDealName);
+		m.addAttribute("updateDealer", list);
+		return "Car-Dealer/JumpToUpdateDealerSheet_frame";
+	}
+	
 
 	// 查詢車商的controller
 	@PostMapping("/findDealer.controller")
@@ -162,7 +172,7 @@ public class CarDealerController {
 	}
 
 	// 查詢全部的車商的Controller
-	@PostMapping("/findAllDealer.controller")
+	@GetMapping("/findAllDealer.controller")
 	public String showAllDealerAction(Model m) {
 
 		List<CarDealerBean> list = iSpanCarService.findAllDealer();

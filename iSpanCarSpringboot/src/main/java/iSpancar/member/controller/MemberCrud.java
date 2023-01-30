@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.Part;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
@@ -71,6 +72,15 @@ public class MemberCrud {
 		
 		return list;
 	}
+	//找帳號權限
+	@PostMapping("/findmemberposition.controller")
+	@ResponseBody
+	public PermissionsOfPosition processMemberPosition(@RequestParam("accountnumber") String accountnumber) throws SQLException {
+		List<MemberBean> member = memberService.findbyaccountnumber(accountnumber);
+		
+		return member.get(0).getMemberPosition().getPermissionsofposition();
+	}
+	
 //----------------------insert----------------------
 	//insert user
 	@PostMapping("memberinsert.controller")
@@ -243,6 +253,14 @@ public class MemberCrud {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//updatePermission
+	@PostMapping("/memberupdateposition.controller")
+	@ResponseBody
+	public String processUpdatePositionAction(@RequestParam("accountnumber") String accountnumber,@RequestParam("positionfk") String positionfk) {
+		memberService.updateMemberPosition(accountnumber, positionfk);
+	return positionfk;
 	}
 //---------------------------------權限---------------------------------------
 	@PostMapping("/permissionupdate.controller")

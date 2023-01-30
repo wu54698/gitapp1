@@ -24,7 +24,7 @@ public class CarInfoImageController {
 	@GetMapping("/carInfoImage.controller/{carNo}")
 	@ResponseBody
 	public byte[] processProductImageAction(@PathVariable("carNo") String carNo) {
-
+		System.out.println("==---------------"+carNo);
 		int carNumber = Integer.parseInt(carNo);
 		List<CarInfoBean> list = iSpanCarService.findByCarNoLike(carNumber);
 
@@ -45,4 +45,9 @@ public class CarInfoImageController {
 		return null;
 	}
 
+	
+	
+	
+	
+	
 }

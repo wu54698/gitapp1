@@ -429,9 +429,9 @@
 					let myPositionUpdate = $('#myPositionUpdate').val();
 					if(myPositionUpdate == 1){
 			               let test = $(this).closest('tr').children('.accountnumber').text();
-			               console.log(test);
+			               //console.log(test);
 			               let thisposition = $(this).closest('tr').children('.thisposition').text();
-			               console.log(thisposition);
+			               //console.log(thisposition);
 			               
 			             //身分修改
 			               $.ajax({
@@ -441,12 +441,14 @@
 			   	                async: false,
 				                context:this,
 				                success: function (response) {
-				                	positionarray = [];
-				                	var txt ='<select name="selectposition">';
+				                	//positionarray = [];
+				                	var selected = '';
+				                	var txt ='<select name="selectposition" class="selectposition">';
 				                	response.forEach(item =>{
-				                		if(thisposition == item.positionPk)
-				                		positionarray.push(item.positionPk);
-				                		txt += '<option value="'+item.positionPk+'">'+item.positionPk+'</option>';
+				                		//positionarray.push(item.positionPk);
+				                		if($.trim(thisposition) == $.trim(item.positionPk)){selected ='selected';}
+				                		else{selected = '';}
+				                		txt += '<option value="'+item.positionPk+'" '+selected+'>'+item.positionPk+'</option>';
 				                	})
 				                	txt += '</select>';
 				                	$(this).parent().parent().children('.thisposition').html(txt);
@@ -528,9 +530,26 @@
 	           $('#content').on('click', '.cancel', function () {//修改取消
 	               let buttonstring = "<button class='update btn btn-info btn-circle'><i class='fa-solid fa-pen'></i></button>"
 	               let account = $(this).closest('tr').find('.accountnumber').text();
-	               let imgshow = $(this).closest('tr').find('.imgshow')
-	               let originimg = 
-	   				$.ajax({
+	               let imgshow = $(this).closest('tr').find('.imgshow');
+	   				
+	               $.ajax({
+	   	                type: 'POST',
+	   	             	context:this,
+	   	                url: "findmemberposition.controller",
+	   	                dataType: 'json',
+	   	             	async: false,
+	   	                data:{ accountnumber : account },
+	   	                success: function (response) {
+	   	                	console.log(response);
+	   	             		$(this).parent().parent().children('td').eq(1).text(response.positionPk)
+	   	                } ,
+	   	                error:function(xhr, ajaxOptions, thrownError){
+	   	                	 
+	   	                    alert(xhr.status+"\n"+thrownError);
+	   	                }
+	   	            })
+	               
+	               $.ajax({
 	   	                type: 'POST',
 	   	             	context:this,
 	   	                url: "memberupdatecancel.controller",
@@ -559,6 +578,8 @@
 	   	                    alert(xhr.status+"\n"+thrownError);
 	   	                }
 	   	            })
+	   	            //for position
+	   	            
 	           })
 	          
 	           
@@ -571,6 +592,26 @@
 	               	for(let i=1;i<(memberbeanlength -2) ;i++){
 	               		memberarray.push($(this).closest('tr').children('td').eq(i).children().val());
 	               	}
+	               	//權限更改
+	               	var positionfk = $(this).closest('tr').find('.selectposition').val()
+	               	$.ajax({
+	   	                type: 'POST',
+	   	             	context:this,
+	   	                async: false,
+	   	                url: "memberupdateposition.controller",
+	   	                dataType: 'text',
+	   	                data:{ "accountnumber" : account,
+	   	                		"positionfk": positionfk
+	   	                },
+	   	                success: function (response) {
+	   	                	//console.log(response)
+	   	                	console.log($(this).parent().parent().children('td').eq(1).text(response))
+	   	                } ,
+	   	                error:function(xhr, ajaxOptions, thrownError){
+	   	                    alert(xhr.status+"\n"+thrownError);
+	   	                }
+	   	            })
+	   	            //資訊修改
 	               	$.ajax({
 	   	                type: 'POST',
 	   	             	context:this,

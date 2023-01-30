@@ -28,6 +28,17 @@
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+	<style>
+	textarea{
+	background:transparent;  
+      border-style:none;
+	}
+	
+	.addNewCar{
+		display: inline;
+	}
+	
+	</style>
 
 </head>
 
@@ -89,8 +100,9 @@
 
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link"
-				href="findAllDealer.controller"> <i class="fa-solid fa-car"></i><span>車廠</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				href="/findAllDealer.controller"><i
+					class="fa-solid fa-car"></i><span>車廠</span></a></li>
+			<li class="nav-item"><a class="nav-link" href="/SelectAllCar.controller">
 					<i class="fa-solid fa-car"></i> <span>車輛</span>
 			</a></li>
 
@@ -193,7 +205,7 @@
 								value="${memberPosition.permissionsSelect}"
 								id="myPositionSelect"> <img
 								class="img-profile rounded-circle" id="myImage"
-								src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+								src="/showimageforthismember.controller?accountnumber=${login.accountnumber}">
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -220,18 +232,8 @@
 					<div class="container1">
 
 						<!-- Page Heading -->
-						<div class="row">
-							<div class="col-sm-10 ">
-								<h1 class="h3 mb-4 text-gray-800">全部車商</h1>
-							</div>
-							<div class="col-sm-2">
-								<span class="mr-2">新增車商</span>
-								<button class="insert btn btn-success btn-circle">
-									<i class="fa-solid fa-car"></i>
-								</button>
-							</div>
-						</div>
-						<table id="selectAllDealer">
+						<h1 class="h3 mb-4 text-gray-800">嚴選二手車商</h1>
+						<table id="selectDealer">
 
 							<thead>
 								<tr>
@@ -241,24 +243,101 @@
 									<th>營業時間</th>
 									<th>聯絡人</th>
 									<th>統一編號</th>
+									<th>刪除</th>
+									<th>修改</th>
 								</tr>
 							</thead>
-							<c:forEach var="dealer" items="${SelectAllDealer}" varStatus="vs">
+							<c:forEach var="dealer" items="${SelectCarDealName}"
+								varStatus="vs">
 								<tbody>
 									<tr>
-										<td class="carDealerName"><a
-											href="SelectCarInOneSeller.controller/${dealer.carDealName}">${dealer.carDealName}</a></td>
+										<td class="carDealerName">${dealer.carDealName}</td>
 										<td>${dealer.carDealPhone}</td>
 										<td>${dealer.carDealAddress}</td>
 										<td>${dealer.openTime}</td>
 										<td>${dealer.contactPerson}</td>
 										<td>${dealer.carDealVATNumber}</td>
+										<td class="button"><button id="btn1"
+												class="delete btn btn-danger btn-circle">
+												<i class="fas fa-trash"></i>
+											</button></td>
+										<td><form action="/JumpToUpdateDealerSheet.controller" method="post">
+											<input type="hidden" value="${dealer.carDealName}" name="carDealName">
+											<button type="submit" class="btn4 btn btn-info btn-circle" id="btn3"
+													style="border-radius: 80%; width: 40px; height: 40px">
+													<i class="fa-solid fa-pen"></i>
+												</button>
+											</form></td>
 									</tr>
 								</tbody>
 							</c:forEach>
 						</table>
-<!-- 						<a href="CarDealerForm">回上一頁</a>  -->
-<!-- 						<a href="CarDealerForm" class="btn btn-info">新增車輛</a> -->
+						<br>
+						<div class="row">
+							<div class="col-sm-10 ">
+								<h3 class="h3 mb-4 text-gray-800">在庫車輛</h3>
+							</div>
+							<div class="col-sm-2">
+								<span class="mr-2">新增車輛</span>
+								<form action="/SelectDealerNameToAdd.controller" class= "addNewCar">
+									<input type="hidden" id="sellerName" name="carDealName">
+									<button class="insert btn btn-success btn-circle" type="submit">
+										<i class="fa-solid fa-car"></i>
+									</button>
+								</form>
+							</div>
+						</div>
+						<br>
+						<table id="selectCar">
+							<thead>
+								<tr>
+									<th>車輛編號</th>
+									<th>車商名稱</th>
+									<th>帳號</th>
+									<th>車輛品牌</th>
+									<th>車輛名稱</th>
+									<th>庫存</th>
+									<th>車輛照片</th>
+									<th>車輛描述</th>
+									<th>發布日期</th>
+									<th>刪除</th>
+									<th>修改</th>
+								</tr>
+							</thead>
+							<c:forEach var="car" items="${SelectAllCar}" varStatus="vs">
+								<tbody>
+									<tr>
+										<td class="carNo">${car.carNo}</td>
+										<td>${car.carDealerBean.carDealName}</td>
+										<td>${car.accountNumber}</td>
+										<td>${car.carBrand}</td>
+										<td>${car.carName}</td>
+										<td id="stock">${car.stock}</td>
+										<!--<td>${car.carImage}</td>-->
+										<td><img src="/carInfoImage.controller/${car.carNo}"
+											width="180px" height="120px" /></td>
+										<td><textarea readonly cols="10" rows="5"
+												style="text-align: left">${car.carDescription}</textarea></td>
+										<td>${car.announceDate}</td>
+										<td class="button"><button id="btn2"
+												class="delete btn btn-danger btn-circle">
+												<i class="fas fa-trash"></i>
+											</button></td>
+										<!-- 修改按鈕，跳轉至修改頁面 -->
+										<!--<td><form action="JumptoUpdateCarInfoSheet" method="post"><input type="hidden" value="${car.carNo}" name="carNo"><button type="submit" class="btn2" id="btn2"  style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen fa-lg"></i></button></form></td> -->
+										<td><form action="/JumptoUpdateCarInfoSheet" method="post">
+											<input type="hidden" value="${car.carNo}" name="carNo">
+											<button type="submit" class="btn3 btn btn-info btn-circle" id="btn3"
+													style="border-radius: 80%; width: 40px; height: 40px">
+													<i class="fa-solid fa-pen"></i>
+												</button>
+											</form></td>
+									</tr>
+								</tbody>
+							</c:forEach>
+						</table>
+
+						<a href="/findAllDealer.controller">回上一頁</a>
 					</div>
 				</div>
 				<!-- /.container-fluid -->
@@ -329,23 +408,35 @@
 	<!-- Bootstrap core JavaScript-->
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- 	<script src="https://kit.fontawesome.com/dbb4662278.js" -->
-<!-- 		crossorigin="anonymous"></script> -->
-	<script src="https://kit.fontawesome.com/cea698c704.js" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/dbb4662278.js"
+		crossorigin="anonymous"></script>
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+	
+	<script>
+		$(document).ready( function () {
+	   		 $('#selectDealer').DataTable({
+	   			"searching": false, //搜尋功能, 預設是開啟
+	   		    "paging": false, //分頁功能, 預設是開啟
+	   		    "ordering": false, //排序功能, 預設是開啟
+	   		 	"info": false	//頁面訊息功能, 預設是開啟
+	   		 });
+		} );
+		
+		$('.insert').on('click', function(){
+			var carDealerName = $('.carDealerName').text();
+			$('#sellerName').val(carDealerName);
+		})
+		
+	</script>
+
 	<script>
 				$(document).ready(function () {
-					$('#selectAllDealer').DataTable();
+					$('#selectCar').DataTable();
 				});
 
-			</script>		
+			</script>
 	<script>
-		$('.insert').on('click', function(){
-			location.href = 'CarDealerForm';
-		})
-	
-	
 				$('.container1').on('click', '#btn1', function () {
 					Swal.fire({
 						  title: '確定刪除?',
@@ -375,6 +466,7 @@
 								'.carDealerName').text()
 						},
 						success: function (response) {
+							location.href = '/findAllDealer.controller';
 							console.log("OK")
 							$(this).parent().parent().remove();
 						}
@@ -383,6 +475,61 @@
 				})
 			});
 	</script>
+	<script>
+	$('.container1').on('click', '#btn2', function () {
+		Swal.fire({
+			  title: '確定刪除?',
+			  text: "資料將被刪除",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: '刪除',
+			  cancelButtonText: '取消'
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			    Swal.fire(
+			      '已刪除!',
+			      'Your file has been deleted.',
+			      'success'
+			    )
+			    
+		$.ajax({
+			type: "POST",
+			url: "/deleteCarInfo",
+			//contentType text
+			context: this,
+			dataType: "text",
+			data: {
+				"carNo": $(this).parent().parent().children(
+					'.carNo').text()
+			},
+			success: function (response) {
+				console.log("OK")
+				$(this).parent().parent().remove();
+			}
+			error:function(xhr, ajaxOptions, thrownError){
+           	 
+                alert(xhr.status+"\n"+thrownError);
+            }
+		})    
+	 }
+	})
+});
+	</script>
+	<!-- </script> -->
+	<!--<script>
+		var aa;
+		$(".btn3").on('mouseover',function(){
+			aa = $(this).parent().parent().children('#carNo').text();
+			console.log(aa)
+		});
+		function foredit(){
+			console.log(aa);
+// 			let bb = $(this).parent().parent().children('#carNo').text();
+			window.open("http://localhost:8080/iSpanCar/SelectIdToUpdate.do?carNo=" + aa);
+		}
+	</script>-->
 
 </body>
 

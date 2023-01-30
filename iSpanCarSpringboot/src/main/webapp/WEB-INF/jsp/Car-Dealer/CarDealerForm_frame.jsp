@@ -88,10 +88,10 @@
 
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link"
-				href="CarDealerForm"> <i
+				href="findAllDealer.controller"> <i
 					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="CarInfoForm">
+				href="SelectAllCar.controller">
 					<i class="fa-solid fa-car"></i> <span>車輛</span>
 			</a></li>
 
@@ -115,7 +115,7 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
+				href="<c:url value='/ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 			</a></li>
 
@@ -186,7 +186,7 @@
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -250,14 +250,14 @@
 
 						</table>
 						<input type="submit" value="新增" id="addCarDealer"
-							formaction="addCarDealer" onclick="add()">
+							formaction="addCarDealer" onclick="add()" class="btn btn-info">
 						<%--         <input type="submit" value="刪除" formaction="<c:url value='/DeleteCarDealerServlet.do'/>"> --%>
-						<input type="submit" value="改資訊" id="updateCarDealer"
-							formaction="updateCarDealer" >
+<!-- 						<input type="submit" value="改資訊" id="updateCarDealer" -->
+<!-- 							formaction="updateCarDealer" class="btn btn-info"> -->
 						<input type="submit" value="找車商" id="findCarDealer"
-							formaction="findDealer.controller" onclick="submit"> 
-						<input type="submit" value="搜尋全車商"
-							formaction="findAllDealer.controller">
+							formaction="findDealer.controller" onclick="submit" class="btn btn-info"> 
+<!-- 						<input type="submit" value="搜尋全車商" -->
+<!-- 							formaction="findAllDealer.controller" class="btn btn-info"> -->
 					</form>
 				</div>
 				<!-- /.container-fluid -->
