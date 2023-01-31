@@ -85,12 +85,12 @@
 			</a></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link"
-				href="CarDealerForm"> <i
-					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="CarInfoForm"> <i
-					class="fa-solid fa-car"></i> <span>車輛</span></a></li>
+			<li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
+							<i class="fa-solid fa-car"></i> <span>車廠</span>
+			</a></li>
+        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				<i class="fa-solid fa-car"></i> <span>車輛</span>
+		</a></li>
 
 			<!-- Divider -->
 			<!-- <hr class="sidebar-divider"> -->
@@ -112,11 +112,11 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/orderQueryAll.controller'/>"> <i
+				href="orderQueryAll.controller"> <i
 					class="fas fa-fw fa-table"></i> <span>訂單</span></a></li>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
@@ -183,7 +183,7 @@
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -257,7 +257,7 @@
 
 					<c:forEach var="orders" varStatus="statusX"
 						items="${requestScope.AllOrder}">
-<form action="<c:url value='/orderUpdate.controller'/>" method="Post"
+<form action="orderUpdate.controller" method="Post"
 							enctype="multipart/form-data">
 
 						<table id="orderTable">

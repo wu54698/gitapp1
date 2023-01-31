@@ -98,14 +98,12 @@
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item"><a class="nav-link"
-                                href="CarDealerForm">
-            <i class="fa-solid fa-car"></i> <span>車廠</span>
-        </a></li>
-        <li class="nav-item"><a class="nav-link"
-                                href="CarInfoForm">
-            <i class="fa-solid fa-car"></i> <span>車輛</span>
-        </a></li>
+        <li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
+							<i class="fa-solid fa-car"></i> <span>車廠</span>
+			</a></li>
+        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				<i class="fa-solid fa-car"></i> <span>車輛</span>
+		</a></li>
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
@@ -121,10 +119,10 @@
 
         <!-- Nav Item - Tables -->
         <li class="nav-item"><a class="nav-link"
-                                href="<c:url value='/ProductListAll'/>"> <i
+                                href="iSpancarShop.ProductListAll"> <i
                 class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-        <li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+        <li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
             <i class="fa-solid fa-coins"></i> <span>訂單</span>
         </a></li>
         <!-- Divider -->

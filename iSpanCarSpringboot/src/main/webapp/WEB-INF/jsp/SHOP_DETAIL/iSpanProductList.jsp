@@ -112,14 +112,12 @@ display:inline;
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item"><a class="nav-link"
-							href="CarDealerForm">
+            <li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
 							<i class="fa-solid fa-car"></i> <span>車廠</span>
-						</a></li>
-            <li class="nav-item"><a class="nav-link"
-							href="CarInfoForm">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
-						</a></li>
+			</a></li>
+        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				<i class="fa-solid fa-car"></i> <span>車輛</span>
+		</a></li>
 
             <!-- Divider -->
             <!-- <hr class="sidebar-divider"> -->
@@ -143,10 +141,10 @@ display:inline;
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+			<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -214,7 +212,7 @@ display:inline;
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -243,15 +241,19 @@ display:inline;
 					<h1 class="h3 mb-4 text-gray-800">商城管理</h1>
 					<%-- <a href="<c:url value='/SHOP_DETAIL/iSpanShopInsert.jsp' />">新增產品</a> --%>
 					<div>
-						<form action="<c:url value='/iSpancarShop.insertpage'/>"
+						<form action="<c:url value='/backstage/iSpancarShop.insertpage'/>"
 							method="get">
-							<input type="submit" value="新增產品"  style="width:100px;height:45px;text-align:center">
+							<input type="submit" value="新增產品" class="btn btn-info">
 						</form>
 	
-						<form action="<c:url value='/iSpancarShop.Shop_Cart.controller'/>"
+						<form action="<c:url value='/backstage/iSpancarShop.Shop_Cart.controller'/>"
 							method="get">
-							<input type="submit" value="購物車測試"  style="width:100px;height:45px;text-align:center">
+							<input type="submit" value="購物車測試" class="btn btn-info">
 						</form>
+<%-- 						<form action="<c:url value='/iSpancarShop.ProductListAllShopPage'/>" --%>
+<!-- 							method="get"> -->
+<!-- 							<input type="submit" value="首頁測試" class="btn btn-info"> -->
+<!-- 						</form> -->
 						<p>
 					</div>
 
@@ -288,9 +290,9 @@ display:inline;
 									<td ><img style="border-radius:10%;"
 										src="productimg.controller?productno=${product.productno}"
 										width="180" height="180" /></td>
-									<td><button type="submit" class="btn1" id="btn1" onclick="foredit()" style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen fa-lg"></i></button></td>
+									<td><button type="submit" class="btn1 btn btn-info btn-circle" id="btn1" onclick="foredit()" ><i class="fa-solid fa-pen"></i></button></td>
 
-									<td><button type="button" id="btn2" style="border-radius:80%;width:40px;height:40px"><i class="fa-sharp fa-solid fa-trash-can fa-lg" ></i></button></td>
+									<td><button type="button" id="btn2" class="btn btn-danger btn-circle" ><i class="fas fa-trash"></i></button></td>
 									</form>
 								</tr>
 							</c:forEach>
@@ -363,6 +365,8 @@ display:inline;
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
 		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<!-- Bootstrap core JavaScript-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
 		$(document).ready(function() {
 			$('#productlist').DataTable();
@@ -373,9 +377,28 @@ display:inline;
 				'click',
 				'#btn2',
 				function() {
+					   Swal.fire({
+					        title: '確定刪除?',
+					        text: "資料將被刪除",
+					        icon: 'warning',
+					        showCancelButton: true,
+					        confirmButtonColor: '#3085d6',
+					        cancelButtonColor: '#d33',
+					        confirmButtonText: '刪除',
+					        cancelButtonText: '取消'
+					      }).then((result) => {
+					        if (result.isConfirmed) {
+					          Swal.fire(
+					            '已刪除!',
+					            'Your file has been deleted.',
+					            'success'
+					          )
+					          console.log($(this));
+					          console.log($(this).parent().parent().children(
+					       '.carDealerName').text());
 					$.ajax({
 						type : "POST",
-						url : "<c:url value='/iSpancarShop.DeleteShopDetail.controller'/>",
+						url : "iSpancarShop.DeleteShopDetail.controller",
 						context : this,
 						dataType : "text",
 						data : {
@@ -384,11 +407,13 @@ display:inline;
 						},
 						success : function(response) {
 							console.log("OK")
-							swal("刪除成功 !","該產品已刪除","success",{button:"確定"});
+							//swal("刪除成功 !","該產品已刪除","success",{button:"確定"});
 							$(this).parent().parent().remove();
 						}
 					})
-				});
+				}
+            })
+            });
 	</script>
 <!-- <script> -->
 
@@ -409,5 +434,4 @@ display:inline;
 		}
 	</script>
 </body>
-
 </html>

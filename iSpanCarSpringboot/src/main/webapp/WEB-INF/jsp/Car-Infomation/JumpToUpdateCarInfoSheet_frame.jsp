@@ -115,10 +115,10 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+			<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -277,10 +277,7 @@
             </tr>
             <tr bgcolor='transparent'>
                 <td height="50" colspan="2" align="center">
-<%--                     <input type="submit" value="新增" id="addCar" formaction="<c:url value='/CarInfoServlet.do'/>"> --%>
-<%--                     <input type="submit" value="刪除" formaction="<c:url value='/DeleteCarInfoServlet.do'/>"> --%>
-                    <input type="submit" value="確認修改" id="updateCarInfo" formaction="/updateCarInfo.controller">
-<%--                     <input type="submit" value="找品牌" id="findCarBrand" formaction="<c:url value='/FindCarBrandServlet.do'/>"> --%>
+                    <input type="submit" value="確認修改" id="updateCarInfo" formaction="updateCarInfo.controller">
                     <input type="submit" value="搜尋全車輛" formaction="/SelectAllCar.controller">
                 </td>
             </tr>

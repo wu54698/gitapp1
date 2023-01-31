@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +39,7 @@ import iSpancar.shop.model.ShopDetailDao;
 import iSpancar.shop.service.ShopDetailService;
 
 @Controller
+@RequestMapping("/backstage")
 public class ProductListController {
 
 	@Autowired
@@ -48,8 +50,17 @@ public class ProductListController {
 
 		List<ShopDetailBean> list = service.findAll();
 		m.addAttribute("queryallproduct", list);
-
+		System.out.println(list);
 		return "SHOP_DETAIL/iSpanProductList";
+	}
+	
+	@GetMapping("/iSpancarShop.Shop_Cart.controller")
+	public String processToShopCart(Model m) {
+
+		List<ShopDetailBean> list = service.findAll();
+		m.addAttribute("queryallproduct", list);
+
+		return "SHOP_DETAIL/Shop_Cart";
 	}
 
 	@PostMapping("/iSpancarShop.DeleteShopDetail.controller")
@@ -127,6 +138,7 @@ public class ProductListController {
     public String forward() {
         return "forward:/WEB-INF/jsp/SHOP_DETAIL/iSpanShopInsert.jsp";
     }
+	
 }
         
 

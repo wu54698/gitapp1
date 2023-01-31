@@ -95,14 +95,12 @@
 <!--             </li> -->
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item"><a class="nav-link"
-							href="CarDealerForm">
+            <li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
 							<i class="fa-solid fa-car"></i> <span>車廠</span>
-						</a></li>
-            <li class="nav-item"><a class="nav-link"
-							href="CarInfoForm">
+			</a></li>
+            <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
 					<i class="fa-solid fa-car"></i> <span>車輛</span>
-						</a></li>
+			</a></li>
 
             <!-- Divider -->
 <!--             <hr class="sidebar-divider"> -->
@@ -128,11 +126,11 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item"><a class="nav-link"
-				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
             <li class="nav-item">
-                <a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+                <a class="nav-link" href="orderQueryAll.controller">
                     <i class="fa-solid fa-coins"></i>
                     <span>訂單</span></a>
             </li>
@@ -478,10 +476,6 @@
 			               
 			               let buttonstring = "<button class='confirm btn btn-success btn-circle btn-sm'><i class='fa-solid fa-check'></i></button><br><br><button class='cancel btn btn-danger btn-circle btn-sm'><i class='fa-solid fa-xmark'></i></button>"
 			               $(this).parent().empty().append(buttonstring)
-			               
-			               
-			               
-			               
 			               
 					}else{
 						Swal.fire({

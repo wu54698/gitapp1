@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class iSpanCarService {
 	@Autowired
 	private ServiceRepository sRepo;
-	private ServiceDao sDao;
 
 	public ServiceBean insert(ServiceBean sBean) {
 		return sRepo.save(sBean);

@@ -19,7 +19,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 		
 		registry.addViewController("/test").setViewName("userpages/test");
 		
-		registry.addViewController("/insertMember").setViewName("member/insertMember");
+		registry.addViewController("/memberInsert").setViewName("member/insertMember");
 		registry.addViewController("/memberInsertForEmployee").setViewName("member/insertForEmployee");
 		//dforum
 //		registry.addViewController("/threadsAdd").setViewName("dforum/threadsAdd");

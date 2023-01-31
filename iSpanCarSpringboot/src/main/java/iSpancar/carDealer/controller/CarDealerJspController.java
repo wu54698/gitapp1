@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class CarDealerJspController {
 	
-	@GetMapping("/CarDealerForm")
+	@GetMapping("/backstage/CarDealerForm")
 	public String processViewController() {
 		return "Car-Dealer/CarDealerForm_frame";
 	}

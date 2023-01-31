@@ -19,8 +19,8 @@ public interface ShopDetailRepository extends JpaRepository<ShopDetailBean, Inte
 	@Query(value="select * from SHOPDETAIL where productno= ?1" , nativeQuery = true)
 	 public List<ShopDetailBean> findByProductno(Integer productno);
 	
-//	@Query(value = "from SHOPDETAIL where productno = productno= ?1",nativeQuery = true)
-//	public ShopDetailBean findImgbyproductno(Integer productno);
+	@Query(value = "select * from SHOPDETAIL where productname like %?1%",nativeQuery = true)
+	public List<ShopDetailBean> findbyProductname(String productname);
 	
 	
 	

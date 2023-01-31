@@ -95,14 +95,12 @@
 <!--             </li> -->
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item"><a class="nav-link"
-							href="CarDealerForm">
+            <li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
 							<i class="fa-solid fa-car"></i> <span>車廠</span>
-						</a></li>
-            <li class="nav-item"><a class="nav-link"
-							href="CarInfoForm">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
-						</a></li>
+			</a></li>
+        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				<i class="fa-solid fa-car"></i> <span>車輛</span>
+		</a></li>
 
             <!-- Divider -->
 <!--             <hr class="sidebar-divider"> -->
@@ -128,11 +126,11 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item"><a class="nav-link"
-				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
             <li class="nav-item">
-                <a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+                <a class="nav-link" href="orderQueryAll.controller">
                     <i class="fa-solid fa-coins"></i>
                     <span>訂單</span></a>
             </li>
@@ -241,7 +239,7 @@
 					<c:out escapeXml='false' value="<table id='table_id'>" />
 					<thead>
 						<tr>
-							<th>帳號</th>
+							<th>身分</th>
 							<th>新增</th>
 							<th>修改</th>
 							<th>刪除</th>
@@ -320,10 +318,10 @@
  
 	 $(document).ready(function () {
 	     $('#table_id').DataTable({
-	    		 "columnDefs":[{
-	    			 "orderable":false,
-	    			 "targets":[0,1,2,3,4]
-	    		 }]
+	    	"searching": false, //搜尋功能, 預設是開啟
+   		    "paging": false, //分頁功能, 預設是開啟
+   		    "ordering": false, //排序功能, 預設是開啟
+   		 	"info": false	//頁面訊息功能, 預設是開啟
 	     });
 	 });
  
@@ -360,14 +358,28 @@
 			})
 		 }
 		 toCheck();//執行
+		 
+		
 		//一開始不能修改
 		$('.mybox').attr('disabled','disabled');
-		//修改按鈕
-		$('#content').on('click','.update',function(){
-			$('.mybox').removeAttr('disabled');
-			let buttonstring = "<button class='confirm btn btn-success btn-circle btn-sm'><i class='fa-solid fa-check'></i></button> <button class='cancel btn btn-danger btn-circle btn-sm'><i class='fa-solid fa-xmark'></i></button>"
-	        $(this).parent().empty().append(buttonstring)
-		})
+
+		
+		 //修改按鈕
+			$('#content').on('click','.update',function(){
+				var myPosition = $('#myPosition').val();
+				if($.trim(myPosition) == 'manager'){
+					$('.mybox').removeAttr('disabled');
+					let buttonstring = "<button class='confirm btn btn-success btn-circle btn-sm'><i class='fa-solid fa-check'></i></button> <button class='cancel btn btn-danger btn-circle btn-sm'><i class='fa-solid fa-xmark'></i></button>"
+			        $(this).parent().empty().append(buttonstring)
+				}else{
+					Swal.fire({
+						  icon: 'error',
+						  title: '無法修改',
+						  text: '經理職位才可修改',
+						  //footer: '<a href="">Why do I have this issue?</a>'
+					})
+				}
+			})
 		//取消按鈕
 		 $('#content').on('click', '.cancel', function () {
 			 $.ajax({
@@ -435,7 +447,8 @@
 				 $('.mybox').attr('disabled','disabled');
 				 $(this).parent().empty().append(buttonstring)
 		 })
-		 
+			 
+		 //改變value
 		 $('#content').on('change','.mybox',function(){
 			 if($(this).is(':checked')){
 				$(this).val('1');

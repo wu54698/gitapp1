@@ -127,11 +127,11 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/orderQueryAll.controller'/>"> <i
+				href="orderQueryAll.controller"> <i
 					class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -205,7 +205,7 @@
 								value="${memberPosition.permissionsSelect}"
 								id="myPositionSelect"> <img
 								class="img-profile rounded-circle" id="myImage"
-								src="/showimageforthismember.controller?accountnumber=${login.accountnumber}">
+								src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -261,7 +261,7 @@
 												class="delete btn btn-danger btn-circle">
 												<i class="fas fa-trash"></i>
 											</button></td>
-										<td><form action="/JumpToUpdateDealerSheet.controller" method="post">
+										<td><form action="/backstage/JumpToUpdateDealerSheet.controller" method="post">
 											<input type="hidden" value="${dealer.carDealName}" name="carDealName">
 											<button type="submit" class="btn4 btn btn-info btn-circle" id="btn3"
 													style="border-radius: 80%; width: 40px; height: 40px">
@@ -279,7 +279,7 @@
 							</div>
 							<div class="col-sm-2">
 								<span class="mr-2">新增車輛</span>
-								<form action="/SelectDealerNameToAdd.controller" class= "addNewCar">
+								<form action="/backstage/SelectDealerNameToAdd.controller" class= "addNewCar">
 									<input type="hidden" id="sellerName" name="carDealName">
 									<button class="insert btn btn-success btn-circle" type="submit">
 										<i class="fa-solid fa-car"></i>
@@ -325,7 +325,7 @@
 											</button></td>
 										<!-- 修改按鈕，跳轉至修改頁面 -->
 										<!--<td><form action="JumptoUpdateCarInfoSheet" method="post"><input type="hidden" value="${car.carNo}" name="carNo"><button type="submit" class="btn2" id="btn2"  style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen fa-lg"></i></button></form></td> -->
-										<td><form action="/JumptoUpdateCarInfoSheet" method="post">
+										<td><form action="/backstage/JumptoUpdateCarInfoSheet" method="post">
 											<input type="hidden" value="${car.carNo}" name="carNo">
 											<button type="submit" class="btn3 btn btn-info btn-circle" id="btn3"
 													style="border-radius: 80%; width: 40px; height: 40px">
@@ -337,7 +337,7 @@
 							</c:forEach>
 						</table>
 
-						<a href="/findAllDealer.controller">回上一頁</a>
+						<a href="/backstage/findAllDealer.controller">回上一頁</a>
 					</div>
 				</div>
 				<!-- /.container-fluid -->
@@ -429,15 +429,18 @@
 		})
 		
 	</script>
-
 	<script>
 				$(document).ready(function () {
 					$('#selectCar').DataTable();
 				});
 
-			</script>
+	</script>
 	<script>
 				$('.container1').on('click', '#btn1', function () {
+					
+					var carNo = $('.carNo').text()
+					console.log(carNo)
+					if( carNo == '' ){
 					Swal.fire({
 						  title: '確定刪除?',
 						  text: "資料將被刪除",
@@ -457,7 +460,7 @@
 						    
 					$.ajax({
 						type: "POST",
-						url: "<c:url value='/deleteCarDealer'/>",
+						url: "/backstage/deleteCarDealer",
 						//contentType text
 						context: this,
 						dataType: "text",
@@ -466,13 +469,21 @@
 								'.carDealerName').text()
 						},
 						success: function (response) {
-							location.href = '/findAllDealer.controller';
+							location.href = '/backstage/findAllDealer.controller';
 							console.log("OK")
 							$(this).parent().parent().remove();
 						}
 					})    
 				 }
-				})
+				})	
+					}else{
+						Swal.fire({
+	 						  title: '無法刪除?',
+	 						  text: "車輛資料尚存",
+	 						  icon: 'warning',
+	 						})
+					}
+					
 			});
 	</script>
 	<script>
@@ -496,7 +507,7 @@
 			    
 		$.ajax({
 			type: "POST",
-			url: "/deleteCarInfo",
+			url: "/backstage/deleteCarInfo",
 			//contentType text
 			context: this,
 			dataType: "text",
@@ -507,7 +518,7 @@
 			success: function (response) {
 				console.log("OK")
 				$(this).parent().parent().remove();
-			}
+			},
 			error:function(xhr, ajaxOptions, thrownError){
            	 
                 alert(xhr.status+"\n"+thrownError);
@@ -517,19 +528,6 @@
 	})
 });
 	</script>
-	<!-- </script> -->
-	<!--<script>
-		var aa;
-		$(".btn3").on('mouseover',function(){
-			aa = $(this).parent().parent().children('#carNo').text();
-			console.log(aa)
-		});
-		function foredit(){
-			console.log(aa);
-// 			let bb = $(this).parent().parent().children('#carNo').text();
-			window.open("http://localhost:8080/iSpanCar/SelectIdToUpdate.do?carNo=" + aa);
-		}
-	</script>-->
 
 </body>
 

@@ -124,11 +124,11 @@ textarea {
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/orderQueryAll.controller'/>"> <i
+				href="orderQueryAll.controller"> <i
 					class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -248,7 +248,7 @@ textarea {
 									<td>${car.stock}</td>
 									<!--<td>${car.carImage}</td>-->
 									<td><img
-										src="carInfoImage.controller/${car.carNo}"
+										src="/carInfoImage.controller/${car.carNo}"
 										width="180px" height="120px"></td>
 									<td><textarea readonly cols="10" rows="5"
 											style="text-align: left">${car.carDescription}</textarea></td>
@@ -258,7 +258,7 @@ textarea {
 							</tbody>
 						</c:forEach>
 					</table>
-					<a href="CarInfoForm">回車輛主頁</a>
+					<a href="SelectAllCar.controller">回車輛主頁</a>
 				</div>
 				<!-- /.container-fluid -->
 
