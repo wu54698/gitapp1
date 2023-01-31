@@ -39,7 +39,7 @@
                     <li class="nav-item"><b><a class="nav-link" href="#about">車廠</a></b></li>
                     <li class="nav-item"><b><a class="nav-link" href="#projects">車輛</a></b></li>
                     <li class="nav-item"><b><a class="nav-link" href="#projects">保養廠</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link" href="#about">論壇</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link" href="/dforum/home">論壇</a></b></li>
                     <li class="nav-item"><b><a class="nav-link" href="#about">商城</a></b></li>
                     <li class="nav-item"><b><a class="nav-link" href="#signup">登入</a></b></li>
                 </ul>

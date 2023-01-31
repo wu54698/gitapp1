@@ -200,7 +200,7 @@ function replyToFloor(e, id, name, i) {
     selectPoId = id;
     selectMen = name;
     console.log("回复楼层", name);
-    $(`#lyenter${i}`).html(e+`#`)
+    $(`#lyenter${i}`).html(`@`+ e + ' ')
 }
 
 function xrhfinput(i) {
