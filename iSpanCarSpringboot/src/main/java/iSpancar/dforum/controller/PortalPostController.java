@@ -1,7 +1,12 @@
 package iSpancar.dforum.controller;
 
+import iSpancar.dforum.model.Category;
+import iSpancar.dforum.model.PostLike;
+import iSpancar.dforum.model.PostMain;
+import iSpancar.dforum.model.PostMainSaveParam;
+import iSpancar.dforum.model.PostMessage;
+import iSpancar.dforum.model.Result;
 import iSpancar.dforum.model.Thread;
-import iSpancar.dforum.model.*;
 import iSpancar.dforum.query.PostMessageParam;
 import iSpancar.dforum.query.PostQuery;
 import iSpancar.dforum.repository.PostLikeRepository;
@@ -22,13 +27,24 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -272,7 +288,7 @@ public class PortalPostController {
         }
 
         final String uuid = post.getUuid();
-        post = incPostMainCountData(uuid, loginUser);
+        incPostMainCountData(uuid, loginUser);
         // 喜歡數量+1
         if (delete) {
             if (postLike.getLiked() == 1) {
@@ -346,6 +362,9 @@ public class PortalPostController {
         post.setLastReplyTime(new Date());
         post.setCategoryId(postMainSaveParam.getCategory());
         postRepository.save(post);
+
+        // 原帖人气计算
+        this.incPostMainCountData(post.getUuid(), currUser);
         return Result.ok(post);
     }
 }

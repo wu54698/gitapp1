@@ -109,7 +109,7 @@
 			</a></li>
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="threadsView">
+			<li class="nav-item"><a class="nav-link" href="/backstage/threadsView">
 					<i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
 			</a></li>
 
