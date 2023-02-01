@@ -195,7 +195,7 @@
 								value="${memberPosition.permissionsSelect}"
 								id="myPositionSelect"> <img
 								class="img-profile rounded-circle" id="myImage"
-								src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+								src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -254,8 +254,8 @@
 										<td width="120" height="40">帳號</td>
 										<td width="600" height="40" align="left"><input
 											id="accountNumber" name="accountNumber" class="checkNotNull"
-											value="${param.accountNumber}" type="text" size="14"
-											style="text-align: left"></td>
+											value="${login.accountnumber}" type="text" size="14"
+											style="text-align: left" readonly></td>
 									</tr>
 									<tr bgcolor='transparent'>
 										<td width="120" height="40">車輛品牌</td>
@@ -353,7 +353,7 @@
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">取消</button>
 					<a class="btn btn-primary"
-						href="<c:url value='/logoutServlet.do' />">登出</a>
+						href="/logout.controller">登出</a>
 				</div>
 				<!--                 <div class="modal-footer"> -->
 
@@ -388,34 +388,12 @@
 		});
 
 		//驗證欄位不為空
-		$('#findCarBrand').on({
-			click : function() {
-				$('#carBrand').attr('required', true)
-			},
-			mouseleave : function() {
-				$('#carBrand').attr('required', false)
-			}
-		});
-		$('#updateCarInfo').on({
-			click : function() {
-				$('#carNo').attr('required', true)
-			},
-			mouseleave : function() {
-				$('#carNo').attr('required', false)
-			}
-		});
+		
 
 		$('#addCar').on({
-			click : function() {
-				$('.checkNotNull').attr('required', true)
-			},
-			mouseleave : function() {
-				$('.checkNotNull').attr('required', false)
-			},
-		});
-		
-		$('#addCar').on('click', function(){
-			var addCarForm = $('#addCarForm')
+			'click' : function() {
+// 				$('.checkNotNull').attr('required', true)
+				var addCarForm = $('#addCarForm')
 			console.log(addCarForm)
 			var fromData = new FormData(addCarForm[0])
 			console.log(fromData)
@@ -437,8 +415,10 @@
 	                alert(xhr.status+"\n"+thrownError);
 	            }
 			})
-			
-		})
+			}
+		});
+		
+		
 		
 	</script>
 

@@ -55,4 +55,19 @@ public class checkAccountPasswordController {
 		
 		return  "OK";
 	}
+	
+	@PostMapping(path = "/checkAccountEmail.controller",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public String processAction(@RequestParam("accountnumber") String accountnumber,@RequestParam("email") String email) {
+		try {
+			boolean check = memberService.checkaccountnumberemail(accountnumber, email);
+			System.out.println(check);
+			if(check) {
+				return "OK";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "xx";
+	}
 }

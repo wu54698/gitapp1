@@ -113,17 +113,45 @@ public class ProductListController {
 	}
 	
 	@PostMapping("/iSpancarShop.UpdateShopDetail.controller")
-	public String processUpdateAction(@RequestParam("productno") String productno,@RequestParam("productname") String productname, @RequestParam("price") String price,@RequestParam("stock") String stock,@RequestParam("productinfo") String productinfo,@RequestParam("productimage") MultipartFile mf, Model success) {
+	public String processUpdateAction(@RequestParam("productno") String productno,@RequestParam("productname") String productname, @RequestParam("type") String type,@RequestParam("spec") String spec,@RequestParam("price") String price,@RequestParam("stock") String stock,@RequestParam("uptime") String uptime,@RequestParam("productinfo") String productinfo,@RequestParam("productimage") MultipartFile mf, Model success) {
 		try {
+			System.out.println("------------------------------------");
+			System.out.println(productname);
+			System.out.println("------------------------------------");
 			Integer productnoint = Integer.parseInt(productno);
 			Integer priceint = Integer.parseInt(price);
 			Integer stockint = Integer.parseInt(stock);
-			
 			String imgname = mf.getOriginalFilename();
 			byte[] bytes = mf.getBytes();
 			SerialBlob productImg = new SerialBlob(bytes);
-				ShopDetailBean sBean = new ShopDetailBean(productnoint,productname,priceint,stockint,productinfo,productImg,imgname);
-				service.updateByProductno(sBean);
+			
+			List<ShopDetailBean> list = service.findByProductno(productno);
+//				抓原值並帶入驗證判斷式
+			ShopDetailBean ogBean = new ShopDetailBean();
+				for(ShopDetailBean sdb :list) {
+					ogBean.setProductname(sdb.getProductname());
+					ogBean.setType(sdb.getType());
+					ogBean.setType(sdb.getSpec());
+					ogBean.setPrice(sdb.getPrice());
+					ogBean.setStock(sdb.getStock());
+					ogBean.setUptime(sdb.getUptime());
+					ogBean.setProductinfo(sdb.getProductinfo());
+					ogBean.setProductimage(sdb.getProductimage());
+					ogBean.setProductimagename(sdb.getProductimagename());
+				}
+				String NewProductname = (productname.equals("")) ? ogBean.getProductname() : productname;
+				String NewType = (type.equals("")) ? ogBean.getType() : type;
+				String NewSpec = (spec.equals("")) ? ogBean.getSpec() : spec;
+				Integer NewPrice = (priceint.equals("")) ? ogBean.getPrice() : priceint;
+				Integer NewStock = (stockint.equals("")) ? ogBean.getStock() : stockint;
+				String NewUptime = (uptime.equals("")) ? ogBean.getUptime() : uptime;
+				String NewProductinfo = (productinfo.equals("")) ? ogBean.getProductinfo() : productinfo;
+				Blob NewProductimage = 	(bytes.length==0) ? ogBean.getProductimage(): productImg;
+				String NewProductimagename = (imgname.equals("")) ? ogBean.getProductimagename() : imgname;
+				
+				ShopDetailBean bean = new ShopDetailBean(productnoint,NewProductname,NewType,NewSpec,NewPrice,NewStock,NewUptime,NewProductinfo,NewProductimage,NewProductimagename);
+				service.updateByProductno(bean);
+				
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (SerialException e) {

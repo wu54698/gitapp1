@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,6 +74,26 @@ public class UserController {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			return "index";
+		}
+		
+		@PostMapping("/findaccountnumber.controller")
+		public String processAction(@RequestParam("accountnumber") String accountnumber,Model model) {
+			model.addAttribute("accountnumber",accountnumber);
+			return "login/resetpassword";
+		}
+		
+		@PostMapping("changepassword.controller")
+		public String processResetPassword(@RequestParam("accountnumber") String accountnumber,@RequestParam("memberpassword") String memberpassword) {
+			try {
+				MemberBean mBean = memberService.findByAccountReturnBean(accountnumber);
+				String encodePwd = new BCryptPasswordEncoder().encode(memberpassword);//密碼加密
+				mBean.setMemberpassword(encodePwd);
+				memberService.updateByAccountnumber(mBean);
+				
+			} catch (SQLException | ParseException e) {
 				e.printStackTrace();
 			}
 			return "index";

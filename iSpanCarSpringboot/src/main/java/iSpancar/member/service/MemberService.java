@@ -159,9 +159,10 @@ public class MemberService {
 	//確認有無帳號
 	public boolean checkaccountnumber(String accountnumber) throws SQLException {
 		
-			boolean check = mDao.checkaccountnumber(accountnumber);
-		
-			return check;
+			//boolean check = mDao.checkaccountnumber(accountnumber);
+			Optional<MemberBean> op = mRepository.findById(accountnumber);
+			
+			return op.isPresent();
 	}
 	
 	//確認帳密
@@ -182,6 +183,20 @@ public class MemberService {
 				return check;
 			}
 			return "資料有誤";
+	}
+	
+	//確認帳密
+	public boolean checkaccountnumberemail(String accountnumber,String email) throws SQLException {
+		Optional<MemberBean> op = mRepository.findById(accountnumber);
+		MemberBean mBean = op.get();
+		if(op.isPresent()) {
+			mBean = op.get();
+			if(email.trim().equals(mBean.getEmail().trim())  ) {
+				return true;
+			}
+			return false;
+		}
+		return false;
 	}
 	
 	//修改帳號角色

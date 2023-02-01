@@ -68,13 +68,6 @@ public class ShopDetailBean implements Serializable {
 
 
 
-	public ShopDetailBean() {
-		super();
-	}
-
-
-
-
 	public ShopDetailBean(Integer productno, String productname, Integer price, Integer stock,String productinfo, Blob productimage,String productimagename) {
 		super();
 		this.productno = productno;
@@ -97,6 +90,25 @@ public class ShopDetailBean implements Serializable {
 		this.stock = stock;
 		this.productinfo = productinfo;
 		this.productimage = productimage;
+	}
+
+	public ShopDetailBean() {
+		super();
+	}
+
+	public ShopDetailBean(Integer productno, String productname, String type, String spec, Integer price, Integer stock,
+			String uptime, String productinfo, Blob productimage, String productimagename) {
+		super();
+		this.productno = productno;
+		this.productname = productname;
+		this.type = type;
+		this.spec = spec;
+		this.price = price;
+		this.stock = stock;
+		this.uptime = uptime;
+		this.productinfo = productinfo;
+		this.productimage = productimage;
+		this.productimagename = productimagename;
 	}
 
 

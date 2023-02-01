@@ -186,7 +186,7 @@
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -260,7 +260,7 @@
            
             <tr bgcolor='transparent'>
                 <td height="50" colspan="2" align="center">
-                    <input type="submit" value="確認修改" id="updateCarInfo" formaction="updateCarDealer.controller">
+                    <input type="submit" value="確認修改" id="updateCarInfo" formaction="updateCarDealer.controller" class="btn btn-info">
                 </td>
             </tr>
 		</c:forEach>
@@ -307,7 +307,7 @@
                     </button>
                 </div>
                 <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
+                    <a class="btn btn-primary" href="/logout.controller">登出</a></div>
 <!--                 <div class="modal-footer"> -->
                    
 <!--                 </div> -->

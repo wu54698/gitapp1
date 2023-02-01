@@ -127,41 +127,45 @@
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
+            <li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
 							<i class="fa-solid fa-car"></i> <span>車廠</span>
 			</a></li>
             <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
 					<i class="fa-solid fa-car"></i> <span>車輛</span>
 			</a></li>
 
-        <!-- Divider -->
-        <!-- <hr class="sidebar-divider"> -->
+            <!-- Divider -->
+<!--             <hr class="sidebar-divider"> -->
 
-        <!-- Heading -->
-        <!-- <div class="sidebar-heading">
-            Addons
-        </div> -->
+<!--             Heading -->
+<!--             <div class="sidebar-heading"> -->
+<!--                 Addons  -->
+<!--             </div>   -->
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link" href="serviceAllController">
-                <i class="fa-solid fa-screwdriver-wrench"></i>
-                <span>保養廠</span></a>
-        </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="serviceAllController">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <span>保養廠</span></a>
+            </li>
 
-        <!-- Nav Item - Charts -->
-        <li class="nav-item"><a class="nav-link" href="threadsView">
-            <i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
-        </a></li>
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="threadsView">
+                    <i class="fa-brands fa-rocketchat"></i>
+                    <span>論壇</span></a>
+            </li>
 
-        <!-- Nav Item - Tables -->
-        <li class="nav-item"><a class="nav-link"
-                                href="iSpancarShop.ProductListAll"> <i
-                class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
+            <!-- Nav Item - Tables -->
+            <li class="nav-item"><a class="nav-link"
+				href="iSpancarShop.ProductListAll"> <i
+					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-        <li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
-            <i class="fa-solid fa-coins"></i> <span>訂單</span>
-        </a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="orderQueryAll.controller">
+                    <i class="fa-solid fa-coins"></i>
+                    <span>訂單</span></a>
+            </li>
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
@@ -230,7 +234,7 @@
                         <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                         <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                         <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                        <!--<img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}"> -->
+                        <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller?accountnumber=${login.accountnumber}">
                     </a> <!-- Dropdown - User Information -->
                         <div
                                 class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -266,7 +270,7 @@
 
                 <br/>
 
-                <form id="saveForm" action="/thread" method="post" accept-charset="UTF-8">
+                <form id="saveForm" action="/backstage/thread" method="post" accept-charset="UTF-8">
                     <div id="catediv" class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-sm">分類</span>
@@ -378,7 +382,7 @@
         function () {
             $("#time").val(new Date().getTime());
             $.ajax({
-                url: "/category/all",
+                url: "/backstage/category/all",
                 method: "GET",
                 dataType: "json",
                 success: function (res) {
@@ -599,13 +603,13 @@
         $("#body").val(editor.getHtml())
         let formDataJson = formVail()
         if (formDataJson) {
-            axios.post('/thread', formDataJson).then((res) => {
+            axios.post('/backstage/thread', formDataJson).then((res) => {
                 if (res.data === "no login") {
                     Swal.fire("未登錄！請先登錄!", "", "error");
                     return;
                 }
                 Swal.fire("操作成功!", "", "success").then(r => {
-                    window.location.href = "/threadsView"
+                    window.location.href = "/backstage/threadsView"
                 });
             }).catch((error) => {
 

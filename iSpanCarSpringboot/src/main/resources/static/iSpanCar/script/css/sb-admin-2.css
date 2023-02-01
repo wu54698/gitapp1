@@ -10873,7 +10873,13 @@ a:focus {
 }
 
 .bg-password-image {
-  background: url("https://source.unsplash.com/oWTW-jNGl9I/600x800");
+  background: url("https://www.foreignersintaiwan.com/uploads/5/4/3/2/54326073/carshn-1_orig.jpg");
+  background-position: -300px center;
+  background-size: cover;
+}
+
+.bg-password-image2 {
+  background: url("https://hips.hearstapps.com/hmg-prod/images/2023-mclaren-artura-101-1655218102.jpg");
   background-position: center;
   background-size: cover;
 }

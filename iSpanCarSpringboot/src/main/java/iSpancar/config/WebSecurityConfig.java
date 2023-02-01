@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http
 			.authorizeRequests()//定義那些需要認證才能進 
-			.antMatchers(HttpMethod.GET,"/backstage/**").hasAnyAuthority("manager,employee")//需管理的路徑
+			.antMatchers("/backstage/**").hasAnyAuthority("manager,employee")//需管理的路徑
 			//.antMatchers("/memberselectall.controller").hasAuthority("admins")
 			//只有具admins權限才可訪問此路徑，只能寫單一角色
 			//.antMatchers("/memberselectall.controller").hasAnyAuthority("admins,manager").hasAnyAuthority("manager")

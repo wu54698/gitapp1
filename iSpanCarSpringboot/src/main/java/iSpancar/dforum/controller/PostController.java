@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/post")
+@RequestMapping("/backstage/post")
 public class PostController {
 
     @Autowired

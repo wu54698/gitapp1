@@ -197,7 +197,7 @@
 								value="${memberPosition.permissionsSelect}"
 								id="myPositionSelect"> <img
 								class="img-profile rounded-circle" id="myImage"
-								src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+								src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
