@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.Part;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
@@ -71,56 +72,17 @@ public class MemberCrud {
 		
 		return list;
 	}
-//----------------------insert----------------------
-	//insert user
-	@PostMapping("memberinsert.controller")
-	public String processInsertAction(@RequestParam("accountnumber") String accountnumber,@RequestParam("memberpassword") String memberpassword,@RequestParam("membername") String membername,
-			@RequestParam("phonenumber") String phonenumber,@RequestParam("email") String email,@RequestParam("city") String city,@RequestParam("town") String town,
-			@RequestParam("memberaddress") String memberaddress,@RequestParam("platenumber") String platenumber,@RequestParam("year") String year,@RequestParam("month") String month,
-			@RequestParam("date")@Nullable String date ,@RequestParam("idnumber") String idnumber,@RequestParam("card1") String card1,@RequestParam("card2") String card2,
-			@RequestParam("card3") String card3,@RequestParam("card4") String card4,@RequestParam("file") MultipartFile mf) {
-		try {
-		String birthday = null;
-		Date birthDate = null;
-		if(date != null) {
-			
-			int borthdaylength = month.length();
-			month = month.substring(0,borthdaylength-5);
-			
-			birthday = year.substring(0,4) +"-"+ month +"-"+ date;
-			
-			birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(birthday);
-		}
+	//找帳號權限
+	@PostMapping("/findmemberposition.controller")
+	@ResponseBody
+	public PermissionsOfPosition processMemberPosition(@RequestParam("accountnumber") String accountnumber) throws SQLException {
+		List<MemberBean> member = memberService.findbyaccountnumber(accountnumber);
 		
-		String cardnumber = card1 + "-" + card2 + "-" + card3 + "-" + card4;
-		
-		String filename = mf.getOriginalFilename();
-		
-		byte[] bytes = mf.getBytes();
-		
-		Blob blob = null;
-		if(bytes.length==0) {
-			
-		}else {
-			blob = new SerialBlob(bytes);
-		}
-		String encodePwd = new BCryptPasswordEncoder().encode(memberpassword);//密碼加密
-
-		MemberBean bean = new MemberBean(accountnumber, encodePwd, membername, phonenumber, email, city+town+memberaddress, platenumber, birthDate, idnumber, cardnumber,blob,filename);
-		memberService.insertForUser(bean);
-		
-		
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SerialException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return "index";
+		return member.get(0).getMemberPosition().getPermissionsofposition();
 	}
+	
+//----------------------insert----------------------
+	
 	//insert employee
 	@PostMapping("memberinsertforemployee.controller")
 	public String processInsertActionForEmployee(@RequestParam("accountnumber") String accountnumber,@RequestParam("memberpassword") String memberpassword,@RequestParam("membername") String membername,
@@ -243,6 +205,14 @@ public class MemberCrud {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//updatePermission
+	@PostMapping("/memberupdateposition.controller")
+	@ResponseBody
+	public String processUpdatePositionAction(@RequestParam("accountnumber") String accountnumber,@RequestParam("positionfk") String positionfk) {
+		memberService.updateMemberPosition(accountnumber, positionfk);
+	return positionfk;
 	}
 //---------------------------------權限---------------------------------------
 	@PostMapping("/permissionupdate.controller")

@@ -98,35 +98,45 @@
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item"><a class="nav-link"
-                                href="CarDealerForm">
-            <i class="fa-solid fa-car"></i> <span>車廠</span>
-        </a></li>
-        <li class="nav-item"><a class="nav-link"
-                                href="CarInfoForm">
-            <i class="fa-solid fa-car"></i> <span>車輛</span>
-        </a></li>
+            <li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
+							<i class="fa-solid fa-car"></i> <span>車廠</span>
+			</a></li>
+            <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+					<i class="fa-solid fa-car"></i> <span>車輛</span>
+			</a></li>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link" href="serviceAllController">
-                <i class="fa-solid fa-screwdriver-wrench"></i>
-                <span>保養廠</span></a>
-        </li>
+            <!-- Divider -->
+<!--             <hr class="sidebar-divider"> -->
 
-        <!-- Nav Item - Charts -->
-        <li class="nav-item"><a class="nav-link" href="/threadsView">
-            <i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
-        </a></li>
+<!--             Heading -->
+<!--             <div class="sidebar-heading"> -->
+<!--                 Addons  -->
+<!--             </div>   -->
 
-        <!-- Nav Item - Tables -->
-        <li class="nav-item"><a class="nav-link"
-                                href="<c:url value='/ProductListAll'/>"> <i
-                class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="serviceAllController">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <span>保養廠</span></a>
+            </li>
 
-        <li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
-            <i class="fa-solid fa-coins"></i> <span>訂單</span>
-        </a></li>
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="threadsView">
+                    <i class="fa-brands fa-rocketchat"></i>
+                    <span>論壇</span></a>
+            </li>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item"><a class="nav-link"
+				href="iSpancarShop.ProductListAll"> <i
+					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="orderQueryAll.controller">
+                    <i class="fa-solid fa-coins"></i>
+                    <span>訂單</span></a>
+            </li>
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
@@ -195,7 +205,7 @@
                         <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                         <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                         <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                        <!--<img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}"> -->
+                        <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller?accountnumber=${login.accountnumber}">
                     </a> <!-- Dropdown - User Information -->
                         <div
                                 class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -229,7 +239,7 @@
 
                 <br/>
 
-                <form id="postForm" action="/thread" method="post" accept-charset="UTF-8">
+                <form id="postForm" action="/backstage/thread" method="post" accept-charset="UTF-8">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">分類</span>
@@ -360,7 +370,7 @@
         }
         $.ajax({
             type: "POST",
-            url: "/post/message",
+            url: "/backstage/post/message",
             data: JSON.stringify({content: val, post: {id: ${post.id}}}),
             contentType: 'application/json',
             success: (res) => {
@@ -378,7 +388,7 @@
     function listMessage() {
         $.ajax({
             type: "GET",
-            url: "/post/message/${post.id}",
+            url: "/backstage/post/message/${post.id}",
             dataType: "json",
             success: (res) => {
                 let html = '';

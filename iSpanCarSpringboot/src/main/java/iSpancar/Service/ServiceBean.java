@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name="Service")
 @Component
-
 public class ServiceBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;

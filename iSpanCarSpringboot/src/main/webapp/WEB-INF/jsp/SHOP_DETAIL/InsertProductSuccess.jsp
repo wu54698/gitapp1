@@ -117,14 +117,12 @@ opacity:0.6;
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item"><a class="nav-link"
-							href="CarDealerForm">
+            <li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
 							<i class="fa-solid fa-car"></i> <span>車廠</span>
-						</a></li>
-            <li class="nav-item"><a class="nav-link"
-							href="CarInfoForm">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
-						</a></li>
+			</a></li>
+        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				<i class="fa-solid fa-car"></i> <span>車輛</span>
+		</a></li>
 
             <!-- Divider -->
             <!-- <hr class="sidebar-divider"> -->
@@ -150,11 +148,11 @@ opacity:0.6;
 
             <!-- Nav Item - Tables -->
             <li class="nav-item"><a class="nav-link"
-				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
             <li class="nav-item">
-                <a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+                <a class="nav-link" href="orderQueryAll.controller">
                     <i class="fa-solid fa-coins"></i>
                     <span>訂單</span></a>
             </li>
@@ -339,7 +337,7 @@ opacity:0.6;
   		}).then((result) => {
     if (result.value) {
       //點擊跳轉
-      window.location.href = 'http://localhost:8080/iSpancarShop.ProductListAll';
+      window.location.href = 'http://localhost:8080/backstage/iSpancarShop.ProductListAll';
     }
 
   })

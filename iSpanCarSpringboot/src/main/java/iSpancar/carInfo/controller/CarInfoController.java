@@ -14,15 +14,21 @@ import javax.sql.rowset.serial.SerialException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import iSpancar.carDealer.model.CarDealerBean;
 import iSpancar.carDealer.service.ISpanCarService;
 import iSpancar.carInfo.model.CarInfoBean;
 
 @Controller
+@RequestMapping("/backstage")
 public class CarInfoController {
 
 	@Autowired
@@ -30,11 +36,12 @@ public class CarInfoController {
 
 	// 新增車輛的controller
 	@PostMapping(path = "/addCarInfo.controller")
+	@ResponseBody
 	public String addCarInfoAction(@RequestParam("carDealName") String carDealName,
 			@RequestParam("accountNumber") String accountNumber, @RequestParam("carBrand") String carBrand,
 			@RequestParam("carName") String carName, @RequestParam("stock") int stock,
 			@RequestParam("carImage") MultipartFile mf, @RequestParam("carDescription") String carDescription,
-			@RequestParam("announceDate") String announceDate, Model m)
+			@RequestParam("announceDate") String announceDate, Model m, RedirectAttributes attr)
 			throws IOException, SerialException, SQLException {
 
 		// 定義存放錯誤訊息的 Collection物件
@@ -88,20 +95,22 @@ public class CarInfoController {
 
 			// 新增成功後，跳轉至找全部車輛的jsp頁面
 			List<CarInfoBean> newList = iSpanCarService.findAllCar();
-			m.addAttribute("SelectAllCar", newList);
-			
+			attr.addFlashAttribute("SelectAllCar", newList);
+//			rm.addAttribute("SelectAllCar", newList);
 			//跳轉至
-			return "Car-Infomation/SelectAllCar_frame";
+			return "OK";
+//			return "Car-Infomation/SelectAllCar_frame";
 		}
 
 	}
 
 	// 刪除車輛的Controller
 	@PostMapping("/deleteCarInfo")
-	public String deleteCarInfoAction(@RequestParam int carNo) {
+	@ResponseBody
+	public String deleteCarInfoAction(@RequestParam("carNo") int carNo) {
 
 		iSpanCarService.deleteCarInfo(carNo);
-		return "Car-Infomation/SelectAllCar_frame";
+		return "OK:OK";
 	}
 
 	// 修改車輛的controller
@@ -189,15 +198,40 @@ public class CarInfoController {
 
 		return "Car-Infomation/SelectCarByBrand_frame";
 	}
+	
+	//查詢車商底下全部車輛
+	@GetMapping("/SelectCarInOneSeller.controller/{carDealerName}")
+	public String selectCarDealerNameAction(@PathVariable("carDealerName") String carDealerName, Model m) {
+		
+		List<CarDealerBean> sellerList = iSpanCarService.findByCarDealerName(carDealerName);
+		
+		List<CarInfoBean> list = iSpanCarService.findByCarDealerNameLike(carDealerName);
+		
+		m.addAttribute("SelectCarDealName", sellerList);
+		m.addAttribute("SelectAllCar", list);
+		
+		return "Car-Dealer/SelectCarInOneSeller_frame";
+		
+	}
+	
 
 	//查詢全部車輛
-	@PostMapping("/SelectAllCar.controller")
+	@GetMapping("/SelectAllCar.controller")
 	public String selectAllCarAction(Model m) {
 
 		List<CarInfoBean> list = iSpanCarService.findAllCar();
 		m.addAttribute("SelectAllCar", list);
 
 		return "Car-Infomation/SelectAllCar_frame";
+	}
+	
+	//透過車商名稱新增車輛，車輛表格含已代入「車商名稱」
+	@GetMapping("/SelectDealerNameToAdd.controller")
+	public String selectCarDealerToAddCarAction(@RequestParam("carDealName") String carDealName, Model m) {
+		
+		List<CarDealerBean> list = iSpanCarService.findByCarDealerName(carDealName);
+		m.addAttribute("addCar", list);
+		return "Car-Infomation/CarInfoForm_frame";
 	}
 
 }

@@ -13,6 +13,7 @@
 <meta name="author" content="">
 
 <title>SB Admin 2 - Blank</title>
+<c:set value="${LoginOK}" var="login" />
 
 <!-- Custom fonts for this template-->
 <link
@@ -32,7 +33,7 @@
 </head>
 
 <body id="page-top">
-	<c:set value="${LoginOK}" var="login" />
+
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
@@ -88,11 +89,12 @@
 			</a></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link"
-				href="findAllDealer.controller"> <i class="fa-solid fa-car"></i><span>車廠</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
+			<li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
+							<i class="fa-solid fa-car"></i> <span>車廠</span>
 			</a></li>
+        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				<i class="fa-solid fa-car"></i> <span>車輛</span>
+		</a></li>
 
 			<!-- Divider -->
 			<!-- <hr class="sidebar-divider"> -->
@@ -117,6 +119,8 @@
 			<li class="nav-item"><a class="nav-link"
 				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
+			</a>
+			</li>
 
 			<li class="nav-item"><a class="nav-link"
 				href="orderQueryAll.controller"> <i
@@ -215,175 +219,172 @@
 				</nav>
 				<!-- End of Topbar -->
 
-				<!-- Begin Page Content 內容 -->
-				<div class="container-fluid">
-					<div class="container1">
+				<!-- Content Wrapper -->
+				<div id="content-wrapper" class="d-flex flex-column">
 
-						<!-- Page Heading -->
-						<div class="row">
-							<div class="col-sm-10 ">
-								<h1 class="h3 mb-4 text-gray-800">全部車商</h1>
-							</div>
-							<div class="col-sm-2">
-								<span class="mr-2">新增車商</span>
-								<button class="insert btn btn-success btn-circle">
-									<i class="fa-solid fa-car"></i>
-								</button>
+					<!-- Main Content -->
+					<div id="content">
+
+						<!-- Begin Page Content 內容 -->
+						<div class="container-fluid">
+
+							<!-- Page Heading -->
+							<h1 class="h3 mb-4 text-gray-800">管理者功能:保養廠資訊</h1>
+							<form name="selectToUpdate" action="" method="POST"
+								enctype="multipart/form-data">
+								<table border="1" id="insertP">
+									<thead>
+										<!--             <tr bgcolor='transparent'> -->
+										<!--                 <th height="60" colspan="2" align="center"> -->
+										<!--                     <h2><b>xxxxxx</b></h2> -->
+										<!--                 </th> -->
+										<!--             </tr> -->
+									</thead>
+									<tbody>
+										<c:forEach var='toUpdate' items='${toUpdate}' varStatus="vs">
+
+											<tr bgcolor='transparent'>
+												<td width="120" height="40">保養廠名稱：</td>
+												<td width="600" height="40" align="left"><input
+													id="servicename" name="servicename" class="checkNotNull"
+													value="${toUpdate.servicename}" type="text" size="14"
+													style="text-align: left; background-color: transparent; border-style: none;"
+													readonly></td>
+											</tr>
+											<tr bgcolor='transparent'>
+
+												<td width="120" height="40">保養廠圖片</td>
+												<%-- 												<td width="600" height="40" align="left"><input
+													id="carimage" name="stock" class="checkNotNull"
+													value="${toUpdate.carimage}" type="text" size="14"
+													style="text-align: left"></td> --%>
+												<td><img
+													src="serviceimage.controller?servicename=${toUpdate.servicename}"
+													width="180" height="180" /><input type="file" name="Carimage"><br></td>
+											</tr>
+
+											<tr bgcolor='transparent'>
+												<td width="120" height="40">保養廠描述：</td>
+												<td width="600" height="40" align="left"><textarea
+														id="Servicedescription" name="Servicedescription"
+														class="checkNotNull" rows="6" cols="60"
+														style="text-align: left">${toUpdate.servicedescription}</textarea></td>
+											</tr>
+											<tr bgcolor='transparent'>
+												<td width="120" height="40">保養廠資訊：</td>
+												<td width="600" height="40" align="left"><input
+													id="Serviceinfomation" name="Serviceinfomation"
+													class="checkNotNull" value="${toUpdate.serviceinfomation}"
+													type="text" size="60" style="text-align: left"></td>
+											</tr>
+											<tr bgcolor='transparent'>
+												<td width="120" height="40">保養廠聯繫：</td>
+												<td width="600" height="40" align="left"><input
+													id="Contactperson" name="Contactperson"
+													class="checkNotNull" value="${toUpdate.contactperson}"
+													type="text" size="60" style="text-align: left"></td>
+											</tr>
+											<tr bgcolor='transparent'>
+												<td width="120" height="40">原廠副廠：</td>
+												<td width="600" height="40" align="left"><select
+													id="Resellernonreseller" name="Resellernonreseller"
+													class="checkNotNull" style="text-align: left">
+														<option value="原廠"
+															${toUpdate.resellernonreseller == '原廠' ? 'selected' : ''}>原廠</option>
+														<option value="副廠"
+															${toUpdate.resellernonreseller == '副廠' ? 'selected' : ''}>副廠</option>
+												</select></td>
+											</tr>
+											
+											
+												
+
+										</c:forEach>
+
+									</tbody>
+								</table>
+											<input type="submit" value="更改"
+												formaction="<c:url value='serviceUpdateController'/>">
+											<input type="button" value="新增保養廠"
+												onclick="location.href='/service.signinService'">
+											<input type="button" value="查詢保養廠"
+												onclick="location.href='/service.SelectService'">
+							</form>
+						</div>
+						<!-- /.container-fluid -->
+
+					</div>
+					<!-- End of Main Content -->
+
+					<!-- Footer -->
+					<footer class="sticky-footer bg-white">
+						<div class="container my-auto">
+							<div class="copyright text-center my-auto">
+								<span>Copyright &copy; Your Website 2020</span>
 							</div>
 						</div>
-						<table id="selectAllDealer">
+					</footer>
+					<!-- End of Footer -->
 
-							<thead>
-								<tr>
-									<th>車商名稱</th>
-									<th>車商電話</th>
-									<th>地址</th>
-									<th>營業時間</th>
-									<th>聯絡人</th>
-									<th>統一編號</th>
-								</tr>
-							</thead>
-							<c:forEach var="dealer" items="${SelectAllDealer}" varStatus="vs">
-								<tbody>
-									<tr>
-										<td class="carDealerName"><a
-											href="SelectCarInOneSeller.controller/${dealer.carDealName}">${dealer.carDealName}</a></td>
-										<td>${dealer.carDealPhone}</td>
-										<td>${dealer.carDealAddress}</td>
-										<td>${dealer.openTime}</td>
-										<td>${dealer.contactPerson}</td>
-										<td>${dealer.carDealVATNumber}</td>
-									</tr>
-								</tbody>
-							</c:forEach>
-						</table>
-<!-- 						<a href="CarDealerForm">回上一頁</a>  -->
-<!-- 						<a href="CarDealerForm" class="btn btn-info">新增車輛</a> -->
-					</div>
 				</div>
-				<!-- /.container-fluid -->
+				<!-- End of Content Wrapper -->
 
 			</div>
-			<!-- End of Main Content -->
+			<!-- End of Page Wrapper -->
 
-			<!-- Footer -->
-			<footer class="sticky-footer bg-white">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright &copy; Your Website 2020</span>
+			<!-- Scroll to Top Button-->
+			<a class="scroll-to-top rounded" href="#page-top"> <i
+				class="fas fa-angle-up"></i>
+			</a>
+
+			<!-- Logout Modal-->
+			<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">決定登出?</h5>
+							<button class="close" type="button" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<button class="btn btn-secondary" type="button"
+								data-dismiss="modal">取消</button>
+							<a class="btn btn-primary"
+								href="/logout.controller">登出</a>
+						</div>
+						<!--                 <div class="modal-footer"> -->
+
+						<!--                 </div> -->
 					</div>
 				</div>
-			</footer>
-			<!-- End of Footer -->
-
-		</div>
-		<!-- End of Content Wrapper -->
-
-	</div>
-	<!-- End of Page Wrapper -->
-
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
-	</a>
-
-	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">決定登出?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">取消</button>
-					<a class="btn btn-primary"
-						href="/logout.controller">登出</a>
-				</div>
-				<!--                 <div class="modal-footer"> -->
-
-				<!--                 </div> -->
 			</div>
-		</div>
-	</div>
 
-	<!-- Bootstrap core JavaScript-->
-	<script
-		src="http://localhost:8080/iSpanCar/script/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="http://localhost:8080/iSpanCar/script/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+			<!-- Bootstrap core JavaScript-->
+			<script
+				src="http://localhost:8080/iSpanCar/script/vendor/jquery/jquery.min.js"></script>
+			<script
+				src="http://localhost:8080/iSpanCar/script/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-	<!-- Core plugin JavaScript-->
-	<script
-		src="http://localhost:8080/iSpanCar/script/vendor/jquery-easing/jquery.easing.min.js"></script>
+			<!-- Core plugin JavaScript-->
+			<script
+				src="http://localhost:8080/iSpanCar/script/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-	<!-- Custom scripts for all pages-->
-	<script
-		src="http://localhost:8080/iSpanCare/script/js/sb-admin-2.min.js"></script>
+			<!-- Custom scripts for all pages-->
+			<script
+				src="http://localhost:8080/iSpanCar/script/js/sb-admin-2.min.js"></script>
 
-	<!-- Bootstrap core JavaScript-->
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<!-- 	<script src="https://kit.fontawesome.com/dbb4662278.js" -->
-<!-- 		crossorigin="anonymous"></script> -->
-	<script src="https://kit.fontawesome.com/cea698c704.js" crossorigin="anonymous"></script>
-	<script type="text/javascript" charset="utf8"
-		src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-	<script>
-				$(document).ready(function () {
-					$('#selectAllDealer').DataTable();
-				});
-
-			</script>		
-	<script>
-		$('.insert').on('click', function(){
-			location.href = '/backstage/CarDealerForm';
-		})
-	
-	
-				$('.container1').on('click', '#btn1', function () {
-					Swal.fire({
-						  title: '確定刪除?',
-						  text: "資料將被刪除",
-						  icon: 'warning',
-						  showCancelButton: true,
-						  confirmButtonColor: '#3085d6',
-						  cancelButtonColor: '#d33',
-						  confirmButtonText: '刪除',
-						  cancelButtonText: '取消'
-						}).then((result) => {
-						  if (result.isConfirmed) {
-						    Swal.fire(
-						      '已刪除!',
-						      'Your file has been deleted.',
-						      'success'
-						    )
-						    
-					$.ajax({
-						type: "POST",
-						url: "<c:url value='/deleteCarDealer'/>",
-						//contentType text
-						context: this,
-						dataType: "text",
-						data: {
-							"carDealName": $(this).parent().parent().children(
-								'.carDealerName').text()
-						},
-						success: function (response) {
-							console.log("OK")
-							$(this).parent().parent().remove();
-						}
-					})    
-				 }
-				})
-			});
-	</script>
-
+			<script src="https://kit.fontawesome.com/dbb4662278.js"
+				crossorigin="anonymous"></script>
+			<script type="text/javascript" charset="utf8"
+				src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+			<script>
+				// 		$(document).ready(function() {
+				// 			$('#signin').DataTable();
+				// 		});
+			</script>
 </body>
 
 </html>

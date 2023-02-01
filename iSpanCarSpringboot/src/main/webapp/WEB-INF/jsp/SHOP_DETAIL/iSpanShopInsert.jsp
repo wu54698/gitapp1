@@ -118,14 +118,12 @@ opacity:0.6;
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item"><a class="nav-link"
-							href="CarDealerForm">
+            <li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
 							<i class="fa-solid fa-car"></i> <span>車廠</span>
-						</a></li>
-            <li class="nav-item"><a class="nav-link"
-							href="CarInfoForm">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
-						</a></li>
+			</a></li>
+        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				<i class="fa-solid fa-car"></i> <span>車輛</span>
+		</a></li>
 
             <!-- Divider -->
             <!-- <hr class="sidebar-divider"> -->
@@ -148,10 +146,10 @@ opacity:0.6;
 						</a></li>
 
 					<!-- Nav Item - Tables -->
-					<li class="nav-item"><a class="nav-link" href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
+					<li class="nav-item"><a class="nav-link" href="<c:url value='/backstage/iSpancarShop.ProductListAll'/>"> <i
 								class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-					<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+					<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
 							<i class="fa-solid fa-coins"></i> <span>訂單</span>
 						</a></li>
 					<!-- Divider -->
@@ -239,14 +237,14 @@ opacity:0.6;
 
 						<!-- Begin Page Content 內容 -->
 						<div class="container-fluid">
-						<form action="<c:url value='/iSpancarShop.ProductListAll'/>"
+						<form action="<c:url value='/backstage/iSpancarShop.ProductListAll'/>"
 							method="get">
 							<input type="submit" value="回商城管理頁面" class="backshopbtn">
 						</form>
 
 							<!--                     Page Heading -->
 							<!--                     <h1 class="h3 mb-4 text-gray-800">商城商品新增</h1> -->
-							<form name="insertProductFormA" action="<c:url value='/iSpancarShop.InsertShopDetail.controller'/>"
+							<form name="insertProductFormA" action="iSpancarShop.InsertShopDetail.controller"
 								method="POST" enctype="multipart/form-data">
 								<table border="1" id="insertP">
 									<thead>
@@ -467,7 +465,7 @@ opacity:0.6;
 		                    </button>
 		                </div>
 		                <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-		                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
+		                    <a class="btn btn-primary" href="/logout.controller">登出</a></div>
 		<!--                 <div class="modal-footer"> -->
 		                   
 		<!--                 </div> -->

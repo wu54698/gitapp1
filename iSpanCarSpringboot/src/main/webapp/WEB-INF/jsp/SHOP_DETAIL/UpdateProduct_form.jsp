@@ -119,14 +119,12 @@
 					class="fa-solid fa-user"></i> <span>會員</span></a></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link"
-				href="CarDealerForm"> <i
-					class="fa-solid fa-car"></i> <span>車廠</span>
+			<li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
+							<i class="fa-solid fa-car"></i> <span>車廠</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="CarInfoForm">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
-			</a></li>
+        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				<i class="fa-solid fa-car"></i> <span>車輛</span>
+		</a></li>
 
 			<!-- Divider -->
 			<!-- <hr class="sidebar-divider"> -->
@@ -149,11 +147,11 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
+				href="<c:url value='/backstage/iSpancarShop.ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/orderQueryAll.controller'/>"> <i
+				href="orderQueryAll.controller"> <i
 					class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -250,11 +248,11 @@
 					<h2>商城管理</h2>
 					<%-- <a href="<c:url value='/SHOP_DETAIL/iSpanShopInsert.jsp' />">新增產品</a> --%>
 					<div>
-						<form action="<c:url value='/iSpancarShop.ProductListAll'/>" method="get">
+						<form action="<c:url value='/backstage/iSpancarShop.ProductListAll'/>" method="get">
 							<input type="submit" value="回商城管理頁面" class="backshopbtn">
 						</form>
 						<form name="updateProductForm"
-							action="<c:url value='/iSpancarShop.UpdateShopDetail.controller'/>"
+							action="backstage/iSpancarShop.UpdateShopDetail.controller"
 							method="POST" enctype="multipart/form-data"
 							>
 							<table border="1">
@@ -381,7 +379,7 @@
 						<button class="btn btn-secondary" type="button"
 							data-dismiss="modal">取消</button>
 						<a class="btn btn-primary"
-							href="<c:url value='/logoutServlet.do' />">登出</a>
+							href="/logout.controller">登出</a>
 					</div>
 					<!--                 <div class="modal-footer"> -->
 

@@ -7,6 +7,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -36,6 +37,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
+@RequestMapping("/backstage")
 public class serviceCrudController {
 	
 	private static final String Servicename = null;
@@ -172,11 +174,23 @@ public class serviceCrudController {
 				return "service/UpdateService4";
 			}
 
+	//透過Id接值進入修改頁面的controller(原selectIdToUpdate)
+	@PostMapping("/JumptoUpdateService")
+	public String selectIdToUpdateAction(@RequestParam("servicename") String servicename, Model m) {
+		
+		 
+		 ServiceBean s1= iSpanCarService.findByService(servicename);
+		 List<ServiceBean> list = new ArrayList<ServiceBean>();
+		 list.add(s1);
+		m.addAttribute("toUpdate", list);
+		
+		return "service/UpdateService";
+	}
 	
 	
 	
 	@PostMapping("/serviceDeleteController") 
-	public String serviceDelete(@RequestParam("Servicename") String servicename)
+	public String serviceDelete(@RequestParam("servicename") String servicename)
 //			@RequestParam("Carimage") Blob Carimage, 
 //            @RequestParam("Servicedescription") String Servicedescription,
 //            @RequestParam("Serviceinfomation") String Serviceinfomation,
@@ -184,9 +198,11 @@ public class serviceCrudController {
 //            @RequestParam("Reseller_nonreseller") String Reseller_nonreseller) 
 			{
 		ServiceBean sBean3 = new ServiceBean();
+		System.out.println("------------------"+servicename);
 		sBean3.setServicename(servicename);
 		sService.deleteService(sBean3);
-		return "/service/DeleteService4";
+		return "/service/SelectallService";
+		
 	}
 	
 	@Autowired

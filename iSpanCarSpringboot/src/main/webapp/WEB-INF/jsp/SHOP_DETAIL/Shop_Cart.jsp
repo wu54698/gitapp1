@@ -156,14 +156,12 @@ tr:last-of-type{
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item"><a class="nav-link"
-							href="CarDealerForm">
+            <li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
 							<i class="fa-solid fa-car"></i> <span>車廠</span>
-						</a></li>
-            <li class="nav-item"><a class="nav-link"
-							href="CarInfoForm">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
-						</a></li>
+			</a></li>
+        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				<i class="fa-solid fa-car"></i> <span>車輛</span>
+		</a></li>
 
             <!-- Divider -->
             <!-- <hr class="sidebar-divider"> -->
@@ -187,10 +185,10 @@ tr:last-of-type{
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+			<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -286,7 +284,7 @@ tr:last-of-type{
 					<!-- Page Heading -->
 					<h1 class="h3 mb-4 text-gray-800">商城</h1>
 					<div class="wrap">
-					<form action="<c:url value='/QueryAllCart.controller'/>" method="get">
+					<form action="/backstage/QueryAllCart.controller" method="get">
 						<input type="submit" value="購物車" />
 					</form>
 					<table>
@@ -304,7 +302,7 @@ tr:last-of-type{
 							<c:forEach var='product' items='${queryallproduct}'
 								varStatus="vs">
 								<tr>
-								<form action="<c:url value='/cartInsert.controller'/>"  method="POST" enctype="multipart/form-data">
+								<form action="/backstage/cartInsert.controller"  method="POST" enctype="multipart/form-data">
 								
 									<td id="productno">${product.productno} <input type="hidden" value="${product.productno}" name="productNumber"><input type="hidden" name="memberId" value="${login.accountnumber}"></td>
 									<td >${product.productname}<input type="hidden" value="${product.productname}" name="productName"></td>
@@ -359,7 +357,7 @@ tr:last-of-type{
                     </button>
                 </div>
                 <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
+                    <a class="btn btn-primary" href="/logout.controller">登出</a></div>
 <!--                 <div class="modal-footer"> -->
                    
 <!--                 </div> -->

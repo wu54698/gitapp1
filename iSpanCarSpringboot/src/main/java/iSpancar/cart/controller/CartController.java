@@ -13,6 +13,7 @@ import iSpancar.cart.model.CartBean;
 import iSpancar.cart.service.CartService;
 
 @Controller
+@RequestMapping("/backstage")
 public class CartController {
 	
 	@Autowired
@@ -32,14 +33,14 @@ public class CartController {
 		cBean.setProductPrice(productPrice);
 		cBean.setQuantity(quantity);
 		cService.insertCartBean(cBean);
-		return "redirect:/iSpancarShop.Shop_Cart.controller";
+		return "redirect:iSpancarShop.Shop_Cart.controller";
 	}
 	
 //	@DeleteMapping("/deletecart"
 	@RequestMapping(path="/cartdeletecart.controller" , method= RequestMethod.POST)
 	public  String cartDelete (@RequestParam ("cartId") String cartId) {
 		cService.deletecartById(cartId);
-		return "redirect:/QueryAllCart.controller";
+		return "redirect:QueryAllCart.controller";
 
 	}
 	
@@ -48,7 +49,7 @@ public class CartController {
 	public String cartUpdate(@RequestParam ("cartId") String cartId,
 			@RequestParam ("quantity") String quantity) {
 		cService.updateQuantityByCartId(quantity,cartId);
-		return "redirect:/QueryAllCart.controller";
+		return "redirect:QueryAllCart.controller";
 
 	}
 	

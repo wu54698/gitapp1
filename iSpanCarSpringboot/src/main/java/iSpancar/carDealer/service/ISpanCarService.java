@@ -73,8 +73,9 @@ public class ISpanCarService {
 
 	// 透過車商來搜尋車商資訊
 	public List<CarDealerBean> findByCarDealerName(String carDealName) {
-
+		System.out.println("車商銘" + carDealName );
 		List<CarDealerBean> dealerBeans = dealerRepository.findByCarDealerName(carDealName);
+		System.out.println("車商銘二" + carDealName );
 		return dealerBeans;
 	}
 
@@ -112,6 +113,13 @@ public class ISpanCarService {
 
 			List<CarInfoBean> carInfoBean = carInfoRepository.findByCarBrandLike(carBrand);
 			return carInfoBean;
+	}
+	
+	//查詢車商底下所有車輛
+	public List<CarInfoBean> findByCarDealerNameLike(String cardealname){
+		
+		List<CarInfoBean> carInfoBean = carInfoRepository.findByCarDealerNameLike(cardealname);
+		return carInfoBean;
 	}
 
 	// 透過carNo找車輛(圖片用)

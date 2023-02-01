@@ -95,11 +95,10 @@
 
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link"
-				href="CarDealerForm"> <i
-					class="fa-solid fa-car"></i> <span>車廠</span>
-			</a></li>
+				href="findAllDealer.controller"><i
+					class="fa-solid fa-car"></i><span>車廠</span></a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="CarInfoForm">
+				href="SelectAllCar.controller">
 					<i class="fa-solid fa-car"></i> <span>車輛</span>
 			</a></li>
 
@@ -123,10 +122,10 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+			<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -220,7 +219,15 @@
 				<div class="container1">
 
 					<!-- Page Heading -->
+					<div>
 					<h1 class="h3 mb-4 text-gray-800">管理者功能: 車輛品牌產品維護</h1>
+					<form name="carInfoA" action="" method="post" enctype="multipart/form-data">
+					<input id="carBrand" name="carBrand" class="checkNotNull" value="${param.carBrand}"
+                        type="text" size="14" style="text-align: left">
+                    <input type="submit" value="找品牌" id="findCarBrand" formaction="SelectCarByBrand.controller" class="btn btn-info">   
+                    </form>    
+                    </div>
+                    <br>    
 					<table id="selectAllCar">
 						<thead>
 							<tr>
@@ -240,27 +247,27 @@
 						<c:forEach var="car" items="${SelectAllCar}" varStatus="vs">
 							<tbody>
 								<tr>
-									<td id="carNo">${car.carNo}</td>
+									<td class="carNo">${car.carNo}</td>
 									<td>${car.carDealerBean.carDealName}</td>
 									<td>${car.accountNumber}</td>
 									<td>${car.carBrand}</td>
 									<td>${car.carName}</td>
 									<td id="stock">${car.stock}</td>
 									<!--<td>${car.carImage}</td>-->
-									<td><img
-										src="carInfoImage.controller/${car.carNo}"
+									<td><img src="/carInfoImage.controller/${car.carNo}"
 										width="180px" height="120px"></td>
 									<td><textarea readonly cols="10" rows="5"
 											style="text-align: left">${car.carDescription}</textarea></td>
 									<td>${car.announceDate}</td>
-									<td><input type="button" id="btn1" value="刪除"></td>
+									<td class="button"><button id="btn1" class="delete btn btn-danger btn-circle"><i class="fas fa-trash"></i></button></td>
 									<!-- 修改按鈕，跳轉至修改頁面 -->
-									<td><form action="JumptoUpdateCarInfoSheet" method="post"><input type="hidden" value="${car.carNo}" name="carNo"><button type="submit" class="btn2" id="btn2"  style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen fa-lg"></i></button></form></td>
+									<!--<td><form action="JumptoUpdateCarInfoSheet" method="post"><input type="hidden" value="${car.carNo}" name="carNo"><button type="submit" class="btn2" id="btn2"  style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen fa-lg"></i></button></form></td> -->
+									<td><form action="JumptoUpdateCarInfoSheet" method="post"><input type="hidden" value="${car.carNo}" name="carNo"><button type="submit" class="btn2 btn btn-info btn-circle" id="btn2"  style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen"></i></button></form></td>
 								</tr>
 							</tbody>
 						</c:forEach>
 					</table>
-					<a href="CarInfoForm">回車輛主頁</a>
+					<a href="SelectAllCar.controller">回車輛主頁</a>
 				</div>
 				<script src="https://kit.fontawesome.com/f9c412c6fd.js" crossorigin="anonymous"></script>
 				<!-- /.container-fluid -->
@@ -303,7 +310,7 @@
                     </button>
                 </div>
                 <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
+                    <a class="btn btn-primary" href="/logout.controller">登出</a></div>
 <!--                 <div class="modal-footer"> -->
                    
 <!--                 </div> -->
@@ -324,6 +331,8 @@
 	<!-- Custom scripts for all pages-->
 	<script
 		src="http://localhost:8080/iSpanCar/script/js/sb-admin-2.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<script src="https://kit.fontawesome.com/dbb4662278.js"
 		crossorigin="anonymous"></script>
@@ -333,9 +342,35 @@
 		$(document).ready(function() {
 			$('#selectAllCar').DataTable();
 		});
+		
+		//驗證欄位不為空
+		$('#findCarBrand').on({
+					click: function () {
+						$('#carBrand').attr('required', true)
+					}, mouseleave: function () {
+						$('#carBrand').attr('required', false)
+					}
+				});
 	</script>
 	<script>
 	$('.container1').on('click', '#btn1', function () {
+		Swal.fire({
+			  title: '確定刪除?',
+			  text: "資料將被刪除",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: '刪除',
+			  cancelButtonText: '取消'
+			}).then((result) => {
+			  if (result.isConfirmed) {
+			    Swal.fire(
+			      '已刪除!',
+			      'Your file has been deleted.',
+			      'success'
+			    )
+			    
 		$.ajax({
 			type: "POST",
 			url: "deleteCarInfo",
@@ -344,16 +379,16 @@
 			dataType: "text",
 			data: {
 				"carNo": $(this).parent().parent().children(
-					'#carNo').text()
+					'.carNo').text()
 			},
 			success: function (response) {
 				console.log("OK")
-				alert("刪除成功")
 				$(this).parent().parent().remove();
 			}
-		})
-
-	});
+		})    
+	 }
+	})
+});
 	</script>
 	
 	<!-- </script> -->

@@ -45,6 +45,11 @@ public class ShopDetailService {
 		return list;
 	}
 	
+	public List<ShopDetailBean> findByProductname(String productname){
+		List<ShopDetailBean> list = sRepo.findbyProductname(productname);
+		return list;
+	}
+	
 	public ShopDetailBean findImgByProductno(String productno) throws SQLException {
 		int productnoint = Integer.parseInt(productno);
 		Optional<ShopDetailBean> op =  sRepo.findById(productnoint);

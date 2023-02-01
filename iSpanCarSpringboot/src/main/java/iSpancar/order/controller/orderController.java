@@ -30,6 +30,7 @@ import iSpancar.orderItem.model.OrderItemBean;
 import iSpancar.orderItem.service.OrderItemService;
 
 @Controller
+@RequestMapping("/backstage")
 public class orderController {
 
 	
@@ -89,7 +90,7 @@ public class orderController {
 		cService.deleteCartByMemberId(memberId);
 		
 		
-		return "redirect:/orderQueryAll.controller";
+		return "redirect:orderQueryAll.controller";
 
 	}
 	
@@ -103,7 +104,7 @@ public class orderController {
 
 		oService.updateOrderSatusByOrderId(orderStatus, orderDate, orderId);
 		
-		return "redirect:/orderQueryAll.controller";
+		return "redirect:orderQueryAll.controller";
 		
 	}
 	

@@ -118,43 +118,45 @@
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item"><a class="nav-link"
-                                href="CarDealerForm">
-            <i class="fa-solid fa-car"></i> <span>車廠</span>
-        </a></li>
-        <li class="nav-item"><a class="nav-link"
-                                href="CarInfoForm">
-            <i class="fa-solid fa-car"></i> <span>車輛</span>
-        </a></li>
+                    <li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
+							<i class="fa-solid fa-car"></i> <span>車廠</span>
+			</a></li>
+            <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+					<i class="fa-solid fa-car"></i> <span>車輛</span>
+			</a></li>
 
-        <!-- Divider -->
-        <!-- <hr class="sidebar-divider"> -->
+            <!-- Divider -->
+<!--             <hr class="sidebar-divider"> -->
 
-        <!-- Heading -->
-        <!-- <div class="sidebar-heading">
-            Addons
-        </div> -->
+<!--             Heading -->
+<!--             <div class="sidebar-heading"> -->
+<!--                 Addons  -->
+<!--             </div>   -->
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link" href="serviceAllController">
-                <i class="fa-solid fa-screwdriver-wrench"></i>
-                <span>保養廠</span></a>
-        </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="serviceAllController">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <span>保養廠</span></a>
+            </li>
 
-        <!-- Nav Item - Charts -->
-        <li class="nav-item"><a class="nav-link" href="threadsView">
-            <i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
-        </a></li>
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="threadsView">
+                    <i class="fa-brands fa-rocketchat"></i>
+                    <span>論壇</span></a>
+            </li>
 
-        <!-- Nav Item - Tables -->
-        <li class="nav-item"><a class="nav-link"
-                                href="<c:url value='/ProductListAll'/>"> <i
-                class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
+            <!-- Nav Item - Tables -->
+            <li class="nav-item"><a class="nav-link"
+				href="iSpancarShop.ProductListAll"> <i
+					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-        <li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
-            <i class="fa-solid fa-coins"></i> <span>訂單</span>
-        </a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="orderQueryAll.controller">
+                    <i class="fa-solid fa-coins"></i>
+                    <span>訂單</span></a>
+            </li>
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
@@ -224,7 +226,7 @@
                         <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                         <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
                         <img class="img-profile rounded-circle" id="myImage"
-                             src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                             src="/showimageforthismember.controller?accountnumber=${login.accountnumber}">
                     </a> <!-- Dropdown - User Information -->
                         <div
                                 class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -272,7 +274,7 @@
                 <div class="row">
                     <div class="col-12">
                         <input type="button" style="background-color:#2db5c2;border-color:#2db5c2"
-                               onclick="location.href='/thread/newthread'" class="btn btn-primary" value="新增文章">
+                               onclick="location.href='/backstage/thread/newthread'" class="btn btn-primary" value="新增文章">
                         <input type="button" style="background-color:#2db5c2;border-color:#2db5c2"
                                onclick="window.open('/dforum/home')" class="btn btn-primary" value="論壇首頁">
                     </div>
@@ -300,11 +302,11 @@
                             <td class="td-info">${post.member.accountnumber}</td>
                             <td class="td-info">${post.time}</td>
                             <td>
-                                <button onclick="location.href = '/thread/${post.id}?edit=true'"
+                                <button onclick="location.href = '/backstage/thread/${post.id}?edit=true'"
                                         class="btn btn-info btn-circle"><i class="fa-solid fa-pen"></i></button>
                                 <button onclick="deletePost(${post.id})" class="btn btn-danger btn-circle"><i
                                         class="fas fa-trash"></i></button>
-                                <!-- <button onclick="location.href = '/thread/${post.id}'" class="btn btn-info btn-circle"><i class="fa-regular fa-circle-info"></i></button>-->
+                                <!-- <button onclick="location.href = '/backstage/thread/${post.id}'" class="btn btn-info btn-circle"><i class="fa-regular fa-circle-info"></i></button>-->
                             </td>
                         </tr>
                     </c:forEach>
@@ -402,7 +404,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "DELETE",
-                    url: "/thread/" + id,
+                    url: "/backstage/thread/" + id,
                     success: function (res) {
                         if(res == '操作成功！'){
                             $("#pos_row_" + id).remove();
@@ -440,7 +442,7 @@
     }
 
     $(".td-info").click(function (target) {
-        location.href = '/thread/' + $(target.target).parent().data("post-id")
+        location.href = '/backstage/thread/' + $(target.target).parent().data("post-id")
     })
 
 </script>

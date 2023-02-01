@@ -20,4 +20,8 @@ public interface MemberRepository extends JpaRepository<MemberBean, String> {
 	@Modifying
 	@Query(value = "insert into memberposition(accountnumberposition,positionfk) values(?1,?2)",nativeQuery = true)
 	public void insertMemberPosition(String accountnumber,String positionfk);
+	
+	@Modifying
+	@Query(value = "update memberposition set positionfk = ?2 where accountnumberposition = ?1",nativeQuery = true)
+	public void updateMemberPosition(String accountnumber,String positionfk);
 }

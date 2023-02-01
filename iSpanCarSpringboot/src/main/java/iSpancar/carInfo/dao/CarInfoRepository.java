@@ -29,6 +29,12 @@ public interface CarInfoRepository extends JpaRepository<CarInfoBean, Integer> {
 	@Query(value = "select * from carinfo where carbrand =?1", nativeQuery = true)
 	public List<CarInfoBean> findByCarBrandLike(String carBrand);
 	
+	
+	//查詢車商底下所有車輛
+	@Modifying
+	@Query(value = "select * from carinfo where cardealname =?1", nativeQuery = true)
+	public List<CarInfoBean> findByCarDealerNameLike(String cardealname);
+	
 	// 透過carNo找車輛(圖片用)dao
 	@Modifying
 	@Query(value = "select * from carinfo where carno =?1", nativeQuery = true)

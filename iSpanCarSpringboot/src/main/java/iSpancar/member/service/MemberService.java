@@ -184,6 +184,11 @@ public class MemberService {
 			return "資料有誤";
 	}
 	
+	//修改帳號角色
+	public void updateMemberPosition(String accountnumber,String positionfk) {
+		mRepository.updateMemberPosition(accountnumber, positionfk);
+	}
+	
 	//修改圖片
 	public void updateImgByAccount(String accountnumber,Blob personalimg) throws SQLException {
 		

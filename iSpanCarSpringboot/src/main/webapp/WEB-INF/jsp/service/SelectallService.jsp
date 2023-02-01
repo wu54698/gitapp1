@@ -32,7 +32,7 @@
 </head>
 
 <body id="page-top">
-<c:set value="${LoginOK}" var="login"/>
+	<c:set value="${LoginOK}" var="login" />
 
 	<!-- Page Wrapper -->
 	<div id="wrapper">
@@ -58,8 +58,8 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="/">
-					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
+			<li class="nav-item"><a class="nav-link" href="/"> <i
+					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
 			</a></li>
 
 			<!-- Divider -->
@@ -84,18 +84,17 @@
                 </div>
             </li> -->
 			<li class="nav-item"><a class="nav-link"
-				href="memberselectall.controller"> <i
-					class="fa-solid fa-user"></i> <span>會員</span>
+				href="memberselectall.controller"> <i class="fa-solid fa-user"></i>
+					<span>會員</span>
 			</a></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link"
-				href="CarDealerForm"> <i
-					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="CarInfoForm">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
+			<li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
+							<i class="fa-solid fa-car"></i> <span>車廠</span>
 			</a></li>
+        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				<i class="fa-solid fa-car"></i> <span>車輛</span>
+		</a></li>
 
 			<!-- Divider -->
 			<!-- <hr class="sidebar-divider"> -->
@@ -112,20 +111,19 @@
 			</a></li>
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link"
-				href="threadsView"> <i
-					class="fa-brands fa-rocketchat"></i> <span>論壇</span>
+			<li class="nav-item"><a class="nav-link" href="threadsView">
+					<i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
 			</a></li>
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/iSpancarShop.ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 			</a>
 			</li>
 
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/orderQueryAll.controller'/>"> <i
+				href="orderQueryAll.controller"> <i
 					class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -182,18 +180,25 @@
 						<div class="topbar-divider d-none d-sm-block"></div>
 
 						<!-- Nav Item - User Information -->
-						<li class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.accountnumber}</span>
-                            <!-- 職位 -->
-                                <input type="hidden" value="${login.accountnumber}" id="myAccountnumber">
-                                <input type="hidden" value="${memberPosition.positionPk}" id="myPosition">
-                                <input type="hidden" value="${memberPosition.permissionsInsert}" id="myPositionInsert">
-                                <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
-                                <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
-                                <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
-                            </a> <!-- Dropdown - User Information -->
+						<li class="nav-item dropdown no-arrow"><a
+							class="nav-link dropdown-toggle" href="#" id="userDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> <span
+								class="mr-2 d-none d-lg-inline text-gray-600 small">${login.accountnumber}</span>
+								<!-- 職位 --> <input type="hidden" value="${login.accountnumber}"
+								id="myAccountnumber"> <input type="hidden"
+								value="${memberPosition.positionPk}" id="myPosition"> <input
+								type="hidden" value="${memberPosition.permissionsInsert}"
+								id="myPositionInsert"> <input type="hidden"
+								value="${memberPosition.permissionsUpdate}"
+								id="myPositionUpdate"> <input type="hidden"
+								value="${memberPosition.permissionsDelete}"
+								id="myPositionDelete"> <input type="hidden"
+								value="${memberPosition.permissionsSelect}"
+								id="myPositionSelect"> <img
+								class="img-profile rounded-circle" id="myImage"
+								src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
+						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
@@ -225,8 +230,8 @@
 
 
 							<!-- Page Heading -->
-							<h1>保養廠區域查詢</h1>
-							<select name="City" id="City">
+							<h1>保養廠資訊</h1>
+							<!-- 						<select name="City" id="City">
 								<option value="">請選擇</option>
 								<option value="0">台北市</option>
 								<option value="1">基隆市</option>
@@ -247,29 +252,30 @@
 								<option value="16">屏東縣</option>
 								<option value="17">台東縣</option>
 								<option value="18">花蓮縣</option>
-
+ -->
 							</select> <br> <br> <br>
 
 							<table border="1">
 
+								<tr>
+									<th>保養廠名稱</th>
+									<th>保養廠照片</th>
+									<th>保養廠描述</th>
+									<th>保養廠資訊</th>
+									<th>聯繫</th>
+									<th>原廠副廠</th>
+									<th>修改</th>
+									<th>刪除</th>
+
+								</tr>
 
 								<c:forEach var="Service" items="${serviceSelectall}"
 									varStatus="vs">
 
 
-									<tr>
-										<th>保養廠名稱</th>
-										<th>保養廠照片</th>
-										<th>保養廠描述</th>
-										<th>保養廠資訊</th>
-										<th>聯繫</th>
-										<th>原廠副廠</th>
-
-
-									</tr>
 
 									<tr>
-										<td>${Service.servicename}</td>
+										<td class="servicename">${Service.servicename}</td>
 										<td><img
 											src="serviceimage.controller?servicename=${Service.servicename}"
 											width="180" height="180" /></td>
@@ -277,17 +283,30 @@
 										<td>${Service.serviceinfomation}</td>
 										<td>${Service.contactperson}</td>
 										<td>${Service.resellernonreseller}</td>
-
+										<td><form action="JumptoUpdateService" method="post">
+												<input type="hidden" value="${Service.servicename}"
+													name="servicename">
+												<button type="submit" class="update btn btn-info btn-circle"
+													id="btn2"
+													style="border-radius: 80%; width: 40px; height: 40px">
+													<i class="fa-solid fa-pen fa-lg"></i>
+												</button>
+											</form></td>
+										<td class="button"><button
+												class="delete btn btn-danger btn-circle">
+												<i class="fas fa-trash"></i>
+											</button></td>
 									</tr>
 
 
 								</c:forEach>
 							</table>
 
-							<input type="button" onclick="history.back()" value="回到上一頁"></input>
+							<input type="button" value="新增保養廠"
+								onclick="location.href='/service.signinService'">
 							<input type="button"
-								onclick="location.href='/service.SelectService'"
-								value="查詢保養廠"></input>
+								onclick="location.href='/service.SelectService'" value="查詢保養廠"></input>
+							<input type="button" onclick="history.back()" value="回到上一頁"></input>
 						</div>
 						<!-- /.container-fluid -->
 
@@ -344,7 +363,7 @@
 				src="http://localhost:8080/iSpanCar/script/vendor/jquery/jquery.min.js"></script>
 			<script
 				src="http://localhost:8080/iSpanCar/script/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+			<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 			<!-- Core plugin JavaScript-->
 			<script
 				src="http://localhost:8080/iSpanCar/script/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -361,6 +380,53 @@
 				// 		$(document).ready(function() {
 				// 			$('#signin').DataTable();
 				// 		});
+			</script>
+			<script type="text/javascript">
+			$(function(){
+				
+			
+			$('#content').on('click','.delete', function () {
+				
+			     Swal.fire({
+			        title: '確定刪除?',
+			        text: "資料將被刪除",
+			        icon: 'warning',
+			        showCancelButton: true,
+			        confirmButtonColor: '#3085d6',
+			        cancelButtonColor: '#d33',
+			        confirmButtonText: '刪除',
+			        cancelButtonText: '取消'
+			      }).then((result) => {
+			        if (result.isConfirmed) {
+			          Swal.fire(
+			            '已刪除!',
+			            'Your file has been deleted.',
+			            'success'
+			          )
+			          console.log($(this).parent().parent().children('.servicename').text()+'this');
+			         
+			     $.ajax({
+			      type: "POST",
+			      url: "<c:url value='/backstage/serviceDeleteController'/>",
+			      //contentType text
+			      context: this,
+			      dataType: "text",
+			      data: {
+			       "servicename": $(this).parent().parent().children(
+			        '.servicename').text()
+			      },
+			      success: function (response) {
+			       console.log("OK")
+			       $(this).parent().parent().remove();
+			      }
+			     })
+			          
+			        }
+			      })
+			     
+
+			    });
+			})
 			</script>
 </body>
 
