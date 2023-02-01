@@ -13,10 +13,6 @@ var selectMen = selectTiziItem.member && selectTiziItem.member.accountnumber || 
 
 
 /**
- * 弹出消息提示框，采用浏览器布局，位于整个页面中央，默认显示3秒
- * 后面的消息会覆盖原来的消息
- * @param message：待显示的消息
- * @param type：消息类型，0：错误消息，1：成功消息
  */
 function showMessage(message, type) {
     let messageJQ= $("<div class='showMessage'>" + message + "</div>");
@@ -35,7 +31,6 @@ function showMessage(message, type) {
     }, 4000);
 }
 
-// 分类列表
 var categoryActive = 1;
 var categoryList = [];
 getCategory().then(res => {
@@ -188,8 +183,7 @@ function getDetail(uuid) {
         xrtiezeDetail(content || []);
 
         if (code == 401) {
-            console.log('未登录');
-            showMessage('未登录', 0);
+            window.location.href = '/checkogin.controller';
             return;
         }
     })
@@ -199,12 +193,10 @@ let selectPoId = selectTiziItem.id;
 function replyToFloor(e, id, name, i) {
     selectPoId = id;
     selectMen = name;
-    console.log("回复楼层", name);
     $(`#lyenter${i}`).html(`@`+ e + ' ')
 }
 
 function xrhfinput(i) {
-    // 留言回车监听
     const jq$ = $;
 
     document
@@ -240,7 +232,7 @@ function xrhfinput(i) {
                         getDetail(uuidglobal);
                         $(`#lyenter${i}`).val("");
                     } else if (res.code == 401) {
-                        showMessage('未登录', 0);
+                        window.location.href = '/checkogin.controller';
                     }
 
                 })
@@ -527,7 +519,7 @@ function xrtiezeDetail(content) {
                 class="reply-avatar user--sm"
                 href="/home.jsp/home.gamer.com.tw/earth159357"
                 ><img
-                  src="https://avatar2.bahamut.com.tw/avataruserpic/e/a/earth159357/earth159357_s.png"
+                  src="https://avatar2.bahamut.com.tw/avataruserpic/j/o/john19945646/john19945646_s.png?v=1674486021"
               /></a>
               <div
                 class="reply-input"
@@ -577,14 +569,11 @@ function xrtiezeDetail(content) {
     }, 1000)
 }
 
-//跟贴列表
 function posttz(uuid, postid) {
     postDetail({ uuid, postId }).then(res => {
-        console.log('+++++++++++++++++', res);
     })
 }
 
-// 帖子点赞
 function addgpbp(type, id) {
     const data = {
         type: 1,
@@ -595,7 +584,7 @@ function addgpbp(type, id) {
         if (res.code == 200) {
             getDetail(uuidglobal);
         } else if (res.code == 401) {
-            showMessage('未登录', 0);
+            window.location.href = '/checkogin.controller';
         }
     })
 }
@@ -611,7 +600,7 @@ function commentGp(type, id) {
         if (res.code == 200) {
             getDetail(uuidglobal);
         } else if (res.code == 401) {
-            showMessage('未登录', 0);
+            window.location.href = '/checkogin.controller';
         }
     })
 }
@@ -636,7 +625,6 @@ const dict = {
     200: 99999,
 }
 function selectListChange(e) {
-    console.log('!!!!!!!!!!!!!!', e.value);
     if (!e.value) {
         return;
     }
@@ -654,7 +642,6 @@ function darenList() {
 
 }
 
-//回复楼层
 function quickPost() {
 
     const html = editor.getHtml();
@@ -670,13 +657,12 @@ function quickPost() {
             editor.clear();
             $('#floorTitle').val("");
         } else if (res.code == 401) {
-            showMessage('未登录', 0);
+            window.location.href = '/checkogin.controller';
         }
 
     })
 }
 
-// 发布文章
 
 function onpublishWZ() {
     const html = editor.getHtml();
@@ -692,7 +678,7 @@ function onpublishWZ() {
             getDetail(uuidglobal);
             onBackDetail();
         } else if (res.code == 401) {
-            showMessage('未登录', 0);
+            window.location.href = '/checkogin.controller';
         }
 
     })

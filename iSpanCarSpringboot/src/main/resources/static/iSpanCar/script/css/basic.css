@@ -170,7 +170,7 @@ table {
 #BH-wrapper {
   position: relative;
   width: 1000px;
-  margin: 0 auto;
+  margin: 160px auto;
 }
 #BH-wrapper.is-fixedmenu {
   margin-top: 50px;
@@ -8811,4 +8811,14 @@ textarea {
   object-fit: contain;
   width: 130px !important;
   height: auto !important;
+}
+
+#mainNav .navbar-brand {
+
+  color: #000 !important;
+
+}
+#mainNav .nav-link {
+
+  color: #000 !important;
 }

@@ -121,7 +121,6 @@ pageEncoding="UTF-8" %>
       href="https://i2.bahamut.com.tw/css/im_all-site-message-utils.css"
     />
 
-    <!-- Bootstrap 的 CSS 文件 -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
@@ -133,6 +132,8 @@ pageEncoding="UTF-8" %>
       href="https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css"
       rel="stylesheet"
     />
+
+    <link href="/iSpanCar/script/css/styles.css" rel="stylesheet" />
     <script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
@@ -144,10 +145,13 @@ pageEncoding="UTF-8" %>
     <script src="/iSpanCar/script/js/pageMe.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.2.3/axios.js"></script>
     <script src="/iSpanCar/script/js/request.js"></script>
+    <script src="/iSpanCar/script/js/scripts.js"></script>
     
     <title>貼文</title>
   </head>
   <body>
+
+
     <div id="BH-wrapper">
       <div id="BH-master">
         <!-- 分頁器 -->
@@ -231,7 +235,7 @@ pageEncoding="UTF-8" %>
             </table>
             <table  id="tab-list" class="b-list">
               <tbody>
-                
+
               </tbody>
             </table>
           </div>
@@ -547,5 +551,34 @@ pageEncoding="UTF-8" %>
       integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
       crossorigin="anonymous"
     ></script>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="#page-top">首頁</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><b><a class="nav-link" href="#about">車廠</a></b></li>
+            <li class="nav-item"><b><a class="nav-link" href="#projects">車輛</a></b></li>
+            <li class="nav-item"><b><a class="nav-link" href="#projects">保養廠</a></b></li>
+            <li class="nav-item"><b><a class="nav-link" href="/dforum/home">論壇</a></b></li>
+            <li class="nav-item"><b><a class="nav-link" href="#about">商城</a></b></li>
+            <li class="nav-item"><b><a class="nav-link" href="#signup">登入</a></b></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+
+    <footer class="footer bg-black small text-center text-white-50">
+    <div class="container px-4 px-lg-5"><a class="nav-link"  href = "checkogin.controller" >Copyright &copy; Your Website 2022</a></div>
+  </footer>
   </body>
 </html>
