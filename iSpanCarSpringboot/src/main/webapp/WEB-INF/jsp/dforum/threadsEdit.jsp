@@ -599,13 +599,13 @@
         $("#body").val(editor.getHtml())
         let formDataJson = formVail()
         if (formDataJson) {
-            axios.post('/thread', formDataJson).then((res) => {
+            axios.post('/backstage/thread', formDataJson).then((res) => {
                 if(res.data === "no login"){
                     Swal.fire("未登錄！請先登錄!", "", "error");
                     return;
                 }
                 Swal.fire("操作成功!", "", "success").then(r=>{
-                    window.location.href = "/threadsView"
+                    window.location.href = "/backstage/threadsView"
                 });
             }).catch((error) => {
 

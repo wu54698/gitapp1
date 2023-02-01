@@ -86,7 +86,7 @@ function addListItem(res, list) {
 
 function deletePost(id) {
 	$.ajax({
-		url: "/post?id=" + id,
+		url: "/backstage/post?id=" + id,
 		method: "DELETE",
 		success: function(res) {
 			console.log(res);
@@ -102,7 +102,7 @@ $(document).ready(function() {
 	var id = getUrlVars()['id'];
 	var list = $("#posts");
 	$.ajax({
-		url: "/thread?id=" + id,
+		url: "/backstage/thread?id=" + id,
 		method: "GET",
 		dataType: "json",
 		success: function(res) {

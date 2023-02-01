@@ -268,7 +268,7 @@
 
                 <br/>
 
-                <form id="saveForm" action="/thread" method="post" accept-charset="UTF-8">
+                <form id="saveForm" action="/backstage/thread" method="post" accept-charset="UTF-8">
                     <div id="catediv" class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-sm">分類</span>
@@ -601,13 +601,13 @@
         $("#body").val(editor.getHtml())
         let formDataJson = formVail()
         if (formDataJson) {
-            axios.post('/thread', formDataJson).then((res) => {
+            axios.post('/backstage/thread', formDataJson).then((res) => {
                 if (res.data === "no login") {
                     Swal.fire("未登錄！請先登錄!", "", "error");
                     return;
                 }
                 Swal.fire("操作成功!", "", "success").then(r => {
-                    window.location.href = "/threadsView"
+                    window.location.href = "/backstage/threadsView"
                 });
             }).catch((error) => {
 

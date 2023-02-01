@@ -272,7 +272,7 @@
                 <div class="row">
                     <div class="col-12">
                         <input type="button" style="background-color:#2db5c2;border-color:#2db5c2"
-                               onclick="location.href='/thread/newthread'" class="btn btn-primary" value="新增文章">
+                               onclick="location.href='/backstage/thread/newthread'" class="btn btn-primary" value="新增文章">
                         <input type="button" style="background-color:#2db5c2;border-color:#2db5c2"
                                onclick="window.open('/dforum/home')" class="btn btn-primary" value="論壇首頁">
                     </div>
@@ -300,11 +300,11 @@
                             <td class="td-info">${post.member.accountnumber}</td>
                             <td class="td-info">${post.time}</td>
                             <td>
-                                <button onclick="location.href = '/thread/${post.id}?edit=true'"
+                                <button onclick="location.href = '/backstage/thread/${post.id}?edit=true'"
                                         class="btn btn-info btn-circle"><i class="fa-solid fa-pen"></i></button>
                                 <button onclick="deletePost(${post.id})" class="btn btn-danger btn-circle"><i
                                         class="fas fa-trash"></i></button>
-                                <!-- <button onclick="location.href = '/thread/${post.id}'" class="btn btn-info btn-circle"><i class="fa-regular fa-circle-info"></i></button>-->
+                                <!-- <button onclick="location.href = '/backstage/thread/${post.id}'" class="btn btn-info btn-circle"><i class="fa-regular fa-circle-info"></i></button>-->
                             </td>
                         </tr>
                     </c:forEach>
@@ -402,7 +402,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: "DELETE",
-                    url: "/thread/" + id,
+                    url: "/backstage/thread/" + id,
                     success: function (res) {
                         if(res == '操作成功！'){
                             $("#pos_row_" + id).remove();
@@ -440,7 +440,7 @@
     }
 
     $(".td-info").click(function (target) {
-        location.href = '/thread/' + $(target.target).parent().data("post-id")
+        location.href = '/backstage/thread/' + $(target.target).parent().data("post-id")
     })
 
 </script>

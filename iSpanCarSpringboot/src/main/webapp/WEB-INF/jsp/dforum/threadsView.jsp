@@ -115,7 +115,7 @@
         </li>
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item"><a class="nav-link" href="/threadsView">
+        <li class="nav-item"><a class="nav-link" href="/backstage/threadsView">
             <i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
         </a></li>
 
@@ -229,7 +229,7 @@
 
                 <br/>
 
-                <form id="postForm" action="/thread" method="post" accept-charset="UTF-8">
+                <form id="postForm" action="/backstage/thread" method="post" accept-charset="UTF-8">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">分類</span>
@@ -360,7 +360,7 @@
         }
         $.ajax({
             type: "POST",
-            url: "/post/message",
+            url: "/backstage/post/message",
             data: JSON.stringify({content: val, post: {id: ${post.id}}}),
             contentType: 'application/json',
             success: (res) => {
@@ -378,7 +378,7 @@
     function listMessage() {
         $.ajax({
             type: "GET",
-            url: "/post/message/${post.id}",
+            url: "/backstage/post/message/${post.id}",
             dataType: "json",
             success: (res) => {
                 let html = '';

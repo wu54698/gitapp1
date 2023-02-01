@@ -40,7 +40,7 @@ function addListItem(res, list) {
 $(document).ready(function() {
 	var list = $(".list-group");
 	$.ajax({
-		url: "/thread/all",
+		url: "/backstage/thread/all",
 		method: "GET",
 		dataType: "json",
 		success: function(res) {
