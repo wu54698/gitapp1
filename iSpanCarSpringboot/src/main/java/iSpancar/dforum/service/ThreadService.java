@@ -46,7 +46,7 @@ public class ThreadService {
 
         if (StringUtils.hasText(title)) {
             q.where(
-                    criteria.like(root.get("title"), title)
+                    criteria.like(root.get("title"), "%"+title+"%")
             );
         }
 

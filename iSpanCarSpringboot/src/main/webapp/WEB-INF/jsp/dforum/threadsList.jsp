@@ -285,6 +285,7 @@
                     <tr>
                         <th>id</th>
                         <th>類別</th>
+                        <th>分類</th>
                         <th>標題</th>
                         <th>創建人</th>
                         <th>創建時間</th>
@@ -296,6 +297,7 @@
                         <tr data-post-id="${post.id}" id="pos_row_${post.id}">
                             <td class="td-info">${post.id}</td>
                             <td class="td-info">${post.thread.category.name}</td>
+                            <td class="td-info">${post.question}</td>
                             <td class="td-info">${post.title}</td>
                             <td class="td-info">${post.member.accountnumber}</td>
                             <td class="td-info">${post.time}</td>
@@ -419,7 +421,7 @@
     $(document).ready(
         function () {
             $.ajax({
-                url: "/category/all",
+                url: "/backstage/category/all",
                 method: "GET",
                 dataType: "json",
                 success: function (res) {

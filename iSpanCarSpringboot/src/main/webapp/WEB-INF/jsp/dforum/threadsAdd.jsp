@@ -292,6 +292,22 @@
                             <option value="false">否</option>
                         </select>
                     </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">問題分類</span>
+                        </div>
+                        <select class="form-control form-select" name="question">
+                            <option selected="selected" value="問題">問題</option>
+                            <option value="情報">情報</option>
+                            <option value="心得">心得</option>
+                            <option value="討論">討論</option>
+                            <option value="攻略">攻略</option>
+                            <option value="密技">密技</option>
+                            <option value="閒聊">閒聊</option>
+                            <option value="其他">其他</option>
+                            <option value="空白">空白</option>
+                        </select>
+                    </div>
 
 
                     <div id="newt" style="width: 100%; height: 100%">
@@ -380,7 +396,7 @@
         function () {
             $("#time").val(new Date().getTime());
             $.ajax({
-                url: "/category/all",
+                url: "/backstage/category/all",
                 method: "GET",
                 dataType: "json",
                 success: function (res) {
