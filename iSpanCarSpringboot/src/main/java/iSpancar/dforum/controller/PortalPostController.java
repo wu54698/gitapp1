@@ -369,6 +369,7 @@ public class PortalPostController {
 		post.setLastReplay(currUser);
 		post.setLastReplyTime(new Date());
 		post.setCategoryId(postMainSaveParam.getCategory());
+		post.setQuestion(postMainSaveParam.getQuestion());
 		postRepository.save(post);
 
 		// 原帖人气计算

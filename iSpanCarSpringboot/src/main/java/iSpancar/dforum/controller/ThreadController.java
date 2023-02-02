@@ -166,7 +166,7 @@ public class ThreadController {
 			delPost.setId(id);
 			postMessageRepository.deleteByPost(delPost);
 			postService.deleteById(id);
-		}catch (Exception e){
+		} catch (Exception e) {
 			return ResponseEntity.ok("刪除失敗，已有留言！");
 		}
 		return ResponseEntity.ok("操作成功！");
