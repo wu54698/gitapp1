@@ -54,7 +54,7 @@ function categoryClick(id) {
 
     changePage({pageNum: 0, pageSize: 10, categoryId: id})
 }
-function changePage({ pageNum, pageSize, best, likeCountEnd, likeCountStart, categoryId }) {
+function changePage({ pageNum, pageSize, best, likeCountEnd, likeCountStart, categoryId, title }) {
   getList({
     pageNum,
     pageSize,
@@ -62,6 +62,7 @@ function changePage({ pageNum, pageSize, best, likeCountEnd, likeCountStart, cat
     likeCountEnd,
     likeCountStart,
       categoryId,
+      title,
     callBack: (data) => {
       const { content, totalElements, totalPages } = data;
       ListData = content;
@@ -83,8 +84,8 @@ function xrList(content) {
     var str = ``;
     for(var i = 0; i < content.length; i++) {
         var item = content[i];
-        var { floorCount, title, bodySimple, image, interactiveCount, popularityCount, lastReplyTime, lastReplay, uuid, thread } = item;
-      
+        var { floorCount, title, question, bodySimple, image, interactiveCount, popularityCount, lastReplyTime, lastReplay, uuid, thread } = item;
+        var imgurl = `/iSpanCar/script/img/${question}.png`;
         str += `
         <tr class="b-list__row b-list-item b-imglist-item" id=${uuid+'|'+thread.category.id}>
         <td class="b-list__summary">
@@ -101,7 +102,7 @@ function xrList(content) {
             <div class='b-list__img lazyloaded' id="list_img">
             ${
                 (image && image != 'null') ? image :
-                "<img class='b-list__img lazyloaded' src ='https://i1.ytimg.com/vi/tAHUxr8oJlQ/hqdefault.jpg'/>"
+                "<img class='b-list__img lazyloaded' src ="+ imgurl + "/>"
             }
             </div>
             <div class="imglist-text">
@@ -111,7 +112,7 @@ function xrList(content) {
                   href="C.php?bsn=23805&amp;snA=687636&amp;tnum=3&amp;bPage=2"
                   class="b-list__main__title"
                 >
-                  ${title}
+                  ${question && `【${question}】`||''}${title}
                 </p>
               </div>
               <p class="b-list__brief">
@@ -161,6 +162,7 @@ function xrList(content) {
         categoryId = this.id.split('|')[1];
         uuidglobal = id;
         document.getElementById("BH-wrapper").style.display = "none";
+        document.getElementById("mainNav").style.display = "none";
         document.getElementsByClassName("detailshow")[0].style.display =
           "block";
           getDetail(id);

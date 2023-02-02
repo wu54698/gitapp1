@@ -28,6 +28,7 @@ function getList({
   likeCountStart,
   likeCountEnd,
   categoryId,
+  title,
   callBack,
 }) {
   $.get(
@@ -39,6 +40,7 @@ function getList({
       likeCountEnd,
       likeCountStart,
       categoryId,
+      title,
     },
     function (res) {
       const { content, totalElements, totalPages } = res.data;

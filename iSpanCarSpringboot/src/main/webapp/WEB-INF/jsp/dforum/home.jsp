@@ -146,13 +146,130 @@ pageEncoding="UTF-8" %>
     <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.2.3/axios.js"></script>
     <script src="/iSpanCar/script/js/request.js"></script>
     <script src="/iSpanCar/script/js/scripts.js"></script>
-    
     <title>貼文</title>
   </head>
   <body>
 
 
+<%--  --%>
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container px-4 px-lg-5">
+    <a class="navbar-brand" href="#page-top">首頁</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
+      Menu
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><b><a class="nav-link" href="#about">車廠</a></b></li>
+        <li class="nav-item"><b><a class="nav-link" href="#projects">車輛</a></b></li>
+        <li class="nav-item"><b><a class="nav-link" href="#projects">保養廠</a></b></li>
+        <li class="nav-item"><b><a class="nav-link" href="/dforum/home">論壇</a></b></li>
+        <li class="nav-item"><b><a class="nav-link" href="#about">商城</a></b></li>
+        <li class="nav-item">
+          <b>
+            <a id="login-info" class="nav-link" href="${loginUser == null?'/login':'javascripe:void(0)'}">
+            ${loginUser == null ? '登入' : '歡迎：'.concat(loginUser.memberName).concat('(').concat(loginUser.accountnumber).concat(')')}
+            </a>
+        </b></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="modal-custom" tabindex="-1" id="editor">
+  <div id="editor—wrapper">
+    <div id="toolbar-container2"></div>
+
+    <div class="c-post__header c-post__header_custom">
+      <h3>發表新文章</h3>
+    </div>
+
+    <div class="c-select-data">
+      <select class="dropdown-group dropdown-group-primary is-error" id="SelectData">
+        <option selected="selected" value="問題">問題</option>
+        <option value="情報">情報</option>
+        <option value="心得">心得</option>
+        <option value="討論">討論</option>
+        <option value="攻略">攻略</option>
+        <option value="密技">密技</option>
+        <option value="閒聊">閒聊</option>
+        <option value="其他">其他</option>
+        <option value="空白">空白</option>
+      </select>
+
+      <select class="dropdown-group dropdown-group-primary" id="SelectData2">
+        <option value ="1">dataOne</option>
+        <option value ="2">dataTwo</option>
+        <option value ="3">dataThree</option>
+      </select>
+    </div>
+
+    <input type="text" id="select-input" class="form-control is-error" name="title" value="" placeholder="請輸入文章標題⋯" onkeyup="checkOtherPlatformInvite()">
+    <div class="c-section__main">
+      <div class="c-post main_editor_section box-shadow__fromabove">
+        <div id="editor-container2"></div>
+      </div>
+    </div>
+
+    <div class="menu__post__btn">
+      <div class="menu_cancel" onclick="onBackDetail()">
+        <img src="https://i2.bahamut.com.tw/forum/icons/post_del.svg" />
+        <span>取消</span>
+      </div>
+
+      <div class="menu_confirm" onclick="onpublishWZ()">
+        <img src="https://i2.bahamut.com.tw/forum/icons/post.svg" />
+        <span>發佈文章</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showFW() {
+    document.getElementById("editor").style.display = "block";
+  }
+  const editorConfig2 = {
+    placeholder:"請輸入文章內容...",
+    onChange(editor) {
+      const html = editor.getHtml();
+      console.log("editor content", html);
+      // 也可以同步到 <textarea>
+    },
+  };
+  const editor2 = window.wangEditor.createEditor({
+    selector: "#editor-container2",
+    html: "<p><br></p>",
+    config: editorConfig2,
+    mode: "default", // or 'simple'
+  });
+
+  const toolbarConfig2 = {
+    excludeKeys: ["fullScreen"],
+  };
+
+  const toolbar2 = window.wangEditor.createToolbar({
+    editor: editor2,
+    selector: "#toolbar-container2",
+    config: toolbarConfig2,
+    mode: "default", // or 'simple'
+  });
+
+  function onpublishWZ() {
+    console.log("发布文章", editor2.getHtml(), $('#select-input').val(), $('#SelectData').val(), $('#SelectData2').val());
+
+    changePage({ pageNum: 0, pageSize: 10});
+  }
+</script>
+
+<%----%>
     <div id="BH-wrapper">
+
+
       <div id="BH-master">
         <!-- 分頁器 -->
 
@@ -165,7 +282,21 @@ pageEncoding="UTF-8" %>
       <div id="catetrys">
       </div>
         <!-- 列表開始 -->
+      <div class="topBar">
+        <div class="bar-content">
+          <div class="bar-search">
+            <img src="/static/iSpanCar/script/img/search.png" />
+            <input id="searchInput" placeholder="輸入 1 或多字元來找文章…" onchange="searchChange()" />
+          </div>
 
+          <div class="fw-btn" onclick="showFW()">發文</div>
+        </div>
+      </div>
+      <script>
+        function searchChange(e) {
+          changePage({pageNum: 0, pageSize: 10, title:  $('#searchInput').val() })
+        }
+      </script>
         <form
           name="formm"
           method="post"
@@ -254,7 +385,7 @@ pageEncoding="UTF-8" %>
     <!-- ------------------------------------詳情---------------------------------------------------------------- -->
 
     <div id="BH-master" class="detailshow" style="position: relative">
-      
+
       <div class="menu__post__btn" style="right: -80px;">
 
         <div class="menu_cancel" onclick="backList()">
@@ -521,6 +652,7 @@ pageEncoding="UTF-8" %>
         document.getElementById("BH-wrapper").style.display = "block";
         document.getElementsByClassName("detailshow")[0].style.display =
           "none";
+        document.getElementById("mainNav").style.display = "block";
       }
 
       //   詳情回覆
@@ -551,29 +683,6 @@ pageEncoding="UTF-8" %>
       integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
       crossorigin="anonymous"
     ></script>
-
-
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-      <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="#page-top">首頁</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation">
-          Menu
-          <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><b><a class="nav-link" href="#about">車廠</a></b></li>
-            <li class="nav-item"><b><a class="nav-link" href="#projects">車輛</a></b></li>
-            <li class="nav-item"><b><a class="nav-link" href="#projects">保養廠</a></b></li>
-            <li class="nav-item"><b><a class="nav-link" href="/dforum/home">論壇</a></b></li>
-            <li class="nav-item"><b><a class="nav-link" href="#about">商城</a></b></li>
-            <li class="nav-item"><b><a class="nav-link" href="#signup">登入</a></b></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
 
 
 
