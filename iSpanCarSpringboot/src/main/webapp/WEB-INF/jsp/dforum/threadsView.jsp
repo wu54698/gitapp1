@@ -365,7 +365,7 @@
             contentType: 'application/json',
             success: (res) => {
                 if ("no login" === res) {
-                    Swal.fire("未登录，请先登录!", "", "error");
+                    Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login");
                     return;
                 }
                 Swal.fire(res,"","success");

@@ -617,7 +617,7 @@
         if (formDataJson) {
             axios.post('/backstage/thread', formDataJson).then((res) => {
                 if(res.data === "no login"){
-                    Swal.fire("未登錄！請先登錄!", "", "error");
+                    Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login");
                     return;
                 }
                 Swal.fire("操作成功!", "", "success").then(r=>{
