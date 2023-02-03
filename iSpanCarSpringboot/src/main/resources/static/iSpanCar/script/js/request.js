@@ -8,6 +8,10 @@ axios.interceptors.response.use(
     err => {}
 )
 
+function sendtext(data) {
+  return axios.post('/api/dforum/post/new', data);
+}
+
 // 分类
 function getCategory() {
   return axios.get('/api/dforum/category')

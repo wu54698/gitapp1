@@ -86,6 +86,7 @@ function xrList(content) {
         var item = content[i];
         var { floorCount, title, question, bodySimple, image, interactiveCount, popularityCount, lastReplyTime, lastReplay, uuid, thread } = item;
         var imgurl = `/iSpanCar/script/img/${question}.png`;
+        var img =  question != '空白' ? "<img class='b-list__img lazyloaded' src ="+ imgurl + "/>" : '';
         str += `
         <tr class="b-list__row b-list-item b-imglist-item" id=${uuid+'|'+thread.category.id}>
         <td class="b-list__summary">
@@ -100,9 +101,9 @@ function xrList(content) {
             data-gtm="B頁文章列表-縮圖"
           >
             <div class='b-list__img lazyloaded' id="list_img">
+            
             ${
-                (image && image != 'null') ? image :
-                "<img class='b-list__img lazyloaded' src ="+ imgurl + "/>"
+            (image && image != 'null') ? image : img
             }
             </div>
             <div class="imglist-text">
@@ -197,16 +198,28 @@ function replyToFloor(e, id, name, i) {
     selectMen = name;
     $(`#lyenter${i}`).html(`@`+ e + ' ')
 }
+function throttle(fn, interval) {
+    var timer;
+    return function() {
+        if (timer) {
+            return false;
+        }
+        timer = setTimeout(function() {
+            console.log("throttle---");
+            fn.apply();
+            clearTimeout(timer);
+            timer = null;
+        }, interval)}
+}
 
 function xrhfinput(i) {
     const jq$ = $;
 
     document
         .getElementById(`lyenter${i}`)
-        .addEventListener("keydown",  (e) => {
+        .addEventListener("keydown", (e) => {
             if (e.keyCode == 13) {
                 const tiezeItem = tiezeList[i];
-                console.log('&&&&&&&&&&&&', tiezeItem);
                 var content = $(`#lyenter${i}`).val();
                 console.log("回车监听");
                 content = jq$.emojiParse({
@@ -264,7 +277,7 @@ function xrtiezeDetail(content) {
     for(let i = 0; i < content.length; i++) {
         const item = content[i];
         console.log('详情', item);
-        const { body, member, title, time, floorCount, postMessages, likeCount, disliked, liked, disLikeCount, thread } = item;
+        const { body, member, title, question, time, floorCount, postMessages, likeCount, disliked, liked, disLikeCount, thread } = item;
         if (floorCount == 1) {
             globalMember = member;
         }
@@ -388,7 +401,7 @@ function xrtiezeDetail(content) {
         </div>
         <div class="c-section__main c-post">
           <div class="c-post__header">
-            <h1 class="c-post__header__title">${title}</h1>
+            <h1 class="c-post__header__title">${question && '【'+question+'】'}${title}</h1>
             <div class="tag-category">
               <a href="javascript:;">
                 <div class="tag-category_item">${thread.category.name}</div>

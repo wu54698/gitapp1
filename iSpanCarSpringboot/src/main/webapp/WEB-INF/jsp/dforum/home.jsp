@@ -202,13 +202,11 @@ pageEncoding="UTF-8" %>
       </select>
 
       <select class="dropdown-group dropdown-group-primary" id="SelectData2">
-        <option value ="1">dataOne</option>
-        <option value ="2">dataTwo</option>
-        <option value ="3">dataThree</option>
+        <div id="SelectData3"></div>
       </select>
     </div>
 
-    <input type="text" id="select-input" class="form-control is-error" name="title" value="" placeholder="請輸入文章標題⋯" onkeyup="checkOtherPlatformInvite()">
+    <input type="text" id="select-input" class="form-control is-error" name="title" value="" placeholder="請輸入文章標題⋯">
     <div class="c-section__main">
       <div class="c-post main_editor_section box-shadow__fromabove">
         <div id="editor-container2"></div>
@@ -221,7 +219,7 @@ pageEncoding="UTF-8" %>
         <span>取消</span>
       </div>
 
-      <div class="menu_confirm" onclick="onpublishWZ()">
+      <div class="menu_confirm" onclick="onpublishWZ2()">
         <img src="https://i2.bahamut.com.tw/forum/icons/post.svg" />
         <span>發佈文章</span>
       </div>
@@ -232,15 +230,28 @@ pageEncoding="UTF-8" %>
 <script>
   function showFW() {
     document.getElementById("editor").style.display = "block";
+    let str = '';
+    for(let i = 0; i< categoryList.length; i++) {
+      const item = categoryList[i];
+      str += '<option value ="' + item.id+'">'+item.name+'</option>';
+
+    }
+    $('#SelectData2').append(str)
   }
+
   const editorConfig2 = {
-    placeholder:"請輸入文章內容...",
+    MENU_CONF: {
+      uploadImage: {
+        // 小於該值就插入 base64 格式（而不上傳），默認為 0
+        server: '/api/upload-image',
+        base64LimitSize: 50000 * 1024 // 50000kb
+      }
+    },
+    placeholder:"請輸入内容...",
     onChange(editor) {
-      const html = editor.getHtml();
-      console.log("editor content", html);
-      // 也可以同步到 <textarea>
     },
   };
+
   const editor2 = window.wangEditor.createEditor({
     selector: "#editor-container2",
     html: "<p><br></p>",
@@ -252,6 +263,7 @@ pageEncoding="UTF-8" %>
     excludeKeys: ["fullScreen"],
   };
 
+
   const toolbar2 = window.wangEditor.createToolbar({
     editor: editor2,
     selector: "#toolbar-container2",
@@ -259,10 +271,20 @@ pageEncoding="UTF-8" %>
     mode: "default", // or 'simple'
   });
 
-  function onpublishWZ() {
+  function onpublishWZ2() {
     console.log("发布文章", editor2.getHtml(), $('#select-input').val(), $('#SelectData').val(), $('#SelectData2').val());
 
-    changePage({ pageNum: 0, pageSize: 10});
+    sendtext({
+      title: $('#select-input').val(),
+      body: editor2.getHtml(),
+      category: $('#SelectData2').val(),
+      question: $('#SelectData').val(),
+      best: false,
+    }).then(res => {
+      showMessage('success', 1);
+      onBackDetail();
+      changePage({ pageNum: 0, pageSize: 10});
+    })
   }
 </script>
 
