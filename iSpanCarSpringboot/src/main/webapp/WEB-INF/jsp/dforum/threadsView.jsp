@@ -365,7 +365,7 @@
             contentType: 'application/json',
             success: (res) => {
                 if ("no login" === res) {
-                    Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login");
+                    Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login?redirectUrl=/backstage/threadsView");
                     return;
                 }
                 Swal.fire(res,"","success");

@@ -186,8 +186,7 @@ function getDetail(uuid) {
         xrtiezeDetail(content || []);
 
         if (code == 401) {
-            window.location.href = '/checkogin.controller';
-            return;
+            Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login?redirectUrl=/dforum/home");
         }
     })
 }
@@ -247,7 +246,7 @@ function xrhfinput(i) {
                         getDetail(uuidglobal);
                         $(`#lyenter${i}`).val("");
                     } else if (res.code == 401) {
-                        window.location.href = '/checkogin.controller';
+                        Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login?redirectUrl=/dforum/home");
                     }
 
                 })
@@ -599,7 +598,7 @@ function addgpbp(type, id) {
         if (res.code == 200) {
             getDetail(uuidglobal);
         } else if (res.code == 401) {
-            window.location.href = '/checkogin.controller';
+            Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login?redirectUrl=/dforum/home");
         }
     })
 }
@@ -615,7 +614,7 @@ function commentGp(type, id) {
         if (res.code == 200) {
             getDetail(uuidglobal);
         } else if (res.code == 401) {
-            window.location.href = '/checkogin.controller';
+            Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login?redirectUrl=/dforum/home");
         }
     })
 }
@@ -672,7 +671,7 @@ function quickPost() {
             editor.clear();
             $('#floorTitle').val("");
         } else if (res.code == 401) {
-            window.location.href = '/checkogin.controller';
+            Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login?redirectUrl=/dforum/home");
         }
 
     })
@@ -693,7 +692,7 @@ function onpublishWZ() {
             getDetail(uuidglobal);
             onBackDetail();
         } else if (res.code == 401) {
-            window.location.href = '/checkogin.controller';
+            Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login?redirectUrl=/dforum/home");
         }
 
     })

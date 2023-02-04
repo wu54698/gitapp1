@@ -146,6 +146,7 @@ pageEncoding="UTF-8" %>
     <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.2.3/axios.js"></script>
     <script src="/iSpanCar/script/js/request.js"></script>
     <script src="/iSpanCar/script/js/scripts.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>貼文</title>
   </head>
   <body>
