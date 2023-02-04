@@ -282,9 +282,15 @@ pageEncoding="UTF-8" %>
       question: $('#SelectData').val(),
       best: false,
     }).then(res => {
-      showMessage('success', 1);
-      onBackDetail();
-      changePage({ pageNum: 0, pageSize: 10});
+      if (res.code == 200) {
+        showMessage('success', 1);
+        onBackDetail();
+        changePage({ pageNum: 0, pageSize: 10});
+      } else if (res.code == 401) {
+        onBackDetail()
+        Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login?redirectUrl=/dforum/home");
+      }
+
     })
   }
 </script>
