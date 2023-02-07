@@ -16,19 +16,19 @@ public class CartBean {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cartId")
+	@Column(name = "cartid")
 	private String cartId;
 	
-	@Column(name = "memberId")
+	@Column(name = "memberid")
 	private String memberId;
 	
-	@Column(name = "productNumber")
+	@Column(name = "productnumber")
 	private String productNumber ;
 	
-	@Column(name = "productName")
+	@Column(name = "productname")
 	private String productName ;
 	
-	@Column(name = "productPrice")
+	@Column(name = "productprice")
 	private String productPrice ;
 	
 	@Column(name = "quantity")

@@ -84,11 +84,13 @@
 
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link"
-				href="CarDealerForm"> <i
-					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="CarInfoForm"> <i
-					class="fa-solid fa-car"></i> <span>車輛</span></a></li>
+							href="findAllDealer.controller">
+							<i class="fa-solid fa-car"></i> <span>車廠</span>
+						</a></li>
+            <li class="nav-item"><a class="nav-link"
+							href="SelectAllCar.controller">
+					<i class="fa-solid fa-car"></i> <span>車輛</span>
+						</a></li>
 
 			<!-- Divider -->
 			<!-- <hr class="sidebar-divider"> -->
@@ -110,11 +112,11 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 					
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+			<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
 					<i class="fas fa-fw fa-table"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -181,7 +183,7 @@
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -214,7 +216,7 @@
 				<!-- Page Heading -->
 				<!-- <h1 class="h3 msb-4 text-gray-800" >購物車</h1> -->
 
-				<div id="app">
+				<div id="app" class="app">
 
 
 					<table>
@@ -239,7 +241,7 @@
 									<td class="price" id="price">${cart.productPrice}</td>
 									<td class="quantity" id="quantity">${cart.quantity}</td>
 									<td>
-										<form action="<c:url value='/cartUpdate.controller'/>"
+										<form action="cartUpdate.controller"
 											method="POST" enctype="multipart/form-data">
 											<input type="button" class="decrement" value="-"> <input
 												type="text" name="quantity" class="cart-count" value="1">
@@ -250,11 +252,11 @@
 										</form>
 									</td>
 									<td>
-										<form action="<c:url value='/cartdeletecart.controller'/>"
-											method="POST" enctype="multipart/form-data">
+										<form  action="/backstage/cartdeletecart.controller"
+											method="POST" enctype="multipart/form-data" class="deleteForm">
 											<input type="hidden" style="display: none" name="cartId"
-												value="${cart.cartId}"> <input type="submit"
-												value="刪除">
+												value="${cart.cartId}"> <input type="button"
+												value="刪除" class="delete">
 										</form>
 									</td>
 								</tr>
@@ -266,7 +268,7 @@
 					<div align="right">
 
 						總計:<span id="total"></span>元 <br>
-						<form action="<c:url value='/cartQueryAllCartById.controller'/>" method="POST"
+						<form action="cartQueryAllCartById.controller" method="POST"
 							enctype="multipart/form-data">
 							前往結帳<input type="text"  name="memberId" value="${login.accountnumber}">
 <!-- style="display: none" readonly -->
@@ -336,6 +338,7 @@
 
 	<!-- Custom scripts for all pages-->
 	<script src="http://localhost:8080/iSpanCar/script/js/sb-admin-2.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
 		$(document).ready(function() {
 			initialize();
@@ -369,13 +372,37 @@
 			$(".decrement").click(function() {
 				if ($(this).next(".cart-count").val() > 1) {
 					var n = $(this).next(".cart-count").val();
-					n--
+					
 					$(this).next(".cart-count").val(n)
 				}
 			})
 
 		});
+		$(function(){
+			$('.delete').on('click',function(){
+				
+				 Swal.fire({
+				      title: '確定刪除?',
+				      text: "資料將被刪除",
+				      icon: 'warning',
+				      showCancelButton: true,
+				      confirmButtonColor: '#3085d6',
+				      cancelButtonColor: '#d33',
+				      confirmButtonText: '刪除!',
+				      cancelButtonText: '取消'
+				    }).then((result) => {
+				      if (result.isConfirmed) {
+ 				        $(this).closest(".deleteForm").submit();
+				      }
+				    })
+			})
+		})
+		
+		   
+		 
+
 	</script>
+	
 </body>
 
 

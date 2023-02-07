@@ -88,13 +88,12 @@
 			</a></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link"
-				href="CarDealerForm"> <i
-					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="CarInfoForm">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
+			<li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
+							<i class="fa-solid fa-car"></i> <span>車廠</span>
 			</a></li>
+        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				<i class="fa-solid fa-car"></i> <span>車輛</span>
+		</a></li>
 
 			<!-- Divider -->
 			<!-- <hr class="sidebar-divider"> -->
@@ -116,11 +115,11 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 			</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+			<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -187,7 +186,7 @@
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -219,7 +218,7 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-	<table>
+	<table border =1>
 
 		<c:set value='${Service}' var='Service'>
 		</c:set>
@@ -231,17 +230,20 @@
 					<th>保養廠資訊</th>
 					<th>聯繫</th>
 					<th>原廠副廠</th>
-
+					<th>修改</th>
+					<th>刪除</th>
+					
 											
 				</tr>
 			<tr>
-				<td>${Service.service_name}</td>
-				<td><img src="serviceimage.controller?service_name=${Service.service_name}"  width="180" height="180"/></td>
+				<td class="servicename">${Service.servicename}</td>
+				<td><img src="serviceimage.controller?servicename=${Service.servicename}"  width="180" height="180"/></td>
 				<td>${Service.servicedescription}</td>
 				<td>${Service.serviceinfomation}</td>
 				<td>${Service.contactperson}</td>
-				<td>${Service.reseller_nonreseller}</td>
-				
+				<td>${Service.resellernonreseller}</td>
+				<td><form action="JumptoUpdateService" method="post"><input type="hidden" value="${Service.servicename}" name="servicename"><button type="submit" class="update btn btn-info btn-circle" id="btn2"  style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen fa-lg"></i></button></form></td>
+				<td class="button"><button class="delete btn btn-danger btn-circle"><i class="fas fa-trash"></i></button></td>
 			</tr>
 		
 	
@@ -287,7 +289,7 @@
                     </button>
                 </div>
                 <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
+                    <a class="btn btn-primary" href="/logout.controller">登出</a></div>
 <!--                 <div class="modal-footer"> -->
                    
 <!--                 </div> -->
@@ -309,10 +311,55 @@
 		crossorigin="anonymous"></script>
 	<script type="text/javascript" charset="utf8"
 		src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
-// 		$(document).ready(function() {
-// 			$('#signin').DataTable();
-// 		});
+	</script>
+	<script type="text/javascript">
+	$(function(){
+		
+	
+	$('#content').on('click','.delete', function () {
+		
+	     Swal.fire({
+	        title: '確定刪除?',
+	        text: "資料將被刪除",
+	        icon: 'warning',
+	        showCancelButton: true,
+	        confirmButtonColor: '#3085d6',
+	        cancelButtonColor: '#d33',
+	        confirmButtonText: '刪除',
+	        cancelButtonText: '取消'
+	      }).then((result) => {
+	        if (result.isConfirmed) {
+	          Swal.fire(
+	            '已刪除!',
+	            'Your file has been deleted.',
+	            'success'
+	          )
+	          console.log($(this).parent().parent().children('.servicename').text()+'this');
+	         
+	     $.ajax({
+	      type: "POST",
+	      url: "<c:url value='/backstage/serviceDeleteController'/>",
+	      //contentType text
+	      context: this,
+	      dataType: "text",
+	      data: {
+	       "servicename": $(this).parent().parent().children('.servicename').text()
+	      },
+	      success: function (response) {
+	       console.log("OK")
+	       $(this).parent().parent().remove();
+	      }
+	     })
+	          
+	        }
+	      })
+	     
+
+	    });
+	})
+	
 	</script>
 
 </body>

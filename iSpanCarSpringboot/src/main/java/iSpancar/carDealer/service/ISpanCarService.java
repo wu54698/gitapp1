@@ -20,8 +20,10 @@ import iSpancar.carDealer.dao.CarDealerDao;
 import iSpancar.carDealer.dao.CarDealerRepository;
 import iSpancar.carDealer.model.CarDealerBean;
 import iSpancar.carInfo.dao.CarInfoDao;
+import iSpancar.carInfo.dao.CarInfoImageRepository;
 import iSpancar.carInfo.dao.CarInfoRepository;
 import iSpancar.carInfo.model.CarInfoBean;
+import iSpancar.carInfo.model.CarInfoImageBean;
 
 @Service
 @Transactional
@@ -32,6 +34,9 @@ public class ISpanCarService {
 	
 	@Autowired
 	private CarInfoRepository carInfoRepository;
+	
+	@Autowired
+	private CarInfoImageRepository carInfoImageRepository;
 
 	public Blob filetoBlob(InputStream is, long size) throws IOException, SerialException, SQLException {
 		byte[] b = new byte[(int) size];
@@ -128,5 +133,28 @@ public class ISpanCarService {
 			List<CarInfoBean> carInfoBean = carInfoRepository.findByCarNoLike(carNo);
 			return carInfoBean;
 	}
-
+	
+	//存放多圖的Service
+	//新增多圖
+	public CarInfoImageBean addMultiImage(CarInfoImageBean imageBean) {
+		
+		carInfoImageRepository.save(imageBean);
+		return imageBean;
+	}
+	
+	//修改車輛多圖
+	public CarInfoImageBean updateMultiImageByCarNo(CarInfoImageBean imageBean) {
+		
+		CarInfoImageBean multiImageBean = carInfoImageRepository.save(imageBean);
+		return multiImageBean;
+	}
+	
+	
+	//查詢車輛下全部多圖
+	public List<CarInfoImageBean> findMultiImageByCarNo(int carNo){
+		
+		List<CarInfoImageBean> carInfoImageBean = carInfoImageRepository.findMultiImageByCarNo(carNo);
+		return carInfoImageBean;
+	}
+	
 }

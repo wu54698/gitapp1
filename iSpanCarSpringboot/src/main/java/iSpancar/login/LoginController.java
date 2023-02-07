@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import iSpancar.dforum.service.WebContextService;
 import iSpancar.member.model.MemberBean;
 import iSpancar.member.service.MemberService;
 
@@ -22,6 +23,9 @@ public class LoginController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private WebContextService webContextService;
 	
 	@PostMapping("/login.controller")
 	public String processAction(@RequestParam("accountnumber") String accountnumber,@RequestParam("memberpassword") String memberpassword,Model model) {
@@ -33,7 +37,8 @@ public class LoginController {
 					for(MemberBean mb :list) {
 						if(check.equals("資料正確")) {
 							model.addAttribute("LoginOK",mb);
-							
+							// set login session
+							webContextService.setCurrUser(list.get(0));
 							return "redirect:memberselectall.controller";
 						}else {
 							return "login/login";

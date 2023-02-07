@@ -21,7 +21,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="http://localhost:8080/iSpanCar/script/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="http://localhost:8080/iSpanCar/script/css/sb-admin-2.css" rel="stylesheet">
 
 </head>
 
@@ -44,21 +44,25 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">請輸入帳密</h1>
                                     </div>
-                                    <form class="user" action="login.controller" method="POST">
+                                    <form class="user" action="login" method="POST" id="login">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user" value="${param.accountnumber}"
-                                                id="accountnumber" name ="accountnumber" aria-describedby="emailHelp"
+                                                id="accountnumber" name ="username" aria-describedby="emailHelp"
                                                 placeholder="請輸入帳號">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user" value="${param.memberpassword}"
-                                                id="memberpassword" name="memberpassword" placeholder="請輸入密碼">
+                                                id="memberpassword" name="password" placeholder="請輸入密碼">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group row">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
+                                                <input type="checkbox" class="custom-control-input" id="customCheck" name="rememberMe-key">
+                                                <label class="custom-control-label mr-1" for="customCheck">Remember
                                                     Me</label>
+                                             </div>
+                                             <div class="custom-control custom-checkbox small">  
+                                                <input type="checkbox" class="custom-control-input" id="showpassword" name="showpassword">
+                                                <label class="custom-control-label" for="showpassword">顯示密碼</label>
                                             </div>
                                         </div>
                                         <input type="submit" class="btn btn-primary btn-user btn-block"  value="登入" id="check">
@@ -66,11 +70,13 @@
                                         
                                     </form>
                                     <hr>
-<!--                                     <div class="text-center"> -->
-<!--                                         <a class="small" href="forgot-password.html">Forgot Password?</a> -->
-<!--                                     </div> -->
-                                    <div class="text-center">
-                                        <a class="small" href="memberInsert">創建帳號</a>
+                                    <div class="row">
+	                                    <div class="text-right col-lg-6">
+	                                        <a class="small" href="forgot-password">忘記密碼?</a>
+	                                    </div>
+	                                    <div class="text-left col-lg-6">
+	                                        <a class="small" href="memberInsert">創建帳號</a>
+	                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -97,9 +103,17 @@
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script> 
 	$(function () {
-	    
+		$('#showpassword').on('change',function(){
+			if($('#showpassword').is(':checked')){
+				$('#memberpassword').prop('type','text');
+			}else{
+				$('#memberpassword').prop('type','password');
+			}
+		})
+
+		
 	    $(document).ready(function () {
-	        $('#check').on('click',function () {
+	        $('#check').on('click',function (e) {
 	        	console.log("check")
 				$.ajax({
 				    url: "checkAccountPassword.controller",
@@ -115,10 +129,22 @@
 				    },
 				    success: function(response) {
 				        if(response.trim() == "資料有誤") {
-				        	
-				            alert("帳號密碼錯誤，請重新輸入" + response);
+				        	e.preventDefault();
+				        	Swal.fire({
+				        		  icon: 'error',
+				        		  title: '錯誤',
+				        		  text: '帳號密碼錯誤，請重新輸入!',
+				        		  footer: '<a href="memberInsert">沒有帳號? 創建帳號</a>'
+				        		})
 				        } else {
-				            alert("驗證成功，即將登入首頁"+ response);
+				        	Swal.fire({
+				        		  position: 'center',
+				        		  icon: 'success',
+				        		  title: '驗證成功，即將登入首頁',
+				        		  showConfirmButton: false,
+				        		  timer: 1500
+				        		})
+				        	e.submit();
 				        }
 				    }
 				})

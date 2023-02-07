@@ -118,14 +118,12 @@ opacity:0.6;
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item"><a class="nav-link"
-							href="CarDealerForm">
+            <li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
 							<i class="fa-solid fa-car"></i> <span>車廠</span>
-						</a></li>
-            <li class="nav-item"><a class="nav-link"
-							href="CarInfoForm">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
-						</a></li>
+			</a></li>
+        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				<i class="fa-solid fa-car"></i> <span>車輛</span>
+		</a></li>
 
             <!-- Divider -->
             <!-- <hr class="sidebar-divider"> -->
@@ -148,10 +146,10 @@ opacity:0.6;
 						</a></li>
 
 					<!-- Nav Item - Tables -->
-					<li class="nav-item"><a class="nav-link" href="<c:url value='/ProductListAll'/>"> <i
+					<li class="nav-item"><a class="nav-link" href="<c:url value='/backstage/iSpancarShop.ProductListAll'/>"> <i
 								class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-					<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+					<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
 							<i class="fa-solid fa-coins"></i> <span>訂單</span>
 						</a></li>
 					<!-- Divider -->
@@ -215,7 +213,7 @@ opacity:0.6;
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a> <!-- Dropdown - User Information -->
 									<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 										aria-labelledby="userDropdown">
@@ -239,14 +237,16 @@ opacity:0.6;
 
 						<!-- Begin Page Content 內容 -->
 						<div class="container-fluid">
-						<form action="<c:url value='/ProductListAll'/>"
+						<form action="<c:url value='/backstage/iSpancarShop.ProductListAll'/>"
 							method="get">
 							<input type="submit" value="回商城管理頁面" class="backshopbtn">
 						</form>
 
 							<!--                     Page Heading -->
 							<!--                     <h1 class="h3 mb-4 text-gray-800">商城商品新增</h1> -->
-							<form name="insertProductFormA" action="<c:url value='/InsertShopDetail.controller'/>"
+<!--                     Page Heading -->
+							<!--                     <h1 class="h3 mb-4 text-gray-800">商城商品新增</h1> -->
+							<form name="insertProductFormA" action="iSpancarShop.InsertShopDetail.controller"
 								method="POST" enctype="multipart/form-data">
 								<table border="1" id="insertP">
 									<thead>
@@ -271,30 +271,43 @@ opacity:0.6;
 											<td width="120" height="40" style="text-align: center">
 												<font size="4">產品類型</font>
 											</td>
-											<td width="600" height="40" align="left"><input required id='type'
-													style="text-align: left" name="type" value="${param.type}"
-													type="text" size="14"></td>
+											<td width="600" height="40" align="left">
+											<select required name="type">
+											<option>${param.spec}</option>
+											<option>內飾</option>
+											<option>外飾</option>
+											<option>配件</option>
+											<option>機油</option>
+											<option>雨刷</option>
+											<option>輪胎</option>
+											</select>
+											</td>
 										</tr>
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center">
 												<font size="4">規 格</font>
 											</td>
-											<td width="600" height="40" align="left"><input required name="spec"
-													value="通用${param.spec}" type="text" size="14"></td>
+											<td width="600" height="40" align="left">
+											<select required name="spec">
+											<option>${param.spec}</option>
+											<option>通用</option>
+											<option>特殊</option>
+											</select>
+											</td>
 										</tr>
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center">
 												<font size="4">價 格</font>
 											</td>
 											<td width="600" height="40" align="left"><input required name="price"
-													value="${param.price}" type="number" size="14" ></td>
+													value="${param.price}" type="number" oninput="value=value.replace('-', '')" size="14" ></td>
 										</tr>
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center">
 												<font size="4">庫存數量</font>
 											</td>
 											<td width="600" height="40" align="left"><input required name="stock"
-													value="${param.stock}" type="number" size="14"></td>
+													value="${param.stock}" type="number" oninput="value=value.replace('-', '')" size="14"></td>
 										</tr>
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center">
@@ -490,14 +503,8 @@ opacity:0.6;
 			<script src="https://kit.fontawesome.com/dbb4662278.js" crossorigin="anonymous"></script>
 			<script type="text/javascript" charset="utf8"
 				src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-			<script>
-		// 	 $(document).ready(function() {  $('#insertP').DataTable();
-		// 	 });
-
-
-			</script>
 			
-				 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+			<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 			<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 			<script>
 				$(function() { 

@@ -11,39 +11,38 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name="Service")
 @Component
-
 public class ServiceBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name = "Service_name")
-	private String Service_name;		// 保養廠名稱	
+	@Column(name = "servicename")
+	private String Servicename;		// 保養廠名稱	
 	
-	@Column(name = "Carimage")
+	@Column(name = "carimage")
 	private Blob Carimage;    		// 保養廠照片
 	
-	@Column(name = "Servicedescription")
+	@Column(name = "servicedescription")
 	private String Servicedescription;  // 保養廠描述
 	
-	@Column(name = "Serviceinfomation")
+	@Column(name = "serviceinfomation")
 	private String Serviceinfomation;  	// 保養廠資訊電話
 	
-	@Column(name = "Contactperson")
+	@Column(name = "contactperson")
 	private String Contactperson;   	// 保養廠聯繫
 	
-	@Column(name = "Reseller_nonreseller")
-	private String Reseller_nonreseller;// 原廠副廠
+	@Column(name = "resllernonreseller")
+	private String Resellernonreseller;// 原廠副廠
 	
 	public String getServiceinfomation() {
 		return Serviceinfomation;
 	}
 
-	public String getService_name() {
-		return Service_name;
+	public String getServicename() {
+		return Servicename;
 	}
 
-	public void setService_name(String service_name) {
-		Service_name = service_name;
+	public void setServicename(String servicename) {
+		Servicename = servicename;
 	}
 
 	public Blob getCarimage() {
@@ -70,27 +69,27 @@ public class ServiceBean implements Serializable {
 		Contactperson = contactperson;
 	}
 
-	public String getReseller_nonreseller() {
-		return Reseller_nonreseller;
+	public String getResellernonreseller() {
+		return Resellernonreseller;
 	}
 
-	public void setReseller_nonreseller(String reseller_nonreseller) {
-		Reseller_nonreseller = reseller_nonreseller;
+	public void setResellernonreseller(String resellernonreseller) {
+		Resellernonreseller = resellernonreseller;
 	}
 
 	public void setServiceinfomation(String serviceinfomation) {
 		Serviceinfomation = serviceinfomation;
 	}
 
-	public ServiceBean(String service_name, Blob carimage, String servicedescription, String serviceinfomation,
-			String contactperson, String reseller_nonreseller) {
+	public ServiceBean(String servicename, Blob carimage, String servicedescription, String serviceinfomation,
+			String contactperson, String resellernonreseller) {
 		super();
-		Service_name = service_name;
+		Servicename = servicename;
 		Carimage = carimage;
 		Servicedescription = servicedescription;
 		Serviceinfomation = serviceinfomation;
 		Contactperson = contactperson;
-		Reseller_nonreseller = reseller_nonreseller;
+		Resellernonreseller = resellernonreseller;
 	}
 
 	public ServiceBean() {

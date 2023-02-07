@@ -11,27 +11,27 @@ import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
 @Entity
-@Table(name="orderItem")
+@Table(name="orderitem")
 @Component
 public class OrderItemBean {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "orderNo")
+	@Column(name = "orderno")
 	private String orderNo;
 	
-	@Column(name = "orderId")
+	@Column(name = "orderid")
 	private String orderId;
 	
-	@Column(name = "productNumber")
+	@Column(name = "productnumber")
 	private String productNumber  ;
 	
-	@Column(name = "productName")
+	@Column(name = "productname")
 	private String productName ;
 	
 	@Column(name = "quantity")
 	private String quantity ;
 	
-	@Column(name = "productPrice")
+	@Column(name = "productprice")
 	private String productPrice ;
 	
 	

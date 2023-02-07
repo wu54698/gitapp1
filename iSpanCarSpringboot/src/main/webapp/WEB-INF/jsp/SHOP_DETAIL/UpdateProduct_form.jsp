@@ -21,6 +21,8 @@
 <link
 	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"
 	rel="stylesheet">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
 <style>
 /* textarea { */
 /* 	background:transparent;  */
@@ -119,14 +121,12 @@
 					class="fa-solid fa-user"></i> <span>會員</span></a></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link"
-				href="CarDealerForm"> <i
-					class="fa-solid fa-car"></i> <span>車廠</span>
+			<li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
+							<i class="fa-solid fa-car"></i> <span>車廠</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="CarInfoForm">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
-			</a></li>
+        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				<i class="fa-solid fa-car"></i> <span>車輛</span>
+		</a></li>
 
 			<!-- Divider -->
 			<!-- <hr class="sidebar-divider"> -->
@@ -149,11 +149,11 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="<c:url value='/backstage/iSpancarShop.ProductListAll'/>"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/orderQueryAll.controller'/>"> <i
+				href="orderQueryAll.controller"> <i
 					class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -221,7 +221,7 @@
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -247,14 +247,14 @@
 				<div class="container">
 
 					<!-- Page Heading -->
+					<!-- Page Heading -->
 					<h2>商城管理</h2>
-					<%-- <a href="<c:url value='/SHOP_DETAIL/iSpanShopInsert.jsp' />">新增產品</a> --%>
 					<div>
-						<form action="<c:url value='/ProductListAll'/>" method="get">
+						<form action="<c:url value='/backstage/iSpancarShop.ProductListAll'/>" method="get">
 							<input type="submit" value="回商城管理頁面" class="backshopbtn">
 						</form>
 						<form name="updateProductForm"
-							action="<c:url value='/UpdateShopDetail.controller'/>"
+							action="/backstage/iSpancarShop.UpdateShopDetail.controller"
 							method="POST" enctype="multipart/form-data"
 							>
 							<table border="1">
@@ -286,35 +286,52 @@
 												name="productname" value="${sentno.productname}" type="text"
 												size="30"></td>
 										</tr>
-										<!-- 				<tr bgcolor='tan'> -->
-										<!-- 					<td width="120" height="40">種類:</td> -->
-										<!-- 					<td width="600" height="40" align="left"><input id='type' -->
-										<%-- 						style="text-align: left" name="type" value="${param.type}" --%>
-										<!-- 						type="text" size="14"></td> -->
-										<!-- 				</tr> -->
-										<!-- 				<tr bgcolor='tan'> -->
-										<!-- 					<td width="120" height="40">規格:</td> -->
-										<!-- 					<td width="600" height="40" align="left"><input name="spec" -->
-										<%-- 						value="${param.spec}" type="text" size="20"></td> --%>
-										<!-- 				</tr> -->
+										<tr bgcolor='transparent'>
+											<td width="120" height="40" style="text-align: center">
+												<font size="4">產品類型</font>
+											</td>
+											<td width="600" height="40" align="left">
+											<select required name="type">
+											<option>${sentno.type}</option>
+											<option>內飾</option>
+											<option>外飾</option>
+											<option>機油</option>
+											<option>輪胎</option>
+											</select>
+											</td>
+										</tr>
+										<tr bgcolor='transparent'>
+											<td width="120" height="40" style="text-align: center">
+												<font size="4">規 格</font>
+											</td>
+											<td width="600" height="40" align="left">
+											<select required name="spec">
+											<option>${sentno.spec}</option>
+											<option>通用</option>
+											<option>特殊</option>
+											</select>
+											</td>
+										</tr>
+										
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center"><font
 												size="4">價 格</font></td>
 											<td width="600" height="40" align="left"><input required
-												name="price" value="${sentno.price}" type="text" size="14"></td>
+												name="price" value="${sentno.price}" type="number" oninput="value=value.replace('-', '')" size="14"></td>
 										</tr>
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center"><font
 												size="4">庫存數量</font></td>
 											<td width="600" height="40" align="left"><input required
-												name="stock" value="${sentno.stock}" type="text" size="14"></td>
+												name="stock" value="${sentno.stock}" type="number" oninput="value=value.replace('-', '')" size="14"></td>
 										</tr>
-										<!-- 				<tr bgcolor='tan'> -->
-										<!-- 					<td width="120" height="40">上架日期:</td> -->
-										<!-- 					<td width="600" height="40" align="left"><input name="uptime" -->
-										<%-- 						value="${param.uptime}" type="text" size="14"><font --%>
-										<!-- 						color='blue' size="-1">&nbsp;&nbsp;格式為yyyy-MM-dd</font></td> -->
-										<!-- 				</tr> -->
+										<tr bgcolor='transparent'>
+											<td width="120" height="40" style="text-align: center"><font
+												size="4">發售日期</font></td>
+											<td width="600" height="40" align="left"><input required id="updatepick"
+												name="uptime" value="${sentno.uptime}" type="text" oninput="value=value.replace('-', '')" size="14"></td>
+										</tr>
+										
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center"><font
 												size="4">產品資訊</font></td>
@@ -412,11 +429,14 @@
 			$(document).ready(function() {
 				$('#productlist').DataTable();
 			});
-			
-
-		
-			    
 		</script>
+		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+			<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+			<script>
+				$(function() { 
+					$('#updatepick').datepicker(); 
+			  	}); 
+			 </script> 
 		
 </body>
 

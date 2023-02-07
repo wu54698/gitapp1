@@ -47,7 +47,7 @@
             id="accordionSidebar">
 
             <!-- Sidebar - Brand 左上標誌 -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index" >
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index" >
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fa-solid fa-car-rear"></i>
                 </div>
@@ -73,43 +73,42 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <!-- <li class="nav-item active">
+             <li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fa-solid fa-user"></i>
                     <span>會員</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+<!--                         <h6 class="collapse-header">Custom Components:</h6> -->
+                        <a class="collapse-item" href="memberselectall.controller">會員資料</a>
+                        <a class="collapse-item" href="memberposition.controller">權限設定</a>
                     </div>
                 </div>
-            </li> -->
-            <li class="nav-item">
-                <a class="nav-link" href="memberselectall.controller">
-                    <i class="fa-solid fa-user"></i>
-                    <span>會員</span></a>
-            </li>
+            </li> 
+            
+<!--             <li class="nav-item"> -->
+<!--                 <a class="nav-link" href="memberselectall.controller"> -->
+<!--                     <i class="fa-solid fa-user"></i> -->
+<!--                     <span>會員</span></a> -->
+<!--             </li> -->
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item"><a class="nav-link"
-							href="CarDealerForm">
+            <li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
 							<i class="fa-solid fa-car"></i> <span>車廠</span>
-						</a></li>
-            <li class="nav-item"><a class="nav-link"
-							href="CarInfoForm">
+			</a></li>
+            <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
 					<i class="fa-solid fa-car"></i> <span>車輛</span>
-						</a></li>
+			</a></li>
 
             <!-- Divider -->
-            <!-- <hr class="sidebar-divider"> -->
+<!--             <hr class="sidebar-divider"> -->
 
-            <!-- Heading -->
-            <!-- <div class="sidebar-heading">
-                Addons
-            </div> -->
+<!--             Heading -->
+<!--             <div class="sidebar-heading"> -->
+<!--                 Addons  -->
+<!--             </div>   -->
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -127,11 +126,11 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
             <li class="nav-item">
-                <a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+                <a class="nav-link" href="orderQueryAll.controller">
                     <i class="fa-solid fa-coins"></i>
                     <span>訂單</span></a>
             </li>
@@ -199,7 +198,7 @@
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -226,7 +225,11 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">會員名稱</h1>
+                    <div class="row">
+		                   <div class="col-sm-10 "> <h1 class="h3 mb-4 text-gray-800">會員資料</h1></div>
+		                   <div class="col-sm-2"><span class="mr-2">創建員工帳號</span><button class="insert btn btn-success btn-circle" ><i class="fa-solid fa-user-plus"></i></button></div>
+					</div>
+                    
 						
 		<c:choose>
 		<c:when test="${empty selectAll}">
@@ -239,7 +242,7 @@
 					<thead>
 						<tr>
 							<th>帳號</th>
-							<th>密碼</th>
+							<th>身分</th>
 							<th>姓名</th>
 							<th>電話</th>
 							<th>e-mail</th>
@@ -258,16 +261,16 @@
 				<tr>
 					
 						<td class="accountnumber">${member.accountnumber}</td>
-						<td>${member.memberpassword}</td>
+						<td class="thisposition">${member.memberPosition.permissionsofposition.positionPk}</td>
 						<td>${member.memberName}</td>
 						<td>${member.phonenumber}</td>
 						<td>${member.email}</td>
 						<td>${member.memberaddress}</td>
 						<td>${member.platenumber}</td>
-						<td>${member.birthday}</td>
-						<td>${member.idnumber}</td>
+						<td class="birthday">${member.birthday}</td>
+						<td class="idnumber">${member.idnumber}</td>
 						<td>${member.cardnumber}</td>
-						<td><form id="imgform" class="imgform" enctype="multipart/form-data"><label><input type='hidden' class='file' id='file' name='file' style='display:none' ><img id="imgshow" class="imgshow" src="showimage.controller?accountnumber=${member.accountnumber}"  width="120" height="120" /></label></form></td>
+						<td><form id="imgform" class="imgform" enctype="multipart/form-data"><label><input type='hidden' class='file' id='file' name='file' style='display:none' ><img id="imgshow" class="imgshow" src="/showimage.controller?accountnumber=${member.accountnumber}"  width="120" height="120" /></label></form></td>
 						<td class="button"><button class="update btn btn-info btn-circle"><i class="fa-solid fa-pen"></i></button></td>
 						<td class="button"><button class="delete btn btn-danger btn-circle"><i class="fas fa-trash"></i></button></td>
 					
@@ -320,7 +323,7 @@
                     </button>
                 </div>
                 <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="logout.controller">登出</a></div>
+                    <a class="btn btn-primary" href="/logout.controller">登出</a></div>
 <!--                 <div class="modal-footer"> -->
                    
 <!--                 </div> -->
@@ -337,6 +340,38 @@
         });
         
         $(function () {
+        	
+        	$('.birthday').each(function(){
+        		var birthstr = $(this).text();
+        		var str = birthstr.substring(0,10);
+        		$(this).text(str);
+        	})
+        	
+        	//跳轉新增員工頁面
+        	$('.insert').on('click',function(){
+        		let myPositionInsert = $('#myPositionInsert').val();
+        		if(myPositionInsert == 1){
+        			location.href = "/memberInsertForEmployee";
+        		}else{
+        			Swal.fire({
+						  icon: 'error',
+						  title: '無法新增',
+						  text: '無新增權限',
+						  //footer: '<a href="">Why do I have this issue?</a>'
+						})
+        		}
+        	})
+        	//$('.memberpassword').html('***');
+        	//判斷查詢權限
+//         	let myPositionSelect = $('#myPositionSelect').val();
+//         	if(myPositionSelect == 0){
+//         		$('.accountnumber').each(function(index,element){
+//         			//$(this).next().html('******');
+//         			$(this).parent().children('.idnumber').html('******');
+//         		})
+//         	}
+        	
+        	
 			$('#content').on('click','.delete',function(){//刪除
 				//判斷有無權限
 				let myPositionDelete = $('#myPositionDelete').val();
@@ -355,7 +390,7 @@
 							}).then((result) => {
 							  if (result.isConfirmed) {
 							    Swal.fire(
-							      'Deleted!',
+							      '已刪除!',
 							      'Your file has been deleted.',
 							      'success'
 							    )
@@ -392,15 +427,44 @@
 					let myPositionUpdate = $('#myPositionUpdate').val();
 					if(myPositionUpdate == 1){
 			               let test = $(this).closest('tr').children('.accountnumber').text();
-			               console.log(test);
-			
+			               //console.log(test);
+			               let thisposition = $(this).closest('tr').children('.thisposition').text();
+			               //console.log(thisposition);
+			               
+			             //身分修改
+			               $.ajax({
+				                type: 'POST',
+				                url: "memberpositioncancel.controller",
+				                dataType: 'json',
+			   	                async: false,
+				                context:this,
+				                success: function (response) {
+				                	//positionarray = [];
+				                	var selected = '';
+				                	var txt ='<select name="selectposition" class="selectposition">';
+				                	response.forEach(item =>{
+				                		//positionarray.push(item.positionPk);
+				                		if($.trim(thisposition) == $.trim(item.positionPk)){selected ='selected';}
+				                		else{selected = '';}
+				                		txt += '<option value="'+item.positionPk+'" '+selected+'>'+item.positionPk+'</option>';
+				                	})
+				                	txt += '</select>';
+				                	$(this).parent().parent().children('.thisposition').html(txt);
+									
+				                	
+				                } ,
+				                error:function(xhr, ajaxOptions, thrownError){
+				                	 
+				                    alert(xhr.status+"\n"+thrownError);
+				                }
+				            })
+			               
 			               let array = [];
-			
 			               $(this).closest('tr').find('td:not(.button)').each(function (index, ele) {
 			                   array.push($(this).text());
 			               })//陣列中加入.not以外的內文
 			               console.log(array)
-			               for (let i = 1; i < array.length-1; i++) {
+			               for (let i = 2; i < array.length-1; i++) {
 			                   let content = "<input type='text' size='7'class='form-control form-control-user updateinput' value='" + array[i] + "'>";
 			                   $(this).closest('tr').children('td').eq(i).text("");
 			                   $(this).closest('tr').children('td').eq(i).append(content);
@@ -412,6 +476,7 @@
 			               
 			               let buttonstring = "<button class='confirm btn btn-success btn-circle btn-sm'><i class='fa-solid fa-check'></i></button><br><br><button class='cancel btn btn-danger btn-circle btn-sm'><i class='fa-solid fa-xmark'></i></button>"
 			               $(this).parent().empty().append(buttonstring)
+			               
 					}else{
 						Swal.fire({
 							  icon: 'error',
@@ -459,9 +524,26 @@
 	           $('#content').on('click', '.cancel', function () {//修改取消
 	               let buttonstring = "<button class='update btn btn-info btn-circle'><i class='fa-solid fa-pen'></i></button>"
 	               let account = $(this).closest('tr').find('.accountnumber').text();
-	               let imgshow = $(this).closest('tr').find('.imgshow')
-	               let originimg = 
-	   				$.ajax({
+	               let imgshow = $(this).closest('tr').find('.imgshow');
+	   				
+	               $.ajax({
+	   	                type: 'POST',
+	   	             	context:this,
+	   	                url: "findmemberposition.controller",
+	   	                dataType: 'json',
+	   	             	async: false,
+	   	                data:{ accountnumber : account },
+	   	                success: function (response) {
+	   	                	console.log(response);
+	   	             		$(this).parent().parent().children('td').eq(1).text(response.positionPk)
+	   	                } ,
+	   	                error:function(xhr, ajaxOptions, thrownError){
+	   	                	 
+	   	                    alert(xhr.status+"\n"+thrownError);
+	   	                }
+	   	            })
+	               
+	               $.ajax({
 	   	                type: 'POST',
 	   	             	context:this,
 	   	                url: "memberupdatecancel.controller",
@@ -470,7 +552,7 @@
 	   	                data:{ accountnumber : account },
 	   	                success: function (response) {
 	   	                	let member = response[0];
-	   	                	$(this).parent().parent().children('td').eq(1).text(member.memberpassword)
+	   	                	//$(this).parent().parent().children('td').eq(1).text(member.memberPosition.permissionsofposition.positionPk)
 	   	                	$(this).parent().parent().children('td').eq(2).text(member.memberName)
 	   	                	$(this).parent().parent().children('td').eq(3).text(member.phonenumber)
 	   	                	$(this).parent().parent().children('td').eq(4).text(member.email)
@@ -481,7 +563,7 @@
 	   	                	$(this).parent().parent().children('td').eq(9).text(member.cardnumber)
 	   	                	$(this).parent().empty().append(buttonstring)
 	   	                	let random = Math.random();
-	   	                	imgshow.attr('src',"showimage.controller?accountnumber="+member.accountnumber+"&r="+random)
+	   	                	imgshow.attr('src',"/showimage.controller?accountnumber="+member.accountnumber+"&r="+random)
 	   	                	$('.file').attr('type','hidden')
 	               			$('label').attr('style','cursor:default')
 	   	                } ,
@@ -490,6 +572,8 @@
 	   	                    alert(xhr.status+"\n"+thrownError);
 	   	                }
 	   	            })
+	   	            //for position
+	   	            
 	           })
 	          
 	           
@@ -502,6 +586,26 @@
 	               	for(let i=1;i<(memberbeanlength -2) ;i++){
 	               		memberarray.push($(this).closest('tr').children('td').eq(i).children().val());
 	               	}
+	               	//權限更改
+	               	var positionfk = $(this).closest('tr').find('.selectposition').val()
+	               	$.ajax({
+	   	                type: 'POST',
+	   	             	context:this,
+	   	                async: false,
+	   	                url: "memberupdateposition.controller",
+	   	                dataType: 'text',
+	   	                data:{ "accountnumber" : account,
+	   	                		"positionfk": positionfk
+	   	                },
+	   	                success: function (response) {
+	   	                	//console.log(response)
+	   	                	console.log($(this).parent().parent().children('td').eq(1).text(response))
+	   	                } ,
+	   	                error:function(xhr, ajaxOptions, thrownError){
+	   	                    alert(xhr.status+"\n"+thrownError);
+	   	                }
+	   	            })
+	   	            //資訊修改
 	               	$.ajax({
 	   	                type: 'POST',
 	   	             	context:this,
@@ -521,7 +625,7 @@
 	   	                },
 	   	                success: function (response) {
 	   	                	let member = response[0];
-	   	                	$(this).parent().parent().children('td').eq(1).text(member.memberpassword)
+	   	                	//$(this).parent().parent().children('td').eq(1).text(member.memberPosition.permissionsofposition.positionPk)
 	   	                	$(this).parent().parent().children('td').eq(2).text(member.memberName)
 	   	                	$(this).parent().parent().children('td').eq(3).text(member.phonenumber)
 	   	                	$(this).parent().parent().children('td').eq(4).text(member.email)
@@ -565,7 +669,7 @@
 	        		   success: function (response) {
 	        			   if(myAccountnumber == account){
 	        				   let random = Math.random();
-	        				   $('#myImage').attr('src',"showimageforthismember.controller?accountnumber="+account+"&"+random)
+	        				   $('#myImage').attr('src',"/showimageforthismember.controller?accountnumber="+account+"&"+random)
 	        			   }
 	   	                } ,
 	   	                error:function(xhr, ajaxOptions, thrownError){
@@ -574,6 +678,7 @@
 	   	                }
 	        	   })
 	           })
+	           
 	           
 		
 	})

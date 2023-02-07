@@ -12,7 +12,12 @@
     <title>Grayscale - Start Bootstrap Theme</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
+    
+	<script src="http://localhost:8080/iSpanCar/script/vendor/jquery/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="http://localhost:8080/iSpanCar/script/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="http://localhost:8080/iSpanCar/script/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="http://localhost:8080/iSpanCar/script/js/sb-admin-2.min.js"></script>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesh0eet" />
     <link
@@ -24,6 +29,9 @@
 </head>
 
 <body id="page-top">
+	<c:set value="${LoginOK}" var="login"/>
+	<c:set value="${login.memberPosition.permissionsofposition}" var="memberPosition"/>
+	<input type="hidden" value="${login.accountnumber}" id="logincheck">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container px-4 px-lg-5">
@@ -39,9 +47,9 @@
                     <li class="nav-item"><b><a class="nav-link" href="#about">車廠</a></b></li>
                     <li class="nav-item"><b><a class="nav-link" href="#projects">車輛</a></b></li>
                     <li class="nav-item"><b><a class="nav-link" href="#projects">保養廠</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link" href="#about">論壇</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link" href="/dforum/home">論壇</a></b></li>
                     <li class="nav-item"><b><a class="nav-link" href="#about">商城</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link" href="#signup">登入</a></b></li>
+                    <li class="nav-item login-info dropdown no-arrow"><b><a class="nav-link" href="login">登入</a></b></li>
                 </ul>
             </div>
         </div>
@@ -62,15 +70,27 @@
     <footer class="footer bg-black small text-center text-white-50">
         <div class="container px-4 px-lg-5"><a class="nav-link"  href = "checkogin.controller" >Copyright &copy; Your Website 2022</a></div>
     </footer>
-    <!-- Bootstrap core JS-->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
     <script src="http://localhost:8080/iSpanCar/script/js/scripts.js"></script>
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <!-- * *                               SB Forms JS                               * *-->
-    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    <script>
+    $(function(){
+    	if($('#logincheck').val() != ""){
+    		var account = $('#logincheck').val();
+    		
+    		var loginhtml = '<b><a class="nav-link " href="" id="userDropdown" role="button"'+
+                'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+account+'&nbsp'+
+    		'<img class="img-profile rounded-circle" id="myImage" width="25px" src="/showimageforthismember.controller\?accountnumber='+account+'"></a></b>';
+    		
+    		var logouttext = '<li class="nav-item"><b><a class="nav-link" href="/logout.controller">登出</a></b></li>';
+    		
+    		$('.login-info').html(loginhtml).after(logouttext);
+    	}else{
+    		var loginhtml='<b><a class="nav-link" href="login">登入</a></b>';
+    		$('.login-info').html()
+    	}
+    })
+    </script>
 </body>
 
 </html>

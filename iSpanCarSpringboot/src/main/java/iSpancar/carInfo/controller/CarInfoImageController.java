@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import iSpancar.carDealer.service.ISpanCarService;
 import iSpancar.carInfo.model.CarInfoBean;
+import iSpancar.carInfo.model.CarInfoImageBean;
 
 @Controller
 public class CarInfoImageController {
@@ -24,7 +25,7 @@ public class CarInfoImageController {
 	@GetMapping("/carInfoImage.controller/{carNo}")
 	@ResponseBody
 	public byte[] processProductImageAction(@PathVariable("carNo") String carNo) {
-		System.out.println("==---------------"+carNo);
+		
 		int carNumber = Integer.parseInt(carNo);
 		List<CarInfoBean> list = iSpanCarService.findByCarNoLike(carNumber);
 
@@ -44,10 +45,29 @@ public class CarInfoImageController {
 		}
 		return null;
 	}
-
 	
+	@GetMapping("/multiCarImages.controller/{imageNo}")
+	@ResponseBody
+	public byte[] showMultiCarImageAction(@PathVariable("imageNo") String imageNo) {
+		
+		int imageNumber = Integer.parseInt(imageNo);
+		List<CarInfoImageBean> list = iSpanCarService.findMultiImageByCarNo(imageNumber);
 	
-	
-	
+		for(CarInfoImageBean imagesBean : list) {
+			
+			try {
+				InputStream is;
+				is = imagesBean.getCarImage().getBinaryStream();
+				return IOUtils.toByteArray(is);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
 	
 }

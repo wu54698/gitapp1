@@ -1,21 +1,28 @@
 package iSpancar.carInfo.model;
 
 import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import iSpancar.carDealer.model.CarDealerBean;
-
-
 
 @Entity
 @Table(name = "carinfo")
@@ -30,6 +37,7 @@ public class CarInfoBean {
 
 	@ManyToOne
 	@JoinColumn(name = "cardealname")
+	@JsonIgnore
 	private CarDealerBean cardealerbean;	//車商名稱
 	
 	@Column(name = "accountnumber")
@@ -45,6 +53,7 @@ public class CarInfoBean {
 	private int stock;						//庫存
 	
 	@Column(name = "carimage")
+	@JsonIgnore
 	private Blob carImage;					//車輛照片
 	
 	@Column(name = "cardescription")
@@ -52,6 +61,9 @@ public class CarInfoBean {
 	
 	@Column(name = "announcedate")
 	private String announceDate;			//發布日期
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "carNo", cascade = CascadeType.ALL)
+	private List<CarInfoImageBean> carImfoImage = new ArrayList<>();
 	
 	public CarInfoBean() {
 		
@@ -188,5 +200,18 @@ public class CarInfoBean {
 		builder.append("]");
 		return builder.toString();
 	}
+
+
+	public List<CarInfoImageBean> getCarImfoImage() {
+		return carImfoImage;
+	}
+
+
+	public void setCarImfoImage(List<CarInfoImageBean> carImfoImage) {
+		this.carImfoImage = carImfoImage;
+	}
+
+
+	
 	
 }

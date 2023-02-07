@@ -1,14 +1,18 @@
 package iSpancar.member.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "permissionsofposition")
@@ -31,8 +35,9 @@ public class PermissionsOfPosition implements Serializable {
 	@Column( name = "permissionsselect")
 	private String permissionsSelect;
 	
-	@OneToOne(mappedBy = "permissionsofposition")
-	private MemberPosition memberposition;
+	@JsonIgnore
+	@OneToMany(mappedBy = "permissionsofposition")
+	private Set<MemberPosition> memberposition;
 	
 	public PermissionsOfPosition() {
 	}
@@ -77,12 +82,14 @@ public class PermissionsOfPosition implements Serializable {
 		this.permissionsSelect = permissionsSelect;
 	}
 
-	public MemberPosition getMemberPosition() {
+	public Set<MemberPosition> getMemberposition() {
 		return memberposition;
 	}
 
-	public void setMemberPosition(MemberPosition memberPosition) {
-		this.memberposition = memberPosition;
+	public void setMemberposition(Set<MemberPosition> memberposition) {
+		this.memberposition = memberposition;
 	}
+
+	
 
 }

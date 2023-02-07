@@ -1,21 +1,9 @@
 package iSpancar.dforum.model;
 
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.springframework.stereotype.Component;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-@Component
 @Table(name = "thread")
 public class Thread {
 
@@ -25,22 +13,11 @@ public class Thread {
 	private Integer id;
 
 	@Column(name = "time")
-	private java.sql.Timestamp time ;
+	private Date time ;
 
 	@ManyToOne
 	@JoinColumn(name = "categoryId")
 	private Category category;
-	
-//	@OneToMany(mappedBy = "thread")
-//	private List<Post> posts;
-	
-
-	public java.sql.Timestamp getTime() {
-		return time;
-	}
-
-	public Thread() {
-	}
 
 	public Integer getId() {
 		return id;
@@ -50,6 +27,14 @@ public class Thread {
 		this.id = id;
 	}
 
+	public Date getTime() {
+		return time;
+	}
+
+	public void setTime(Date time) {
+		this.time = time;
+	}
+
 	public Category getCategory() {
 		return category;
 	}
@@ -57,17 +42,6 @@ public class Thread {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
-	public void setTime(java.sql.Timestamp time) {
-		this.time = time;
-	}
 
-//	public List<Post> getPosts() {
-//		return posts;
-//	}
-//
-//	public void setPosts(List<Post> posts) {
-//		this.posts = posts;
-//	}
 
 }

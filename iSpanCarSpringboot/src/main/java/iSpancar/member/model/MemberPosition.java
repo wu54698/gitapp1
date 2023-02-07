@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,7 +22,7 @@ public class MemberPosition implements Serializable {
 	@JoinColumn(name = "accountnumberposition")
 	private MemberBean memberbean;
 	
-	@OneToOne//(cascade = CascadeType.ALL)
+	@ManyToOne//(cascade = CascadeType.ALL)
 	@JoinColumn(name = "positionfk")
 	private PermissionsOfPosition permissionsofposition;
 	

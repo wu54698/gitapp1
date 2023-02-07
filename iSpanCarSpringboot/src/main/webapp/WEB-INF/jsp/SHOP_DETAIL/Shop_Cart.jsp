@@ -156,14 +156,12 @@ tr:last-of-type{
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item"><a class="nav-link"
-							href="CarDealerForm">
+            <li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
 							<i class="fa-solid fa-car"></i> <span>車廠</span>
-						</a></li>
-            <li class="nav-item"><a class="nav-link"
-							href="CarInfoForm">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
-						</a></li>
+			</a></li>
+        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				<i class="fa-solid fa-car"></i> <span>車輛</span>
+		</a></li>
 
             <!-- Divider -->
             <!-- <hr class="sidebar-divider"> -->
@@ -187,10 +185,10 @@ tr:last-of-type{
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+			<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -258,7 +256,7 @@ tr:last-of-type{
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -286,7 +284,7 @@ tr:last-of-type{
 					<!-- Page Heading -->
 					<h1 class="h3 mb-4 text-gray-800">商城</h1>
 					<div class="wrap">
-					<form action="<c:url value='/QueryAllCart.controller'/>" method="get">
+					<form action="/backstage/QueryAllCart.controller" method="get">
 						<input type="submit" value="購物車" />
 					</form>
 					<table>
@@ -304,13 +302,13 @@ tr:last-of-type{
 							<c:forEach var='product' items='${queryallproduct}'
 								varStatus="vs">
 								<tr>
-								<form action="<c:url value='/cartInsert.controller'/>"  method="POST" enctype="multipart/form-data">
+								<form action="/backstage/cartInsert.controller"  method="POST" enctype="multipart/form-data">
 								
 									<td id="productno">${product.productno} <input type="hidden" value="${product.productno}" name="productNumber"><input type="hidden" name="memberId" value="${login.accountnumber}"></td>
 									<td >${product.productname}<input type="hidden" value="${product.productname}" name="productName"></td>
 									<td >${product.price}<input type="hidden" value="${product.price}" name="productPrice"></td>
 									<td><img
-										src="productimg.controller/${product.productno}"
+										src="productimg.controller?productno=${product.productno}"
 										width="180" height="180" /></td>
 									<td><input name="quantity" type="number" id="quantity" style="background-color:#6C7A89;width:55px;"></td>
 									<td><input style="border-radius:80%;width:90px;height:60px" type="submit"  value="加入購物車" ></td>
@@ -359,7 +357,7 @@ tr:last-of-type{
                     </button>
                 </div>
                 <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
+                    <a class="btn btn-primary" href="/logout.controller">登出</a></div>
 <!--                 <div class="modal-footer"> -->
                    
 <!--                 </div> -->

@@ -122,10 +122,10 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+			<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -192,7 +192,7 @@
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -254,7 +254,7 @@
 									<td>${car.carName}</td>
 									<td id="stock">${car.stock}</td>
 									<!--<td>${car.carImage}</td>-->
-									<td><img src="carInfoImage.controller/${car.carNo}"
+									<td><img src="/carInfoImage.controller/${car.carNo}"
 										width="180px" height="120px"></td>
 									<td><textarea readonly cols="10" rows="5"
 											style="text-align: left">${car.carDescription}</textarea></td>
@@ -262,12 +262,12 @@
 									<td class="button"><button id="btn1" class="delete btn btn-danger btn-circle"><i class="fas fa-trash"></i></button></td>
 									<!-- 修改按鈕，跳轉至修改頁面 -->
 									<!--<td><form action="JumptoUpdateCarInfoSheet" method="post"><input type="hidden" value="${car.carNo}" name="carNo"><button type="submit" class="btn2" id="btn2"  style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen fa-lg"></i></button></form></td> -->
-									<td><form action="JumptoUpdateCarInfoSheet" method="post"><input type="hidden" value="${car.carNo}" name="carNo"><button type="submit" class="btn2 btn btn-info btn-circle" id="btn2"  style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen"></i></button></form></td>
+									<td><form action="JumptoUpdateCarInfoSheet.controller" method="post"><input type="hidden" value="${car.carNo}" name="carNo"><button type="submit" class="btn2 btn btn-info btn-circle" id="btn2"  style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen"></i></button></form></td>
 								</tr>
 							</tbody>
 						</c:forEach>
 					</table>
-					<a href="CarInfoForm">回車輛主頁</a>
+					<a href="SelectAllCar.controller">回車輛主頁</a>
 				</div>
 				<script src="https://kit.fontawesome.com/f9c412c6fd.js" crossorigin="anonymous"></script>
 				<!-- /.container-fluid -->
@@ -310,7 +310,7 @@
                     </button>
                 </div>
                 <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
+                    <a class="btn btn-primary" href="/logout.controller">登出</a></div>
 <!--                 <div class="modal-footer"> -->
                    
 <!--                 </div> -->

@@ -3,11 +3,20 @@ package iSpancar.carInfo.controller;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
+import javax.mail.MessagingException;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
 
@@ -17,6 +26,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,26 +35,33 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import iSpancar.carDealer.model.CarDealerBean;
 import iSpancar.carDealer.service.ISpanCarService;
 import iSpancar.carInfo.model.CarInfoBean;
+import iSpancar.carInfo.model.CarInfoImageBean;
+import iSpancar.member.service.EmailSenderService;
 
 @Controller
+@RequestMapping("/backstage")
 public class CarInfoController {
 
 	@Autowired
 	private ISpanCarService iSpanCarService;
+	
+	@Autowired
+	private EmailSenderService emailSenderService;
 
 	// 新增車輛的controller
 	@PostMapping(path = "/addCarInfo.controller")
+	@ResponseBody
 	public String addCarInfoAction(@RequestParam("carDealName") String carDealName,
 			@RequestParam("accountNumber") String accountNumber, @RequestParam("carBrand") String carBrand,
 			@RequestParam("carName") String carName, @RequestParam("stock") int stock,
-			@RequestParam("carImage") MultipartFile mf, @RequestParam("carDescription") String carDescription,
+			@RequestParam("carImage") MultipartFile mf, @RequestParam("multiImages") List<MultipartFile> mfList, @RequestParam("carDescription") String carDescription,
 			@RequestParam("announceDate") String announceDate, Model m, RedirectAttributes attr)
-			throws IOException, SerialException, SQLException {
+			throws IOException, SerialException, SQLException, MessagingException {
 
 		// 定義存放錯誤訊息的 Collection物件
 		Map<String, String> errorMessage = new HashMap<>();
 		m.addAttribute("ErrorMsg", errorMessage);
-
+		
 		// 先搞圖片
 		String imageName = mf.getOriginalFilename();
 		byte[] bytes = mf.getBytes();
@@ -81,7 +98,26 @@ public class CarInfoController {
 		carInfoBean.setCarImage(imageblob);
 		carInfoBean.setCarDescription(carDescription);
 		carInfoBean.setAnnounceDate(announceDate);
-
+		
+		//forEach取出多張圖片的List
+		for(MultipartFile singleImage : mfList) {
+			byte[] multiImageBytes = singleImage.getBytes();
+					
+			Blob multiImageBlob = null;
+			if (multiImageBytes.length == 0) {
+						
+			} else {
+				multiImageBlob = new SerialBlob(multiImageBytes);
+				ArrayList<CarInfoImageBean> list = new ArrayList<CarInfoImageBean>();
+				CarInfoImageBean carImageBean = new CarInfoImageBean();
+				carImageBean.setCarImage(imageblob);
+				carImageBean.setCarNo(carInfoBean);
+				list.add(carImageBean);
+				carInfoBean.setCarImfoImage(list);
+			}
+					
+		}
+		
 		// 錯誤成立則跳轉至原頁面
 		if (!errorMessage.isEmpty()) {
 			return "/Car-Infomation/CarInfoForm_frame";
@@ -89,16 +125,25 @@ public class CarInfoController {
 
 			// 透過service新增車輛資訊進資料庫
 			iSpanCarService.addCarInfo(carInfoBean);
-
+			
 			// 新增成功後，跳轉至找全部車輛的jsp頁面
 			List<CarInfoBean> newList = iSpanCarService.findAllCar();
 			attr.addFlashAttribute("SelectAllCar", newList);
 //			rm.addAttribute("SelectAllCar", newList);
+			
+			//新增成功後，會寄送email推播信
+			String htmltext = "<body>\r\n"
+				    + "<div>尊敬的車主您好</div>\r\n"
+				    + "<div>資車會近期登錄了新款二手車一台</div>\r\n"
+				    + "<div>歡迎蒞臨賞車</div>\r\n"
+				    + "</body>\r\n";
+			emailSenderService.sendEmail("ispancar666@gmail.com", "資車會新車鑑賞通知", htmltext);
+			
 			//跳轉至
-			return "redirect:/SelectCarInOneSeller.controller/" + carDealName;
+			return "OK";
 //			return "Car-Infomation/SelectAllCar_frame";
 		}
-
+		
 	}
 
 	// 刪除車輛的Controller
@@ -176,7 +221,7 @@ public class CarInfoController {
 	}
 
 	//透過Id接值進入修改頁面的controller(原selectIdToUpdate)
-	@PostMapping("/JumptoUpdateCarInfoSheet")
+	@PostMapping("/JumptoUpdateCarInfoSheet.controller")
 	public String selectIdToUpdateAction(@RequestParam("carNo") String carNo, Model m) {
 
 		int carNumber = Integer.parseInt(carNo);
@@ -195,7 +240,7 @@ public class CarInfoController {
 
 		return "Car-Infomation/SelectCarByBrand_frame";
 	}
-	
+		
 	//查詢車商底下全部車輛
 	@GetMapping("/SelectCarInOneSeller.controller/{carDealerName}")
 	public String selectCarDealerNameAction(@PathVariable("carDealerName") String carDealerName, Model m) {
@@ -230,5 +275,6 @@ public class CarInfoController {
 		m.addAttribute("addCar", list);
 		return "Car-Infomation/CarInfoForm_frame";
 	}
-
+	
+		
 }
