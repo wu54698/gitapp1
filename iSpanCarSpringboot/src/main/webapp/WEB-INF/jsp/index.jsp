@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Grayscale - Start Bootstrap Theme</title>
+    <title>資車會-資車國際</title>
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     
@@ -25,17 +25,24 @@
         rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="http://localhost:8080/iSpanCar/script/css/styles.css" rel="stylesheet" />
+    <!-- 字體-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap" rel="stylesheet">
 
 </head>
 
 <body id="page-top">
 	<c:set value="${LoginOK}" var="login"/>
+	<c:set value="${GoogleLogin}" var="GoogleLogin"/>
 	<c:set value="${login.memberPosition.permissionsofposition}" var="memberPosition"/>
 	<input type="hidden" value="${login.accountnumber}" id="logincheck">
+	<input type="hidden" value="${GoogleLogin.email}" id="logincheck2">
+	<input type="hidden" value="${GoogleLogin.picture}" id="loginpicture">
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <nav class="navbar navbar-expand-lg  fixed-top" id="mainNav">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#page-top">首頁</a>
+            <a class="navbar-brand colorchange" href="index" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">首頁</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -44,12 +51,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><b><a class="nav-link" href="#about">車廠</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link" href="#projects">車輛</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link" href="#projects">保養廠</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link" href="/dforum/home">論壇</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link" href="#about">商城</a></b></li>
-                    <li class="nav-item login-info dropdown no-arrow"><b><a class="nav-link" href="login">登入</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="#about" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">車廠</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="#projects" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">車輛</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="#projects" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">保養廠</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="/dforum/home" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">論壇</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="#about" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">商城</a></b></li>
+                    <li class="nav-item login-info dropdown no-arrow "><b><a class="nav-link colorchange" href="login" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">登入</a></b></li>
                 </ul>
             </div>
         </div>
@@ -57,16 +64,18 @@
     <!-- Masthead-->
     <header class="masthead">
         <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+   
             <div class="d-flex justify-content-center">
+                
                 <div class="text-center">
-                    <h1 class="mx-auto my-0 text-uppercase">資車會</h1>
-                    <h2 class="text-white-50 mx-auto mt-2 mb-5">資車國際</h2>
+                    <h2 class="mx-auto my-0 text-uppercase" style="color:white;font-size:8em;font-family: 'Noto Sans TC', sans-serif;">資車會</h2>
+                    <h2 class=" mx-auto mt-2 mb-5" style="color:white;font-size:2em;font-family:DFKai-SB;font-family: 'Noto Sans TC', sans-serif;">資車國際</h2>
                     <!-- <a class="btn btn-primary" href="#about">Get Started</a> -->
                 </div>
             </div>
         </div>
+        
     </header>
-
     <footer class="footer bg-black small text-center text-white-50">
         <div class="container px-4 px-lg-5"><a class="nav-link"  href = "checkogin.controller" >Copyright &copy; Your Website 2022</a></div>
     </footer>
@@ -76,20 +85,46 @@
     <script>
     $(function(){
     	if($('#logincheck').val() != ""){
+    		console.log("11111111111")
     		var account = $('#logincheck').val();
     		
-    		var loginhtml = '<b><a class="nav-link " href="" id="userDropdown" role="button"'+
-                'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+account+'&nbsp'+
+    		var loginhtml = '<b><a class="nav-link colorchange" href="userinfo" '+
+               'style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">'+account+'&nbsp'+
     		'<img class="img-profile rounded-circle" id="myImage" width="25px" src="/showimageforthismember.controller\?accountnumber='+account+'"></a></b>';
     		
-    		var logouttext = '<li class="nav-item"><b><a class="nav-link" href="/logout.controller">登出</a></b></li>';
+    		var logouttext = '<li class="nav-item"><b><a class="nav-link colorchange" style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;" href="/logout.controller">登出</a></b></li>';
     		
     		$('.login-info').html(loginhtml).after(logouttext);
     	}else{
-    		var loginhtml='<b><a class="nav-link" href="login">登入</a></b>';
-    		$('.login-info').html()
+    		if($('#logincheck2').val() != ""){
+    			var email = $('#logincheck2').val();
+    			console.log(email)
+    			
+    			var loginpicture = $('#loginpicture').val();
+        		
+        		var loginhtml = '<b><a class="nav-link colorchange" href="userinfo" '+
+                   'style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">'+email+'&nbsp'+
+        		'<img class="img-profile rounded-circle" id="myImage" width="25px" src="'+loginpicture+'"></a></b>';
+        		
+        		var logouttext = '<li class="nav-item"><b><a class="nav-link colorchange" style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;" href="/logout.controller">登出</a></b></li>';
+        		
+        		$('.login-info').html(loginhtml).after(logouttext);
+    		}else{
+	    		var loginhtml='<b><a class="nav-link colorchange" href="login" style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">登入</a></b>';
+	    		$('.login-info').html()
+    		}
+    		
     	}
+    	
+    	$(window).on('scroll',function(){
+    		$('.colorchange').css('color','white')
+    		$('.navbar-shrink').find('.colorchange').css('color','black')
+    	})
+    	
+    	
+    	
     })
+    
     </script>
 </body>
 

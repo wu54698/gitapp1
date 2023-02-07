@@ -22,6 +22,7 @@
 
     <!-- Custom styles for this template-->
     <link href="http://localhost:8080/iSpanCar/script/css/sb-admin-2.css" rel="stylesheet">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
 </head>
 
@@ -66,8 +67,10 @@
                                             </div>
                                         </div>
                                         <input type="submit" class="btn btn-primary btn-user btn-block"  value="登入" id="check">
-                                        
-                                        
+                                        <a href="/login/oauth2/authorization/google" class="btn btn-google btn-user btn-block">
+                                            <i class="fab fa-google fa-fw"></i> Login with Google
+                                        </a>
+<!--                                         https://accounts.google.com/o/oauth2/auth?response_type=token&redirect_uri=http://localhost:8080/login/oauth2/code/google&client_id=958888186961-cfm93ockmgmk3nhdiv0lmrrvs1fpv9ms.apps.googleusercontent.com&scope=openid profile email -->
                                     </form>
                                     <hr>
                                     <div class="row">

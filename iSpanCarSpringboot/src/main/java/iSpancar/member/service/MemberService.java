@@ -24,9 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
 import iSpancar.dforum.service.WebContextService;
 import iSpancar.member.dao.MemberDao;
 import iSpancar.member.dao.MemberRepository;
+import iSpancar.member.dao.Oauth2MemberRepository;
 import iSpancar.member.dao.PermissionsRepository;
 import iSpancar.member.model.MemberBean;
 import iSpancar.member.model.MemberPosition;
+import iSpancar.member.model.Oauth2MemberBean;
 import iSpancar.member.model.PermissionsOfPosition;
 
 @Service
@@ -45,6 +47,9 @@ public class MemberService {
 	
 	@Autowired
 	private WebContextService webContextService;
+	
+	@Autowired
+	private Oauth2MemberRepository oRepository;
 	
 	public MemberService() {
 	}
@@ -217,7 +222,7 @@ public class MemberService {
 		mRepository.saveAndFlush(memberBean);
 		
 	}
-	
+
 	//查詢全部
 	public List<MemberBean> findAll() throws SQLException{
 		
@@ -226,6 +231,7 @@ public class MemberService {
 			return list;
 	}
 	
+	
 	//取得職位
 		public String getEmployeePosition() {
 			
@@ -233,8 +239,21 @@ public class MemberService {
 			return employee;
 			
 		}
+//-------------
+		
+		//oauth 登錄
+		public void insertOAuthMember(Oauth2MemberBean oBean) {
+			oRepository.save(oBean);
+		}
 	
-	
+		public boolean checkOAuthMember(Oauth2MemberBean oBean) {
+
+			Optional<Oauth2MemberBean> op = oRepository.findById(oBean.getEmail());
+			
+			return op.isPresent();
+			
+		}
+		
 	//inputstream ->blob
 	public Blob fileToBlob(InputStream is, long size) throws IOException, SQLException {
 		byte[] b = new byte[(int) size];

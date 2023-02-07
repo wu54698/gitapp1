@@ -59,9 +59,9 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="/backstage/memberchartjs">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>統計圖表</span></a>
             </li>
 
             <!-- Divider -->
@@ -528,10 +528,10 @@
 	   				
 	               $.ajax({
 	   	                type: 'POST',
-	   	             	context:this,
+	   	             	//context:this,
 	   	                url: "findmemberposition.controller",
 	   	                dataType: 'json',
-	   	             	async: false,
+	   	             	//async: false,
 	   	                data:{ accountnumber : account },
 	   	                success: function (response) {
 	   	                	console.log(response);

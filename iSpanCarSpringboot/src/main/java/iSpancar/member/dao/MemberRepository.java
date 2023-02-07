@@ -24,4 +24,5 @@ public interface MemberRepository extends JpaRepository<MemberBean, String> {
 	@Modifying
 	@Query(value = "update memberposition set positionfk = ?2 where accountnumberposition = ?1",nativeQuery = true)
 	public void updateMemberPosition(String accountnumber,String positionfk);
+
 }

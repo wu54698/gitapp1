@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import iSpancar.member.model.LocationDto;
 import iSpancar.member.model.MemberBean;
 import iSpancar.member.model.PermissionsOfPosition;
 import iSpancar.member.service.MemberService;
@@ -54,6 +56,36 @@ public class MemberCrud {
 		return "member/MemberSelectAll";
 		
 	}
+	
+	//select location for chart.js
+	@GetMapping("/memberlocation.controller")
+	@ResponseBody
+	public List<LocationDto> processLocation() {
+		try {
+			List<MemberBean> list = memberService.findAll();
+			List<LocationDto> locationList = new ArrayList<LocationDto>();
+			Map<String, Integer> locationMap = new HashMap<String, Integer>();
+			for(MemberBean mb: list) {
+				String location = mb.getMemberaddress().substring(0,3);
+				if(locationMap.containsKey(location)){
+					locationMap.put(location, locationMap.get(location)+1);
+				}else {
+					locationMap.put(location, 1);
+				}
+			}
+
+			for (Map.Entry<String, Integer> entry : locationMap.entrySet()) {
+				LocationDto locationDto = new LocationDto(entry.getKey(), entry.getValue());
+				locationList.add(locationDto);
+			}
+			
+			return locationList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	//select position-------------------權限---------------------
 	@GetMapping("/memberposition.controller")
 	public String processPositionAction(Model model) {

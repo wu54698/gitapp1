@@ -1,12 +1,14 @@
 package iSpancar.member.controller;
 
 import java.io.IOException;
+import java.net.http.HttpRequest;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
 
@@ -18,12 +20,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import iSpancar.member.model.MemberBean;
 import iSpancar.member.service.MemberService;
 
 @Controller
+@SessionAttributes("LoginOK")
 public class UserController {
 	
 	@Autowired
@@ -85,7 +90,7 @@ public class UserController {
 			return "login/resetpassword";
 		}
 		
-		@PostMapping("changepassword.controller")
+		@PostMapping("/changepassword.controller")
 		public String processResetPassword(@RequestParam("accountnumber") String accountnumber,@RequestParam("memberpassword") String memberpassword) {
 			try {
 				MemberBean mBean = memberService.findByAccountReturnBean(accountnumber);
@@ -98,4 +103,16 @@ public class UserController {
 			}
 			return "index";
 		}
+		
+		
+		@GetMapping("/testsession.controller")
+		@ResponseBody
+		public MemberBean processAction3(Model model)
+			{
+			//MemberBean attribute = (MemberBean) httpSession.getAttribute("LoginOK");
+			MemberBean member = (MemberBean) model.getAttribute("LoginOK");
+//			MemberBean member2 = new MemberBean();
+//			member2.setAccountnumber("54545");
+				return member;
+			}
 }

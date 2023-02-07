@@ -244,7 +244,7 @@
 									<tr bgcolor='transparent'>
 										<td width="120" height="40">車商名稱</td>
 										<td width="600" height="40" align="left"><input
-											id="carDealName" name="carDealName" class="checkNotNull"
+											id="carDealName" name="carDealName" class=""
 											value="${addCar.carDealName}" type="text" size="14"
 											style="text-align: left" readonly> <small><font
 												color='red' size="-1">${ErrorMsg.carDealName}</font></small></td>
@@ -253,57 +253,63 @@
 									<tr bgcolor='transparent'>
 										<td width="120" height="40">帳號</td>
 										<td width="600" height="40" align="left"><input
-											id="accountNumber" name="accountNumber" class="checkNotNull"
+											id="accountNumber" name="accountNumber" class="accountNumberCheck"
 											value="${login.accountnumber}" type="text" size="14"
-											style="text-align: left" readonly></td>
+											style="text-align: left" readonly><span></span></td>
 									</tr>
+									<!-- 									<tr bgcolor='transparent'> -->
+									<!-- 										<td width="120" height="40">帳號</td> -->
+									<!-- 										<td width="600" height="40" align="left"><input -->
+									<!-- 											id="accountNumber" name="accountNumber" class="checkNotNull" -->
+									<%-- 											value="${login.accountnumber}" type="text" size="14" --%>
+									<!-- 											style="text-align: left"></td> -->
+									<!-- 									</tr> -->
 									<tr bgcolor='transparent'>
 										<td width="120" height="40">車輛品牌</td>
 										<td width="600" height="40" align="left"><input
-											id="carBrand" name="carBrand" class="checkNotNull"
+											id="carBrand" name="carBrand" class="carBrandCheck"
 											value="${param.carBrand}" type="text" size="14"
-											style="text-align: left"></td>
+											style="text-align: left"><span></span></td>
 									</tr>
 									<tr bgcolor='transparent'>
 										<td width="120" height="40">車輛名稱</td>
 										<td width="600" height="40" align="left"><input
-											id="carName" name="carName" class="checkNotNull"
+											id="carName" name="carName" class="carNameCheck"
 											value="${param.carName}" type="text" size="14"
-											style="text-align: left"></td>
+											style="text-align: left"><span></span></td>
 									</tr>
 									<tr bgcolor='transparent'>
 										<td width="120" height="40">庫存</td>
 										<td width="600" height="40" align="left"><input
-											id="stock" name="stock" class="checkNotNull"
+											id="stock" name="stock" class="stockCheck"
 											value="${param.stock}" type="text" size="14"
-											style="text-align: left"></td>
+											style="text-align: left"><span></span></td>
 									</tr>
 									<tr bgcolor='transparent'>
 										<td width="120" height="80">車輛描述</td>
 										<td width="600" height="40" align="left"><textarea
 												id="carDescription" name="carDescription"
-												class="checkNotNull" value="${param.carDescription}"
-												cols="30" rows="10" style="text-align: left"></textarea></td>
+												class="carDescriptionCheck"
+												cols="30" rows="10" style="text-align: left"></textarea><span></span></td>
 									</tr>
 									<tr bgcolor='transparent'>
 										<td width="120" height="40">車輛照片</td>
 										<td width="600" height="40" align="left"><input
-											id="carImage" name="carImage" class="checkNotNull"
-											value="${param.carImage}" type="file"></td>
+											id="carImage" name="carImage" class="carImageCheck"
+											value="${param.carImage}" type="file"><span></span></td>
 									</tr>
 									<tr>
 									<tr>
 										<td width="120" height="40">發布日期</td>
 										<td width="600" height="40" align="left"><input
-											id="announceDate" name="announceDate" class="checkNotNull"
+											id="announceDate" name="announceDate" class="announceDateCheck"
 											value="${param.announceDate}" type="text" size="14"
 											style="text-align: left"> <font color='blue'
 											size="-1">&nbsp;&nbsp;格式為MM-dd-yyyy</font></td>
 									</tr>
 									<tr bgcolor='transparent'>
 										<td height="50" colspan="2" align="center"><input
-											type="button" value="新增" id="addCar"
-											 class="btn btn-info">
+											type="button" value="新增" id="addCar" class="btn btn-info">
 										</td>
 									</tr>
 								</c:forEach>
@@ -387,6 +393,42 @@
 			$("#announceDate").datepicker();
 		});
 
+		//驗證不得為空值
+		  
+		  $('#addCar').on('click', function(){
+			let wrong = '<i class="fa-regular fa-circle-xmark"></i>'
+			let accountNumberCheck = $('.accountNumberCheck').val();
+			let carBrandCheck = $('.carBrandCheck').val();
+			let carNameCheck = $('.carNameCheck').val();
+			let stockCheck = $('.stockCheck').val();
+			let carDescriptionCheck = $('.carDescriptionCheck').val();
+			let carImageCheck = $('.carImageCheck').val();
+			let announceDateCheck = $('.announceDateCheck').val();
+			if(accountNumberCheck && carBrandCheck && carNameCheck && stockCheck && carDescriptionCheck && carImageCheck && announceDateCheck > 0){
+				$('.accountNumberCheck').next().empty();
+				$('.carBrandCheck').next().empty();
+				$('.carNameCheck').next().empty();
+				$('.stockCheck').next().empty();
+				$('.carDescriptionCheck').next().empty();
+				$('.carImageCheck').next().empty();
+				$('.announceDateCheck').next().empty();
+				verifyok = true;
+			}else{
+				$('.accountNumberCheck').next().css('color', 'red').html(wrong + '必填')
+				$('.carBrandCheck').next().css('color', 'red').html(wrong + '必填')
+				$('.carNameCheck').next().css('color', 'red').html(wrong + '必填')
+				$('.stockCheck').next().css('color', 'red').html(wrong + '必填')
+				$('.carDescriptionCheck').next().css('color', 'red').html(wrong + '必填')
+				$('.carImageCheck').next().css('color', 'red').html(wrong + '必填')
+				$('.announceDateCheck').next().css('color', 'red').html(wrong + '必填')
+	            verifyok = false;
+			}
+		})
+		
+		
+		
+		
+		
 		//驗證欄位不為空
 		
 
@@ -410,10 +452,10 @@
 					console.log("OK")
 					location.href = 'SelectCarInOneSeller.controller/' + carDealName
 				},
-				error:function(xhr, ajaxOptions, thrownError){
+// 				error:function(xhr, ajaxOptions, thrownError){
 	           	 
-	                alert(xhr.status+"\n"+thrownError);
-	            }
+// 	                alert(xhr.status+"\n"+thrownError);
+// 	            }
 			})
 			}
 		});

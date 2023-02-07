@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "member")
 @Component
 public class MemberBean implements Serializable{
-	
+
 	@Id
 	@Column(name = "accountnumber")
 	private String accountnumber;//${login.accountnumber}

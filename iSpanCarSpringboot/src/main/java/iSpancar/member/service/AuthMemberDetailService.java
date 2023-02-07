@@ -26,7 +26,6 @@ public class AuthMemberDetailService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		MemberBean member = null;
-		
 			try {
 				member = mService.findImgbyaccountnumber(username);
 			} catch (SQLException e) {
