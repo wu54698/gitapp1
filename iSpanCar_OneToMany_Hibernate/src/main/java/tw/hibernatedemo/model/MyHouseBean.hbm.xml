@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<hibernate-mapping>
+    <class name="tw.hibernatedemo.model.MyHouseBean" table="myHouse">
+        <id name="houseId" type="java.lang.Integer">
+            <column name="houseID" />
+            <generator class="assigned" />
+        </id>
+        <property name="houseName" type="java.lang.String">
+            <column name="houseNAME" sql-type="nvarchar(50)" />
+        </property>
+    </class>
+</hibernate-mapping>

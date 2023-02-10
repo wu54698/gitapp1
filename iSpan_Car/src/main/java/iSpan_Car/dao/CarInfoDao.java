@@ -1,0 +1,113 @@
+package iSpan_Car.dao;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
+
+import com.mysql.cj.protocol.Resultset;
+
+import iSpan_Car.model.CarInfoBean;
+
+
+public class CarInfoDao {
+	DataSource ds = null;
+
+	public CarInfoDao() {
+		try {
+			Context context = new InitialContext();
+			ds = (DataSource) context.lookup("java:comp/env/iSpan_Car_DataBase"); //連線至context.xml > java:comp/env/name
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Blob filetoBlob(InputStream is, long size) 
+							throws IOException, SerialException, SQLException {
+		byte[] b = new byte[(int) size];
+		SerialBlob sb = null;
+		is.read(b);
+		sb = new SerialBlob(b);
+		return sb;
+		
+	}
+	
+	
+	//新增車輛商品
+	public void addCarInfo(CarInfoBean bean) throws SQLException {
+		String sql = "insert into carInfo values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		Connection conn = ds.getConnection();
+		PreparedStatement preState = conn.prepareStatement(sql);
+		preState.setInt(1, bean.getCarDealVATNumber());
+		preState.setString(2, bean.getCarDealName());
+		preState.setInt(3, bean.getAccountNumber());
+		preState.setString(4, bean.getCarBrand());
+		preState.setString(5, bean.getCarName());
+		preState.setInt(6, bean.getStock());
+		preState.setBinaryStream(7, bean.getCarImage().getBinaryStream());
+		preState.setString(8, bean.getCarDescription());
+		preState.setString(9, bean.getAnnounceDate());
+		preState.execute();
+		preState.close();
+		conn.close();
+		
+	}
+	
+	//透過庫存刪除車輛
+	public void deleteCarInfo(int stock) throws SQLException {
+		String sql = "delete from carInfo where stock = ?";
+		Connection conn = ds.getConnection();
+		PreparedStatement preState = conn.prepareStatement(sql);
+		preState.setInt(1, stock);
+		preState.execute();
+		preState.close();
+		conn.close();
+	}
+	
+	//透過品牌找車輛
+	public List<CarInfoBean> findByCarBrandLike(String carBrand) throws SQLException{
+		String sql = "select * from carInfo where carBrand like ?";
+		Connection conn = ds.getConnection();
+		PreparedStatement preState = conn.prepareStatement(sql);
+		preState.setString(1, "%" + carBrand + "%");
+		ResultSet rs = preState.executeQuery();
+		
+		List<CarInfoBean> list = new LinkedList<>();
+		
+		while(rs.next()) {
+			CarInfoBean infoBean = new CarInfoBean();
+			infoBean.setCarDealVATNumber(rs.getInt("carDealerVATNumber"));
+			infoBean.setCarDealName(rs.getString("carDealName"));
+			infoBean.setAccountNumber(rs.getInt("accountNumber"));
+			infoBean.setCarBrand(rs.getString("carBrand"));
+			infoBean.setCarName(rs.getString("carName"));
+			infoBean.setStock(rs.getInt("stock"));
+			infoBean.setCarImage(rs.getBlob("carImage"));
+			infoBean.setCarDescription(rs.getString("carDescription"));
+			infoBean.setAnnounceDate(rs.getString("announceDate"));
+			list.add(infoBean);
+		}
+			rs.close();
+			preState.close();
+			conn.close();
+			return list;
+		
+		
+		
+	}
+	
+	
+	
+}

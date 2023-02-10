@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?> 
+<Context displayName="JSP Exercise" docBase="jspExercise" path="/jspExercise" reloadable="true">
+  <!--                  SQLServer                      -->
+  <Resource name="iSpan_Car_DataBase" type="javax.sql.DataSource"
+      username="sa" password="werop76524"
+      driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+      url="jdbc:sqlserver://127.0.0.1:1433;DatabaseName=iSpan_Car"    
+      maxTotal="8"
+      maxIdle="4"
+      maxWaitMillis="5000"
+  />  
+</Context>
