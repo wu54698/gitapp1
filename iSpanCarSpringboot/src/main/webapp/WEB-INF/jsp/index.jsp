@@ -42,7 +42,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg  fixed-top" id="mainNav">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand colorchange" href="index" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">首頁</a>
+            <a class="navbar-brand colorchange" href="/index" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">首頁</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -85,7 +85,6 @@
     <script>
     $(function(){
     	if($('#logincheck').val() != ""){
-    		console.log("11111111111")
     		var account = $('#logincheck').val();
     		
     		var loginhtml = '<b><a class="nav-link colorchange" href="userinfo" '+
@@ -102,7 +101,7 @@
     			
     			var loginpicture = $('#loginpicture').val();
         		
-        		var loginhtml = '<b><a class="nav-link colorchange" href="userinfo" '+
+        		var loginhtml = '<b><a class="nav-link colorchange" href="/userinfo" '+
                    'style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">'+email+'&nbsp'+
         		'<img class="img-profile rounded-circle" id="myImage" width="25px" src="'+loginpicture+'"></a></b>';
         		

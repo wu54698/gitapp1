@@ -2,6 +2,7 @@ package iSpancar.member.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
@@ -31,8 +33,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import iSpancar.member.model.LocationDto;
 import iSpancar.member.model.MemberBean;
+import iSpancar.member.model.MemberLoginDate;
 import iSpancar.member.model.PermissionsOfPosition;
 import iSpancar.member.service.MemberService;
 
@@ -84,6 +89,13 @@ public class MemberCrud {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	//select memberAmount for chart.js
+	@GetMapping("/memberamount.controller")
+	@ResponseBody
+	public List<MemberLoginDate> processMemberAmount() {
+		List<MemberLoginDate> loginDatesList = memberService.findAllLoginDates();
+		return loginDatesList;
 	}
 	
 	//select position-------------------權限---------------------
@@ -257,6 +269,40 @@ public class MemberCrud {
 		
 		return list;
 	}
+//-------------------------------輸出--------------------------------
+	//CSV
+	  @GetMapping(value = "/exportCsv.controller") 
+	  public void exportCsv(HttpServletResponse response) throws IOException, SQLException { 
+	      String fileName = "output.csv";   //輸出CSV的檔案名稱 
+	      response.setContentType("text/csv; charset=UTF-8");  //設定輸出為UTF-8中文才不會跑掉 
+	      response.setHeader("Content-Disposition", "attachment; filename=" + fileName); 
+
+	      //這邊要改成各自的BEAN ,搜尋全部然後塞進list內
+	      List<MemberBean> beans = memberService.findAll(); 
+	      try (PrintWriter writer = response.getWriter()) { 
+	       //這是各位csv的欄位名稱 
+	          writer.println("帳號,姓名,電話,email,地址,車牌,生日"); 
+	          //這裡也要改成各位抓的值 
+	          for (MemberBean bean : beans) { 
+	              writer.println(bean.getAccountnumber() + "," + bean.getMemberName() + "," + bean.getPhonenumber() 
+	              + ","+ bean.getEmail() + "," + bean.getMemberaddress() + "," + bean.getPlatenumber() + ","
+	                + bean.getBirthday() ); 
+	          } 
+	      } 
+	  }
+	  //json
+	  @GetMapping(value = "/exportJson.controller") 
+	  public void exportJson(HttpServletResponse response) throws IOException, SQLException {
+	   List<MemberBean> beans = memberService.findAll(); 
+	   Map<String, MemberBean> data = new HashMap<>();
+	   for (MemberBean bean : beans) { 
+	    data.put(bean.getAccountnumber(), bean);
+	    
+	   }
+	      response.setContentType("application/json;charset=UTF-8");
+	      response.setHeader("Content-Disposition", "attachment; filename=data.json");
+	      response.getWriter().write(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(data));
+	    }
 	
 
 }

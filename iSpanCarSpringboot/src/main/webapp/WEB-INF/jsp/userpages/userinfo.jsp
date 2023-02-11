@@ -79,7 +79,7 @@
 						                  <h4 >帳號:</h4>
 						                </td>
 						                <td>
-						                  <h5>${login.accountnumber}<input type="hidden" id="accountnumber" name="accountnumber" value="${login.accountnumber}"></h5>
+						                  <h5>${login.accountnumber}<input type="hidden" id="accountnumber" name="accountnumber" class="userinfo" value="${login.accountnumber}"></h5>
 						                </td>
 						              </tr>
 						              <tr>
@@ -87,7 +87,7 @@
 						                  <h4>姓名:</h4>
 						                </td>
 						                <td>
-						                  <h5 class="d-inline">${login.memberName}<input type="hidden" id="memberName" name="memberName" value="${login.memberName}"></h5>
+						                  <h5 class="d-inline">${login.memberName}<input type="hidden" id="memberName" name="memberName" class="userinfo" value="${login.memberName}"></h5>
 						                  <button class="btn-primary btn-sm edit" style="float:right;">編輯</button>
 						                </td>
 						              </tr>
@@ -96,7 +96,7 @@
 						                  <h4>電話:</h4>
 						                </td>
 						                <td>
-						                  <h5 class="phonenumber d-inline">${login.phonenumber}<input type="hidden" id="phonenumber" name="phonenumber" value="${login.phonenumber}"></h5>
+						                  <h5 class="phonenumber d-inline">${login.phonenumber}<input type="hidden" id="phonenumber" name="phonenumber" class="userinfo" value="${login.phonenumber}"></h5>
 						                  <button class="btn-primary btn-sm edit" id="phonebtn" style="float:right;">編輯</button>
 						                </td>
 						              </tr>
@@ -105,7 +105,7 @@
 						                  <h4>email:</h4>
 						                </td>
 						                <td>
-						                  <h5 class="d-inline">${login.email}<input type="hidden" id="email" name="email" value="${login.email}"></h5>
+						                  <h5 class="d-inline">${login.email}<input type="hidden" id="email" name="email" class="userinfo" value="${login.email}"></h5>
 						                  <button class="btn-primary btn-sm edit" style="float:right;">編輯</button>
 						                </td>
 						              </tr>
@@ -114,7 +114,7 @@
 						                  <h4>地址:</h4>
 						                </td>
 						                <td>
-						                  <h5 class="d-inline">${login.memberaddress}<input type="hidden" id="memberaddress" name="memberaddress" value="${login.memberaddress}"></h5>
+						                  <h5 class="d-inline">${login.memberaddress}<input type="hidden" id="memberaddress" name="memberaddress" class="userinfo" value="${login.memberaddress}"></h5>
 						                	<button class="btn-primary btn-sm edit" style="float:right;">編輯</button>
 						                </td>
 						              </tr>
@@ -123,7 +123,7 @@
 						                  <h4>車牌:</h4>
 						                </td>
 						                <td>
-						                  <h5 class="d-inline">${login.platenumber}<input type="hidden" id="platenumber" name="platenumber" value="${login.platenumber}"></h5>
+						                  <h5 class="d-inline">${login.platenumber}<input type="hidden" id="platenumber" name="platenumber" class="userinfo" value="${login.platenumber}"></h5>
 						                  <button class="btn-primary btn-sm edit" style="float:right;">編輯</button>
 						                </td>
 						              </tr>
@@ -132,7 +132,7 @@
 						                  <h4>身分證字號:</h4>
 						                </td>
 						                <td>
-						                  <h5 class="idnumber d-inline">${login.idnumber}<input type="hidden" id="idnumber" name="idnumber" value="${login.idnumber}"></h5>
+						                  <h5 class="idnumber d-inline">${login.idnumber}<input type="hidden" id="idnumber" name="idnumber" class="userinfo" value="${login.idnumber}"></h5>
 						                  <button class="btn-primary btn-sm edit" id="idnumberbtn" style="float:right;">編輯</button>
 						                </td>
 						              </tr>
@@ -141,7 +141,7 @@
 						                  <h4>生日:</h4>
 						                </td>
 						                <td>
-						                  <h5 class="birthday d-inline">${login.birthday}<input type="hidden" id="birthday" name="birthday" value="${login.birthday}"></h5>
+						                  <h5 class="birthday d-inline">${login.birthday}<input type="hidden" id="birthday" name="birthday" class="userinfo" value="${login.birthday}"></h5>
 						                  <button class="btn-primary btn-sm edit" style="float:right;">編輯</button>
 						                </td>
 						              </tr>
@@ -150,7 +150,7 @@
 						                  <h4>信用卡號:</h4>
 						                </td>
 						                <td>
-						                  <h5 class="cardnumber d-inline">${login.cardnumber}<input type="hidden" id="cardnumber" name="cardnumber" value="${login.cardnumber}"></h5>
+						                  <h5 class="cardnumber d-inline">${login.cardnumber}<input type="hidden" id="cardnumber" name="cardnumber" class="userinfo" value="${login.cardnumber}"></h5>
 						                  <button class="btn-primary btn-sm edit" id="cardnumberbtn" style="float:right;">編輯</button>
 						                </td>
 						              </tr>
@@ -159,17 +159,18 @@
                                 </form>
                             </div>
                             <div class="col-5 mt-6 pt-5 justify-content-center">
-                           	<div class="text-center"><h4 class="d-inline">個人照片</h4><button class="btn-primary btn-sm" style="float:right;margin-right:24px">編輯</button></div>
+                           	<div class="text-center"><h4 class="d-inline">個人照片</h4><button class="btn-primary btn-sm editImage" onclick="file.click()" style="float:right;margin-right:24px">編輯</button></div>
                            		<div class="text-center">
-                                	<form id="imgform" class="imgform" enctype="multipart/form-data"><label><input
-                                            type='hidden' class='file' id='file' name='file' style='display:none'><img
+                                	<form id="imgform" class="imgform" enctype="multipart/form-data"><label>
+                                	<input type="file" name="file" id="file" class="file" style='display:none'/><img
                                             id="imgshow" class="imgshow"
                                             src="/showimage.controller?accountnumber=${login.accountnumber}" width="460"
                                             height="460" /></label></form>
                                  </div>
                             </div>
                         </div>
-                        <div class="text-center"><button class="btn-success btn-sm">儲存</button></div>
+                        <div class="row"><div class="col-10"><input type="hidden" value="${login.memberLoginDate.logindate}" id="logindate"></div><div class="col-2"><h5 id="Days"></h5></div></div>
+                        <div class="text-center"><button class="btn-success btn-sm" id="saveinfobtn">儲存</button></div>
                         <div>&nbsp</div>
                     </div>
                 </div>
@@ -188,6 +189,7 @@
 
             <script src="http://localhost:8080/iSpanCar/script/js/navhtml.js"></script>
             <script src="http://localhost:8080/iSpanCar/script/js/footerhtml.js"></script>
+   			 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!--             <script src="http://localhost:8080/iSpanCar/script/vendors/jquery/jquery-3.2.1.min.js"></script> -->
 <!-- 		  <script src="http://localhost:8080/iSpanCar/script/vendors/bootstrap/bootstrap.bundle.min.js"></script> -->
 <!-- 		  <script src="http://localhost:8080/iSpanCar/script/vendors/skrollr.min.js"></script> -->
@@ -199,26 +201,47 @@
 
             <script type="text/javascript">
                 $(function () {
-                	$('.birthday').each(function(){
-                		var birthstr = $(this).text();
-                		var str = birthstr.substring(0,10);
-                		$(this).html(str+'<input type="hidden" id="birthday" name="birthday" value="'+str+'">');
-                	})
-                	//隱藏電話
-                	var phonenumber = $('.phonenumber').text();
-                	var phonetext = phonenumber.substring(0,phonenumber.length-4) +'****'+'<input type="hidden" id="phonenumber" name="phonenumber" value="${login.phonenumber}">';
-                	$('.phonenumber').html(phonetext);
-                	//隱藏身分證
-                	var idnumber = $('.idnumber').text();
-                	var idnumbertext = idnumber.substring(0,idnumber.length-4) +'****'+'<input type="hidden" id="idnumber" name="idnumber" value="${login.idnumber}">';
-                	$('.idnumber').html(idnumbertext);
-                	//隱藏信用卡
-                	var cardnumber = $('.cardnumber').text();
-                	var cardnumbertext = cardnumber.substring(0,cardnumber.length-9) +'****-****'+'<input type="hidden" id="cardnumber" name="cardnumber" value="${login.cardnumber}">';
-                	$('.cardnumber').html(cardnumbertext);
-                	//顯示Body
-                	$('body').css("display","");
-            
+                	let logincheck = $('#logincheck').val()
+                	if(logincheck == ''){location.href='login'}
+                	else{
+	                	let logindate = $('#logindate').val()
+	                	$.ajax({
+		   	                type: 'POST',
+		   	             	context:this,
+		   	                async: false,
+		   	                url: "/showdate.controller",
+		   	                dataType: 'text',
+		   	                data:{"logindate": logindate
+		   	                },
+			        		   success: function (response) {
+			        			   $('#Days').text('登入天數: '+(response));
+			        			   console.log(response)
+			   	                } ,
+			   	                error:function(xhr, ajaxOptions, thrownError){
+			   	                    alert(xhr.status+"\n"+thrownError);
+			   	                }
+			        	   })
+	                	
+	                	$('.birthday').each(function(){
+	                		var birthstr = $(this).text();
+	                		var str = birthstr.substring(0,10);
+	                		$(this).html(str+'<input type="hidden" id="birthday" name="birthday" class="userinfo" value="'+str+'">');
+	                	})
+	                	//隱藏電話
+	                	var phonenumber = $('.phonenumber').text();
+	                	var phonetext = phonenumber.substring(0,phonenumber.length-4) +'****'+'<input type="hidden" id="phonenumber" name="phonenumber" class="userinfo" value="${login.phonenumber}">';
+	                	$('.phonenumber').html(phonetext);
+	                	//隱藏身分證
+	                	var idnumber = $('.idnumber').text();
+	                	var idnumbertext = idnumber.substring(0,idnumber.length-4) +'****'+'<input type="hidden" id="idnumber" name="idnumber" class="userinfo" value="${login.idnumber}">';
+	                	$('.idnumber').html(idnumbertext);
+	                	//隱藏信用卡
+	                	var cardnumber = $('.cardnumber').text();
+	                	var cardnumbertext = cardnumber.substring(0,cardnumber.length-9) +'****-****'+'<input type="hidden" id="cardnumber" name="cardnumber" class="userinfo" value="${login.cardnumber}">';
+	                	$('.cardnumber').html(cardnumbertext);
+	                	//顯示Body
+	                	$('body').css("display","");
+                	}
                 })
                 $(function(){
                 	$('#content').on('click','.edit',function(e){
@@ -226,20 +249,120 @@
                 		var originval = $(this).prev().children('input').val();
                 		$(this).prev().html('<input type="text" value='+originval+'>');
                 		$(this).removeAttr('class').attr('class','confirm btn-primary btn-sm').text('確認');
-                		//if($(this).attr('id'))
+                		$('#saveinfobtn').prop("disabled", true);
+                		$('#saveinfobtn').attr("class", "btn-light btn-sm");
                 	})
+                	
                 	$('#content').on('click','.confirm',function(e){
                 		e.preventDefault();
                 		var newval = $(this).prev().children('input').val();
-                		
-                		
-                		$(this).prev().html(newval+'<input type="hidden" class="memberinfo" value="'+newval+'">')
-//                 		$(this).prev().html('<input type="text" value='+originval+'>');
+                		var show = newval;
+                		if($(this).prev().attr('class').includes('phonenumber') ){
+                			show = show.substring(0,show.length-4) +'****';
+                		}
+                		if($(this).prev().attr('class').includes('idnumber') ){
+                			show = show.substring(0,show.length-4) +'****';
+                		}
+                		if($(this).prev().attr('class').includes('cardnumber') ){
+                			show = show.substring(0,show.length-9) +'****-****';
+                		}
+                		$(this).prev().html(show+'<input type="hidden"  class="userinfo" value="'+newval+'">')
                 		$(this).removeAttr('class').attr('class','edit btn-primary btn-sm').text('編輯');
                 		
-                		
+                		if($('.confirm').length == 0){
+                			$('#saveinfobtn').prop("disabled", false);
+                			$('#saveinfobtn').attr("class", "btn-success btn-sm");
+                		}
                 	})
+                	
+                	$('#saveinfobtn').on('click',function(){
+                		var userinfoarray = [];
+                		$('.userinfo').each(function(i,e){
+                			console.log(e.value)
+                			userinfoarray.push(e.value)
+                		})
+                		console.log(userinfoarray)
+	                	$.ajax({
+	   	                type: 'POST',
+	   	             	context:this,
+	   	                //async: false,
+	   	                url: "/usermemberupdate.controller",
+	   	                dataType: 'json',
+	   	                data:{ "accountnumber" : userinfoarray[0],
+	   	                		"memberName": userinfoarray[1],
+	   	                		"phonenumber": userinfoarray[2],
+	   	                		"email": userinfoarray[3],
+	   	                		"memberaddress": userinfoarray[4],
+	   	                		"platenumber": userinfoarray[5],
+	   	                		"idnumber": userinfoarray[6],
+	   	                		"birthday": userinfoarray[7],
+	   	                		"cardnumber":userinfoarray[8]
+	   	                },
+		        		   success: function (response) {
+		        			   console.log(response)
+		   	                } ,
+		   	                error:function(xhr, ajaxOptions, thrownError){
+		   	                	 
+		   	                    alert(xhr.status+"\n"+thrownError);
+		   	                }
+		        	   })
+                	})
+                	
+                	$('#saveinfobtn').on('click',function(){
+                		 let account = $("#accountnumber").val()
+                		 let form = $('.imgform');
+                		 var formData = new FormData(form[0]);
+                		 formData.append("accountnumber",account)
+	                		  $.ajax({
+				        		   type:"POST",
+				        		   //async: false,
+				        		   data:formData,
+				        		   context:this,
+				         		   url:"/userupdateimg.controller",
+				        		   enctype:"multipart/form-data",
+				        		   cache: false,
+				        		   processData : false,  
+				        		   contentType : false,
+				        		  // dataType:'blob',
+				        		   success: function (response) {
+				        				   let random = Math.random();
+				        				   $('#myImage').attr('src',"/showimageforthismember.controller?accountnumber="+account+"&"+random)
+				        			   Swal.fire({
+											  icon: 'success',
+											  title: '儲存成功',
+											  //text: 'Something went wrong!',
+											})
+				   	                } ,
+				   	                error:function(xhr, ajaxOptions, thrownError){
+				   	                	 
+				   	                    alert(xhr.status+"\n"+thrownError);
+				   	                }
+		        	   })
+                	})
+                	
+	                //變更圖片顯示
+	                $('#content').on('change','.file',function(){
+		        	 //獲取input file的files文件數組;
+		        	    //$('#filed')獲取的是jQuery對象，.get(0)轉為原生對象;
+		        	    //這邊預設只能選一個，但是存放形式仍然是數組，所以取第一個元素使用[0];
+		        	   var imgshow = $('.imgshow')
+		        	    var file = $(this).get(0).files[0];
+		        	    //創建用來讀取此文件的對象
+		        	    var reader = new FileReader();
+		        	    //使用該對象讀取file文件
+		        	    reader.readAsDataURL(file);
+		        	    //讀取文件成功後執行的方法函數
+		        	    reader.onload = function (e) {
+		        	        //讀取成功後返回的一個參數e，整個的一個進度事件
+		        	        console.log(e);
+		        	        console.log(imgshow)
+		        	        //選擇所要顯示圖片的img，要賦值給img的src就是e中target下result裡面
+		        	        //的base64編碼格式的地址
+		        	        imgshow.attr('src',e.target.result)
+		        	     }
+		           })
                 })
+                
 
             </script>
         </body>

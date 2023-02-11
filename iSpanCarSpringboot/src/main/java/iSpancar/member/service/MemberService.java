@@ -6,6 +6,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,11 +23,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import iSpancar.dforum.service.WebContextService;
+import iSpancar.member.dao.LoginDateRepository;
 import iSpancar.member.dao.MemberDao;
 import iSpancar.member.dao.MemberRepository;
 import iSpancar.member.dao.Oauth2MemberRepository;
 import iSpancar.member.dao.PermissionsRepository;
 import iSpancar.member.model.MemberBean;
+import iSpancar.member.model.MemberLoginDate;
 import iSpancar.member.model.MemberPosition;
 import iSpancar.member.model.Oauth2MemberBean;
 import iSpancar.member.model.PermissionsOfPosition;
@@ -50,6 +53,10 @@ public class MemberService {
 	
 	@Autowired
 	private Oauth2MemberRepository oRepository;
+	
+	@Autowired
+	private LoginDateRepository lRepository;
+	
 	
 	public MemberService() {
 	}
@@ -123,6 +130,10 @@ public class MemberService {
 		PermissionsOfPosition user = new PermissionsOfPosition();
 		user.setPositionPk("user");
 		position.setPermissionsofposition(user);
+		Date now = new Date();
+		MemberLoginDate loginDate = new MemberLoginDate(bean, now);
+		bean.setMemberLoginDate(loginDate);
+		lRepository.save(loginDate);
 		
 		mRepository.save(bean);
 		
@@ -137,6 +148,10 @@ public class MemberService {
 		PermissionsOfPosition employee = new PermissionsOfPosition();
 		employee.setPositionPk("employee");
 		position.setPermissionsofposition(employee);
+		Date now = new Date();
+		MemberLoginDate loginDate = new MemberLoginDate(bean, now);
+		bean.setMemberLoginDate(loginDate);
+		lRepository.save(loginDate);
 		
 		mRepository.save(bean);
 		
@@ -145,8 +160,11 @@ public class MemberService {
 	}
 	//用帳號刪除資料
 	public void deleteByAccountnumber(String accountnumber) throws SQLException {
-
+		
+		lRepository.deleteByAccountNumber(accountnumber);
+		
 		mRepository.deleteMemberPosition(accountnumber);
+		
 		mRepository.deleteById(accountnumber);
 	}
 	
@@ -225,10 +243,13 @@ public class MemberService {
 
 	//查詢全部
 	public List<MemberBean> findAll() throws SQLException{
-		
 			List<MemberBean> list = mRepository.findAll();
-			
 			return list;
+	}
+	//查詢login
+	public List<MemberLoginDate> findAllLoginDates(){
+		List<MemberLoginDate> list = lRepository.findAll();
+		return list;
 	}
 	
 	

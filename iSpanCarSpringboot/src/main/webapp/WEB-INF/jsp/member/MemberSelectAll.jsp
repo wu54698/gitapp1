@@ -226,11 +226,16 @@
 
                     <!-- Page Heading -->
                     <div class="row">
-		                   <div class="col-sm-10 "> <h1 class="h3 mb-4 text-gray-800">會員資料</h1></div>
+		                   <div class="col-sm-8 "> <h1 class="h3 mb-4 text-gray-800">會員資料</h1></div>
+		                   <div class="col-sm-2">
+		                   輸出資料:
+		                   		<button class="btn btn-info " type="button" onclick="location.href='/backstage/exportCsv.controller'">csv</button>
+		                   		<button class="btn btn-info " type="button" onclick="location.href='/backstage/exportJson.controller'">json</button>
+		                   </div>
 		                   <div class="col-sm-2"><span class="mr-2">創建員工帳號</span><button class="insert btn btn-success btn-circle" ><i class="fa-solid fa-user-plus"></i></button></div>
 					</div>
                     
-						
+<!-- 					choose(when()otherwise()) 等於 if...else...	 -->
 		<c:choose>
 		<c:when test="${empty selectAll}">
 			<h3>查無任何會員資料</h3>
@@ -525,17 +530,15 @@
 	               let buttonstring = "<button class='update btn btn-info btn-circle'><i class='fa-solid fa-pen'></i></button>"
 	               let account = $(this).closest('tr').find('.accountnumber').text();
 	               let imgshow = $(this).closest('tr').find('.imgshow');
-	   				
 	               $.ajax({
 	   	                type: 'POST',
-	   	             	//context:this,
+	   	             	context:this,
 	   	                url: "findmemberposition.controller",
 	   	                dataType: 'json',
-	   	             	//async: false,
+	   	             	async: false,
 	   	                data:{ accountnumber : account },
 	   	                success: function (response) {
-	   	                	console.log(response);
-	   	             		$(this).parent().parent().children('td').eq(1).text(response.positionPk)
+	   	                	$(this).parent().parent().children('.thisposition').text(response.positionPk);
 	   	                } ,
 	   	                error:function(xhr, ajaxOptions, thrownError){
 	   	                	 

@@ -218,8 +218,6 @@
 	            $('#memberaddress').attr('value','新生路2段421號')
 	            $('#platenumber').attr('value','V6-8929')
 	            $('#idnumber').attr('value','H173107890')
-	            // $('#accountnumber').attr('value','777')
-	            // $('#accountnumber').attr('value','777')
 	     })
 	   
     	

@@ -6,7 +6,10 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
@@ -115,4 +118,70 @@ public class UserController {
 //			member2.setAccountnumber("54545");
 				return member;
 			}
+		
+		//update
+		@PostMapping("/usermemberupdate.controller")
+		@ResponseBody
+		public List<MemberBean> processUpdateAction(@RequestParam("accountnumber") String accountnumber,@RequestParam("memberpassword")@Nullable String memberpassword,@RequestParam("memberName") String memberName
+				,@RequestParam("phonenumber") String phonenumber,@RequestParam("email") String email,@RequestParam("memberaddress") String memberaddress,@RequestParam String platenumber
+				,@RequestParam("birthday")@Nullable String birthday,@RequestParam("idnumber") String idnumber,@RequestParam("cardnumber") String cardnumber) {
+			List<MemberBean> list = new ArrayList<MemberBean>();
+
+			try {
+				Date birthDate = null;
+				if(!birthday.equals("")) {
+				 birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(birthday);
+				}
+				MemberBean oldmb = memberService.findByAccountReturnBean(accountnumber);//找舊的資料
+				MemberBean mb = new MemberBean(accountnumber, oldmb.getMemberpassword(), memberName, phonenumber, email, memberaddress, platenumber, birthDate, idnumber,cardnumber);
+				MemberBean mBean = memberService.updateByAccountnumber(mb);
+				mBean.setFile(null);//json格式中有BLOB會錯誤
+				list.add(mBean);
+			} catch (SQLException | ParseException e) {
+				e.printStackTrace();
+			}
+			
+			return list;
+		}
+		
+		@PostMapping("/userupdateimg.controller")
+		@ResponseBody
+		public void processUpdateAction(@RequestParam("accountnumber") String accountnumber,@RequestParam("file") MultipartFile mf) {
+			try {
+				byte[] bytes = mf.getBytes();
+				System.out.println("aaaa" + accountnumber);
+				if(bytes.length==0) {
+					
+				}else {
+					Blob blob = new SerialBlob(bytes);
+				
+					memberService.updateImgByAccount(accountnumber, blob);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		@PostMapping("/showdate.controller")
+		@ResponseBody
+		public String processActionLoginDate(@RequestParam("logindate") String loginString) {
+			try {
+				String loginString2 = loginString.substring(0,10);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				long logintime = sdf.parse(loginString2).getTime();
+				
+				Date date = new Date();
+				long now = date.getTime();
+				
+				int loginDays = (int) ((now -logintime) /(24 * 60 * 60 * 1000));
+				String Days = Integer.toString(loginDays+1);
+				return Days;
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+	        return "xx";
+		}
 }

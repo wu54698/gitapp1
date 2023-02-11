@@ -234,6 +234,9 @@
 						<div class="col-sm-6 ">
 						<canvas width="1000" height="700" id="memberchart1" style="display: block; box-sizing: border-box; height: 400px; width: 800px;"></canvas>
 						</div>
+						<div class="col-sm-6 ">
+						<canvas width="1000" height="700" id="memberchart2" style="display: block; box-sizing: border-box; height: 400px; width: 800px;"></canvas>
+						</div>
 					</div>
                 </div>
                 <!-- /.container-fluid -->
@@ -287,6 +290,7 @@
  
  <script>
 	 $(function(){
+		 //地區圓餅圖
 		var ctx = $('#memberchart1');
 		var locationarray = [];
 		$.ajax({
@@ -336,6 +340,119 @@
  			    }
  			  }
  			});
+ 		//折線圖-------------------------------
+		var memberAmount = [];
+		var sixmonth = [];
+				$.ajax({
+					type:"GET",
+					async: false,
+					url:"/backstage/memberamount.controller",
+					dataType: 'json',
+		            success: function (response) {
+		            	memberAmount = response;
+		           } ,
+		           error:function(xhr, ajaxOptions, thrownError){
+		               alert(xhr.status+"\n"+thrownError);
+		           }
+				})
+ 		//--------------------
+ 		//判斷現在幾月
+ 		var Today = new Date();
+		var TodayMonth = Today.getMonth()+1;
+		var lastsixmonth = [7,8,9,10,11,12];
+		if(TodayMonth >= 6){
+			for(let i = 5; i <= 0; i--){
+				sixmonth.push(TodayMonth - i);
+			}
+		}else{
+			for(let i = TodayMonth;i <=5;i++){
+				sixmonth.push(lastsixmonth[i]);
+			}
+			for(let i = 1; i <=TodayMonth;i++ ){
+				sixmonth.push(i);
+			}
+		}
+		var mounthAmount = [0,0,0,0,0,0];
+		console.log(sixmonth)
+		sixmonth.forEach(function(sixitem,index){
+	 		memberAmount.forEach(function(item){
+	 			let monthstring = item.logindate.substring(5,7);
+	 			if(item.logindate.substring(5,7)[0] == 0){
+	 				monthstring = monthstring[1];
+	 			}else{
+	 				monthstring = monthstring;
+	 			}
+	 			if(monthstring == sixitem){
+	 				mounthAmount[index] = mounthAmount[index] + 1;
+	 			}
+	 		})
+		})
+		Array.prototype.max = function () {
+            return Math.max.apply({}, this)
+        }
+ 		var ctx2 = document.getElementById('memberchart2').getContext('2d');
+        new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: sixmonth,
+                datasets: [{
+                    label: '會員人數',
+                    data: mounthAmount,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                }]
+            },
+            options: {
+                title: {
+                  display: true,
+                  text: '每月會員成長人數',
+                  fontSize: 20
+                },
+                legend:{ 
+                  labels: { 
+                    fontColor: 'rgb(0, 0, 0)',
+                    usePointStyle: true
+                  } 
+                },
+                scales: {
+                  // 各軸標題設定
+                  // https://www.chartjs.org/docs/latest/axes/labelling.html
+                  // 各軸格線設定
+                  // https://www.chartjs.org/docs/latest/axes/styling.html
+                  // x 軸設置
+                  xAxes: [{
+                    // x 軸標題
+                    scaleLabel:{
+                      display: true,
+                      labelString:"月份",
+                      fontSize: 16
+                    },
+                    // x 軸格線
+                    gridLines: {
+                      display: true
+                    }
+                  }],
+                  // y 軸設置
+                  yAxes: [{
+                    // y 軸標題
+                    scaleLabel:{
+                      display: true,
+                      labelString:"數量",
+                      fontSize: 16
+                    },
+                    // y 軸格線
+                    gridLines: {
+                      display: false
+                    },
+                    // y 軸間距
+                    ticks: {
+                      min: 0,
+                      max: mounthAmount.max()
+                    }
+                  }]
+                }
+               }
+        });
 
 	 })
  </script>
