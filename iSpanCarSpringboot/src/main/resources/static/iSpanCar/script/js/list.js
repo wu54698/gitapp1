@@ -84,7 +84,7 @@ function xrList(content) {
     var str = ``;
     for(var i = 0; i < content.length; i++) {
         var item = content[i];
-        var { floorCount, title, question, bodySimple, image, interactiveCount, popularityCount, lastReplyTime, lastReplay, uuid, thread } = item;
+        var { floorCount, title, question, bodySimple, image, interactiveCount, popularityCount, lastReplyTime, lastReplay, uuid, thread, head } = item;
         var imgurl = `/iSpanCar/script/img/${question}.png`;
         var img =  question != '空白' ? "<img class='b-list__img lazyloaded' src ="+ imgurl + "/>" : '';
         str += `
@@ -108,6 +108,7 @@ function xrList(content) {
             </div>
             <div class="imglist-text">
               <div class="b-list__tile">
+                ${head?'<div title="置頂" class="b-list__summary__mark b-mark b-mark--update"><i class="material-icons raise"></i>置頂</div>':''}
                 <p
                   data-gtm="B頁文章列表-縮圖"
                   href="C.php?bsn=23805&amp;snA=687636&amp;tnum=3&amp;bPage=2"

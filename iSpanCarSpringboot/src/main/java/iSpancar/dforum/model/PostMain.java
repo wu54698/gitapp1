@@ -38,6 +38,13 @@ public class PostMain {
     @Column(name = "isOP")
     private boolean isOP;
 
+
+    /**
+     * 置頂
+     */
+    @Column(name = "head")
+    private Integer head;
+
     /**
      * 问题分类
      */
@@ -307,5 +314,13 @@ public class PostMain {
 
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    public Integer getHead() {
+        return head;
+    }
+
+    public void setHead(Integer head) {
+        this.head = head;
     }
 }
