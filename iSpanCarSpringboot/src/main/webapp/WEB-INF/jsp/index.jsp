@@ -37,7 +37,9 @@
 	<c:set value="${GoogleLogin}" var="GoogleLogin"/>
 	<c:set value="${login.memberPosition.permissionsofposition}" var="memberPosition"/>
 	<input type="hidden" value="${login.accountnumber}" id="logincheck">
+	<input type="hidden" value="${login.memberName}" id="loginName">
 	<input type="hidden" value="${GoogleLogin.email}" id="logincheck2">
+	<input type="hidden" value="${GoogleLogin.membername}" id="loginGooglemembername">
 	<input type="hidden" value="${GoogleLogin.picture}" id="loginpicture">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg  fixed-top" id="mainNav">
@@ -86,9 +88,9 @@
     $(function(){
     	if($('#logincheck').val() != ""){
     		var account = $('#logincheck').val();
-    		
+    		var name = $('#loginName').val();
     		var loginhtml = '<b><a class="nav-link colorchange" href="userinfo" '+
-               'style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">'+account+'&nbsp'+
+               'style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">'+name+'&nbsp'+
     		'<img class="img-profile rounded-circle" id="myImage" width="25px" src="/showimageforthismember.controller\?accountnumber='+account+'"></a></b>';
     		
     		var logouttext = '<li class="nav-item"><b><a class="nav-link colorchange" style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;" href="/logout.controller">登出</a></b></li>';
@@ -98,11 +100,12 @@
     		if($('#logincheck2').val() != ""){
     			var email = $('#logincheck2').val();
     			console.log(email)
+    			var googlename = $('#loginGooglemembername').val();
     			
     			var loginpicture = $('#loginpicture').val();
         		
         		var loginhtml = '<b><a class="nav-link colorchange" href="/userinfo" '+
-                   'style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">'+email+'&nbsp'+
+                   'style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">'+googlename+'&nbsp'+
         		'<img class="img-profile rounded-circle" id="myImage" width="25px" src="'+loginpicture+'"></a></b>';
         		
         		var logouttext = '<li class="nav-item"><b><a class="nav-link colorchange" style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;" href="/logout.controller">登出</a></b></li>';

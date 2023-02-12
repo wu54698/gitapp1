@@ -124,7 +124,7 @@ public class UserController {
 		@ResponseBody
 		public List<MemberBean> processUpdateAction(@RequestParam("accountnumber") String accountnumber,@RequestParam("memberpassword")@Nullable String memberpassword,@RequestParam("memberName") String memberName
 				,@RequestParam("phonenumber") String phonenumber,@RequestParam("email") String email,@RequestParam("memberaddress") String memberaddress,@RequestParam String platenumber
-				,@RequestParam("birthday")@Nullable String birthday,@RequestParam("idnumber") String idnumber,@RequestParam("cardnumber") String cardnumber) {
+				,@RequestParam("birthday")@Nullable String birthday,@RequestParam("idnumber") String idnumber,@RequestParam("cardnumber") String cardnumber,Model model) {
 			List<MemberBean> list = new ArrayList<MemberBean>();
 
 			try {
@@ -135,27 +135,30 @@ public class UserController {
 				MemberBean oldmb = memberService.findByAccountReturnBean(accountnumber);//找舊的資料
 				MemberBean mb = new MemberBean(accountnumber, oldmb.getMemberpassword(), memberName, phonenumber, email, memberaddress, platenumber, birthDate, idnumber,cardnumber);
 				MemberBean mBean = memberService.updateByAccountnumber(mb);
-				mBean.setFile(null);//json格式中有BLOB會錯誤
+				//mBean.setFile(null);//json格式中有BLOB會錯誤
 				list.add(mBean);
+				
 			} catch (SQLException | ParseException e) {
 				e.printStackTrace();
 			}
-			
 			return list;
 		}
 		
 		@PostMapping("/userupdateimg.controller")
 		@ResponseBody
-		public void processUpdateAction(@RequestParam("accountnumber") String accountnumber,@RequestParam("file") MultipartFile mf) {
+		public void processUpdateAction(@RequestParam("accountnumber") String accountnumber,@RequestParam("file") MultipartFile mf,Model model) {
 			try {
 				byte[] bytes = mf.getBytes();
-				System.out.println("aaaa" + accountnumber);
+
 				if(bytes.length==0) {
 					
 				}else {
 					Blob blob = new SerialBlob(bytes);
 				
 					memberService.updateImgByAccount(accountnumber, blob);
+					
+					MemberBean mBean = memberService.findByAccountReturnBean(accountnumber);
+					model.addAttribute("LoginOK",mBean);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -181,7 +184,19 @@ public class UserController {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			
 	        return "xx";
+		}
+		
+		@PostMapping("/usersetsession.controller")
+		@ResponseBody
+		public String processActionSession(@RequestParam("accountnumber") String accountnumber,Model model) {
+			try {
+				 MemberBean mBean = memberService.findByAccountReturnBean(accountnumber);
+				 model.addAttribute("LoginOK", mBean);
+				return "OK";
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return "XX";
 		}
 }

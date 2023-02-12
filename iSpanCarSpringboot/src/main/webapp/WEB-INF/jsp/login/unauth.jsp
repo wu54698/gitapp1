@@ -35,6 +35,7 @@
 	<c:set value="${LoginOK}" var="login"/>
 	<c:set value="${login.memberPosition.permissionsofposition}" var="memberPosition"/>
 	<input type="hidden" value="${login.accountnumber}" id="logincheck">
+	<input type="hidden" value="${login.memberName}" id="loginName">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container px-4 px-lg-5">
@@ -83,9 +84,10 @@
     $(function(){
     	if($('#logincheck').val() != ""){
     		var account = $('#logincheck').val();
+    		var name = $('#loginName').val();
     		
     		var loginhtml =  '<b><a class="nav-link colorchange" href="/userinfo" '+
-               'style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">'+account+'&nbsp'+
+               'style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">'+name+'&nbsp'+
     		'<img class="img-profile rounded-circle" id="myImage" width="25px" src="/showimageforthismember.controller\?accountnumber='+account+'"></a></b>';
     		
     		var logouttext = '<li class="nav-item"><b><a class="nav-link" href="/logout.controller" style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">登出</a></b></li>';

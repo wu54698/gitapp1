@@ -1,7 +1,7 @@
 package iSpancar.member.model;
 
 public class LocationDto {
-	
+	//會員各地區人數
 	private String city;
 	private Integer cityNumber;
 	

@@ -40,6 +40,7 @@
             <c:set value="${LoginOK}" var="login" />
             <c:set value="${login.memberPosition.permissionsofposition}" var="memberPosition" />
             <input type="hidden" value="${login.accountnumber}" id="logincheck">
+			<input type="hidden" value="${login.memberName}" id="loginName">
             <!-- Navigation-->
             <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             </nav>
@@ -202,6 +203,7 @@
             <script type="text/javascript">
                 $(function () {
                 	let logincheck = $('#logincheck').val()
+            		var name = $('#loginName').val();
                 	if(logincheck == ''){location.href='login'}
                 	else{
 	                	let logindate = $('#logindate').val()
@@ -285,7 +287,7 @@
 	                	$.ajax({
 	   	                type: 'POST',
 	   	             	context:this,
-	   	                //async: false,
+	   	                async: false,
 	   	                url: "/usermemberupdate.controller",
 	   	                dataType: 'json',
 	   	                data:{ "accountnumber" : userinfoarray[0],
@@ -300,6 +302,7 @@
 	   	                },
 		        		   success: function (response) {
 		        			   console.log(response)
+		        			  $('#userDropdown').html(response[0].memberName + ' '+'<img class="img-profile rounded-circle" id="myImage" width="25px" src="">')
 		   	                } ,
 		   	                error:function(xhr, ajaxOptions, thrownError){
 		   	                	 
@@ -320,6 +323,7 @@
 				        		   context:this,
 				         		   url:"/userupdateimg.controller",
 				        		   enctype:"multipart/form-data",
+				   	               async: false,
 				        		   cache: false,
 				        		   processData : false,  
 				        		   contentType : false,
@@ -337,6 +341,25 @@
 				   	                	 
 				   	                    alert(xhr.status+"\n"+thrownError);
 				   	                }
+		        	   })
+                	})
+                	$('#saveinfobtn').on('click',function(){//重新存進session
+                		let account = $("#accountnumber").val()
+                		$.ajax({
+	   	                type: 'POST',
+	   	             	context:this,
+	   	                async: false,
+	   	                url: "/usersetsession.controller",
+	   	                dataType: 'text',
+	   	                data:{ "accountnumber" : account
+	   	                },
+		        		   success: function (response) {
+								console.log(response)
+		        		   } ,
+		   	                error:function(xhr, ajaxOptions, thrownError){
+		   	                	 
+		   	                    alert(xhr.status+"\n"+thrownError);
+		   	                }
 		        	   })
                 	})
                 	

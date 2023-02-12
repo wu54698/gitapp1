@@ -191,7 +191,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.accountnumber}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.memberName}</span>
                             <!-- 職位 -->
                                 <input type="hidden" value="${login.accountnumber}" id="myAccountnumber">
                                 <input type="hidden" value="${memberPosition.positionPk}" id="myPosition">
@@ -321,7 +321,9 @@
  			  "#fa8072",
  			  "#ff8c00",
  			  "#FFFF00",
- 			  "#daa520"
+ 			  "#daa520",
+ 			  "#FF5959",
+ 			  "#BD7B00"
  			];
  		new Chart(ctx, {
  			  type: "pie",
@@ -355,7 +357,6 @@
 		               alert(xhr.status+"\n"+thrownError);
 		           }
 				})
- 		//--------------------
  		//判斷現在幾月
  		var Today = new Date();
 		var TodayMonth = Today.getMonth()+1;
@@ -375,7 +376,7 @@
 		var mounthAmount = [0,0,0,0,0,0];
 		console.log(sixmonth)
 		sixmonth.forEach(function(sixitem,index){
-	 		memberAmount.forEach(function(item){
+	 		memberAmount.forEach(function(item){//拿會員登入月份
 	 			let monthstring = item.logindate.substring(5,7);
 	 			if(item.logindate.substring(5,7)[0] == 0){
 	 				monthstring = monthstring[1];
@@ -406,7 +407,7 @@
                 title: {
                   display: true,
                   text: '每月會員成長人數',
-                  fontSize: 20
+                  fontSize: 24
                 },
                 legend:{ 
                   labels: { 

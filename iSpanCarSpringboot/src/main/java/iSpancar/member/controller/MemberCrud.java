@@ -8,10 +8,16 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -71,8 +77,8 @@ public class MemberCrud {
 			List<LocationDto> locationList = new ArrayList<LocationDto>();
 			Map<String, Integer> locationMap = new HashMap<String, Integer>();
 			for(MemberBean mb: list) {
-				String location = mb.getMemberaddress().substring(0,3);
-				if(locationMap.containsKey(location)){
+				String location = mb.getMemberaddress().substring(0,3);//取地區
+				if(locationMap.containsKey(location)){//算數量
 					locationMap.put(location, locationMap.get(location)+1);
 				}else {
 					locationMap.put(location, 1);
@@ -83,6 +89,14 @@ public class MemberCrud {
 				LocationDto locationDto = new LocationDto(entry.getKey(), entry.getValue());
 				locationList.add(locationDto);
 			}
+			//排序
+//			Collections.sort(locationList,
+//			        new Comparator<LocationDto>() {
+//			            public int compare(LocationDto o1, LocationDto o2) {
+//			                return o2.getCityNumber()-o1.getCityNumber();
+//			            }
+//			        });
+			
 			
 			return locationList;
 		} catch (SQLException e) {
@@ -305,4 +319,5 @@ public class MemberCrud {
 	    }
 	
 
+	 
 }

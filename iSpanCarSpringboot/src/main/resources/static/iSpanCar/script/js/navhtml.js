@@ -26,8 +26,9 @@ var navhtml = '<div class="container px-4 px-lg-5">'+
 		
 			if($('#logincheck').val() != ""){
 	    		var account = $('#logincheck').val();
+    			var name = $('#loginName').val();
 	    		var loginhtml = '<b><a class="nav-link colorchange" href="" id="userDropdown" role="button"'+
-	                'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">'+account+'&nbsp'+
+	                'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">'+name+'&nbsp'+
 	    		'<img class="img-profile rounded-circle" id="myImage" width="25px" src="/showimageforthismember.controller\?accountnumber='+account+'"></a></b>';
 	    		
 	    		var logouttext = '<li class="nav-item"><b><a class="nav-link colorchange" style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;" href="/logout.controller">登出</a></b></li>';
