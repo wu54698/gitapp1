@@ -16,32 +16,32 @@ import org.springframework.stereotype.Component;
 import iSpancar.carInfo.model.CarInfoBean;
 
 @Entity
-@Table(name = "carDealerInfo")
+@Table(name = "cardealerinfo")
 @Component
 public class CarDealerBean {
 	
 
 	@Id
-	@Column(name = "carDealerName")
+	@Column(name = "cardealername")
 	private String carDealName; 		//車商名稱
 	
-	@Column(name = "carDealerPhone")
+	@Column(name = "cardealerphone")
 	private String carDealPhone;		//車商電話
 	
-	@Column(name = "carDealerAddress")
+	@Column(name = "cardealeraddress")
 	private String carDealAddress;		//地址
 	
-	@Column(name = "openTime")
+	@Column(name = "opentime")
 	private String openTime;			//營業時間
 	
-	@Column(name = "contactPerson")
+	@Column(name = "contactperson")
 	private String contactPerson;		//聯絡人
 	
-	@Column(name = "carDealerVATNumber")
+	@Column(name = "cardealervatnumber")
 	private int carDealVATNumber;		//統一編號
 	
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "carDealerBean", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cardealerbean", cascade = CascadeType.ALL)
 	private Set<CarInfoBean> carInfo = new LinkedHashSet<>();
 	
 	public CarDealerBean() {

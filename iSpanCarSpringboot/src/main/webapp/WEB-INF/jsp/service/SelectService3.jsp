@@ -88,13 +88,12 @@
 			</a></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link"
-				href="CarDealerForm"> <i
-					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="CarInfoForm">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
+			<li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
+							<i class="fa-solid fa-car"></i> <span>車廠</span>
 			</a></li>
+        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				<i class="fa-solid fa-car"></i> <span>車輛</span>
+		</a></li>
 
 			<!-- Divider -->
 			<!-- <hr class="sidebar-divider"> -->
@@ -116,11 +115,11 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 			</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+			<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -187,7 +186,7 @@
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -222,17 +221,14 @@
 					
 					<h1 class="h3 mb-4 text-gray-800">查詢保養廠</h1>
 					<form method="POST">
-						<label>查詢保養廠名稱：</label><input type="text" name="service_name"
+						<label>查詢保養廠名稱：</label><input type="text" name="servicename"
 							required /><br> <input type="submit" value="提交"
-							formaction="serviceSelect.controller"> <input
+							formaction="/backstage/serviceSelect.controller"> <input
 							type="button" value="查詢全部"
-							onclick="location.href='serviceAllController'">
+							onclick="location.href='/backstage/serviceAllController'">
 						<br> <br> <input type="button" value="新增保養廠"
-							onclick="location.href='/iSpanCar/service.signinService'">
-						<input type="button" value="刪除保養廠"
-							onclick="location.href='/iSpanCar/service.deleteService'">
-						<input type="button" value="修改保養廠"
-							onclick="location.href='/iSpanCar/service.UpdateService'">
+							onclick="location.href='/service.signinService'">
+				
 					</form>
 					
 				</div>
@@ -274,7 +270,7 @@
                     </button>
                 </div>
                 <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
+                    <a class="btn btn-primary" href="/logout.controller">登出</a></div>
 <!--                 <div class="modal-footer"> -->
                    
 <!--                 </div> -->

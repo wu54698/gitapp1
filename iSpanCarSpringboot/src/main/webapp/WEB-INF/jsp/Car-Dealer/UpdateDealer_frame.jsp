@@ -89,11 +89,10 @@
 
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link"
-				href="CarDealerForm">
-					<i class="fa-solid fa-car"></i> <span>車廠</span>
-			</a></li>
+				href="findAllDealer.controller"><i
+					class="fa-solid fa-car"></i><span>車廠</span></a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="CarInfoForm">
+				href="SelectAllCar.controller">
 					<i class="fa-solid fa-car"></i> <span>車輛</span>
 			</a></li>
 
@@ -119,11 +118,11 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/orderQueryAll.controller'/>"> <i
+				href="orderQueryAll.controller"> <i
 					class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -190,7 +189,7 @@
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -242,7 +241,7 @@
 						</c:forEach>
 
 					</table>
-					<a href="CarDealerForm">回上一頁</a>
+					<a href="findAllDealer.controller">回車商主頁</a>
 				</div>
 				<!-- /.container-fluid -->
 
@@ -286,7 +285,7 @@
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">取消</button>
 					<a class="btn btn-primary"
-						href="<c:url value='/logoutServlet.do' />">登出</a>
+						href="/logout.controller">登出</a>
 				</div>
 				<!--                 <div class="modal-footer"> -->
 

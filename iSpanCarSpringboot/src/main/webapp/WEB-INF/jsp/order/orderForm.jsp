@@ -83,12 +83,12 @@
 			</a></li>
 
 			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link"
-				href="CarDealerForm"> <i
-					class="fa-solid fa-car"></i> <span>車廠</span></a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="CarInfoForm"> <i
-					class="fa-solid fa-car"></i> <span>車輛</span></a></li>
+			<li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
+							<i class="fa-solid fa-car"></i> <span>車廠</span>
+			</a></li>
+        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
+				<i class="fa-solid fa-car"></i> <span>車輛</span>
+		</a></li>
 
 			<!-- Divider -->
 			<!-- <hr class="sidebar-divider"> -->
@@ -110,11 +110,11 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link"
-				href="<c:url value='/ProductListAll'/>"> <i
+				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
             <li class="nav-item">
-                <a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+                <a class="nav-link" href="orderQueryAll.controller">
                     <i class="fas fa-fw fa-table"></i>
                     <span>訂單</span></a>
             </li>
@@ -182,7 +182,7 @@
                                 <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                                 <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                                 <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -254,7 +254,7 @@
                 <!-- End of Footer -->
                 <div class="container">
 
-                    <form action="<c:url value='/orderInsert.controller'/>" style="margin: auto; width: 700px;" method="POST" enctype="multipart/form-data">
+                    <form action="orderInsert.controller" style="margin: auto; width: 700px;" method="POST" enctype="multipart/form-data">
                         <div style="font-size:30px; ">訂單確認</div>
                         <table>
                             <tr>
@@ -348,7 +348,7 @@
                     </button>
                 </div>
                 <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="<c:url value='/logoutServlet.do' />">登出</a></div>
+                    <a class="btn btn-primary" href="/logout.controller">登出</a></div>
 <!--                 <div class="modal-footer"> -->
                    
 <!--                 </div> -->

@@ -6,47 +6,47 @@ import javax.transaction.TransactionScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import iSpancar.cart.model.CartBean;
 import iSpancar.cart.model.CartDao;
+import iSpancar.cart.model.CartRepository;
 
 @Service
-@TransactionScoped
+//@TransactionScoped
+@Transactional
 public class CartService {
 
 	@Autowired
-	private CartDao cDao;
+	private CartRepository cRepo;
 	
-	public CartService() {
-		this.cDao=new CartDao();
-	}
-	
+
 	public  List<CartBean>  findAllById(String memberId) {
-		List<CartBean> list= cDao.findAllById(memberId);
+		List<CartBean> list= cRepo.findAllById(memberId);
 		return list;
 	}
 	
 	public  List<CartBean> findAllCart()  {
-		 List<CartBean> allCart= cDao.findAllCart();
+		 List<CartBean> allCart= cRepo.findAll();
 		return allCart;
 	}
 	
 	public CartBean insertCartBean(CartBean ctBean) {
-		CartBean cartBean= cDao.insertCartBean(ctBean);
+		CartBean cartBean= cRepo.save(ctBean);
 		return cartBean;
 
 	}
 	
 	public void deletecartById(String cartId) {
-		 cDao.deletecartById(cartId);
+		cRepo.deleteById(cartId);
 	}
 	
 	public void deleteCartByMemberId(String memberId) {
-		cDao.deleteCartByMemberId(memberId);
+		cRepo.deleteByMemberId(memberId);
 	}
 	
 	public void updateQuantityByCartId(String quantity, String cartId) {
-		cDao.updateQuantityByCartId(quantity,cartId);
+		cRepo.updateQuantityByCartId(quantity,cartId);
 	}
 	
 	

@@ -14,34 +14,34 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderBean {
 	@Id
-	@Column(name = "orderId")
+	@Column(name = "orderid")
 	private String orderId;
 	
-	@Column(name = "orderDate")
+	@Column(name = "orderdate")
 	private Timestamp orderDate;
 	
-	@Column(name = "newDate")
+	@Column(name = "newdate")
 	private Timestamp newDate;
 	
-	@Column(name = "orderStatus")
+	@Column(name = "orderstatus")
 	private String orderStatus;
 	
-	@Column(name = "paidSate")
+	@Column(name = "paidsate")
 	private String paidSate;
 	
-	@Column(name = "paidMethod")
+	@Column(name = "paidmethod")
 	private String paidMethod;
 	
-	@Column(name = "deliveryAddress")
+	@Column(name = "deliveryaddress")
 	private String deliveryAddress;
 	
-	@Column(name = "orderName")
+	@Column(name = "ordername")
 	private String orderName;
 	
-	@Column(name = "orderPhone")
+	@Column(name = "orderphone")
 	private String orderPhone;
 	
-	@Column(name = "totalPrice")
+	@Column(name = "totalprice")
 	private String totalPrice;
 	
 	

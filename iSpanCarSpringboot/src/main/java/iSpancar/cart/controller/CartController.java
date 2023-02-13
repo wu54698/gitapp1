@@ -4,50 +4,56 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ui.Model;
 import iSpancar.cart.model.CartBean;
 import iSpancar.cart.service.CartService;
 
 @Controller
+@RequestMapping("/backstage")
 public class CartController {
 	
 	@Autowired
 	private CartService cService;
 
 //	@PostMapping("/cart")
-	@RequestMapping(path="/cartInsert.controller" , method= RequestMethod.POST)
-//	@ResponseBody
-	public String cartInsert(@RequestParam("memberId") String memberId,
-			@RequestParam("productNumber") String productNumber,
-			@RequestParam("productName") String productName,
-			@RequestParam("productPrice") String productPrice,
-			@RequestParam("quantity") String quantity ) {
-		CartBean cBean = new CartBean();
-		cBean.setMemberId(memberId);
-		cBean.setProductName(productName);
-		cBean.setProductNumber(productNumber);
-		cBean.setProductPrice(productPrice);
-		cBean.setQuantity(quantity);
-		cService.insertCartBean(cBean);
-		return "redirect:Shop_Cart.controller";
-	}
+//	@RequestMapping(path="/cartInsert.controller" , method= RequestMethod.POST)
+//	public String cartInsert(@RequestParam("memberId") String memberId,
+//			@RequestParam("productNumber") String productNumber,
+//			@RequestParam("productName") String productName,
+//			@RequestParam("productPrice") String productPrice,
+//			@RequestParam("quantity") String quantity ) {
+//		CartBean cBean = new CartBean();
+//		cBean.setMemberId(memberId);
+//		cBean.setProductName(productName);
+//		cBean.setProductNumber(productNumber);
+//		cBean.setProductPrice(productPrice);
+//		cBean.setQuantity(quantity);
+//		cService.insertCartBean(cBean);
+//		return "redirect:iSpancarShop.Shop_Cart.controller";
+//	}
 	
-//	@DeleteMapping("/deletecart")
+	 @RequestMapping(path="/cartInsert.controller" , method= RequestMethod.POST)
+	 public void cartInsert(@RequestParam("memberId") String memberId,
+	   @RequestParam("productNumber") String productNumber,@RequestParam("quantity") String quantity ) {
+	  CartBean cBean = new CartBean();
+	  cBean.setMemberId(memberId);
+	  cBean.setProductNumber(productNumber);
+	  cBean.setQuantity(quantity);
+	  cService.insertCartBean(cBean);
+	  System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+	 }
+	
+//	@DeleteMapping("/deletecart"
 	@RequestMapping(path="/cartdeletecart.controller" , method= RequestMethod.POST)
 	public  String cartDelete (@RequestParam ("cartId") String cartId) {
 		cService.deletecartById(cartId);
-		return "redirect:/QueryAllCart.controller";
+		return "redirect:QueryAllCart.controller";
 
 	}
 	
@@ -56,7 +62,7 @@ public class CartController {
 	public String cartUpdate(@RequestParam ("cartId") String cartId,
 			@RequestParam ("quantity") String quantity) {
 		cService.updateQuantityByCartId(quantity,cartId);
-		return "redirect:/QueryAllCart.controller";
+		return "redirect:QueryAllCart.controller";
 
 	}
 	
