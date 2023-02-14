@@ -80,7 +80,7 @@
                         <p class="lead">${productd.productinfo}</p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="number" oninput="value=value.replace('-', '')"  value="1" min="1" max="${productd.stock}" style="max-width: 5rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button" id="addOK">
+                            <button class="btn btn-outline-dark flex-shrink-0" type="button" id="addOK" style="padding:15px;" >
                                 <i class="bi-cart-fill me-1"></i>
                                 加入購物車
                             </button>

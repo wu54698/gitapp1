@@ -51,10 +51,39 @@
 					font-weight: bold;
 					font-size: 20px;
 				}
+				
+				section {
+  				background-color: #F0F0F0;
+				}
+
+				.col-10 {
+				  padding-left: 0;
+				  padding-right: 0;
+				}
+				
+				.btn-primary{
+				background-color: red;
+				  border-color: red;
+				}
+				
+				a {
+			    text-decoration:none;
+				}
+				.takename:hover{
+				background-color: #F5F5F5;
+				color: #6ddbf7;
+				}
+				.btn-primary.active {
+				  font-size: 20px;
+				  padding:0;
+				  padding-top:10px;
+				  padding-bottom:10px;
+				}
+				
+				.card:hover * {
+				  background-color: #F5F5F5;
+				  }
 			</style>
-
-
-
 		</head>
 
 		<body class="body-wrapper">
@@ -72,17 +101,16 @@
                         <div class="text-center">
                             <h2 class="mx-auto my-0 text-uppercase"
                                 style="color:white;font-size:6em;font-family: 'Noto Sans TC', sans-serif;">用戶資訊</h2>
-                            <!--                     <h2 class=" mx-auto mt-2 mb-5" style="color:white;font-size:2em;font-family:DFKai-SB;font-family: 'Noto Sans TC', sans-serif;">資車國際</h2> -->
                         </div>
                     </div>
                 </div>
             </header>
             
-            <div class="bg-black" id="content">
+            <div class="bg-black" id="content" >
                 <div class="row rounded">
-                    <div class="col-1"></div>
+                    <div class="col-1" ></div>
                     <div class="col-10 bg-white justify-content-center rounded mb-2">
-			<section class="page-search">
+			<section class="page-search" style="background-color:#6c8472;">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
@@ -192,15 +220,15 @@
 											<div class="product-item bg-light">
 												<div class="card">
 
-													<div class="thumb-content">
-														<a href="#go" onclick="goToDetailPage2()" class="loadingName">
-															<img style="border-radius:10%;"
+													<div class="thumb-content" style="text-align:center;">
+														<a href="#go" onclick="goToDetailPage2()" class="loadingName" >
+															<img style="border-radius:10%;padding:10px"
 																src="productimgfront.controller?productno=${product.productno}"
-																width="180" height="180" />
+																width="180" height="180"  />
 														</a>
 													</div>
 
-													<div class="card-body">
+													<div class="card-body" style="text-align:center;">
 														<h4 class="card-title">
 															<a href="#go" onclick="goToDetailPage()"
 																class="takename">${product.productname}</a>
@@ -210,21 +238,7 @@
 																		class="fa fa-folder-open-o"></i>${product.type}
 															</li>
 															<li class="priceMark">NT$${product.price}</li>
-
 														</ul>
-														<!-- 												<div class="product-ratings"> -->
-														<!-- 													<ul class="list-inline"> -->
-														<!-- 														<li class="list-inline-item selected"><i -->
-														<!-- 															class="fa fa-star"></i></li> -->
-														<!-- 														<li class="list-inline-item selected"><i -->
-														<!-- 															class="fa fa-star"></i></li> -->
-														<!-- 														<li class="list-inline-item selected"><i -->
-														<!-- 															class="fa fa-star"></i></li> -->
-														<!-- 														<li class="list-inline-item selected"><i -->
-														<!-- 															class="fa fa-star"></i></li> -->
-														<!-- 														<li class="list-inline-item"><i class="fa fa-star"></i></li> -->
-														<!-- 													</ul> -->
-														<!-- 												</div> -->
 													</div>
 												</div>
 											</div>
