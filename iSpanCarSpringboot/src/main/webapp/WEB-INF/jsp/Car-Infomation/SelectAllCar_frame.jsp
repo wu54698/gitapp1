@@ -184,7 +184,7 @@
 						<!-- Nav Item - User Information -->
 						<li class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.memberName}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.accountnumber}</span>
                             <!-- 職位 -->
                                 <input type="hidden" value="${login.accountnumber}" id="myAccountnumber">
                                 <input type="hidden" value="${memberPosition.positionPk}" id="myPosition">
@@ -262,7 +262,7 @@
 									<td class="button"><button id="btn1" class="delete btn btn-danger btn-circle"><i class="fas fa-trash"></i></button></td>
 									<!-- 修改按鈕，跳轉至修改頁面 -->
 									<!--<td><form action="JumptoUpdateCarInfoSheet" method="post"><input type="hidden" value="${car.carNo}" name="carNo"><button type="submit" class="btn2" id="btn2"  style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen fa-lg"></i></button></form></td> -->
-									<td><form action="JumptoUpdateCarInfoSheet" method="post"><input type="hidden" value="${car.carNo}" name="carNo"><button type="submit" class="btn2 btn btn-info btn-circle" id="btn2"  style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen"></i></button></form></td>
+									<td><form action="JumptoUpdateCarInfoSheet.controller" method="post"><input type="hidden" value="${car.carNo}" name="carNo"><button type="submit" class="btn2 btn btn-info btn-circle" id="btn2"  style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen"></i></button></form></td>
 								</tr>
 							</tbody>
 						</c:forEach>

@@ -29,7 +29,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap" rel="stylesheet">
-
+	
 </head>
 
 <body id="page-top">
@@ -53,11 +53,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><b><a class="nav-link colorchange" href="#about" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">車廠</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link colorchange" href="#projects" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">車輛</a></b></li>
+                   <li class="nav-item"><b><a class="nav-link colorchange" href="/ShowAllCarFrontPage.controller" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">車輛</a></b></li>
                     <li class="nav-item"><b><a class="nav-link colorchange" href="#projects" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">保養廠</a></b></li>
                     <li class="nav-item"><b><a class="nav-link colorchange" href="/dforum/home" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">論壇</a></b></li>
                     <li class="nav-item"><b><a class="nav-link colorchange" href="#about" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">商城</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="#about" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;"><i class="fa-solid fa-cart-shopping"></i></a></b></li>
                     <li class="nav-item login-info dropdown no-arrow "><b><a class="nav-link colorchange" href="login" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">登入</a></b></li>
                 </ul>
             </div>
@@ -123,6 +123,12 @@
     		$('.navbar-shrink').find('.colorchange').css('color','black')
     	})
     	
+    	$('a.colorchange').on('mouseover',function(){
+    		$(this).css({'font-size':'1.4em'})
+    	})
+    	$('a.colorchange').on('mouseleave',function(){
+    		$(this).css({'font-size':'1.3em'})
+    	})
     	
     	
     })

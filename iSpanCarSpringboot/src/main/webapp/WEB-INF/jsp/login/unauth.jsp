@@ -39,7 +39,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="/index" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">首頁</a>
+            <a class="navbar-brand colorchange" href="/index" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">首頁</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -48,12 +48,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><b><a class="nav-link" href="#about" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">車廠</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link" href="#projects" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">車輛</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link" href="#projects" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">保養廠</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link" href="#about" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">論壇</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link" href="#about" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">商城</a></b></li>
-                    <li class="nav-item login-info dropdown no-arrow"  style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;"><b><a class="nav-link" href="login">登入</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="/ShowAllCarFrontPage.controller" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">車輛</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="#projects" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">保養廠</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="/dforum/home" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">論壇</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="#about" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">商城</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="#about" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;"><i class="fa-solid fa-cart-shopping"></i></a></b></li>
+                    <li class="nav-item login-info dropdown no-arrow "><b><a class="nav-link colorchange" href="login" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">登入</a></b></li>
                 </ul>
             </div>
         </div>
@@ -90,13 +90,20 @@
                'style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">'+name+'&nbsp'+
     		'<img class="img-profile rounded-circle" id="myImage" width="25px" src="/showimageforthismember.controller\?accountnumber='+account+'"></a></b>';
     		
-    		var logouttext = '<li class="nav-item"><b><a class="nav-link" href="/logout.controller" style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">登出</a></b></li>';
+    		var logouttext = '<li class="nav-item"><b><a class="nav-link colorchange" href="/logout.controller" style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">登出</a></b></li>';
     		
     		$('.login-info').html(loginhtml).after(logouttext);
     	}else{
-    		var loginhtml='<b><a class="nav-link" href="login" style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">登入</a></b>';
+    		var loginhtml='<b><a class="nav-link colorchange" href="login" style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">登入</a></b>';
     		$('.login-info').html()
     	}
+    	
+    	$('a.colorchange').on('mouseover',function(){
+    		$(this).css({'font-size':'1.4em'})
+    	})
+    	$('a.colorchange').on('mouseleave',function(){
+    		$(this).css({'font-size':'1.3em'})
+    	})
     })
     </script>
 </body>

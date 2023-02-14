@@ -255,7 +255,7 @@
 										<td width="600" height="40" align="left"><input
 											id="accountNumber" name="accountNumber" class="accountNumberCheck"
 											value="${login.accountnumber}" type="text" size="14"
-											style="text-align: left" readonly><span></span></td>
+											style="text-align: left"><span></span></td>
 									</tr>
 									<!-- 									<tr bgcolor='transparent'> -->
 									<!-- 										<td width="120" height="40">帳號</td> -->
@@ -293,10 +293,16 @@
 												cols="30" rows="10" style="text-align: left"></textarea><span></span></td>
 									</tr>
 									<tr bgcolor='transparent'>
-										<td width="120" height="40">車輛照片</td>
+										<td width="120" height="40">車輛照片(主圖，一張)</td>
 										<td width="600" height="40" align="left"><input
 											id="carImage" name="carImage" class="carImageCheck"
 											value="${param.carImage}" type="file"><span></span></td>
+									</tr>
+									<tr bgcolor='transparent'>
+										<td width="120" height="40">車輛照片(副圖，多張)</td>
+										<td width="600" height="40" align="left"><input
+											id="carMultiImage" name="multiImages" class="carImageCheck"
+											value="${param.carImage}" type="file" multiple><span></span></td>
 									</tr>
 									<tr>
 									<tr>
@@ -310,6 +316,7 @@
 									<tr bgcolor='transparent'>
 										<td height="50" colspan="2" align="center"><input
 											type="button" value="新增" id="addCar" class="btn btn-info">
+										<input type="button" value="一鍵輸入" id="inputForm" class="btn btn-info"></input>
 										</td>
 									</tr>
 								</c:forEach>
@@ -397,15 +404,13 @@
 		  
 		  $('#addCar').on('click', function(){
 			let wrong = '<i class="fa-regular fa-circle-xmark"></i>'
-			let accountNumberCheck = $('.accountNumberCheck').val();
 			let carBrandCheck = $('.carBrandCheck').val();
 			let carNameCheck = $('.carNameCheck').val();
 			let stockCheck = $('.stockCheck').val();
 			let carDescriptionCheck = $('.carDescriptionCheck').val();
 			let carImageCheck = $('.carImageCheck').val();
 			let announceDateCheck = $('.announceDateCheck').val();
-			if(accountNumberCheck && carBrandCheck && carNameCheck && stockCheck && carDescriptionCheck && carImageCheck && announceDateCheck > 0){
-				$('.accountNumberCheck').next().empty();
+			if((carBrandCheck && carNameCheck && stockCheck && carDescriptionCheck && carImageCheck && announceDateCheck) != ""){
 				$('.carBrandCheck').next().empty();
 				$('.carNameCheck').next().empty();
 				$('.stockCheck').next().empty();
@@ -414,7 +419,6 @@
 				$('.announceDateCheck').next().empty();
 				verifyok = true;
 			}else{
-				$('.accountNumberCheck').next().css('color', 'red').html(wrong + '必填')
 				$('.carBrandCheck').next().css('color', 'red').html(wrong + '必填')
 				$('.carNameCheck').next().css('color', 'red').html(wrong + '必填')
 				$('.stockCheck').next().css('color', 'red').html(wrong + '必填')
@@ -425,13 +429,7 @@
 			}
 		})
 		
-		
-		
-		
-		
-		//驗證欄位不為空
-		
-
+		//新增車輛
 		$('#addCar').on({
 			'click' : function() {
 // 				$('.checkNotNull').attr('required', true)
@@ -460,6 +458,14 @@
 			}
 		});
 		
+		//一鍵輸入
+		$('#inputForm').on('click', function(){
+			$('#carBrand').val('MG汽車')
+			$('#carName').val('2023 MG HS')
+			$('#stock').val('1')
+			$('#carDescription').val('2023年式。無肇事、泡水車紀錄。原廠保養。女用。價格面議')
+			$('#announceDate').val('02/13/2023')
+		})
 		
 		
 	</script>

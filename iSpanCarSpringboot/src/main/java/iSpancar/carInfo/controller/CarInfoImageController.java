@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import iSpancar.carDealer.service.ISpanCarService;
 import iSpancar.carInfo.model.CarInfoBean;
+import iSpancar.carInfo.model.CarInfoImageBean;
 
+//處理圖片之controller，上為單張主圖，下為多張次要圖
 @Controller
 public class CarInfoImageController {
 
@@ -24,7 +26,7 @@ public class CarInfoImageController {
 	@GetMapping("/carInfoImage.controller/{carNo}")
 	@ResponseBody
 	public byte[] processProductImageAction(@PathVariable("carNo") String carNo) {
-		System.out.println("==---------------"+carNo);
+		
 		int carNumber = Integer.parseInt(carNo);
 		List<CarInfoBean> list = iSpanCarService.findByCarNoLike(carNumber);
 
@@ -44,10 +46,28 @@ public class CarInfoImageController {
 		}
 		return null;
 	}
+	
+	@GetMapping("/multiCarImages.controller/{imageNo}")
+	@ResponseBody
+	public byte[] showMultiCarImageAction(@PathVariable("imageNo") String imageNo) {
+		
+		//imageNo為圖片主鍵，所以透過主鍵找出對應之carNo下的多圖，一張一張顯示出來
+		int imageNumber = Integer.parseInt(imageNo);
+		CarInfoImageBean singleImageBean = iSpanCarService.findsingleImageByImageNo(imageNumber);
 
-	
-	
-	
-	
+			System.out.println(singleImageBean.getImageNo());
+			try {
+				InputStream is;
+				is = singleImageBean.getCarImage().getBinaryStream();
+				return IOUtils.toByteArray(is);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return null;
+	}
 	
 }

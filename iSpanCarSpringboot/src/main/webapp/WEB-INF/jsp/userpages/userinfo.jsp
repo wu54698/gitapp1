@@ -216,7 +216,7 @@
 		   	                data:{"logindate": logindate
 		   	                },
 			        		   success: function (response) {
-			        			   $('#Days').text('登入天數: '+(response));
+			        			   $('#Days').text('註冊天數: '+(response));
 			        			   console.log(response)
 			   	                } ,
 			   	                error:function(xhr, ajaxOptions, thrownError){

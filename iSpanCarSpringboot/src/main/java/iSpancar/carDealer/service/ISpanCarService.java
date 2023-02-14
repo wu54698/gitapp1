@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -14,14 +15,19 @@ import javax.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import iSpancar.carDealer.dao.CarDealerDao;
 import iSpancar.carDealer.dao.CarDealerRepository;
 import iSpancar.carDealer.model.CarDealerBean;
 import iSpancar.carInfo.dao.CarInfoDao;
+import iSpancar.carInfo.dao.CarInfoImageRepository;
 import iSpancar.carInfo.dao.CarInfoRepository;
 import iSpancar.carInfo.model.CarInfoBean;
+import iSpancar.carInfo.model.CarInfoImageBean;
 
 @Service
 @Transactional
@@ -32,6 +38,9 @@ public class ISpanCarService {
 	
 	@Autowired
 	private CarInfoRepository carInfoRepository;
+	
+	@Autowired
+	private CarInfoImageRepository carInfoImageRepository;
 
 	public Blob filetoBlob(InputStream is, long size) throws IOException, SerialException, SQLException {
 		byte[] b = new byte[(int) size];
@@ -94,16 +103,28 @@ public class ISpanCarService {
 			List<CarInfoBean> carInfoBean = carInfoRepository.findAll();
 			return carInfoBean;
 		}
+	
+	//自定義查詢前台分頁的Service，在獲得全部數據之後再進行分頁
+//	public Page<CarInfoBean> findAllByPage(Pageable pageable){
+//		
+//		List<CarInfoBean> carInfoBean = carInfoRepository.findAll();
+//		
+//		int start = (int)pageable.getOffset();
+//		int end = (start + pageable.getPageSize()) > carInfoBean.size() ? carInfoBean.size() : (start + pageable.getPageSize());
+//		return new PageImpl<>(carInfoBean.subList(start, end), pageable, carInfoBean.size());
+//	}
+	
+	
 
 	// 透過車輛編號刪除車輛
 	public void deleteCarInfo(int carNo) {
 
-		carInfoRepository.deleteCarInfo(carNo);
+		carInfoRepository.deleteById(carNo);
 	}
 
 	// 透過車輛編號修改車輛資訊
 	public CarInfoBean updateByCarNo(CarInfoBean infoBean) {
-
+//		System.out.println(infoBean.getCarImfoImasge().get(0).getImageNo()); 
 			CarInfoBean carInfoBean = carInfoRepository.save(infoBean);
 			return carInfoBean;
 	}
@@ -128,5 +149,41 @@ public class ISpanCarService {
 			List<CarInfoBean> carInfoBean = carInfoRepository.findByCarNoLike(carNo);
 			return carInfoBean;
 	}
+	
+	//存放多圖的Service
+	//新增多圖
+	public CarInfoImageBean addMultiImage(CarInfoImageBean imageBean) {
+		
+		carInfoImageRepository.save(imageBean);
+		return imageBean;
+	}
+	
+	//修改車輛多圖
+	public CarInfoImageBean updateMultiImageByCarNo(CarInfoImageBean imageBean) {
+		
+		CarInfoImageBean multiImageBean = carInfoImageRepository.save(imageBean);
+		return multiImageBean;
+	}
+	
+	
+	//查詢車輛下全部多圖
+	public List<CarInfoImageBean> findMultiImageByCarNo(int carNo){
+		
+		List<CarInfoImageBean> carInfoImageBean = carInfoImageRepository.findMultiImageByCarNo(carNo);
+		return carInfoImageBean;
+	}
+	
+	//查詢車輛底下多圖中的一張照片
+	public CarInfoImageBean findsingleImageByImageNo(int imageNo) {
 
+		Optional<CarInfoImageBean> op = carInfoImageRepository.findById(imageNo);
+		
+		return op.get();
+	}
+	
+	//刪除多圖的Service
+	public void deleteMultiImageByCarNo(int carNo) {
+		carInfoImageRepository.deleteByCarNo(carNo);
+	}
+	
 }
