@@ -25,6 +25,9 @@
         rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="http://localhost:8080/iSpanCar/script/css/styles.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap" rel="stylesheet">
 
 </head>
 
@@ -32,10 +35,11 @@
 	<c:set value="${LoginOK}" var="login"/>
 	<c:set value="${login.memberPosition.permissionsofposition}" var="memberPosition"/>
 	<input type="hidden" value="${login.accountnumber}" id="logincheck">
+	<input type="hidden" value="${login.memberName}" id="loginName">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#page-top">首頁</a>
+            <a class="navbar-brand colorchange" href="/index" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">首頁</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -44,12 +48,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><b><a class="nav-link" href="#about">車廠</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link" href="#projects">車輛</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link" href="#projects">保養廠</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link" href="#about">論壇</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link" href="#about">商城</a></b></li>
-                    <li class="nav-item login-info dropdown no-arrow"><b><a class="nav-link" href="login">登入</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="/ShowAllCarFrontPage.controller" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">車輛</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="#projects" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">保養廠</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="/dforum/home" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">論壇</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="#about" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">商城</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="#about" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;"><i class="fa-solid fa-cart-shopping"></i></a></b></li>
+                    <li class="nav-item login-info dropdown no-arrow "><b><a class="nav-link colorchange" href="login" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">登入</a></b></li>
                 </ul>
             </div>
         </div>
@@ -57,14 +61,17 @@
     <!-- Masthead-->
     <header class="masthead">
         <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+   
             <div class="d-flex justify-content-center">
+                
                 <div class="text-center">
-                    <h1 class="mx-auto my-0 text-uppercase">無此權限</h1>
-                    <h2 class="text-white-50 mx-auto mt-2 mb-5">很抱歉，您無此權限</h2>
+                    <h2 class="mx-auto my-0 text-uppercase" style="color:white;font-size:7em;font-family: 'Noto Sans TC', sans-serif;">無此權限</h2>
+                    <h2 class=" mx-auto mt-2 mb-5" style="color:white;font-size:2em;font-family:DFKai-SB;font-family: 'Noto Sans TC', sans-serif;">很抱歉帳號權限不夠</h2>
                     <!-- <a class="btn btn-primary" href="#about">Get Started</a> -->
                 </div>
             </div>
         </div>
+        
     </header>
 
     <footer class="footer bg-black small text-center text-white-50">
@@ -77,18 +84,26 @@
     $(function(){
     	if($('#logincheck').val() != ""){
     		var account = $('#logincheck').val();
+    		var name = $('#loginName').val();
     		
-    		var loginhtml = '<b><a class="nav-link " href="" id="userDropdown" role="button"'+
-                'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+account+'&nbsp'+
+    		var loginhtml =  '<b><a class="nav-link colorchange" href="/userinfo" '+
+               'style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">'+name+'&nbsp'+
     		'<img class="img-profile rounded-circle" id="myImage" width="25px" src="/showimageforthismember.controller\?accountnumber='+account+'"></a></b>';
     		
-    		var logouttext = '<li class="nav-item"><b><a class="nav-link" href="/logout.controller">登出</a></b></li>';
+    		var logouttext = '<li class="nav-item"><b><a class="nav-link colorchange" href="/logout.controller" style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">登出</a></b></li>';
     		
     		$('.login-info').html(loginhtml).after(logouttext);
     	}else{
-    		var loginhtml='<b><a class="nav-link" href="login">登入</a></b>';
+    		var loginhtml='<b><a class="nav-link colorchange" href="login" style="color:white;font-size:1.3em;font-family: \'Noto Sans TC\', sans-serif;">登入</a></b>';
     		$('.login-info').html()
     	}
+    	
+    	$('a.colorchange').on('mouseover',function(){
+    		$(this).css({'font-size':'1.4em'})
+    	})
+    	$('a.colorchange').on('mouseleave',function(){
+    		$(this).css({'font-size':'1.3em'})
+    	})
     })
     </script>
 </body>

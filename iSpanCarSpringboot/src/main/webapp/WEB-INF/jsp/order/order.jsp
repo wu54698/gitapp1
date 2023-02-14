@@ -1,382 +1,226 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+String jspOrderId = null;
+%>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Grayscale - Start Bootstrap Theme</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesh0eet" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="http://localhost:8080/iSpanCar/script/css/styles.css" rel="stylesheet" />
+    <script src="http://localhost:8080/iSpanCar/script/vendor/jquery/jquery.min.js"></script>
+    <script src="http://localhost:8080/iSpanCar/script/js/navhtml.js"></script>
+    <script src="http://localhost:8080/iSpanCar/script/js/footerhtml.js"></script>
+    <link href="http://localhost:8080/iSpanCar/script/css/orderClient.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+  #btn:hover {
+    /* :hover 代表滑鼠移到元素上時的狀態 */ 
+    transform: scale(1.05);
+  }
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-
-<title>SB Admin 2 - Blank</title>
-<c:set value="${LoginOK}" var="login"/>
-<!-- Custom fonts for this template-->
-<link
-	href="http://localhost:8080/iSpanCar/script/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
-
-<!-- Custom styles for this template-->
-<link href="http://localhost:8080/iSpanCar/script/css/sb-admin-2.min.css"
-	rel="stylesheet">
-<link href="http://localhost:8080/iSpanCar/script/css/order.css"
-	rel="stylesheet">
-
-
+  #btn:active {
+    /* :active是滑鼠點擊元素的狀態 */
+    transform: scale(1);
+    box-shadow: inset 0 0 10px 1px rgba(0, 0, 0, .2);
+  }
+  
+   #btn {
+    width: 180px;
+    line-height: 40px;
+    font-size: 20px;
+    color: PapayaWhip;
+    text-align: center;
+    background-color: Chocolate;
+    border: 5px solid SaddleBrown;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+  
+   .head.even {
+ background-color: #A5B8BF;
+} 
+</style>
 </head>
 
 <body id="page-top">
-
-	<!-- Page Wrapper -->
-	<div id="wrapper">
-
-		<!-- Sidebar -->
-		<ul
-			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion bg-gradient-info"
-			id="accordionSidebar">
-
-			<!-- Sidebar - Brand 左上標誌 -->
-			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index" >
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fa-solid fa-car-rear"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">資車會<sup></sup></div>
-            </a>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider my-0">
-
-			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="/">
-					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-			</a></li>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider">
-
-			<!-- Heading -->
-			<div class="sidebar-heading">功能列表</div>
-
-			<!-- Nav Item - Pages Collapse Menu -->
-			<!-- <li class="nav-item active">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>會員</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+	<c:set value="${LoginOK}" var="login" />
+    <c:set value="${login.memberPosition.permissionsofposition}" var="memberPosition" />
+    <input type="hidden" value="${login.accountnumber}" id="logincheck">
+	<input type="hidden" value="${login.memberName}" id="loginName">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"></nav>
+    <header class="masthead2">
+                <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+                    <div class="d-flex justify-content-center">
+                        <div class="text-center">
+                            <h2 class="mx-auto my-0 text-uppercase"
+                                style="color:white;font-size:6em;font-family: 'Noto Sans TC', sans-serif;">訂單查詢</h2>
+                            <!--                     <h2 class=" mx-auto mt-2 mb-5" style="color:white;font-size:2em;font-family:DFKai-SB;font-family: 'Noto Sans TC', sans-serif;">資車國際</h2> -->
+                        </div>
                     </div>
                 </div>
-            </li> -->
-			<li class="nav-item"><a class="nav-link" href="memberselectall.controller">
-					<i class="fa-solid fa-user"></i> <span>會員</span>
-			</a></li>
-
-			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
-							<i class="fa-solid fa-car"></i> <span>車廠</span>
-			</a></li>
-        <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
-				<i class="fa-solid fa-car"></i> <span>車輛</span>
-		</a></li>
-
-			<!-- Divider -->
-			<!-- <hr class="sidebar-divider"> -->
-
-			<!-- Heading -->
-			<!-- <div class="sidebar-heading">
-                Addons
-            </div> -->
-
-			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item"><a class="nav-link" href="serviceAllController">
-					<i class="fa-solid fa-screwdriver-wrench"></i> <span>保養廠</span>
-			</a></li>
-
-			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="threadsView">
-					<i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
-			</a></li>
-
-			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link"
-				href="iSpancarShop.ProductListAll"> <i
-					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
-
-			<li class="nav-item"><a class="nav-link"
-				href="orderQueryAll.controller"> <i
-					class="fas fa-fw fa-table"></i> <span>訂單</span></a></li>
-			<!-- Divider -->
-			<hr class="sidebar-divider d-none d-md-block">
-
-			<!-- Sidebar Toggler (Sidebar) -->
-			<div class="text-center d-none d-md-inline">
-				<button class="rounded-circle border-0" id="sidebarToggle"></button>
-			</div>
-
-		</ul>
-		<!-- End of Sidebar -->
-
-		<!-- Content Wrapper -->
-		<div id="content-wrapper" class="d-flex flex-column">
-
-			<!-- Main Content -->
-			<div id="content">
-
-				<!-- Topbar -->
-				<nav
-					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-					<div class="h4 mt-2 text-gray-800">訂單列表管理</div>
-
-
-					<!-- Topbar Navbar 右邊頭像 -->
-					<ul class="navbar-nav ml-auto">
-
-						<!-- Nav Item - Search Dropdown (Visible Only XS) -->
-						<li class="nav-item dropdown no-arrow d-sm-none"><a
-							class="nav-link dropdown-toggle" href="#" id="searchDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <i class="fas fa-search fa-fw"></i>
-						</a> <!-- Dropdown - Messages -->
-							<div
-								class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-								aria-labelledby="searchDropdown">
-								<form class="form-inline mr-auto w-100 navbar-search">
-									<div class="input-group">
-										<input type="text"
-											class="form-control bg-light border-0 small"
-											placeholder="Search for..." aria-label="Search"
-											aria-describedby="basic-addon2">
-										<div class="input-group-append">
-											<button class="btn btn-primary" type="button">
-												<i class="fas fa-search fa-sm"></i>
-											</button>
-										</div>
-									</div>
-								</form>
-							</div></li>
-
-						<div class="topbar-divider d-none d-sm-block"></div>
-
-						<!-- Nav Item - User Information -->
-						<li class="nav-item dropdown no-arrow">
-							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.accountnumber}</span>
-                            <!-- 職位 -->
-                                <input type="hidden" value="${login.accountnumber}" id="myAccountnumber">
-                                <input type="hidden" value="${memberPosition.positionPk}" id="myPosition">
-                                <input type="hidden" value="${memberPosition.permissionsInsert}" id="myPositionInsert">
-                                <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
-                                <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
-                                <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
-                            </a> <!-- Dropdown - User Information -->
-							<div
-								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-								aria-labelledby="userDropdown">
-								<a class="dropdown-item" href="#"> <i
-									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								</a> <a class="dropdown-item" href="#"> <i
-									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-									Settings
-								</a> <a class="dropdown-item" href="#"> <i
-									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-									Activity Log
-								</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#" data-toggle="modal"
-									data-target="#logoutModal"> <i
-									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-									Logout
-								</a>
-							</div></li>
-
-					</ul>
-
-				</nav>
-				<!-- End of Topbar -->
-
-				<!-- Begin Page Content 內容 -->
-				<div class="container-fluid">
-
-					<!-- Page Heading -->
-					<!-- <h1 class="h3 mb-4 text-gray-800">功能名稱</h1> -->
-					<div class="wrap">
-						<div class="search">
-<!-- 							<input class="search-bar" type="text" name="search" id="search" -->
-<!-- 								placeholder="搜尋"> -->
-<!-- 							<button class="search-btn"> -->
-<!-- 								<i class="fas fa-search"></i> -->
-<!-- 							</button> -->
-
-<!-- 							<select class="search-sel"> -->
-<!-- 								<option>請選擇搜尋條件</option> -->
-<!-- 								<option>產品編號</option> -->
-<!-- 								<option>會員編號</option> -->
-<!-- 								<option>訂單編號</option> -->
-<!-- 							</select> -->
-							<!-- 							<button class="search-btn-updata" id="add">新增</button> -->
-							<!-- 							<button class="search-btn-delect" id="del">刪除</button> -->
-							<!-- 							<button class="search-btn-revise">修改</button> -->
-
-
-						</div>
-
-					</div>
-
-					<!-- /.container-fluid -->
-
-				</div>
-
-				<!-- End of Main Content -->
-
-				<!-- Footer -->
-				<footer class="sticky-footer bg-white">
-					<div class="container my-auto">
-						<div class="copyright text-center my-auto">
-							<!-- <span>Copyright &copy; Your Website 2020</span>  -->
-						</div>
-					</div>
-				</footer>
-				<!-- End of Footer -->
-				<div class="container">
-
-					<c:forEach var="orders" varStatus="statusX"
-						items="${requestScope.AllOrder}">
-<form action="orderUpdate.controller" method="Post"
-							enctype="multipart/form-data">
-
-						<table id="orderTable">
-							<tr>
-								<th>狀態</th>
-								<th>建立者</th>
-								<th>訂單編號</th>
-								<th>總計</th>
-								<th>下單時間</th>
-								<th>更改時間</th>
-								<th>連絡電話</th>
-								
-								<th>修改</th>
-							</tr>
-							<tbody>
-								<tr>
-									<th><select required class="orderStatus" name="orderStatus">
-											<option>${orders.orderStatus}</option>
-											<option>已支付</option>
-											<option>取消訂單</option>
-									</select></th>
-									<th>${orders.orderName}</th>
-									<th><input type="hidden" name="orderId" style="display: none" value="${orders.orderId}" >${orders.orderId}</th>
-									<th>${orders.totalPrice}</th>
-									<th>${orders.orderDate}</th>
-									<th>${orders.newDate}</th>
-									<th>${orders.orderPhone}</th>
-									
-									<th><input  type="submit" value="修改" readonly="readonly">
-											
-										</th>
-								</tr>
-
-							</tbody>
-						</form>
-						</table>
-						<table >
-							<tr>
-								<th>產品編號</th>
-								<th>產品名稱</th>
-								<th>數量</th>
-								<th>價格</th>
-							</tr>
-							<tbody>
-
-								<c:forEach var="orderItem" varStatus="status"
-									items="${requestScope.AllOrderItme}">
-									<c:if test="${orders.orderId == orderItem.orderId}">
-										<tr>
-											<th>${orderItem.productNumber}</th>
-											<th>${orderItem.productName}</th>
-											<th>${orderItem.quantity}</th>
-											<th>${orderItem.productPrice}</th>
-										</tr>
-									</c:if>
-								</c:forEach>
-							</tbody>
-						</table>
-					</c:forEach>
-
-				</div>
-				<!-- End of Content Wrapper -->
-
-			</div>
-			<!-- End of Page Wrapper -->
-
-			<!-- Scroll to Top Button-->
-			<a class="scroll-to-top rounded" href="#page-top"> <i
-				class="fas fa-angle-up"></i>
-			</a>
-
-			<!-- Logout Modal-->
-			<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">決定登出?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body"> <button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
-                    <a class="btn btn-primary" href="/logout.controller">登出</a></div>
-<!--                 <div class="modal-footer"> -->
-                   
-<!--                 </div> -->
-            </div>
-        </div>
-    </div>
-
-			<!-- Bootstrap core JavaScript-->
-			<script
-				src="http://localhost:8080/iSpanCar/script/vendor/jquery/jquery.min.js"></script>
-			<script
-				src="http://localhost:8080/iSpanCar/script/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-			<script src="https://kit.fontawesome.com/7065f74436.js"
-				crossorigin="anonymous"></script>
-
-			<!-- Core plugin JavaScript-->
-			<script
-				src="http://localhost:8080/iSpanCar/script/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-			<!-- Custom scripts for all pages-->
-			<script src="http://localhost:8080/iSpanCar/script/js/sb-admin-2.min.js"></script>
-			<script>
+            </header>
+    
+<!--     content -->
+    <div class="bg-black" id="content">
+    <div class="row rounded">
+     <div class="col-1"></div>
+      <div class="col-10 bg-white justify-content-center text-center rounded">
+            <div style="text-align: center; padding: 50px 100px;">
 		
-				$(function() { 
+			
+
+					<table class=table>
+						<thead>
+							<tr class=head>
+								<td></td>
+								<td>訂單編號</td>
+								<td>訂購時間</td>
+								<td>付款方式</td>
+								<td>訂單金額</td>
+								<td>訂單明細</td>
+								<td>處理狀態</td>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="order" varStatus="statusX" items="${AllOrder}">
+<tr class="head <c:if test="${statusX.count % 2 == 0}">even</c:if>">
+									<td >${statusX.count}</td>
+									<td >${order.orderId}</td>
+									<td class="order-date">${order.orderDate}</td>
+									<td >${order.paidMethod}<br/>${order.paidSate}</td>
+									<td class="total-price">${order.totalPrice}</td>
+									<td><button id="watch" data-order-id="${order.orderId}" onclick="showOrderDetails(this)">
+  <i class="fa-solid fa-eye"></i>
+</button>
+									</td>
+									<td>${order.orderStatus}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<c:forEach var="order" varStatus="statusX" items="${AllOrder}">
+			  <div  style="display: none; text-align: center; padding: 50px 100px;" id="${order.orderId}"  >
+							<h3>訂單明細</h3>
+						<table class=table>	
+								<thead > 
+								<tr class=head>
+									<td>商品名稱</td>
+									<td>數量</td>
+								</tr>
+								</thead>
+								<tbody>
+								<tr>
+								<c:forEach var="orderItem" varStatus="status"
+										items="${AllOrderItme}">
+										<tr>
+										<c:if test="${order.orderId == orderItem.orderId}">
+									<td><c:out value="${shopDetailMap[Integer.valueOf(orderItem.productNumber)].productname}" /></td>
+								<th>${orderItem.quantity}</th>
+								</c:if>
+								</tr>
+								</c:forEach>
+								</tr>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td>收件地址</td>
+									<td>${order.deliveryAddress }</td>
+								</tr>
+								<tr>
+									<td>總計</td>
+									<td class="total-price">${order.totalPrice }</td>
+								</tr>
+							</tfoot>
+						
+						</table>
+		<button id="btn" onclick="closeOrderDetails('${order.orderId}')">關閉</button>
+
+
+					</div>
 					
-					 
-// 					 $("#view").on('click',function(){
-// 						 if($('#orderItem').css("display")==("none")){
-// 						$('#orderItem').slideDown()
-// 					 }else{
-// 						 $('#orderItem').slideUp()
-// 					 }
-// 					 }); 
-				});
-			</script>
+					</c:forEach>
+				</div>	
+      </div>
+     <div class="col-1"></div>
+    </div>
+  </div>
+  <!--  footer -->
+ <div id="footertext"></div>
+
+ 
+ <script src="http://localhost:8080/iSpanCar/script/js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!--     <script src="http://localhost:8080/iSpanCar/script/js/scripts.js"></script> -->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+    
+
+    
+    function showOrderDetails(element) {
+    	  var orderId = element.getAttribute("data-order-id");
+    	  console.log(orderId);
+    	  var target = document.getElementById(orderId);
+
+    	  target.style.display = "block";
+    	  target.style.position = "fixed";
+    	  target.style.zIndex = "1";
+    	  target.style.top = "50%";
+    	  target.style.left = "50%";
+    	  target.style.transform = "translate(-50%, -50%)";
+    	  target.style.backgroundColor = "white";
+    	  target.style.padding = "20px";
+    	  target.style.boxShadow = "0px 0px 10px #ccc";
+
+    	  // 放大 1 倍
+    	  target.style.width = "50%";
+    	  target.style.height = "50%";
+
+    	  console.log(target);
+    	}
+    function closeOrderDetails(orderId) {
+    	var orderDetails = document.getElementById(orderId);
+    	orderDetails.style.display = "none";
+    	}
+    
+    var orderDates = document.getElementsByClassName("order-date");
+	  for (var i = 0; i < orderDates.length; i++) {
+	    var orderDate = orderDates[i];
+	    var date = new Date(orderDate.textContent);
+	    orderDate.textContent = date.getFullYear() + "-" + (date.getMonth() + 1).toString().padStart(2, "0") + "-" + date.getDate().toString().padStart(2, "0") + " " + date.getHours().toString().padStart(2, "0") + ":" + date.getMinutes().toString().padStart(2, "0");
+	  }
+	  
+	  var totalPrices = document.getElementsByClassName("total-price");
+	  for (var i = 0; i < totalPrices.length; i++) {
+	    var totalPrice = totalPrices[i];
+	    totalPrice.textContent = totalPrice.textContent.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	  }
+
+    </script>
 </body>
 
 </html>

@@ -26,8 +26,7 @@
 <link
 	href="http://localhost:8080/iSpanCar/script/css/sb-admin-2.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 	<style>
 	textarea{
 	background:transparent;  
@@ -55,7 +54,7 @@
 			<!-- Sidebar - Brand 左上標誌 -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="index">
+				href="/index">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fa-solid fa-car-rear"></i>
 				</div>
@@ -68,9 +67,11 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="/"> <i
-					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-			</a></li>
+			<li class="nav-item">
+                <a class="nav-link" href="/backstage/memberchartjs">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>統計圖表</span></a>
+            </li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -100,9 +101,9 @@
 
 			<!-- Nav Item - Utilities Collapse Menu -->
 			<li class="nav-item"><a class="nav-link"
-				href="/findAllDealer.controller"><i
+				href="/backstage/findAllDealer.controller"><i
 					class="fa-solid fa-car"></i><span>車廠</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="/SelectAllCar.controller">
+			<li class="nav-item"><a class="nav-link" href="/backstage/SelectAllCar.controller">
 					<i class="fa-solid fa-car"></i> <span>車輛</span>
 			</a></li>
 
@@ -247,8 +248,7 @@
 									<th>修改</th>
 								</tr>
 							</thead>
-							<c:forEach var="dealer" items="${SelectCarDealName}"
-								varStatus="vs">
+							<c:forEach var="dealer" items="${SelectCarDealName}" varStatus="vs">
 								<tbody>
 									<tr>
 										<td class="carDealerName">${dealer.carDealName}</td>
@@ -325,7 +325,7 @@
 											</button></td>
 										<!-- 修改按鈕，跳轉至修改頁面 -->
 										<!--<td><form action="JumptoUpdateCarInfoSheet" method="post"><input type="hidden" value="${car.carNo}" name="carNo"><button type="submit" class="btn2" id="btn2"  style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen fa-lg"></i></button></form></td> -->
-										<td><form action="/backstage/JumptoUpdateCarInfoSheet" method="post">
+										<td><form action="/backstage/JumptoUpdateCarInfoSheet.controller" method="post">
 											<input type="hidden" value="${car.carNo}" name="carNo">
 											<button type="submit" class="btn3 btn btn-info btn-circle" id="btn3"
 													style="border-radius: 80%; width: 40px; height: 40px">

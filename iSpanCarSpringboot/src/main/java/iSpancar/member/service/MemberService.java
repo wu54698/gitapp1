@@ -6,6 +6,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,11 +23,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import iSpancar.dforum.service.WebContextService;
+import iSpancar.member.dao.LoginDateRepository;
 import iSpancar.member.dao.MemberDao;
 import iSpancar.member.dao.MemberRepository;
+import iSpancar.member.dao.Oauth2MemberRepository;
 import iSpancar.member.dao.PermissionsRepository;
 import iSpancar.member.model.MemberBean;
+import iSpancar.member.model.MemberLoginDate;
 import iSpancar.member.model.MemberPosition;
+import iSpancar.member.model.Oauth2MemberBean;
 import iSpancar.member.model.PermissionsOfPosition;
 
 @Service
@@ -45,6 +50,13 @@ public class MemberService {
 	
 	@Autowired
 	private WebContextService webContextService;
+	
+	@Autowired
+	private Oauth2MemberRepository oRepository;
+	
+	@Autowired
+	private LoginDateRepository lRepository;
+	
 	
 	public MemberService() {
 	}
@@ -118,6 +130,10 @@ public class MemberService {
 		PermissionsOfPosition user = new PermissionsOfPosition();
 		user.setPositionPk("user");
 		position.setPermissionsofposition(user);
+		Date now = new Date();
+		MemberLoginDate loginDate = new MemberLoginDate(bean, now);
+		bean.setMemberLoginDate(loginDate);
+		lRepository.save(loginDate);
 		
 		mRepository.save(bean);
 		
@@ -132,6 +148,10 @@ public class MemberService {
 		PermissionsOfPosition employee = new PermissionsOfPosition();
 		employee.setPositionPk("employee");
 		position.setPermissionsofposition(employee);
+		Date now = new Date();
+		MemberLoginDate loginDate = new MemberLoginDate(bean, now);
+		bean.setMemberLoginDate(loginDate);
+		lRepository.save(loginDate);
 		
 		mRepository.save(bean);
 		
@@ -140,8 +160,11 @@ public class MemberService {
 	}
 	//用帳號刪除資料
 	public void deleteByAccountnumber(String accountnumber) throws SQLException {
-
+		
+		lRepository.deleteByAccountNumber(accountnumber);
+		
 		mRepository.deleteMemberPosition(accountnumber);
+		
 		mRepository.deleteById(accountnumber);
 	}
 	
@@ -159,9 +182,10 @@ public class MemberService {
 	//確認有無帳號
 	public boolean checkaccountnumber(String accountnumber) throws SQLException {
 		
-			boolean check = mDao.checkaccountnumber(accountnumber);
-		
-			return check;
+			//boolean check = mDao.checkaccountnumber(accountnumber);
+			Optional<MemberBean> op = mRepository.findById(accountnumber);
+			
+			return op.isPresent();
 	}
 	
 	//確認帳密
@@ -184,6 +208,20 @@ public class MemberService {
 			return "資料有誤";
 	}
 	
+	//確認帳密
+	public boolean checkaccountnumberemail(String accountnumber,String email) throws SQLException {
+		Optional<MemberBean> op = mRepository.findById(accountnumber);
+		MemberBean mBean = op.get();
+		if(op.isPresent()) {
+			mBean = op.get();
+			if(email.trim().equals(mBean.getEmail().trim())  ) {
+				return true;
+			}
+			return false;
+		}
+		return false;
+	}
+	
 	//修改帳號角色
 	public void updateMemberPosition(String accountnumber,String positionfk) {
 		mRepository.updateMemberPosition(accountnumber, positionfk);
@@ -202,14 +240,18 @@ public class MemberService {
 		mRepository.saveAndFlush(memberBean);
 		
 	}
-	
+
 	//查詢全部
 	public List<MemberBean> findAll() throws SQLException{
-		
 			List<MemberBean> list = mRepository.findAll();
-			
 			return list;
 	}
+	//查詢login
+	public List<MemberLoginDate> findAllLoginDates(){
+		List<MemberLoginDate> list = lRepository.findAll();
+		return list;
+	}
+	
 	
 	//取得職位
 		public String getEmployeePosition() {
@@ -218,8 +260,21 @@ public class MemberService {
 			return employee;
 			
 		}
+//-------------
+		
+		//oauth 登錄
+		public void insertOAuthMember(Oauth2MemberBean oBean) {
+			oRepository.save(oBean);
+		}
 	
-	
+		public boolean checkOAuthMember(Oauth2MemberBean oBean) {
+
+			Optional<Oauth2MemberBean> op = oRepository.findById(oBean.getEmail());
+			
+			return op.isPresent();
+			
+		}
+		
 	//inputstream ->blob
 	public Blob fileToBlob(InputStream is, long size) throws IOException, SQLException {
 		byte[] b = new byte[(int) size];

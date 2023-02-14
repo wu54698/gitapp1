@@ -45,7 +45,7 @@
 			<!-- Sidebar - Brand 左上標誌 -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="index">
+				href="/index">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fa-solid fa-car-rear"></i>
 				</div>
@@ -58,9 +58,11 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="/">
-					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-			</a></li>
+			<li class="nav-item">
+                <a class="nav-link" href="/backstage/memberchartjs">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>統計圖表</span></a>
+            </li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -118,7 +120,7 @@
 				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
+			<li class="nav-item"><a class="nav-link" href="orderBack">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -263,11 +265,19 @@
                 </td>
             </tr>
             <tr bgcolor='transparent'>
-                <td width="120" height="40">車輛照片</td>
-                <td width="600" height="40" align="left"><input id="carImage" name="carImage" class="checkNotNull" value="${toUpdate.carImage}"
+                <td width="120" height="40">車輛照片(主圖，一張)</td>
+                <td width="600" height="120" align="left"><img src="/carInfoImage.controller/${toUpdate.carNo}"
+					width="180" height="120" /><input id="carImage" name="carImage" class="checkNotNull" value=""
                         type="file"></td>
+            <c:forEach var='multiPhoto' items='${multiImage}' varStatus="vs">
+            <tr bgcolor='transparent'>
+                <td width="120" height="40">車輛照片(副圖，多張)</td>
+                <td width="600" height="120" align="left"><img src="/multiCarImages.controller/${multiPhoto.imageNo}"
+					width="180" height="120" /><input id="carMultiImage" name="multiImages" class="checkNotNull" value=""
+                        type="file"></td>
+            
             </tr>
-            <tr>
+            </c:forEach>
             <tr>
                 <td width="120" height="40">發布日期</td>
                 <td width="600" height="40" align="left"><input id="announceDate" name="announceDate" class="checkNotNull"
@@ -277,8 +287,8 @@
             </tr>
             <tr bgcolor='transparent'>
                 <td height="50" colspan="2" align="center">
-                    <input type="submit" value="確認修改" id="updateCarInfo" formaction="updateCarInfo.controller">
-                    <input type="submit" value="搜尋全車輛" formaction="/SelectAllCar.controller">
+                    <input type="submit" value="確認修改" id="updateCarInfo" formaction="updateCarInfo.controller" class="btn btn-info">
+                    <a href="SelectAllCar.controller" class="btn btn-info">搜尋全車輛</a>
                 </td>
             </tr>
 		</c:forEach>

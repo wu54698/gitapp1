@@ -248,8 +248,8 @@
 												<td width="600" height="40" align="left"><input
 													id="servicename" name="servicename" class="checkNotNull"
 													value="${toUpdate.servicename}" type="text" size="14"
-													style="text-align: left; background-color: transparent; border-style: none;"
-													readonly></td>
+													style="text-align: left; background-color: transparent; border-style: 1;"
+													></td>
 											</tr>
 											<tr bgcolor='transparent'>
 
@@ -305,10 +305,8 @@
 								</table>
 											<input type="submit" value="更改"
 												formaction="<c:url value='serviceUpdateController'/>">
-											<input type="button" value="新增保養廠"
-												onclick="location.href='/service.signinService'">
-											<input type="button" value="查詢保養廠"
-												onclick="location.href='/service.SelectService'">
+											 <input	type="button" value="取消"
+							onclick="location.href='/backstage/serviceAllController'">
 							</form>
 						</div>
 						<!-- /.container-fluid -->

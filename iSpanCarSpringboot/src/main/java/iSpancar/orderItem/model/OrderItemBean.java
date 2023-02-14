@@ -31,17 +31,18 @@ public class OrderItemBean {
 	@Column(name = "quantity")
 	private String quantity ;
 	
-	@Column(name = "productprice")
-	private String productPrice ;
+	
+//	@Column(name = "productprice")
+//	private String productPrice ;
 	
 	
-	public OrderItemBean(String orderId, String productNumber,String productName, String quantity, String productPrice) {
+	public OrderItemBean(String orderId, String productNumber, String quantity) {
 		super();
 		this.orderId = orderId;
 		this.productNumber = productNumber;
-		this.productName = productName;
+//		this.productName = productName;
 		this.quantity = quantity;
-		this.productPrice = productPrice;
+//		this.productPrice = productPrice;
 	}
 	
 	public String getOrderId() {
@@ -76,13 +77,13 @@ public class OrderItemBean {
 		this.quantity = quantity;
 	}
 
-	public String getProductPrice() {
-		return productPrice;
-	}
-
-	public void setProductPrice(String productPrice) {
-		this.productPrice = productPrice;
-	}
+//	public String getProductPrice() {
+//		return productPrice;
+//	}
+//
+//	public void setProductPrice(String productPrice) {
+//		this.productPrice = productPrice;
+//	}
 
 	public OrderItemBean() {
 		// TODO Auto-generated constructor stub

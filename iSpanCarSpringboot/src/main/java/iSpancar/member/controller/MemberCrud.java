@@ -2,16 +2,25 @@ package iSpancar.member.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
@@ -30,7 +39,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import iSpancar.member.model.LocationDto;
 import iSpancar.member.model.MemberBean;
+import iSpancar.member.model.MemberLoginDate;
 import iSpancar.member.model.PermissionsOfPosition;
 import iSpancar.member.service.MemberService;
 
@@ -54,6 +67,51 @@ public class MemberCrud {
 		return "member/MemberSelectAll";
 		
 	}
+	
+	//select location for chart.js
+	@GetMapping("/memberlocation.controller")
+	@ResponseBody
+	public List<LocationDto> processLocation() {
+		try {
+			List<MemberBean> list = memberService.findAll();
+			List<LocationDto> locationList = new ArrayList<LocationDto>();
+			Map<String, Integer> locationMap = new HashMap<String, Integer>();
+			for(MemberBean mb: list) {
+				String location = mb.getMemberaddress().substring(0,3);//取地區
+				if(locationMap.containsKey(location)){//算數量
+					locationMap.put(location, locationMap.get(location)+1);
+				}else {
+					locationMap.put(location, 1);
+				}
+			}
+
+			for (Map.Entry<String, Integer> entry : locationMap.entrySet()) {
+				LocationDto locationDto = new LocationDto(entry.getKey(), entry.getValue());
+				locationList.add(locationDto);
+			}
+			//排序
+//			Collections.sort(locationList,
+//			        new Comparator<LocationDto>() {
+//			            public int compare(LocationDto o1, LocationDto o2) {
+//			                return o2.getCityNumber()-o1.getCityNumber();
+//			            }
+//			        });
+			
+			
+			return locationList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	//select memberAmount for chart.js
+	@GetMapping("/memberamount.controller")
+	@ResponseBody
+	public List<MemberLoginDate> processMemberAmount() {
+		List<MemberLoginDate> loginDatesList = memberService.findAllLoginDates();
+		return loginDatesList;
+	}
+	
 	//select position-------------------權限---------------------
 	@GetMapping("/memberposition.controller")
 	public String processPositionAction(Model model) {
@@ -225,6 +283,41 @@ public class MemberCrud {
 		
 		return list;
 	}
+//-------------------------------輸出--------------------------------
+	//CSV
+	  @GetMapping(value = "/exportCsv.controller") 
+	  public void exportCsv(HttpServletResponse response) throws IOException, SQLException { 
+	      String fileName = "output.csv";   //輸出CSV的檔案名稱 
+	      response.setContentType("text/csv; charset=UTF-8");  //設定輸出為UTF-8中文才不會跑掉 
+	      response.setHeader("Content-Disposition", "attachment; filename=" + fileName); 
+
+	      //這邊要改成各自的BEAN ,搜尋全部然後塞進list內
+	      List<MemberBean> beans = memberService.findAll(); 
+	      try (PrintWriter writer = response.getWriter()) { 
+	       //這是各位csv的欄位名稱 
+	          writer.println("帳號,姓名,電話,email,地址,車牌,生日"); 
+	          //這裡也要改成各位抓的值 
+	          for (MemberBean bean : beans) { 
+	              writer.println(bean.getAccountnumber() + "," + bean.getMemberName() + "," + bean.getPhonenumber() 
+	              + ","+ bean.getEmail() + "," + bean.getMemberaddress() + "," + bean.getPlatenumber() + ","
+	                + bean.getBirthday() ); 
+	          } 
+	      } 
+	  }
+	  //json
+	  @GetMapping(value = "/exportJson.controller") 
+	  public void exportJson(HttpServletResponse response) throws IOException, SQLException {
+	   List<MemberBean> beans = memberService.findAll(); 
+	   Map<String, MemberBean> data = new HashMap<>();
+	   for (MemberBean bean : beans) { 
+	    data.put(bean.getAccountnumber(), bean);
+	    
+	   }
+	      response.setContentType("application/json;charset=UTF-8");
+	      response.setHeader("Content-Disposition", "attachment; filename=data.json");
+	      response.getWriter().write(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(data));
+	    }
 	
 
+	 
 }

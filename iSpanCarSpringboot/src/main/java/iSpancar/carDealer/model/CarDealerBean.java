@@ -13,6 +13,8 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import iSpancar.carInfo.model.CarInfoBean;
 
 @Entity
@@ -42,6 +44,7 @@ public class CarDealerBean {
 	
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cardealerbean", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Set<CarInfoBean> carInfo = new LinkedHashSet<>();
 	
 	public CarDealerBean() {

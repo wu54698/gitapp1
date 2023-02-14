@@ -21,6 +21,8 @@
 <link
 	href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"
 	rel="stylesheet">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
 <style>
 /* textarea { */
 /* 	background:transparent;  */
@@ -245,14 +247,14 @@
 				<div class="container">
 
 					<!-- Page Heading -->
+					<!-- Page Heading -->
 					<h2>商城管理</h2>
-					<%-- <a href="<c:url value='/SHOP_DETAIL/iSpanShopInsert.jsp' />">新增產品</a> --%>
 					<div>
 						<form action="<c:url value='/backstage/iSpancarShop.ProductListAll'/>" method="get">
 							<input type="submit" value="回商城管理頁面" class="backshopbtn">
 						</form>
 						<form name="updateProductForm"
-							action="backstage/iSpancarShop.UpdateShopDetail.controller"
+							action="/backstage/iSpancarShop.UpdateShopDetail.controller"
 							method="POST" enctype="multipart/form-data"
 							>
 							<table border="1">
@@ -284,35 +286,52 @@
 												name="productname" value="${sentno.productname}" type="text"
 												size="30"></td>
 										</tr>
-										<!-- 				<tr bgcolor='tan'> -->
-										<!-- 					<td width="120" height="40">種類:</td> -->
-										<!-- 					<td width="600" height="40" align="left"><input id='type' -->
-										<%-- 						style="text-align: left" name="type" value="${param.type}" --%>
-										<!-- 						type="text" size="14"></td> -->
-										<!-- 				</tr> -->
-										<!-- 				<tr bgcolor='tan'> -->
-										<!-- 					<td width="120" height="40">規格:</td> -->
-										<!-- 					<td width="600" height="40" align="left"><input name="spec" -->
-										<%-- 						value="${param.spec}" type="text" size="20"></td> --%>
-										<!-- 				</tr> -->
+										<tr bgcolor='transparent'>
+											<td width="120" height="40" style="text-align: center">
+												<font size="4">產品類型</font>
+											</td>
+											<td width="600" height="40" align="left">
+											<select required name="type">
+											<option>${sentno.type}</option>
+											<option>內飾</option>
+											<option>外飾</option>
+											<option>機油</option>
+											<option>輪胎</option>
+											</select>
+											</td>
+										</tr>
+										<tr bgcolor='transparent'>
+											<td width="120" height="40" style="text-align: center">
+												<font size="4">規 格</font>
+											</td>
+											<td width="600" height="40" align="left">
+											<select required name="spec">
+											<option>${sentno.spec}</option>
+											<option>通用</option>
+											<option>特殊</option>
+											</select>
+											</td>
+										</tr>
+										
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center"><font
 												size="4">價 格</font></td>
 											<td width="600" height="40" align="left"><input required
-												name="price" value="${sentno.price}" type="text" size="14"></td>
+												name="price" value="${sentno.price}" type="number" oninput="value=value.replace('-', '')" size="14"></td>
 										</tr>
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center"><font
 												size="4">庫存數量</font></td>
 											<td width="600" height="40" align="left"><input required
-												name="stock" value="${sentno.stock}" type="text" size="14"></td>
+												name="stock" value="${sentno.stock}" type="number" oninput="value=value.replace('-', '')" size="14"></td>
 										</tr>
-										<!-- 				<tr bgcolor='tan'> -->
-										<!-- 					<td width="120" height="40">上架日期:</td> -->
-										<!-- 					<td width="600" height="40" align="left"><input name="uptime" -->
-										<%-- 						value="${param.uptime}" type="text" size="14"><font --%>
-										<!-- 						color='blue' size="-1">&nbsp;&nbsp;格式為yyyy-MM-dd</font></td> -->
-										<!-- 				</tr> -->
+										<tr bgcolor='transparent'>
+											<td width="120" height="40" style="text-align: center"><font
+												size="4">發售日期</font></td>
+											<td width="600" height="40" align="left"><input required id="updatepick"
+												name="uptime" value="${sentno.uptime}" type="text" oninput="value=value.replace('-', '')" size="14"></td>
+										</tr>
+										
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center"><font
 												size="4">產品資訊</font></td>
@@ -323,10 +342,17 @@
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center"><font
 												size="4">產品圖片</font></td>
-											<td width="600" height="40" align="left"><input
-												name="productimage" value="${sentno.productimage}"
-												type="file">
+											<td width="600" height="40" align="left">
+												<img src="productimg.controller?productno=${sentno.productno}" width="180" height="120" />
+												<input name="productimage" value="${sentno.productimage}" type="file">
 										</tr>
+										<c:forEach var='multiImg' items='${multiImgList}' varStatus="vs">
+            							<tr bgcolor='transparent'>
+							                <td width="120" height="40">照片(多張)</td>
+							                <td width="600" height="120" align="left"><img src="showMultiImges.controller/${multiImg.imgsno}"
+												width="180" height="120" /><input name="manyimgs" value="" type="file"></td>
+							            </tr>
+							            </c:forEach>
 										<tr bgcolor='transparent'>
 											<td height="50" colspan="2" align="center"><form method="get" id="successUpdate"><input
 												type="submit" value="送出" class="sendbtn"
@@ -379,7 +405,7 @@
 						<button class="btn btn-secondary" type="button"
 							data-dismiss="modal">取消</button>
 						<a class="btn btn-primary"
-							href="/logout.controller">登出</a>
+							href="<c:url value='/logoutServlet.do' />">登出</a>
 					</div>
 					<!--                 <div class="modal-footer"> -->
 
@@ -410,11 +436,19 @@
 			$(document).ready(function() {
 				$('#productlist').DataTable();
 			});
-			
-
-		
-			    
 		</script>
+		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+			<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+			<script>
+// 				$(function() { 
+// 					$('#updatepick').datepicker(); 
+// 			  	}); 
+				$(function() { 
+				  $('#updatepick').datepicker({ 
+				    minDate: new Date() 
+				  });
+				});
+			 </script> 
 		
 </body>
 

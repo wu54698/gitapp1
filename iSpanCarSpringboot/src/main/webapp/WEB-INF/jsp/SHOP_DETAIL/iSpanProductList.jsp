@@ -50,7 +50,10 @@ form{
 display:inline;
 }
 
-
+.low-stock {
+    color: red;
+    font-weight: bold;
+  }
 </style>
 </head>
 
@@ -144,7 +147,7 @@ display:inline;
 				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
+			<li class="nav-item"><a class="nav-link" href="orderBack">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -239,7 +242,6 @@ display:inline;
 
 					<!-- Page Heading -->
 					<h1 class="h3 mb-4 text-gray-800">商城管理</h1>
-					<%-- <a href="<c:url value='/SHOP_DETAIL/iSpanShopInsert.jsp' />">新增產品</a> --%>
 					<div>
 						<form action="<c:url value='/backstage/iSpancarShop.insertpage'/>"
 							method="get">
@@ -250,10 +252,14 @@ display:inline;
 							method="get">
 							<input type="submit" value="購物車測試" class="btn btn-info">
 						</form>
-<%-- 						<form action="<c:url value='/iSpancarShop.ProductListAllShopPage'/>" --%>
-<!-- 							method="get"> -->
-<!-- 							<input type="submit" value="首頁測試" class="btn btn-info"> -->
-<!-- 						</form> -->
+						<form action="<c:url value='/iSpancarShop.ProductListAllShopPage.1'/>"
+							method="get">
+							<input type="submit" value="進入前臺商店" class="btn btn-info">
+						</form>
+						<form action="<c:url value='/iSpancarShop.rtrtr'/>"
+							method="get">
+							<input type="submit" value="123測試" class="btn btn-info">
+						</form>
 						<p>
 					</div>
 
@@ -284,7 +290,7 @@ display:inline;
 									<td>${product.type}</td>
 									<td>${product.spec}</td>
 									<td>${product.price}</td>
-									<td style="text-align:center;">${product.stock}</td>
+									<td style="text-align:center;" class="stock-info">${product.stock}</td>
 									<td>${product.uptime}</td>
 									<td><textarea readonly>${product.productinfo}</textarea></td>
 									<td ><img style="border-radius:10%;"
@@ -407,7 +413,6 @@ display:inline;
 						},
 						success : function(response) {
 							console.log("OK")
-							//swal("刪除成功 !","該產品已刪除","success",{button:"確定"});
 							$(this).parent().parent().remove();
 						}
 					})
@@ -430,8 +435,19 @@ display:inline;
 			let bb = $(this).parent().parent().children('#productno').text();
 // 			window.open("http://localhost:8080/iSpancarShop/SendIdToUpdate.controller?productno=" + aa);
 // 			document.location.href = "http://localhost:8080/iSpancarShop/SendIdToUpdate.controller?productno=" + aa;
-			$('form').attr("action","http://localhost:8080/iSpancarShop.SendIdToUpdate.controller");
+			$('form').attr("action","http://localhost:8080/backstage/iSpancarShop.SendIdToUpdate.controller");
 		}
 	</script>
+	<script>
+    var stockInfo = document.getElementsByClassName("stock-info");
+    for (var i = 0; i < stockInfo.length; i++) {
+        if (parseInt(stockInfo[i].textContent) < 50) {
+            stockInfo[i].style.color = "red";
+            stockInfo[i].style.fontWeight = "bold";
+            stockInfo[i].style.fontSize = "larger";
+        }
+    }
+	</script>
+
 </body>
 </html>

@@ -21,6 +21,7 @@
 
     <!-- Custom styles for this template-->
     <link href="http://localhost:8080/iSpanCar/script/css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 </head>
 
@@ -75,8 +76,7 @@
                                 <div class="form-group row">
                                     <div id="twzipcode" class=" col-sm-4 mb-sm-0"></div>
                                     <div class="col-sm-8 mt-2">
-                                        <input type="text" class="form-control form-control-user " id="
-                                        memberaddress" name="memberaddress" placeholder="地址" value="${param.memberaddress}">
+                                        <input type="text" class="form-control form-control-user " id="memberaddress" name="memberaddress" placeholder="地址" value="${param.memberaddress}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -100,19 +100,19 @@
                                 </div>
                                 <div class="form-group row" id="cardnumber">
                                     <div class="div-card col-sm-3">
-                                        <input type="text" class="card-input2 form-control" maxlength="4"
+                                        <input type="text" id="card1" class="card-input2 form-control" maxlength="4"
                                             placeholder="信用卡號" name="card1" value="${param.card1}">
                                     </div>
                                     <div class="div-card col-sm-3">
-                                        <input type="text" class="card-input2 form-control" maxlength="4"
+                                        <input type="text" id="card2" class="card-input2 form-control" maxlength="4"
                                             placeholder="信用卡號" name="card2" value="${param.card2}">
                                     </div>
                                     <div class="div-card col-sm-3">
-                                        <input type="text" class="card-input2 form-control" maxlength="4"
+                                        <input type="text" id="card3" class="card-input2 form-control" maxlength="4"
                                             placeholder="信用卡號" name="card3" value="${param.card3}">
                                     </div>
                                     <div class="div-card col-sm-3">
-                                        <input type="text" class="card-input2 form-control" maxlength="4"
+                                        <input type="text" id="card4" class="card-input2 form-control" maxlength="4"
                                             placeholder="信用卡號" name="card4" value="${param.card4}">
                                     </div>
                                 </div><span></span>
@@ -122,6 +122,7 @@
                                 <div id="imgshowbox">
                                     <img id="imgshow" src="" alt=""  />
                                 </div>
+                                <div class="g-recaptcha" data-sitekey="6Ldm7HIkAAAAAIK01QkSeXWNaHRdV6l3Ri7NX5yV" > </div><br>
 								<input type="button" value='創建帳號' class="btn btn-primary btn-user btn-block" id="createAccount">
 								<input type="button" value='一鍵輸入' class="btn btn-info btn-user btn-block" id="inputform">
 <!--                                 <a href="#" class="btn btn-primary btn-user btn-block" id="createAccount"> -->
@@ -218,11 +219,26 @@
 	            $('#memberaddress').attr('value','新生路2段421號')
 	            $('#platenumber').attr('value','V6-8929')
 	            $('#idnumber').attr('value','H173107890')
-	            // $('#accountnumber').attr('value','777')
-	            // $('#accountnumber').attr('value','777')
+	            $('#card1').val('2222')
+	            $('#card2').val('2222')
+	            $('#card3').val('2222')
+	            $('#card4').val('2222')
+// 	            $('.city').val('桃園市')
 	     })
 	   
-    	
+	     document.getElementById("createAccountForm").addEventListener("submit",function(evt)
+	    		 {
+	    		     var response = grecaptcha.getResponse();
+	    		     if(response.length == 0)
+	    		     {
+	    		    	 Swal.fire({
+							  icon: 'error',
+							  title: ' 請驗證你不是機器人',
+							})
+	    		         evt.preventDefault();
+	    		         return false;
+	    		     }
+	    		 });
     })
 
 	</script>

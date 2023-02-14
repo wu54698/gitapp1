@@ -46,7 +46,7 @@
 			<!-- Sidebar - Brand 左上標誌 -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="index">
+				href="/index">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fa-solid fa-car-rear"></i>
 				</div>
@@ -59,9 +59,11 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="/"> <i
-					class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-			</a></li>
+			<li class="nav-item">
+                <a class="nav-link" href="/backstage/memberchartjs">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>統計圖表</span></a>
+            </li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -244,7 +246,7 @@
 									<tr bgcolor='transparent'>
 										<td width="120" height="40">車商名稱</td>
 										<td width="600" height="40" align="left"><input
-											id="carDealName" name="carDealName" class="checkNotNull"
+											id="carDealName" name="carDealName" class=""
 											value="${addCar.carDealName}" type="text" size="14"
 											style="text-align: left" readonly> <small><font
 												color='red' size="-1">${ErrorMsg.carDealName}</font></small></td>
@@ -253,57 +255,70 @@
 									<tr bgcolor='transparent'>
 										<td width="120" height="40">帳號</td>
 										<td width="600" height="40" align="left"><input
-											id="accountNumber" name="accountNumber" class="checkNotNull"
-											value="${param.accountNumber}" type="text" size="14"
-											style="text-align: left"></td>
+											id="accountNumber" name="accountNumber" class="accountNumberCheck"
+											value="${login.accountnumber}" type="text" size="14"
+											style="text-align: left"><span></span></td>
 									</tr>
+									<!-- 									<tr bgcolor='transparent'> -->
+									<!-- 										<td width="120" height="40">帳號</td> -->
+									<!-- 										<td width="600" height="40" align="left"><input -->
+									<!-- 											id="accountNumber" name="accountNumber" class="checkNotNull" -->
+									<%-- 											value="${login.accountnumber}" type="text" size="14" --%>
+									<!-- 											style="text-align: left"></td> -->
+									<!-- 									</tr> -->
 									<tr bgcolor='transparent'>
 										<td width="120" height="40">車輛品牌</td>
 										<td width="600" height="40" align="left"><input
-											id="carBrand" name="carBrand" class="checkNotNull"
+											id="carBrand" name="carBrand" class="carBrandCheck"
 											value="${param.carBrand}" type="text" size="14"
-											style="text-align: left"></td>
+											style="text-align: left"><span></span></td>
 									</tr>
 									<tr bgcolor='transparent'>
 										<td width="120" height="40">車輛名稱</td>
 										<td width="600" height="40" align="left"><input
-											id="carName" name="carName" class="checkNotNull"
+											id="carName" name="carName" class="carNameCheck"
 											value="${param.carName}" type="text" size="14"
-											style="text-align: left"></td>
+											style="text-align: left"><span></span></td>
 									</tr>
 									<tr bgcolor='transparent'>
 										<td width="120" height="40">庫存</td>
 										<td width="600" height="40" align="left"><input
-											id="stock" name="stock" class="checkNotNull"
+											id="stock" name="stock" class="stockCheck"
 											value="${param.stock}" type="text" size="14"
-											style="text-align: left"></td>
+											style="text-align: left"><span></span></td>
 									</tr>
 									<tr bgcolor='transparent'>
 										<td width="120" height="80">車輛描述</td>
 										<td width="600" height="40" align="left"><textarea
 												id="carDescription" name="carDescription"
-												class="checkNotNull" value="${param.carDescription}"
-												cols="30" rows="10" style="text-align: left"></textarea></td>
+												class="carDescriptionCheck"
+												cols="30" rows="10" style="text-align: left"></textarea><span></span></td>
 									</tr>
 									<tr bgcolor='transparent'>
-										<td width="120" height="40">車輛照片</td>
+										<td width="120" height="40">車輛照片(主圖，一張)</td>
 										<td width="600" height="40" align="left"><input
-											id="carImage" name="carImage" class="checkNotNull"
-											value="${param.carImage}" type="file"></td>
+											id="carImage" name="carImage" class="carImageCheck"
+											value="${param.carImage}" type="file"><span></span></td>
+									</tr>
+									<tr bgcolor='transparent'>
+										<td width="120" height="40">車輛照片(副圖，多張)</td>
+										<td width="600" height="40" align="left"><input
+											id="carMultiImage" name="multiImages" class="carImageCheck"
+											value="${param.carImage}" type="file" multiple><span></span></td>
 									</tr>
 									<tr>
 									<tr>
 										<td width="120" height="40">發布日期</td>
 										<td width="600" height="40" align="left"><input
-											id="announceDate" name="announceDate" class="checkNotNull"
+											id="announceDate" name="announceDate" class="announceDateCheck"
 											value="${param.announceDate}" type="text" size="14"
 											style="text-align: left"> <font color='blue'
 											size="-1">&nbsp;&nbsp;格式為MM-dd-yyyy</font></td>
 									</tr>
 									<tr bgcolor='transparent'>
 										<td height="50" colspan="2" align="center"><input
-											type="button" value="新增" id="addCar"
-											 class="btn btn-info">
+											type="button" value="新增" id="addCar" class="btn btn-info">
+										<input type="button" value="一鍵輸入" id="inputForm" class="btn btn-info"></input>
 										</td>
 									</tr>
 								</c:forEach>
@@ -387,35 +402,40 @@
 			$("#announceDate").datepicker();
 		});
 
-		//驗證欄位不為空
-		$('#findCarBrand').on({
-			click : function() {
-				$('#carBrand').attr('required', true)
-			},
-			mouseleave : function() {
-				$('#carBrand').attr('required', false)
+		//驗證不得為空值
+		  
+		  $('#addCar').on('click', function(){
+			let wrong = '<i class="fa-regular fa-circle-xmark"></i>'
+			let carBrandCheck = $('.carBrandCheck').val();
+			let carNameCheck = $('.carNameCheck').val();
+			let stockCheck = $('.stockCheck').val();
+			let carDescriptionCheck = $('.carDescriptionCheck').val();
+			let carImageCheck = $('.carImageCheck').val();
+			let announceDateCheck = $('.announceDateCheck').val();
+			if((carBrandCheck && carNameCheck && stockCheck && carDescriptionCheck && carImageCheck && announceDateCheck) != ""){
+				$('.carBrandCheck').next().empty();
+				$('.carNameCheck').next().empty();
+				$('.stockCheck').next().empty();
+				$('.carDescriptionCheck').next().empty();
+				$('.carImageCheck').next().empty();
+				$('.announceDateCheck').next().empty();
+				verifyok = true;
+			}else{
+				$('.carBrandCheck').next().css('color', 'red').html(wrong + '必填')
+				$('.carNameCheck').next().css('color', 'red').html(wrong + '必填')
+				$('.stockCheck').next().css('color', 'red').html(wrong + '必填')
+				$('.carDescriptionCheck').next().css('color', 'red').html(wrong + '必填')
+				$('.carImageCheck').next().css('color', 'red').html(wrong + '必填')
+				$('.announceDateCheck').next().css('color', 'red').html(wrong + '必填')
+	            verifyok = false;
 			}
-		});
-		$('#updateCarInfo').on({
-			click : function() {
-				$('#carNo').attr('required', true)
-			},
-			mouseleave : function() {
-				$('#carNo').attr('required', false)
-			}
-		});
-
-		$('#addCar').on({
-			click : function() {
-				$('.checkNotNull').attr('required', true)
-			},
-			mouseleave : function() {
-				$('.checkNotNull').attr('required', false)
-			},
-		});
+		})
 		
-		$('#addCar').on('click', function(){
-			var addCarForm = $('#addCarForm')
+		//新增車輛
+		$('#addCar').on({
+			'click' : function() {
+// 				$('.checkNotNull').attr('required', true)
+				var addCarForm = $('#addCarForm')
 			console.log(addCarForm)
 			var fromData = new FormData(addCarForm[0])
 			console.log(fromData)
@@ -432,13 +452,23 @@
 					console.log("OK")
 					location.href = 'SelectCarInOneSeller.controller/' + carDealName
 				},
-				error:function(xhr, ajaxOptions, thrownError){
+// 				error:function(xhr, ajaxOptions, thrownError){
 	           	 
-	                alert(xhr.status+"\n"+thrownError);
-	            }
+// 	                alert(xhr.status+"\n"+thrownError);
+// 	            }
 			})
-			
+			}
+		});
+		
+		//一鍵輸入
+		$('#inputForm').on('click', function(){
+			$('#carBrand').val('MG汽車')
+			$('#carName').val('2023 MG HS')
+			$('#stock').val('1')
+			$('#carDescription').val('2023年式。無肇事、泡水車紀錄。原廠保養。女用。價格面議')
+			$('#announceDate').val('02/13/2023')
 		})
+		
 		
 	</script>
 

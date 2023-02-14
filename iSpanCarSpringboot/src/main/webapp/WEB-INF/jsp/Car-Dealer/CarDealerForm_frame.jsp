@@ -44,7 +44,7 @@
 			<!-- Sidebar - Brand 左上標誌 -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="index">
+				href="/index">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fa-solid fa-car-rear"></i>
 				</div>
@@ -57,9 +57,11 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="/">
-					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-			</a></li>
+			<li class="nav-item">
+                <a class="nav-link" href="/backstage/memberchartjs">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>統計圖表</span></a>
+            </li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -119,7 +121,7 @@
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 			</a></li>
 
-			<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
+			<li class="nav-item"><a class="nav-link" href="orderBack">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -258,6 +260,7 @@
 							formaction="findDealer.controller" onclick="submit" class="btn btn-info"> 
 <!-- 						<input type="submit" value="搜尋全車商" -->
 <!-- 							formaction="findAllDealer.controller" class="btn btn-info"> -->
+						<input type="button" value="一鍵輸入" class="btn btn-info" id="inputform">
 					</form>
 				</div>
 				<!-- /.container-fluid -->
@@ -361,7 +364,18 @@
 	                $('.checkNotNull').attr('required', false)
 	            },
 	        });
-
+	
+		 $('#inputform').on('click', function(){
+			 $('#carDealName').val('新台灣汽車')
+			 $('#carDealPhone').val('0920343626')
+			 $('#carDealAddress').val('桃園市桃園區中山路575號')
+			 $('#openTime').val('09:30:00')
+			 $('#contactPerson').val('王先生')
+			 $('#carDealVATNumber').val('18398806')
+		 })
+		 
+		 
+		 
 	</script>
 	
 </body>

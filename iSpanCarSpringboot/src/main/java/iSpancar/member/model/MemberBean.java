@@ -5,6 +5,7 @@ import java.sql.Blob;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -17,9 +18,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "member")
-@Component
+@Component 
 public class MemberBean implements Serializable{
-	
+
 	@Id
 	@Column(name = "accountnumber")
 	private String accountnumber;//${login.accountnumber}
@@ -63,6 +64,10 @@ public class MemberBean implements Serializable{
 	@OneToOne(mappedBy = "memberbean")
 	@JsonIgnore
 	private MemberPosition memberPosition;
+	
+	@OneToOne(mappedBy = "memberloginbean")
+	@JsonIgnore
+	private MemberLoginDate memberLoginDate;
 	
 	@Override
 	public String toString() {
@@ -249,6 +254,18 @@ public class MemberBean implements Serializable{
 
 	public void setMemberPosition(MemberPosition memberPosition) {
 		this.memberPosition = memberPosition;
+	}
+
+
+
+	public MemberLoginDate getMemberLoginDate() {
+		return memberLoginDate;
+	}
+
+
+
+	public void setMemberLoginDate(MemberLoginDate memberLoginDate) {
+		this.memberLoginDate = memberLoginDate;
 	}
 
 

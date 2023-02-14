@@ -231,29 +231,12 @@
 
 							<!-- Page Heading -->
 							<h1>保養廠資訊</h1>
-							<!-- 						<select name="City" id="City">
-								<option value="">請選擇</option>
-								<option value="0">台北市</option>
-								<option value="1">基隆市</option>
-								<option value="2">新北市</option>
-								<option value="3">宜蘭縣</option>
-								<option value="4">新竹市</option>
-								<option value="5">新竹縣</option>
-								<option value="6">桃園市</option>
-								<option value="7">苗栗縣</option>
-								<option value="8">台中市</option>
-								<option value="9">彰化縣</option>
-								<option value="10">南投縣</option>
-								<option value="11">嘉義市</option>
-								<option value="12">嘉義縣</option>
-								<option value="13">雲林縣</option>
-								<option value="14">台南市</option>
-								<option value="15">高雄市</option>
-								<option value="16">屏東縣</option>
-								<option value="17">台東縣</option>
-								<option value="18">花蓮縣</option>
- -->
-							</select> <br> <br> <br>
+					<form method="POST">
+						<label>查詢保養廠名稱：</label><input type="text" name="servicename"
+							required /> <input type="submit" value="提交"
+							formaction="/backstage/serviceSelect.controller"> 
+					</form>
+ <br> <br> <br>
 
 							<table border="1">
 
@@ -301,12 +284,13 @@
 
 								</c:forEach>
 							</table>
-
+							<br>
 							<input type="button" value="新增保養廠"
 								onclick="location.href='/service.signinService'">
-							<input type="button"
-								onclick="location.href='/service.SelectService'" value="查詢保養廠"></input>
-							<input type="button" onclick="history.back()" value="回到上一頁"></input>
+							
+								<input type="button" value="查詢全部預約"
+							onclick="location.href='/backstage/orderserviceAllController'"><br>
+						
 						</div>
 						<!-- /.container-fluid -->
 

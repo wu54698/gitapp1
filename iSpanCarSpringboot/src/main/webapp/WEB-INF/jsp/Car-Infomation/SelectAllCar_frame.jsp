@@ -51,7 +51,7 @@
 			<!-- Sidebar - Brand 左上標誌 -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="index">
+				href="/index">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fa-solid fa-car-rear"></i>
 				</div>
@@ -64,9 +64,11 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="/">
-					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-			</a></li>
+			<li class="nav-item">
+                <a class="nav-link" href="/backstage/memberchartjs">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>統計圖表</span></a>
+            </li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -125,7 +127,7 @@
 				href="iSpancarShop.ProductListAll"> <i
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
+			<li class="nav-item"><a class="nav-link" href="orderBack">
 					<i class="fa-solid fa-coins"></i> <span>訂單</span>
 			</a></li>
 			<!-- Divider -->
@@ -262,7 +264,7 @@
 									<td class="button"><button id="btn1" class="delete btn btn-danger btn-circle"><i class="fas fa-trash"></i></button></td>
 									<!-- 修改按鈕，跳轉至修改頁面 -->
 									<!--<td><form action="JumptoUpdateCarInfoSheet" method="post"><input type="hidden" value="${car.carNo}" name="carNo"><button type="submit" class="btn2" id="btn2"  style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen fa-lg"></i></button></form></td> -->
-									<td><form action="JumptoUpdateCarInfoSheet" method="post"><input type="hidden" value="${car.carNo}" name="carNo"><button type="submit" class="btn2 btn btn-info btn-circle" id="btn2"  style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen"></i></button></form></td>
+									<td><form action="JumptoUpdateCarInfoSheet.controller" method="post"><input type="hidden" value="${car.carNo}" name="carNo"><button type="submit" class="btn2 btn btn-info btn-circle" id="btn2"  style="border-radius:80%;width:40px;height:40px"><i class="fa-solid fa-pen"></i></button></form></td>
 								</tr>
 							</tbody>
 						</c:forEach>

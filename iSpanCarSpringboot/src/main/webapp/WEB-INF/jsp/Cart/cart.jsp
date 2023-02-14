@@ -1,409 +1,244 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-
-<title>商城</title>
-
-<!-- Custom fonts for this template-->
-<link
-	href="http://localhost:8080/iSpanCar/script/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
-
-<!-- Custom styles for this template-->
-<link href="http://localhost:8080/iSpanCar/script/css/sb-admin-2.min.css"
-	rel="stylesheet">
-<link href="http://localhost:8080/iSpanCar/script/css/cart.css"
-	rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Grayscale - Start Bootstrap Theme</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesh0eet" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="http://localhost:8080/iSpanCar/script/css/styles.css" rel="stylesheet" />
+    <script src="http://localhost:8080/iSpanCar/script/vendor/jquery/jquery.min.js"></script>
+    <script src="http://localhost:8080/iSpanCar/script/js/navhtml.js"></script>
+    <script src="http://localhost:8080/iSpanCar/script/js/footerhtml.js"></script>
+    <link href="http://localhost:8080/iSpanCar/script/css/cartClient.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
 <body id="page-top">
-<c:set value="${LoginOK}" var="login"/>
-	<!-- Page Wrapper -->
-	<div id="wrapper">
+<c:set value="${LoginOK}" var="login" />
+<c:set value="${login.memberPosition.permissionsofposition}" var="memberPosition" />
+<input type="hidden" value="${login.accountnumber}" id="logincheck">
+<input type="hidden" value="${login.memberName}" id="loginName">
 
-		<!-- Sidebar -->
-		<ul
-			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion bg-gradient-info"
-			id="accordionSidebar">
-
-			<!-- Sidebar - Brand 左上標誌 -->
-			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index" >
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fa-solid fa-car-rear"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">資車會<sup></sup></div>
-            </a>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider my-0">
-
-			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="/">
-					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-			</a></li>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider">
-
-			<!-- Heading -->
-			<div class="sidebar-heading">功能列表</div>
-
-			<!-- Nav Item - Pages Collapse Menu -->
-			<!-- <li class="nav-item active">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>會員</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav"></nav>
+    <header class="masthead2">
+                <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+                    <div class="d-flex justify-content-center">
+                        <div class="text-center">
+                            <h2 class="mx-auto my-0 text-uppercase"
+                                style="color:white;font-size:6em;font-family: 'Noto Sans TC', sans-serif;">購物車</h2>
+                            <!--                     <h2 class=" mx-auto mt-2 mb-5" style="color:white;font-size:2em;font-family:DFKai-SB;font-family: 'Noto Sans TC', sans-serif;">資車國際</h2> -->
+                        </div>
                     </div>
                 </div>
-            </li> -->
-			<li class="nav-item"><a class="nav-link" href="memberselectall.controller">
-					<i class="fa-solid fa-user"></i> <span>會員</span>
-			</a></li>
-
-			<!-- Nav Item - Utilities Collapse Menu -->
-			<li class="nav-item"><a class="nav-link"
-							href="findAllDealer.controller">
-							<i class="fa-solid fa-car"></i> <span>車廠</span>
-						</a></li>
-            <li class="nav-item"><a class="nav-link"
-							href="SelectAllCar.controller">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
-						</a></li>
-
-			<!-- Divider -->
-			<!-- <hr class="sidebar-divider"> -->
-
-			<!-- Heading -->
-			<!-- <div class="sidebar-heading">
-                Addons
-            </div> -->
-
-			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item"><a class="nav-link" href="serviceAllController">
-					<i class="fa-solid fa-screwdriver-wrench"></i> <span>保養廠</span>
-			</a></li>
-
-			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="threadsView">
-					<i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
-			</a></li>
-
-			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link"
-				href="iSpancarShop.ProductListAll"> <i
-					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
+            </header>
+    
+<!--     content -->
+    <div class="bg-black" id="content">
+	   <div class="row rounded">
+		   <div class="col-1"></div>
+			   <div class="col-10 bg-white justify-content-center text-center rounded">
+			       <div style="text-align: center; padding: 50px 200px;">
+			     	
+		  <div class="progress-text" style="position: relative; height: 30px;">
+  <div style="position: absolute; left: 16.6%;">購物明細</div>
+  <div style="position: absolute; left: 49.6%;">付款資訊</div>
+  <div style="position: absolute; left: 82.6%;">最後確認</div>
+</div>
+        <div class="progress" style="margin-bottom: 30px;">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 33%"></div>
+        </div>
+     
+	<table class=table>
+			<thead >
+				<tr class=head>
+					<td>商品資訊</td>
+					<td></td>
+					<td>單價</td>	
+					<td>數量</td>
+					<td>金額</td>
+					<td>操作</td>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="cart" varStatus="statusX" items="${AllCartById}">
 					
-
-			<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
-					<i class="fas fa-fw fa-table"></i> <span>訂單</span>
-			</a></li>
-			<!-- Divider -->
-			<hr class="sidebar-divider d-none d-md-block">
-
-			<!-- Sidebar Toggler (Sidebar) -->
-			<div class="text-center d-none d-md-inline">
-				<button class="rounded-circle border-0" id="sidebarToggle"></button>
-			</div>
-
-		</ul>
-		<!-- End of Sidebar -->
-
-		<!-- Content Wrapper -->
-		<div id="content-wrapper" class="d-flex flex-column">
-
-			<!-- Main Content -->
-			<div id="content">
-
-				<!-- Topbar -->
-				<nav
-					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-					<div class="h4 mt-2 text-gray-800">購物車</div>
-
-
-					<!-- Topbar Navbar 右邊頭像 -->
-					<ul class="navbar-nav ml-auto">
-
-						<!-- Nav Item - Search Dropdown (Visible Only XS) -->
-						<li class="nav-item dropdown no-arrow d-sm-none"><a
-							class="nav-link dropdown-toggle" href="#" id="searchDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <i class="fas fa-search fa-fw"></i>
-						</a> <!-- Dropdown - Messages -->
-							<div
-								class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-								aria-labelledby="searchDropdown">
-								<form class="form-inline mr-auto w-100 navbar-search">
-									<div class="input-group">
-										<input type="text"
-											class="form-control bg-light border-0 small"
-											placeholder="Search for..." aria-label="Search"
-											aria-describedby="basic-addon2">
-										<div class="input-group-append">
-											<button class="btn btn-primary" type="button">
-												<i class="fas fa-search fa-sm"></i>
-											</button>
-										</div>
-									</div>
-								</form>
-							</div></li>
-
-						<div class="topbar-divider d-none d-sm-block"></div>
-
-						<!-- Nav Item - User Information -->
-						<li class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.accountnumber}</span>
-                            <!-- 職位 -->
-                                <input type="hidden" value="${login.accountnumber}" id="myAccountnumber">
-                                <input type="hidden" value="${memberPosition.positionPk}" id="myPosition">
-                                <input type="hidden" value="${memberPosition.permissionsInsert}" id="myPositionInsert">
-                                <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
-                                <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
-                                <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                                <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller\?accountnumber=${login.accountnumber}">
-                            </a> <!-- Dropdown - User Information -->
-							<div
-								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-								aria-labelledby="userDropdown">
-								<a class="dropdown-item" href="#"> <i
-									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								</a> <a class="dropdown-item" href="#"> <i
-									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-									Settings
-								</a> <a class="dropdown-item" href="#"> <i
-									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-									Activity Log
-								</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#" data-toggle="modal"
-									data-target="#logoutModal"> <i
-									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-									Logout
-								</a>
-							</div></li>
-
-					</ul>
-
-				</nav>
-				<!-- End of Topbar -->
-
-				<!-- Begin Page Content 內容 -->
-				<!-- <div class="container-fluid"> -->
-
-				<!-- Page Heading -->
-				<!-- <h1 class="h3 msb-4 text-gray-800" >購物車</h1> -->
-
-				<div id="app" class="app">
-
-
-					<table>
-						<thead>
-							<tr>
-								<th>購物編號</th>
-								<th>會員編號</th>
-								<td>商品編號</td>
-								<td>商品名稱</td>
-								<td>商品價格</td>
-								<td>購買數量</td>
-								<td>操作</td>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="cart" varStatus="statusX" items="${AllCart}">
 								<tr>
-									<td>${cart.cartId}</td>
-									<td>${cart.memberId}</td>
-									<td>${cart.productNumber}</td>
-									<td>${cart.productName}</td>
-									<td class="price" id="price">${cart.productPrice}</td>
-									<td class="quantity" id="quantity">${cart.quantity}</td>
+									<td><c:out value="${shopDetailMap[Integer.valueOf(cart.productNumber)].productname}" /></td>
+									<td><img src="productimgfront.controller?productno=${shopDetailMap[Integer.valueOf(cart.productNumber)].productno}"width="180" height="180" /></td>
+									<td  name="price" ><c:out value="${shopDetailMap[Integer.valueOf(cart.productNumber)].price}" /></td>
+									<td><input type="hidden" style="display: none" name="cartId"value="${cart.cartId}">
+									<input name="quantity" type="number" id="quantity" value="${cart.quantity}" style="width:50px;">
+									</td>								
+										
+										<td name="TotalPrice">
+										
+										</td>
 									<td>
-										<form action="cartUpdate.controller"
-											method="POST" enctype="multipart/form-data">
-											<input type="button" class="decrement" value="-"> <input
-												type="text" name="quantity" class="cart-count" value="1">
-											<input type="button" class="increment" value="+"> <input
-												type="hidden" style="display: none" name="cartId"
-												value="${cart.cartId}"> <input type="submit"
-												value="修改">
-										</form>
-									</td>
-									<td>
-										<form  action="/backstage/cartdeletecart.controller"
-											method="POST" enctype="multipart/form-data" class="deleteForm">
-											<input type="hidden" style="display: none" name="cartId"
-												value="${cart.cartId}"> <input type="button"
-												value="刪除" class="delete">
-										</form>
-									</td>
-								</tr>
+									<form action="<c:url value='/cartdeletecart.controller'/>"
+										method="POST" enctype="multipart/form-data">
+										<input type="hidden" style="display: none"  class="cartId"
+											value="${cart.cartId}">
+										<button type="button" class="btn2"
+											style="border-radius: 80%; width: 40px; height: 40px" >
+											<i class="fa-sharp fa-solid fa-trash-can fa-lg"></i>
+										</button></form></td>
+									
+									</c:forEach>
+									<tr><td></td><td></td><td></td><td></td><td>總金額：</td><td name="sumTotal"></td></tr>
+									
+			</tbody>
+		</table>
+		<a id="back" href="http://localhost:8080/iSpancarShop.Shop_Cart.controller"><i class="fa-solid fa-backward"></i>繼續購物</a>
+<button id="checkout" type="button" onclick="window.location.href='/CartCheckout'">
+  <i class="fa-solid fa-forward"></i>前往結帳
+</button>	</div>
+			   </div>
+		   <div class="col-1"></div>
+	   </div>
+	 </div>
 
-							</c:forEach>
-						</tbody>
-					</table>
-
-					<div align="right">
-
-						總計:<span id="total"></span>元 <br>
-						<form action="cartQueryAllCartById.controller" method="POST"
-							enctype="multipart/form-data">
-							前往結帳<input type="text"  name="memberId" value="${login.accountnumber}">
-<!-- style="display: none" readonly -->
-							<input id="pay" type="submit" value="結算" readonly="readonly">
-						</form>
-
-					</div>
-
-				</div>
-
-
-			</div>
-			<!-- /.container-fluid -->
-
-		</div>
-		<!-- End of Main Content -->
-
-		<!-- Footer -->
-		<!--             <footer class="sticky-footer bg-white"> -->
-		<!--                 <div class="container my-auto"> -->
-		<!--                     <div class="copyright text-center my-auto"> -->
-		<!--                         <span>Copyright &copy; Your Website 2020</span> -->
-		<!--                     </div> -->
-		<!--                 </div> -->
-		<!--             </footer> -->
-		<!-- End of Footer -->
-
-	</div>
-	<!-- End of Content Wrapper -->
-
-	<!--     </div> -->
-	<!-- End of Page Wrapper -->
-
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
-	</a>
-
-	<!-- Logout Modal-->
-	<!--     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" -->
-	<!--         aria-hidden="true"> -->
-	<!--         <div class="modal-dialog" role="document"> -->
-	<!--             <div class="modal-content"> -->
-	<!--                 <div class="modal-header"> -->
-	<!--                     <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5> -->
-	<!--                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"> -->
-	<!--                         <span aria-hidden="true">×</span> -->
-	<!--                     </button> -->
-	<!--                 </div> -->
-	<!--                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div> -->
-	<!--                 <div class="modal-footer"> -->
-	<!--                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button> -->
-	<!--                     <a class="btn btn-primary" href="login.html">Logout</a> -->
-	<!--                 </div> -->
-	<!--             </div> -->
-	<!--         </div> -->
-	<!--     </div> -->
-	<!-- Bootstrap core JavaScript-->
-	<script
-		src="http://localhost:8080/iSpanCar/script/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="http://localhost:8080/iSpanCar/script/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-	<!-- Core plugin JavaScript-->
-	<script
-		src="http://localhost:8080/iSpanCar/script/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-	<!-- Custom scripts for all pages-->
-	<script src="http://localhost:8080/iSpanCar/script/js/sb-admin-2.min.js"></script>
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script>
-		$(document).ready(function() {
-			initialize();
-
-		});
-
-		function initialize() {
-			var totalPrice = 0;
-			var cartnumber = $('.price').length;
-
-			for (var a = 0; a <= cartnumber; a++) {
-				var quantity = Number($('.quantity').eq(a).text());
-				var price = Number($('.price').eq(a).text());
-				var smallTotal = quantity * price;
-				totalPrice = totalPrice + smallTotal;
-
-				var total = document.getElementById("total");
-				total.innerHTML = totalPrice;
-				//             console.log(totalPrice)
-			}
-		};
-
-		$(function() {
-
-			$(".increment").click(function() {
-				var n = $(this).prev(".cart-count").val();
-				n++
-				$(this).prev(".cart-count").val(n)
-			})
-
-			$(".decrement").click(function() {
-				if ($(this).next(".cart-count").val() > 1) {
-					var n = $(this).next(".cart-count").val();
-					
-					$(this).next(".cart-count").val(n)
-				}
-			})
-
-		});
-		$(function(){
-			$('.delete').on('click',function(){
-				
-				 Swal.fire({
-				      title: '確定刪除?',
-				      text: "資料將被刪除",
-				      icon: 'warning',
-				      showCancelButton: true,
-				      confirmButtonColor: '#3085d6',
-				      cancelButtonColor: '#d33',
-				      confirmButtonText: '刪除!',
-				      cancelButtonText: '取消'
-				    }).then((result) => {
-				      if (result.isConfirmed) {
- 				        $(this).closest(".deleteForm").submit();
-				      }
-				    })
-			})
-		})
-		
-		   
-		 
-
-	</script>
+<!-- 	footer -->	
+	<div id="footertext"></div>
 	
-</body>
+	
+    <script src="http://localhost:8080/iSpanCar/script/js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!--     <script src="http://localhost:8080/iSpanCar/script/js/scripts.js"></script> -->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 
+
+
+
+<script>
+    window.onload = function() {
+        //遍歷每個數量輸入
+        var quantities = document.getElementsByName("quantity");
+        for (var i = 0; i < quantities.length; i++) {
+            //初始化計算總價格
+            updateTotalPrice(quantities[i]);
+            quantities[i].addEventListener("input", function() {
+                //更新總價格
+                updateTotalPrice(this);
+            });
+        }
+    };
+    
+    
+    function updateTotalPrice(quantityInput) {
+    // 获取当前行的价格
+    var price = parseFloat(quantityInput.parentNode.previousElementSibling.innerText);
+    // 获取当前行的数量
+    var quantity = parseInt(quantityInput.value);
+    // 限制数量不得低于1
+    if (quantity < 1) {
+        quantity = 1;
+        quantityInput.value = 1;
+    }
+    // 计算当前行的总价格
+    var totalPrice = price * quantity;
+    // 更新当前行的总价格
+    quantityInput.parentNode.nextElementSibling.innerText = totalPrice.toLocaleString();
+
+    var totalPrices = document.getElementsByName("TotalPrice");
+    var sum = 0;
+    for (var i = 0; i < totalPrices.length; i++) {
+        sum += parseFloat(totalPrices[i].innerText.replace(/,/g,''));
+    }
+    document.getElementsByName("sumTotal")[0].innerText = sum.toLocaleString();
+}
+    
+    $("input[name='quantity']").on("change", function() {
+        var $quantityInput = $(this);
+        var quantity = $quantityInput.val();
+        var $cartIdInput = $quantityInput.siblings("input[name='cartId']");
+        var cartId = $cartIdInput.length ? $cartIdInput.val() : "";
+        $.ajax({
+            url: "/cartInsert",
+            type: "POST",
+            data: {
+                quantity: quantity,
+                cartId: cartId
+            },
+            success: function(result) {
+                console.log("Successfully updated quantity in the database.");
+            }
+        });
+    });
+ 
+    $(document).ready(function() {
+    	$(".btn2").click(function() {
+    	Swal.fire({
+    	title: '確定刪除?',
+    	text: "資料將被刪除",
+    	icon: 'warning',
+    	showCancelButton: true,
+    	confirmButtonColor: '#3085d6',
+    	cancelButtonColor: '#d33',
+    	confirmButtonText: '刪除',
+    	cancelButtonText: '取消'
+    	}).then((result) => {
+    	if (result.isConfirmed) {
+    	var btn = $(this);
+    	var cartId = $(this).closest("tr").find("input[class='cartId']").val();
+    	$.ajax({
+    	    type: "POST",
+    	    url: "/cartdeletecart.controller",
+    	    data: {
+    	    cartId: cartId
+    	    },
+    	    success: function(response) {
+    	        Swal.fire({
+    	            title: '已刪除!',
+    	            text: 'Your file has been deleted.',
+    	            icon: 'success'
+    	        }).then(function() {
+    	            btn.closest("tr").remove();
+    	            updateTotalPrice();
+    	        });
+    	    },
+    	   
+    	});
+    	
+    	
+    	}
+    	});
+    	});
+    	function updateTotalPrice() {
+    	    //獲取所有的總價格元素
+    	    var totalPrices = document.getElementsByName("TotalPrice");
+    	    var sum = 0;
+    	    //總和所有的總價格
+    	    for (var i = 0; i < totalPrices.length; i++) {
+    	        sum += parseFloat(totalPrices[i].innerText.replace(/,/g,''));
+    	    }
+    	    //更新總計的總價格
+    	    document.getElementsByName("sumTotal")[0].innerText = sum.toLocaleString();
+    	}
+    });
+
+
+
+</script>
+
+</body>
 
 </html>

@@ -22,6 +22,7 @@
 
     <!-- Custom styles for this template-->
     <link href="http://localhost:8080/iSpanCar/script/css/sb-admin-2.css" rel="stylesheet">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
 </head>
 
@@ -54,23 +55,49 @@
                                             <input type="password" class="form-control form-control-user" value="${param.memberpassword}"
                                                 id="memberpassword" name="password" placeholder="請輸入密碼">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group row">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck" name="rememberMe-key">
-                                                <label class="custom-control-label" for="customCheck">Remember
+                                                <label class="custom-control-label mr-1" for="customCheck">Remember
                                                     Me</label>
+                                             </div>
+                                             <div class="custom-control custom-checkbox small">  
+                                                <input type="checkbox" class="custom-control-input" id="showpassword" name="showpassword">
+                                                <label class="custom-control-label" for="showpassword">顯示密碼</label>
                                             </div>
                                         </div>
                                         <input type="submit" class="btn btn-primary btn-user btn-block"  value="登入" id="check">
                                         
-                                        
+                                        <a href="/login/oauth2/authorization/google" class="btn btn-google btn-user btn-block">
+                                            <i class="fab fa-google fa-fw"></i> Google 登入
+                                        </a>
+                                        <div class="row">
+                                        	<div class="col-4">
+		                                        <a href="" class="btn btn-secondary btn-user btn-block" id="userlogin">
+		                                           User
+		                                        </a>
+		                                    </div>
+		                                    <div class="col-4">
+		                                        <a href="" class="btn btn-secondary btn-user btn-block" id="employeelogin">
+		                                             employee
+		                                        </a>
+	                                       </div>
+		                                    <div class="col-4">
+		                                        <a href="" class="btn btn-secondary btn-user btn-block" id="managerlogin">
+		                                             manager
+		                                        </a>
+	                                       </div>
+                                        </div>
+<!--                                         https://accounts.google.com/o/oauth2/auth?response_type=token&redirect_uri=http://localhost:8080/login/oauth2/code/google&client_id=958888186961-cfm93ockmgmk3nhdiv0lmrrvs1fpv9ms.apps.googleusercontent.com&scope=openid profile email -->
                                     </form>
                                     <hr>
-<!--                                     <div class="text-center"> -->
-<!--                                         <a class="small" href="forgot-password.html">Forgot Password?</a> -->
-<!--                                     </div> -->
-                                    <div class="text-center">
-                                        <a class="small" href="memberInsert">創建帳號</a>
+                                    <div class="row">
+	                                    <div class="text-right col-lg-6">
+	                                        <a class="small" href="forgot-password">忘記密碼?</a>
+	                                    </div>
+	                                    <div class="text-left col-lg-6">
+	                                        <a class="small" href="memberInsert">創建帳號</a>
+	                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +124,15 @@
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script> 
 	$(function () {
-	    
+		$('#showpassword').on('change',function(){
+			if($('#showpassword').is(':checked')){
+				$('#memberpassword').prop('type','text');
+			}else{
+				$('#memberpassword').prop('type','password');
+			}
+		})
+
+		
 	    $(document).ready(function () {
 	        $('#check').on('click',function (e) {
 	        	console.log("check")
@@ -136,6 +171,23 @@
 				})
 	        })
 	    })
+	    
+	     $('#userlogin').on('click',function(e){
+	    	 e.preventDefault();
+	            $('#accountnumber').val('user7788')
+	            $('#memberpassword').attr('value','Dd123456')
+	     })
+	     $('#employeelogin').on('click',function(e){
+	    	 e.preventDefault();
+	            $('#accountnumber').val('employee')
+	            $('#memberpassword').attr('value','Dd123456')
+	     })
+	     $('#managerlogin').on('click',function(e){
+	    	 e.preventDefault();
+	            $('#accountnumber').val('andy123')
+	            $('#memberpassword').attr('value','Dd123456')
+	     })
+	    
 	})
 	</script>
 </body>

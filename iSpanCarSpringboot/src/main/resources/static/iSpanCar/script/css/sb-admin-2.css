@@ -10862,7 +10862,7 @@ a:focus {
 
 .bg-login-image {
   background: url("https://attach.mobile01.com/image/news/3305b70e208fdc89004393f96e3eca39.jpg");
-  background-position: -120px center;
+  background-position: -150px center;
   background-size: cover;
 }
 
@@ -10873,7 +10873,13 @@ a:focus {
 }
 
 .bg-password-image {
-  background: url("https://source.unsplash.com/oWTW-jNGl9I/600x800");
+  background: url("https://www.foreignersintaiwan.com/uploads/5/4/3/2/54326073/carshn-1_orig.jpg");
+  background-position: -300px center;
+  background-size: cover;
+}
+
+.bg-password-image2 {
+  background: url("https://hips.hearstapps.com/hmg-prod/images/2023-mclaren-artura-101-1655218102.jpg");
   background-position: center;
   background-size: cover;
 }

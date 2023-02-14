@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>資車會</title>
+    <title>資車會會員資料</title>
 
     <!-- Custom fonts for this template-->
     <link href="http://localhost:8080/iSpanCar/script/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -47,7 +47,7 @@
             id="accordionSidebar">
 
             <!-- Sidebar - Brand 左上標誌 -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index" >
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/index" >
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fa-solid fa-car-rear"></i>
                 </div>
@@ -59,9 +59,9 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="/backstage/memberchartjs">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>統計圖表</span></a>
             </li>
 
             <!-- Divider -->
@@ -130,7 +130,7 @@
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
             <li class="nav-item">
-                <a class="nav-link" href="orderQueryAll.controller">
+                <a class="nav-link" href="orderBack">
                     <i class="fa-solid fa-coins"></i>
                     <span>訂單</span></a>
             </li>
@@ -190,7 +190,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.accountnumber}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.memberName}</span>
                             <!-- 職位 -->
                                 <input type="hidden" value="${login.accountnumber}" id="myAccountnumber">
                                 <input type="hidden" value="${memberPosition.positionPk}" id="myPosition">
@@ -226,11 +226,16 @@
 
                     <!-- Page Heading -->
                     <div class="row">
-		                   <div class="col-sm-10 "> <h1 class="h3 mb-4 text-gray-800">會員資料</h1></div>
+		                   <div class="col-sm-8 "> <h1 class="h3 mb-4 text-gray-800">會員資料</h1></div>
+		                   <div class="col-sm-2">
+		                   輸出資料:
+		                   		<button class="btn btn-info " type="button" onclick="location.href='/backstage/exportCsv.controller'">csv</button>
+		                   		<button class="btn btn-info " type="button" onclick="location.href='/backstage/exportJson.controller'">json</button>
+		                   </div>
 		                   <div class="col-sm-2"><span class="mr-2">創建員工帳號</span><button class="insert btn btn-success btn-circle" ><i class="fa-solid fa-user-plus"></i></button></div>
 					</div>
                     
-						
+<!-- 					choose(when()otherwise()) 等於 if...else...	 -->
 		<c:choose>
 		<c:when test="${empty selectAll}">
 			<h3>查無任何會員資料</h3>
@@ -525,7 +530,6 @@
 	               let buttonstring = "<button class='update btn btn-info btn-circle'><i class='fa-solid fa-pen'></i></button>"
 	               let account = $(this).closest('tr').find('.accountnumber').text();
 	               let imgshow = $(this).closest('tr').find('.imgshow');
-	   				
 	               $.ajax({
 	   	                type: 'POST',
 	   	             	context:this,
@@ -534,8 +538,7 @@
 	   	             	async: false,
 	   	                data:{ accountnumber : account },
 	   	                success: function (response) {
-	   	                	console.log(response);
-	   	             		$(this).parent().parent().children('td').eq(1).text(response.positionPk)
+	   	                	$(this).parent().parent().children('.thisposition').text(response.positionPk);
 	   	                } ,
 	   	                error:function(xhr, ajaxOptions, thrownError){
 	   	                	 
