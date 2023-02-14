@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>資車會</title>
+    <title>資車會統計圖表</title>
 
     <!-- Custom fonts for this template-->
     <link href="http://localhost:8080/iSpanCar/script/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -48,7 +48,7 @@
             id="accordionSidebar">
 
             <!-- Sidebar - Brand 左上標誌 -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index" >
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/index" >
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fa-solid fa-car-rear"></i>
                 </div>
@@ -60,9 +60,9 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/">
+                <a class="nav-link" href="/backstage/memberchartjs">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>統計圖表</span></a>
             </li>
 
             <!-- Divider -->
@@ -131,7 +131,7 @@
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
             <li class="nav-item">
-                <a class="nav-link" href="orderQueryAll.controller">
+                <a class="nav-link" href="orderBack">
                     <i class="fa-solid fa-coins"></i>
                     <span>訂單</span></a>
             </li>

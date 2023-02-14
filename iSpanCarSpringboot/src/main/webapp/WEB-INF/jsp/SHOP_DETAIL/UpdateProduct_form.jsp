@@ -213,7 +213,7 @@
 						<!-- Nav Item - User Information -->
 						<li class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.memberName}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.accountnumber}</span>
                             <!-- 職位 -->
                                 <input type="hidden" value="${login.accountnumber}" id="myAccountnumber">
                                 <input type="hidden" value="${memberPosition.positionPk}" id="myPosition">
@@ -342,10 +342,17 @@
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center"><font
 												size="4">產品圖片</font></td>
-											<td width="600" height="40" align="left"><input
-												name="productimage" value="${sentno.productimage}"
-												type="file">
+											<td width="600" height="40" align="left">
+												<img src="productimg.controller?productno=${sentno.productno}" width="180" height="120" />
+												<input name="productimage" value="${sentno.productimage}" type="file">
 										</tr>
+										<c:forEach var='multiImg' items='${multiImgList}' varStatus="vs">
+            							<tr bgcolor='transparent'>
+							                <td width="120" height="40">照片(多張)</td>
+							                <td width="600" height="120" align="left"><img src="showMultiImges.controller/${multiImg.imgsno}"
+												width="180" height="120" /><input name="manyimgs" value="" type="file"></td>
+							            </tr>
+							            </c:forEach>
 										<tr bgcolor='transparent'>
 											<td height="50" colspan="2" align="center"><form method="get" id="successUpdate"><input
 												type="submit" value="送出" class="sendbtn"
@@ -433,9 +440,14 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 			<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 			<script>
+// 				$(function() { 
+// 					$('#updatepick').datepicker(); 
+// 			  	}); 
 				$(function() { 
-					$('#updatepick').datepicker(); 
-			  	}); 
+				  $('#updatepick').datepicker({ 
+				    minDate: new Date() 
+				  });
+				});
 			 </script> 
 		
 </body>

@@ -149,7 +149,7 @@ opacity:0.6;
 					<li class="nav-item"><a class="nav-link" href="<c:url value='/backstage/iSpancarShop.ProductListAll'/>"> <i
 								class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-					<li class="nav-item"><a class="nav-link" href="orderQueryAll.controller">
+					<li class="nav-item"><a class="nav-link" href="orderBack">
 							<i class="fa-solid fa-coins"></i> <span>訂單</span>
 						</a></li>
 					<!-- Divider -->
@@ -205,7 +205,7 @@ opacity:0.6;
 								<!-- Nav Item - User Information -->
 								<li class="nav-item dropdown no-arrow"><a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.memberName}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.accountnumber}</span>
                             <!-- 職位 -->
                                 <input type="hidden" value="${login.accountnumber}" id="myAccountnumber">
                                 <input type="hidden" value="${memberPosition.positionPk}" id="myPosition">
@@ -254,6 +254,7 @@ opacity:0.6;
 											<th height="60" colspan="2" align="center">
 												<h2 style="margin:0 auto;">
 													<b>新增產品資料</b>
+													<input type="button" value="一鍵輸入" id="clickToFill" class="btn btn-info"></input>
 												</h2>
 											</th>
 										</tr>
@@ -272,7 +273,7 @@ opacity:0.6;
 												<font size="4">產品類型</font>
 											</td>
 											<td width="600" height="40" align="left">
-											<select required name="type">
+											<select required name="type" id="type">
 											<option>${param.spec}</option>
 											<option>內飾</option>
 											<option>外飾</option>
@@ -288,7 +289,7 @@ opacity:0.6;
 												<font size="4">規 格</font>
 											</td>
 											<td width="600" height="40" align="left">
-											<select required name="spec">
+											<select required name="spec" id="spec">
 											<option>${param.spec}</option>
 											<option>通用</option>
 											<option>特殊</option>
@@ -300,20 +301,20 @@ opacity:0.6;
 												<font size="4">價 格</font>
 											</td>
 											<td width="600" height="40" align="left"><input required name="price"
-													value="${param.price}" type="number" oninput="value=value.replace('-', '')" size="14" ></td>
+											id="price" value="${param.price}" type="number" oninput="value=value.replace('-', '')" size="14" ></td>
 										</tr>
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center">
 												<font size="4">庫存數量</font>
 											</td>
 											<td width="600" height="40" align="left"><input required name="stock"
-													value="${param.stock}" type="number" oninput="value=value.replace('-', '')" size="14"></td>
+											id="stock" value="${param.stock}" type="number" oninput="value=value.replace('-', '')" size="14"></td>
 										</tr>
 										<tr bgcolor='transparent'>
 											<td width="120" height="40" style="text-align: center">
 												<font size="4">發售日期</font>
 											</td>
-											<td width="600" height="40" align="left"><input required name="uptime"
+											<td width="600" height="40" align="left"><input required name="uptime" 
 													id="updatepick" value="${param.uptime}" type="text" size="20">
 												<!-- 												<font color='blue' size="-1">&nbsp;&nbsp;格式為yyyy-MM-dd</font> -->
 											</td>
@@ -337,6 +338,14 @@ opacity:0.6;
 											<td width="600" height="40" align="left"><input required name="productimage" id="productimage"
 													value="${param.productimage}" type="file">
 										</tr>
+										<tr>
+										<tr bgcolor='transparent'>
+											<td width="120" height="40" style="text-align: center">
+												<font size="4">產品圖片(詳細頁面)</font>
+											</td>
+											<td width="600" height="40" align="left"><input required name="manyimgs" id="productimage"
+													value="${param.manyimgs}" type="file" multiple="multiple">
+										</tr>
 
 										<tr bgcolor='transparent'>
 											<td height="50" colspan="2" align="center"><input type="submit" value="送出" class="sendbtn">
@@ -347,6 +356,7 @@ opacity:0.6;
 							</form>
 						</div>
 						<!-- /.container-fluid -->
+						<script src="http://localhost:8080/iSpanCar/script/plugins/jquery/jquery.min.js"></script>
 						<script>
 							let productname = document.querySelector("#productname")
 							productname.addEventListener("blur", function () {
@@ -445,6 +455,18 @@ opacity:0.6;
 							})
 							
 						</script>
+						<script>
+						//一鍵輸入
+						$('#clickToFill').on('click', function(){
+							$('#productname').val('天天開勳')
+							$('#type').val('內飾')
+							$('#spec').val('通用')
+							$('#price').val('1500')
+							$('#stock').val('100')
+							$('#updatepick').val('02/18/2023')
+							$('#productinfo').val('132\r\n321')
+						});
+						</script>
 					</div>
 					<!-- End of Main Content -->
 
@@ -507,10 +529,15 @@ opacity:0.6;
 			<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 			<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 			<script>
-				$(function() { 
-					$('#updatepick').datepicker(); 
-			  	}); 
+			$(function() { 
+				  $('#updatepick').datepicker({ 
+				    minDate: new Date() 
+				  });
+				});
 			 </script> 
+			 <script>
+			 
+			 </script>
 
 		</body>
 

@@ -19,4 +19,7 @@ public interface CartRepository extends JpaRepository<CartBean,String>{
 	@Query(value="update cart  set quantity = ?1 where cartid = ?2",nativeQuery = true)
 	public void updateQuantityByCartId(String quantity, String cartId);
 	
+//	@Query(value="SELECT * FROM cart JOIN SHOPDETAIL ON cart.productNumber = SHOPDETAIL.productno WHERE cart.memberId = ?1;" , nativeQuery = true)
+//	public List<CartBean> findAllByIdTest(String memberId);
+//	
 }

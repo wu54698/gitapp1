@@ -2,15 +2,23 @@ package iSpancar.shop.model;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "SHOPDETAIL")
@@ -49,8 +57,21 @@ public class ShopDetailBean implements Serializable {
 	
 	@Column(name = "productimagename")
 	private String productimagename;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "shopDetailBean", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<ShopDetailImgsBean> imagesBean = new ArrayList<ShopDetailImgsBean>();
 
 	
+	
+	public List<ShopDetailImgsBean> getImagesBean() {
+		return imagesBean;
+	}
+
+	public void setImagesBean(List<ShopDetailImgsBean> imagesBean) {
+		this.imagesBean = imagesBean;
+	}
+
 	public ShopDetailBean(String productname, String type, String spec, Integer price, Integer stock, String uptime,
 			String productinfo, Blob productimage, String productimagename) {
 		super();
@@ -78,8 +99,38 @@ public class ShopDetailBean implements Serializable {
 		this.productimage = productimage;
 		this.productimagename = productimagename;
 	}
-	
 
+//	public ShopDetailBean(Integer productno, String productname, String type, String spec, Integer price, Integer stock, String uptime, String newProductinfo, Blob newProductimage, String newProductimagename, List<MultipartFile> mfs) {
+//		super();
+//		this.productno = productno;
+//		this.productname = productname;
+//		this.price = price;
+//		this.stock = stock;
+//		this.productinfo = productinfo;
+//		this.productimage = productimage;
+//		this.productimagename = productimagename;
+//	}
+
+	public ShopDetailBean() {
+		super();
+	}
+
+	public ShopDetailBean(Integer productno, String productname, String type, String spec, Integer price, Integer stock,
+			String uptime, String productinfo, Blob productimage, String productimagename,
+			List<ShopDetailImgsBean> imagesBean) {
+		super();
+		this.productno = productno;
+		this.productname = productname;
+		this.type = type;
+		this.spec = spec;
+		this.price = price;
+		this.stock = stock;
+		this.uptime = uptime;
+		this.productinfo = productinfo;
+		this.productimage = productimage;
+		this.productimagename = productimagename;
+		this.imagesBean = imagesBean;
+	}
 
 	public ShopDetailBean(Integer productno, String productname, Integer price, Integer stock, String productinfo,
 			Blob productimage) {
@@ -92,9 +143,7 @@ public class ShopDetailBean implements Serializable {
 		this.productimage = productimage;
 	}
 
-	public ShopDetailBean() {
-		super();
-	}
+	
 
 	public ShopDetailBean(Integer productno, String productname, String type, String spec, Integer price, Integer stock,
 			String uptime, String productinfo, Blob productimage, String productimagename) {

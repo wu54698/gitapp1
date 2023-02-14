@@ -1,5 +1,6 @@
 package iSpancar.cart.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.TransactionScoped;
@@ -48,6 +49,15 @@ public class CartService {
 	public void updateQuantityByCartId(String quantity, String cartId) {
 		cRepo.updateQuantityByCartId(quantity,cartId);
 	}
+	
+	public CartBean CartInsertQuantity(CartBean ctBean) {
+		CartBean cartBean= cRepo.save(ctBean);
+		return cartBean;
+
+	}
+//	public Collection<CartBean> findAllByIdTest (String memberId) {
+//		cRepo.findAllById(memberId);
+//	}
 	
 	
 }

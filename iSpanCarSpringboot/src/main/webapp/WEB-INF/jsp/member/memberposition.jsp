@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>資車會</title>
+    <title>資車會權限設定</title>
 
     <!-- Custom fonts for this template-->
     <link href="http://localhost:8080/iSpanCar/script/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -130,7 +130,7 @@
 					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
             <li class="nav-item">
-                <a class="nav-link" href="orderQueryAll.controller">
+                <a class="nav-link" href="orderBack">
                     <i class="fa-solid fa-coins"></i>
                     <span>訂單</span></a>
             </li>

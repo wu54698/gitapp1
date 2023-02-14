@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import iSpancar.shop.model.ShopDetailBean;
 import iSpancar.shop.model.ShopDetailDao;
+import iSpancar.shop.model.ShopDetailImgsBean;
 import iSpancar.shop.service.ShopDetailService;
 @Controller
 @RequestMapping("/backstage")
@@ -28,7 +29,6 @@ public class ProductImgController {
 	@GetMapping("productimg.controller")
 	@ResponseBody
 	public byte[] processProductImgAction(@RequestParam("productno") String productno) {
-		System.out.println("aaaaaaaaaaaaaaaaaaa");
 		try {
 			ShopDetailBean sBean = service.findImgByProductno(productno);
 			InputStream is = sBean.getProductimage().getBinaryStream();

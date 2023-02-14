@@ -47,6 +47,12 @@ public class CartBean {
 		this.productPrice=productPrice;
 		this.quantity = quantity;
 	}
+	public CartBean( String memberId, String productNumber,String quantity) {
+		super();
+		this.memberId = memberId;
+		this.productNumber = productNumber;
+		
+	}
 
 	public CartBean( String cartId,String memberId, String productNumber,String productName,String productPrice,
 			String quantity
@@ -65,6 +71,12 @@ public class CartBean {
 		this.productNumber = productNumber;
 		this.productName=productName;
 		this.productPrice=productPrice;
+		this.quantity = quantity;
+	}
+	
+	public CartBean(String cartId,String quantity) {
+//		super();
+		this.cartId = cartId;
 		this.quantity = quantity;
 	}
 	

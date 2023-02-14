@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import iSpancar.order.model.OrderBean;
 import iSpancar.orderItem.model.OrderItemBean;
 import iSpancar.orderItem.model.OrderItemDao;
 import iSpancar.orderItem.model.OrderItemRepository;
@@ -28,6 +29,12 @@ public class OrderItemService {
 	public List<OrderItemBean> findAllOrderItem() throws Exception{
 		List<OrderItemBean> allOrderItem = oiRepo.findAll();
 		return allOrderItem;
+	}
+	
+	
+	public List<OrderItemBean> findOrderItemByOrderId( String orderId) throws Exception{
+		List<OrderItemBean> allOrder = oiRepo.findOrderItemByOrderId(orderId);
+		return allOrder;
 	}
 		
 }
