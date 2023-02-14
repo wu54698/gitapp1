@@ -120,7 +120,7 @@
 									<div class="form-row align-items-center">
 										<div class="form-group col-xl-4 col-lg-3 col-md-6">
 											<input type="text" class="form-control my-2 my-lg-0" id="inputtext4"
-												placeholder="在找什麼嗎?" name="productname">
+												placeholder="在找什麼嗎?" name="productname" style="color: black">
 										</div>
 										<!-- 							<div class="form-group col-lg-3 col-md-6"> -->
 										<!-- 								<select class="w-100 form-control my-2 my-lg-0"> -->
