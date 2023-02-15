@@ -82,7 +82,7 @@
         <!-- Sidebar - Brand 左上標誌 -->
         <a
                 class="sidebar-brand d-flex align-items-center justify-content-center"
-                href="index">
+                href="/index">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fa-solid fa-car-rear"></i>
             </div>
@@ -95,8 +95,8 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item"><a class="nav-link" href="/">
-            <i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
+        <li class="nav-item"><a class="nav-link" href="/backstage/memberchartjs">
+            <i class="fas fa-fw fa-tachometer-alt"></i> <span>統計圖表</span>
         </a></li>
 
         <!-- Divider -->
@@ -127,45 +127,43 @@
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
-							<i class="fa-solid fa-car"></i> <span>車廠</span>
-			</a></li>
-            <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
-			</a></li>
+        <li class="nav-item"><a class="nav-link"
+                                href="CarDealerForm">
+            <i class="fa-solid fa-car"></i> <span>車廠</span>
+        </a></li>
+        <li class="nav-item"><a class="nav-link"
+                                href="CarInfoForm">
+            <i class="fa-solid fa-car"></i> <span>車輛</span>
+        </a></li>
 
-            <!-- Divider -->
-<!--             <hr class="sidebar-divider"> -->
+        <!-- Divider -->
+        <!-- <hr class="sidebar-divider"> -->
 
-<!--             Heading -->
-<!--             <div class="sidebar-heading"> -->
-<!--                 Addons  -->
-<!--             </div>   -->
+        <!-- Heading -->
+        <!-- <div class="sidebar-heading">
+            Addons
+        </div> -->
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="serviceAllController">
-                    <i class="fa-solid fa-screwdriver-wrench"></i>
-                    <span>保養廠</span></a>
-            </li>
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="serviceAllController">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <span>保養廠</span></a>
+        </li>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="threadsView">
-                    <i class="fa-brands fa-rocketchat"></i>
-                    <span>論壇</span></a>
-            </li>
+        <!-- Nav Item - Charts -->
+        <li class="nav-item"><a class="nav-link" href="/backstage/threadsView">
+            <i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
+        </a></li>
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item"><a class="nav-link"
-				href="iSpancarShop.ProductListAll"> <i
-					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
+        <!-- Nav Item - Tables -->
+        <li class="nav-item"><a class="nav-link"
+                                href="<c:url value='/ProductListAll'/>"> <i
+                class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="orderBack">
-                    <i class="fa-solid fa-coins"></i>
-                    <span>訂單</span></a>
-            </li>
+        <li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+            <i class="fa-solid fa-coins"></i> <span>訂單</span>
+        </a></li>
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
@@ -226,7 +224,7 @@
                                                               id="userDropdown" role="button"
                                                               data-toggle="dropdown" aria-haspopup="true"
                                                               aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.memberName}</span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.accountnumber}</span>
                         <!-- 職位 -->
                         <input type="hidden" value="${login.accountnumber}" id="myAccountnumber">
                         <input type="hidden" value="${memberPosition.positionPk}" id="myPosition">
@@ -234,7 +232,7 @@
                         <input type="hidden" value="${memberPosition.permissionsUpdate}" id="myPositionUpdate">
                         <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                         <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
-                        <img class="img-profile rounded-circle" id="myImage" src="/showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                        <!--<img class="img-profile rounded-circle" id="myImage" src="showimageforthismember.controller?accountnumber=${login.accountnumber}"> -->
                     </a> <!-- Dropdown - User Information -->
                         <div
                                 class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -292,6 +290,22 @@
                         <select class="form-control form-select" name="best">
                             <option value="true">是</option>
                             <option value="false">否</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">問題分類</span>
+                        </div>
+                        <select class="form-control form-select" name="question">
+                            <option selected="selected" value="問題">問題</option>
+                            <option value="情報">情報</option>
+                            <option value="心得">心得</option>
+                            <option value="討論">討論</option>
+                            <option value="攻略">攻略</option>
+                            <option value="密技">密技</option>
+                            <option value="閒聊">閒聊</option>
+                            <option value="其他">其他</option>
+                            <option value="空白">空白</option>
                         </select>
                     </div>
 
@@ -605,7 +619,7 @@
         if (formDataJson) {
             axios.post('/backstage/thread', formDataJson).then((res) => {
                 if (res.data === "no login") {
-                    Swal.fire("未登錄！請先登錄!", "", "error");
+                    Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login?redirectUrl=/backstage/threadsView");
                     return;
                 }
                 Swal.fire("操作成功!", "", "success").then(r => {

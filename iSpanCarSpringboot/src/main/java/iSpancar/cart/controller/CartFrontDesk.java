@@ -89,17 +89,21 @@ public class CartFrontDesk {
 	@GetMapping("/cart") 
 	public String cartQueryAllCartByIdget(Principal principal,Model cart, Model shopDetailMapModel
 			) {
-		String memberId = principal.getName();
-		System.out.println(memberId);
-		Collection<CartBean>  coll = cService.findAllById(memberId) ;
-		Map<Integer, ShopDetailBean> shopDetailMap = new HashMap<>();
-		List<ShopDetailBean> list = service.findAll();
-		for (ShopDetailBean shopDetail : list) {
-			shopDetailMap.put(shopDetail.getProductno(), shopDetail);
+		if(principal == null) {
+			return "login/login";
+		}else {
+			String memberId = principal.getName();
+			System.out.println(memberId);
+			Collection<CartBean>  coll = cService.findAllById(memberId) ;
+			Map<Integer, ShopDetailBean> shopDetailMap = new HashMap<>();
+			List<ShopDetailBean> list = service.findAll();
+			for (ShopDetailBean shopDetail : list) {
+				shopDetailMap.put(shopDetail.getProductno(), shopDetail);
+			}
+			shopDetailMapModel.addAttribute("shopDetailMap", shopDetailMap);
+			cart.addAttribute("AllCartById", coll);
+			return "/Cart/cart";
 		}
-		shopDetailMapModel.addAttribute("shopDetailMap", shopDetailMap);
-		cart.addAttribute("AllCartById", coll);
-		return "/Cart/cart";
 	}
 	
 	//訂單確認

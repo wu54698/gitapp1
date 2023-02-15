@@ -6,6 +6,8 @@ public class PostQuery {
 
 	private int pageSize;
 
+	private String title;
+
 	private Boolean best;
 
 	private Integer likeCountStart;
@@ -64,5 +66,13 @@ public class PostQuery {
 
 	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 }

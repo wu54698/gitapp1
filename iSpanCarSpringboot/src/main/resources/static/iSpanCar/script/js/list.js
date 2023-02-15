@@ -13,10 +13,6 @@ var selectMen = selectTiziItem.member && selectTiziItem.member.accountnumber || 
 
 
 /**
- * 弹出消息提示框，采用浏览器布局，位于整个页面中央，默认显示3秒
- * 后面的消息会覆盖原来的消息
- * @param message：待显示的消息
- * @param type：消息类型，0：错误消息，1：成功消息
  */
 function showMessage(message, type) {
     let messageJQ= $("<div class='showMessage'>" + message + "</div>");
@@ -35,7 +31,6 @@ function showMessage(message, type) {
     }, 4000);
 }
 
-// 分类列表
 var categoryActive = 1;
 var categoryList = [];
 getCategory().then(res => {
@@ -59,7 +54,7 @@ function categoryClick(id) {
 
     changePage({pageNum: 0, pageSize: 10, categoryId: id})
 }
-function changePage({ pageNum, pageSize, best, likeCountEnd, likeCountStart, categoryId }) {
+function changePage({ pageNum, pageSize, best, likeCountEnd, likeCountStart, categoryId, title }) {
   getList({
     pageNum,
     pageSize,
@@ -67,6 +62,7 @@ function changePage({ pageNum, pageSize, best, likeCountEnd, likeCountStart, cat
     likeCountEnd,
     likeCountStart,
       categoryId,
+      title,
     callBack: (data) => {
       const { content, totalElements, totalPages } = data;
       ListData = content;
@@ -88,8 +84,9 @@ function xrList(content) {
     var str = ``;
     for(var i = 0; i < content.length; i++) {
         var item = content[i];
-        var { floorCount, title, bodySimple, image, interactiveCount, popularityCount, lastReplyTime, lastReplay, uuid, thread } = item;
-      
+        var { floorCount, title, question, bodySimple, image, interactiveCount, popularityCount, lastReplyTime, lastReplay, uuid, thread, head } = item;
+        var imgurl = `/iSpanCar/script/img/${question}.png`;
+        var img =  question != '空白' ? "<img class='b-list__img lazyloaded' src ="+ imgurl + "/>" : '';
         str += `
         <tr class="b-list__row b-list-item b-imglist-item" id=${uuid+'|'+thread.category.id}>
         <td class="b-list__summary">
@@ -104,19 +101,20 @@ function xrList(content) {
             data-gtm="B頁文章列表-縮圖"
           >
             <div class='b-list__img lazyloaded' id="list_img">
+            
             ${
-                (image && image != 'null') ? image :
-                "<img class='b-list__img lazyloaded' src ='https://i1.ytimg.com/vi/tAHUxr8oJlQ/hqdefault.jpg'/>"
+            (image && image != 'null') ? image : img
             }
             </div>
             <div class="imglist-text">
               <div class="b-list__tile">
+                ${head?'<div title="置頂" class="b-list__summary__mark b-mark b-mark--update"><i class="material-icons raise"></i>置頂</div>':''}
                 <p
                   data-gtm="B頁文章列表-縮圖"
                   href="C.php?bsn=23805&amp;snA=687636&amp;tnum=3&amp;bPage=2"
                   class="b-list__main__title"
                 >
-                  ${title}
+                  ${question && `【${question}】`||''}${title}
                 </p>
               </div>
               <p class="b-list__brief">
@@ -166,6 +164,7 @@ function xrList(content) {
         categoryId = this.id.split('|')[1];
         uuidglobal = id;
         document.getElementById("BH-wrapper").style.display = "none";
+        document.getElementById("mainNav").style.display = "none";
         document.getElementsByClassName("detailshow")[0].style.display =
           "block";
           getDetail(id);
@@ -188,9 +187,7 @@ function getDetail(uuid) {
         xrtiezeDetail(content || []);
 
         if (code == 401) {
-            console.log('未登录');
-            showMessage('未登录', 0);
-            return;
+            Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login?redirectUrl=/dforum/home");
         }
     })
 }
@@ -199,20 +196,30 @@ let selectPoId = selectTiziItem.id;
 function replyToFloor(e, id, name, i) {
     selectPoId = id;
     selectMen = name;
-    console.log("回复楼层", name);
     $(`#lyenter${i}`).html(`@`+ e + ' ')
+}
+function throttle(fn, interval) {
+    var timer;
+    return function() {
+        if (timer) {
+            return false;
+        }
+        timer = setTimeout(function() {
+            console.log("throttle---");
+            fn.apply();
+            clearTimeout(timer);
+            timer = null;
+        }, interval)}
 }
 
 function xrhfinput(i) {
-    // 留言回车监听
     const jq$ = $;
 
     document
         .getElementById(`lyenter${i}`)
-        .addEventListener("keydown",  (e) => {
+        .addEventListener("keydown", (e) => {
             if (e.keyCode == 13) {
                 const tiezeItem = tiezeList[i];
-                console.log('&&&&&&&&&&&&', tiezeItem);
                 var content = $(`#lyenter${i}`).val();
                 console.log("回车监听");
                 content = jq$.emojiParse({
@@ -240,7 +247,7 @@ function xrhfinput(i) {
                         getDetail(uuidglobal);
                         $(`#lyenter${i}`).val("");
                     } else if (res.code == 401) {
-                        showMessage('未登录', 0);
+                        Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login?redirectUrl=/dforum/home");
                     }
 
                 })
@@ -270,7 +277,7 @@ function xrtiezeDetail(content) {
     for(let i = 0; i < content.length; i++) {
         const item = content[i];
         console.log('详情', item);
-        const { body, member, title, time, floorCount, postMessages, likeCount, disliked, liked, disLikeCount, thread } = item;
+        const { body, member, title, question, time, floorCount, postMessages, likeCount, disliked, liked, disLikeCount, thread } = item;
         if (floorCount == 1) {
             globalMember = member;
         }
@@ -394,7 +401,7 @@ function xrtiezeDetail(content) {
         </div>
         <div class="c-section__main c-post">
           <div class="c-post__header">
-            <h1 class="c-post__header__title">${title}</h1>
+            <h1 class="c-post__header__title">${question && '【'+question+'】'}${title}</h1>
             <div class="tag-category">
               <a href="javascript:;">
                 <div class="tag-category_item">${thread.category.name}</div>
@@ -527,7 +534,7 @@ function xrtiezeDetail(content) {
                 class="reply-avatar user--sm"
                 href="/home.jsp/home.gamer.com.tw/earth159357"
                 ><img
-                  src="https://avatar2.bahamut.com.tw/avataruserpic/e/a/earth159357/earth159357_s.png"
+                  src="https://avatar2.bahamut.com.tw/avataruserpic/j/o/john19945646/john19945646_s.png?v=1674486021"
               /></a>
               <div
                 class="reply-input"
@@ -577,14 +584,11 @@ function xrtiezeDetail(content) {
     }, 1000)
 }
 
-//跟贴列表
 function posttz(uuid, postid) {
     postDetail({ uuid, postId }).then(res => {
-        console.log('+++++++++++++++++', res);
     })
 }
 
-// 帖子点赞
 function addgpbp(type, id) {
     const data = {
         type: 1,
@@ -595,7 +599,7 @@ function addgpbp(type, id) {
         if (res.code == 200) {
             getDetail(uuidglobal);
         } else if (res.code == 401) {
-            showMessage('未登录', 0);
+            Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login?redirectUrl=/dforum/home");
         }
     })
 }
@@ -611,7 +615,7 @@ function commentGp(type, id) {
         if (res.code == 200) {
             getDetail(uuidglobal);
         } else if (res.code == 401) {
-            showMessage('未登录', 0);
+            Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login?redirectUrl=/dforum/home");
         }
     })
 }
@@ -636,7 +640,6 @@ const dict = {
     200: 99999,
 }
 function selectListChange(e) {
-    console.log('!!!!!!!!!!!!!!', e.value);
     if (!e.value) {
         return;
     }
@@ -654,9 +657,11 @@ function darenList() {
 
 }
 
-//回复楼层
 function quickPost() {
-
+	if($('#logincheck').val() == ""){
+		  console.log('123')
+		  location.href='/login?redirectUrl=/dforum/home';
+	  }
     const html = editor.getHtml();
     const data = {
         "body": html,
@@ -670,13 +675,12 @@ function quickPost() {
             editor.clear();
             $('#floorTitle').val("");
         } else if (res.code == 401) {
-            showMessage('未登录', 0);
+            Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login?redirectUrl=/dforum/home");
         }
 
     })
 }
 
-// 发布文章
 
 function onpublishWZ() {
     const html = editor.getHtml();
@@ -692,7 +696,7 @@ function onpublishWZ() {
             getDetail(uuidglobal);
             onBackDetail();
         } else if (res.code == 401) {
-            showMessage('未登录', 0);
+            Swal.fire("未登錄！請先登錄!", "", "error").then(r=>window.location.href = "/login?redirectUrl=/dforum/home");
         }
 
     })

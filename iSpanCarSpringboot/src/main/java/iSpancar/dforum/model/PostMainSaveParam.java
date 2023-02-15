@@ -14,6 +14,8 @@ public class PostMainSaveParam {
 
 	private Boolean best;
 
+	private String question;
+
 	public String getBody() {
 		return body;
 	}
@@ -60,5 +62,13 @@ public class PostMainSaveParam {
 
 	public void setBest(Boolean best) {
 		this.best = best;
+	}
+
+	public String getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(String question) {
+		this.question = question;
 	}
 }

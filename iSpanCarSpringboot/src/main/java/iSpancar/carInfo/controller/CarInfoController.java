@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
@@ -319,5 +320,41 @@ public class CarInfoController {
 		return "Car-Infomation/CarInfoForm_frame";
 	}
 	
+	// 設計chart.js_用車子登錄日期設計圖表
+		@GetMapping("/announceDateChart.controller")
+		@ResponseBody
+		public List<Entry<String, Integer>> announceDateChartAction() throws ParseException {
+			List<CarInfoBean> carBean = iSpanCarService.findAllCar();
+			Map<String, Integer> result = new HashMap<>();
+
+			for (CarInfoBean carInfo : carBean) {
+				SimpleDateFormat originalFormat = new SimpleDateFormat("MM/dd/yyyy");
+				SimpleDateFormat newFormat = new SimpleDateFormat("yyyy/MM");
+				String newDate = newFormat.format(originalFormat.parse(carInfo.getAnnounceDate()));
+				
+				if (result.containsKey(newDate)) {
+					result.put(newDate, (int) result.get(newDate) + 1);
+				} else {
+					result.put(newDate, 1);
+				}
+			}
+			//用list來比較月份的順序
+			List<Entry<String, Integer>> dateList = new ArrayList<>(result.entrySet());
+			Collections.sort(dateList, new Comparator<Entry<String, Integer>>() {
+				public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
+					return o1.getKey().compareTo(o2.getKey());
+				}
+			});
+//			for(Entry<String, Integer> entry : dateList) {
+//				System.out.println("++++++" + entry.getKey() + ":" + entry.getValue());
+//			}
+			return dateList;
+		}
+		//導到車輛統計圖表的Controller
+		@GetMapping("/checkAnnounceDateChart.controller")
+		public String jumpToChartPage() {
+			
+			return "Car-Infomation/CarChartjs";
+		}
 		
 }

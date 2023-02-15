@@ -73,7 +73,7 @@
         <!-- Sidebar - Brand 左上標誌 -->
         <a
                 class="sidebar-brand d-flex align-items-center justify-content-center"
-                href="index">
+                href="/index">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fa-solid fa-car-rear"></i>
             </div>
@@ -86,8 +86,8 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item"><a class="nav-link" href="/">
-            <i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
+        <li class="nav-item"><a class="nav-link" href="/backstage/memberchartjs"">
+            <i class="fas fa-fw fa-tachometer-alt"></i> <span>統計圖表</span>
         </a></li>
 
         <!-- Divider -->
@@ -118,45 +118,43 @@
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
-                    <li class="nav-item"><a class="nav-link" href="findAllDealer.controller">
-							<i class="fa-solid fa-car"></i> <span>車廠</span>
-			</a></li>
-            <li class="nav-item"><a class="nav-link" href="SelectAllCar.controller">
-					<i class="fa-solid fa-car"></i> <span>車輛</span>
-			</a></li>
+        <li class="nav-item"><a class="nav-link"
+                                href="CarDealerForm">
+            <i class="fa-solid fa-car"></i> <span>車廠</span>
+        </a></li>
+        <li class="nav-item"><a class="nav-link"
+                                href="CarInfoForm">
+            <i class="fa-solid fa-car"></i> <span>車輛</span>
+        </a></li>
 
-            <!-- Divider -->
-<!--             <hr class="sidebar-divider"> -->
+        <!-- Divider -->
+        <!-- <hr class="sidebar-divider"> -->
 
-<!--             Heading -->
-<!--             <div class="sidebar-heading"> -->
-<!--                 Addons  -->
-<!--             </div>   -->
+        <!-- Heading -->
+        <!-- <div class="sidebar-heading">
+            Addons
+        </div> -->
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="serviceAllController">
-                    <i class="fa-solid fa-screwdriver-wrench"></i>
-                    <span>保養廠</span></a>
-            </li>
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link" href="serviceAllController">
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+                <span>保養廠</span></a>
+        </li>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="threadsView">
-                    <i class="fa-brands fa-rocketchat"></i>
-                    <span>論壇</span></a>
-            </li>
+        <!-- Nav Item - Charts -->
+        <li class="nav-item"><a class="nav-link" href="/backstage/threadsView">
+            <i class="fa-brands fa-rocketchat"></i> <span>論壇</span>
+        </a></li>
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item"><a class="nav-link"
-				href="iSpancarShop.ProductListAll"> <i
-					class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
+        <!-- Nav Item - Tables -->
+        <li class="nav-item"><a class="nav-link"
+                                href="<c:url value='/ProductListAll'/>"> <i
+                class="fa-sharp fa-solid fa-cart-shopping"></i> <span>商城</span></a></li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="orderBack">
-                    <i class="fa-solid fa-coins"></i>
-                    <span>訂單</span></a>
-            </li>
+        <li class="nav-item"><a class="nav-link" href="<c:url value='/orderQueryAll.controller'/>">
+            <i class="fa-solid fa-coins"></i> <span>訂單</span>
+        </a></li>
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
@@ -217,7 +215,7 @@
                                                               id="userDropdown" role="button"
                                                               data-toggle="dropdown" aria-haspopup="true"
                                                               aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.memberName}</span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">${login.accountnumber}</span>
                         <!-- 職位 -->
                         <input type="hidden" value="${login.accountnumber}" id="myAccountnumber">
                         <input type="hidden" value="${memberPosition.positionPk}" id="myPosition">
@@ -226,7 +224,7 @@
                         <input type="hidden" value="${memberPosition.permissionsDelete}" id="myPositionDelete">
                         <input type="hidden" value="${memberPosition.permissionsSelect}" id="myPositionSelect">
                         <img class="img-profile rounded-circle" id="myImage"
-                             src="/showimageforthismember.controller?accountnumber=${login.accountnumber}">
+                             src="showimageforthismember.controller?accountnumber=${login.accountnumber}">
                     </a> <!-- Dropdown - User Information -->
                         <div
                                 class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -287,6 +285,7 @@
                     <tr>
                         <th>id</th>
                         <th>類別</th>
+                        <th>分類</th>
                         <th>標題</th>
                         <th>創建人</th>
                         <th>創建時間</th>
@@ -298,6 +297,7 @@
                         <tr data-post-id="${post.id}" id="pos_row_${post.id}">
                             <td class="td-info">${post.id}</td>
                             <td class="td-info">${post.thread.category.name}</td>
+                            <td class="td-info">${post.question}</td>
                             <td class="td-info">${post.title}</td>
                             <td class="td-info">${post.member.accountnumber}</td>
                             <td class="td-info">${post.time}</td>
@@ -421,7 +421,7 @@
     $(document).ready(
         function () {
             $.ajax({
-                url: "/category/all",
+                url: "/backstage/category/all",
                 method: "GET",
                 dataType: "json",
                 success: function (res) {

@@ -101,6 +101,7 @@
 	<div class="col-1"></div>
 
 	<!--  footer -->
+	<br><br>
 	<div id="footertext"></div>
 
 	<script src="http://localhost:8080/iSpanCar/script/js/scripts.js"></script>

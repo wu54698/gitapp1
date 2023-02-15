@@ -223,9 +223,16 @@
 
 						<!-- Page Heading -->
 						<div class="row">
-							<div class="col-sm-10 ">
+							<div class="col-sm-8 ">
 								<h1 class="h3 mb-4 text-gray-800">全部車商</h1>
 							</div>
+						<div class="col-sm-2">
+								輸出資料:
+									<button class="btn btn-info " type="button" 
+									onclick="location.href='/backstage/outPutSellerCSV.controller'">csv</button>
+									<button class="btn btn-info " type="button" 
+									onclick="location.href='/backstage/outPutSellerJson.controller'">json</button>
+						</div>
 							<div class="col-sm-2">
 								<span class="mr-2">新增車商</span>
 								<button class="insert btn btn-success btn-circle">

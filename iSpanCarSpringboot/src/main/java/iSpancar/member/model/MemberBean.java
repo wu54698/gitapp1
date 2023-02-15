@@ -47,7 +47,6 @@ public class MemberBean implements Serializable{
 	@JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")//時間需這樣設定
 	private Date birthday;// 生日
 	
-	
 	@Column(name = "idnumber")
 	private String idnumber;// 身分證號碼
 	

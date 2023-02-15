@@ -23,7 +23,7 @@ $(function () {
             }
             return ABC;
         }
-        var aazz = function () {
+        function aazz() {
             var number = [];
             for (let i = 97; i <= 122; i++) {
                 var str = i + "";
@@ -38,7 +38,7 @@ $(function () {
         } else {
 
             if ((idno.length == 10) &&
-                ((AAZZ().indexOf(idno[0])) || aazz.indexOf(idno[0])) &&
+                ((AAZZ().indexOf(idno[0])) || aazz().indexOf(idno[0])) &&
                 (idno[1] == 1 || idno[1] == 2)) {
                 var idnotrue = idno.toUpperCase();//小寫轉大寫
                 if (!isNaN(parseInt(idno.substring(2)))) {//判斷後面為數值

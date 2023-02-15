@@ -1,8 +1,12 @@
 package iSpancar.carDealer.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import iSpancar.carDealer.model.CarDealerBean;
 import iSpancar.carDealer.service.ISpanCarService;
@@ -182,4 +189,38 @@ public class CarDealerController {
 
 		return "Car-Dealer/SelectAllDealer_frame";
 	}
+	
+	//匯出成CSV檔案_車商資訊
+		@GetMapping("/outPutSellerCSV.controller")
+		public void exportCSVAction(HttpServletResponse response) throws IOException {
+			String fileName = "out_put_Seller.csv";		//輸出CSV的檔案名稱
+			response.setContentType("text/csv; charset=UTF-8");		//設定輸出為UTF-8
+			response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+			
+			//這邊要改成各自的BEAN ,搜尋全部然後塞進list內
+			List<CarDealerBean> sellerBean = iSpanCarService.findAllDealer();
+			try(PrintWriter writer = response.getWriter()){
+				//放上欄位名稱
+				writer.println("車商名稱, 車商電話, 地址, 營業時間, 聯絡人, 統一編號");
+				for(CarDealerBean dealerBean : sellerBean) {
+					writer.println(dealerBean.getCarDealName() + "," + dealerBean.getCarDealPhone()
+					+ "," + dealerBean.getCarDealAddress() + "," + dealerBean.getOpenTime() + ","
+					+ dealerBean.getContactPerson() + "," + dealerBean.getCarDealVATNumber());
+				}
+			}
+		}
+		
+		//匯出成json檔案
+		@GetMapping("/outPutSellerJson.controller")
+		public void exportJsonAction(HttpServletResponse response) throws JsonProcessingException, IOException {
+			List<CarDealerBean> sellerBean = iSpanCarService.findAllDealer();
+			HashMap<String, CarDealerBean> data = new HashMap<>();
+			for(CarDealerBean dealerBean : sellerBean) {
+				data.put(dealerBean.getCarDealName(), dealerBean);
+			}
+				response.setContentType("application/json; charset=UTF-8");
+				response.setHeader("Content-Disposition", "attachement; filename=data.json");
+				response.getWriter().write(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(data));
+		}
+		
 }
