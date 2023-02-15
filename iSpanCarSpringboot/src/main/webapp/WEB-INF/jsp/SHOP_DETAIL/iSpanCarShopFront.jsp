@@ -83,6 +83,23 @@
 				.card:hover * {
 				  background-color: #F5F5F5;
 				  }
+				  
+				#randomDiv {
+				  display: flex;
+				  justify-content: center;
+				}
+				#randomImg {
+				  display: block;
+				  margin: auto;
+				}
+				
+				.centered {
+				  display: flex;
+				  justify-content: center;
+				  align-items: center;
+				  font-size: 20px;
+				}
+				
 			</style>
 		</head>
 
@@ -100,7 +117,7 @@
                     <div class="d-flex justify-content-center">
                         <div class="text-center">
                             <h2 class="mx-auto my-0 text-uppercase"
-                                style="color:white;font-size:6em;font-family: 'Noto Sans TC', sans-serif;">用戶資訊</h2>
+                                style="color:white;font-size:5em;font-family: 'Noto Sans TC', sans-serif;">您的座駕需要，<br>&emsp;&emsp;&emsp;我們的零件滿足。</h2>
                         </div>
                     </div>
                 </div>
@@ -151,13 +168,13 @@
 						<div class="col-lg-3 col-md-4">
 							<div class="category-sidebar">
 								<div class="widget category-list">
-									<h4 class="widget-header">所有產品分類</h4>
-									<ul class="category-list">
-										<li><a href="#go" onclick="goToTypePage()" class="takename">輪胎</a></li>
-										<li><a href="#go" onclick="goToTypePage()" class="takename">外飾</a></li>
-										<li><a href="#go" onclick="goToTypePage()" class="takename">內飾</a></li>
-										<li><a href="#go" onclick="goToTypePage()" class="takename">機油</a></li>
-										<li><a href="#go" onclick="goToTypePage()" class="takename">配件</a></li>
+									<h3 class="widget-header"><div class="centered" style="font-size:23px;">所有產品分類</div></h3>
+									<ul class="category-list" style="padding:0;">
+										<li><a href="#go" onclick="goToTypePage()" class="takename"><div class="centered">輪胎</div></a></li>
+										<li><a href="#go" onclick="goToTypePage()" class="takename"><div class="centered">外飾</div></a></li>
+										<li><a href="#go" onclick="goToTypePage()" class="takename"><div class="centered">內飾</div></a></li>
+										<li><a href="#go" onclick="goToTypePage()" class="takename"><div class="centered">機油</div></a></li>
+										<li><a href="#go" onclick="goToTypePage()" class="takename"><div class="centered">配件</div></a></li>
 									</ul>
 								</div>
 
@@ -174,20 +191,22 @@
 								<!-- </div> -->
 
 								<div class="widget filter">
-									<h4 class="widget-header">商品排序</h4>
+									<h4 class="widget-header"><div class="centered" style="font-size:23px;">商品排序</div></h4>
+									<div class="centered" style="font-size:16px;">
 									<select id="mySelect">
 										<option>依價格排序</option>
 										<option value="ASC">由低到高</option>
 										<option value="DESC">由高到低</option>
 									</select>
+										</div>
 								</div>
 
-								<div class="widget price-range w-100"  style="text-align: center;">
+								<div class="widget price-range w-100"  style="text-align: center;border:5px dashed yellow">
 									<c:forEach var="randomProduct" items="${selectRandomProduct}" varStatus="vs">
-									<h4 class="widget-header" style="text-align: center;">精選商品</h4>
+									<h4 class="widget-header" style="text-align: center;"><div class="centered" style="font-size:23px;color:#FFDC00">精選商品</div></h4>
 									<div class="block">
-										<div class="d-flex justify-content-between mt-2">
-										<img width="195" src="productimgfront.controller?productno=${randomProduct.productno}" alt="xxx" />
+										<div class="d-flex justify-content-between mt-2" id="randomDiv">
+										<img width="195" id="randomImg" style="border-radius:10%;padding:10px" src="productimgfront.controller?productno=${randomProduct.productno}" alt="xxx" />
 											
 										</div>
 											<span class="value"><a href="/iSpancarShop.DetailShopPage?productname=${randomProduct.productname}">${randomProduct.productname}</a></span>
@@ -228,7 +247,7 @@
 														</a>
 													</div>
 
-													<div class="card-body" style="text-align:center;">
+													<div class="card-body" style="text-align:center;height: 135.6px">
 														<h4 class="card-title">
 															<a href="#go" onclick="goToDetailPage()"
 																class="takename">${product.productname}</a>

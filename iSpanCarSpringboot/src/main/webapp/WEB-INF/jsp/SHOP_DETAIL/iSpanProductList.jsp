@@ -248,17 +248,9 @@ display:inline;
 							<input type="submit" value="新增產品" class="btn btn-info">
 						</form>
 	
-						<form action="<c:url value='/backstage/iSpancarShop.Shop_Cart.controller'/>"
-							method="get">
-							<input type="submit" value="購物車測試" class="btn btn-info">
-						</form>
 						<form action="<c:url value='/iSpancarShop.ProductListAllShopPage.1'/>"
 							method="get">
 							<input type="submit" value="進入前臺商店" class="btn btn-info">
-						</form>
-						<form action="<c:url value='/iSpancarShop.rtrtr'/>"
-							method="get">
-							<input type="submit" value="123測試" class="btn btn-info">
 						</form>
 						<p>
 					</div>
