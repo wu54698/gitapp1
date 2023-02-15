@@ -458,13 +458,13 @@ opacity:0.6;
 						<script>
 						//一鍵輸入
 						$('#clickToFill').on('click', function(){
-							$('#productname').val('天天開勳')
-							$('#type').val('內飾')
+							$('#productname').val('Pirelli P Zero Corsa 19”')
+							$('#type').val('輪胎')
 							$('#spec').val('通用')
-							$('#price').val('1500')
-							$('#stock').val('100')
-							$('#updatepick').val('02/18/2023')
-							$('#productinfo').val('132\r\n321')
+							$('#price').val('12000')
+							$('#stock').val('60')
+							$('#updatepick').val('02/24/2023')
+							$('#productinfo').val('大塊狀花紋大量分布於輪胎胎肩和中部，能發揮極度的操控性能、高速過彎性能和出色的出彎加速性能.雙重胎面配方技術實現了高速性能和抓地力/牽引力的卓越融合.從賽車運動中衍生出的新材料能有效抵抗高熱高壓運動對輪胎產生的壓力.')
 						});
 						</script>
 					</div>
