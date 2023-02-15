@@ -61,7 +61,7 @@
 						id="accordionSidebar">
 
 						<!-- Sidebar - Brand 左上標誌 -->
-						<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index">
+						<a class="sidebar-brand d-flex align-items-center justify-content-center" href="/index">
 							<div class="sidebar-brand-icon rotate-n-15">
 								<i class="fa-solid fa-car-rear"></i>
 							</div>
@@ -75,8 +75,8 @@
 
 						<!-- Nav Item - Dashboard -->
 						
-						<li class="nav-item"><a class="nav-link" href="/"> <i class="fas fa-fw fa-tachometer-alt"></i>
-								<span>Dashboard</span>
+						<li class="nav-item"><a class="nav-link" href="/backstage/memberchartjs"> <i class="fas fa-fw fa-tachometer-alt"></i>
+								<span>統計圖表</span>
 							</a></li>  
 
 						<!-- Divider -->

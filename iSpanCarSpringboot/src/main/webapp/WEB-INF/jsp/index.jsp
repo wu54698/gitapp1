@@ -54,7 +54,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
                    <li class="nav-item"><b><a class="nav-link colorchange" href="/ShowAllCarFrontPage.controller" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">車輛</a></b></li>
-                    <li class="nav-item"><b><a class="nav-link colorchange" href="#projects" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">保養廠</a></b></li>
+                    <li class="nav-item"><b><a class="nav-link colorchange" href="/clientserviceAllController" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">保養廠</a></b></li>
                     <li class="nav-item"><b><a class="nav-link colorchange" href="/dforum/home" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">論壇</a></b></li>
                     <li class="nav-item"><b><a class="nav-link colorchange" href="/iSpancarShop.ProductListAllShopPage.1" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;">商城</a></b></li>
                     <li class="nav-item"><b><a class="nav-link colorchange" href="/cart" style="color:white;font-size:1.3em;font-family: 'Noto Sans TC', sans-serif;"><i class="fa-solid fa-cart-shopping"></i></a></b></li>

@@ -37,6 +37,13 @@
   justify-content: center;
     };
     
+    .centered {
+				  display: flex;
+				  justify-content: center;
+				  align-items: center;
+				  font-size: 20px;
+				}
+    
     </style>
     
     </head>
@@ -54,7 +61,7 @@
                     <div class="d-flex justify-content-center">
                         <div class="text-center">
                             <h2 class="mx-auto my-0 text-uppercase"
-                                style="color:white;font-size:6em;font-family: 'Noto Sans TC', sans-serif;">用戶資訊</h2>
+                                style="color:white;font-size:5em;font-family: 'Noto Sans TC', sans-serif;">&emsp;&emsp;直營服務，用心經營。</h2>
                             <!--                     <h2 class=" mx-auto mt-2 mb-5" style="color:white;font-size:2em;font-family:DFKai-SB;font-family: 'Noto Sans TC', sans-serif;">資車國際</h2> -->
                         </div>
                     </div>
@@ -80,7 +87,7 @@
                         <p class="lead">${productd.productinfo}</p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="number" oninput="value=value.replace('-', '')"  value="1" min="1" max="${productd.stock}" style="max-width: 5rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button" id="addOK">
+                            <button class="btn btn-outline-dark flex-shrink-0" type="button" id="addOK" style="padding:15px;" >
                                 <i class="bi-cart-fill me-1"></i>
                                 加入購物車
                             </button>
@@ -95,29 +102,31 @@
 									<c:forEach var="mul" items="${multiimgs}" varStatus="vs">
 										<c:choose>
 											<c:when test="${vs.first}">
-												<div class="carousel-item active" >
+												<div class="carousel-item active" data-bs-interval="3000">
 													<img class="figure-img img-fluid rounded"
 														src="/showMultiImgesF.controller/${mul.imgsno}"
 														alt="...">
 												</div>
 											</c:when>
 											<c:otherwise>
-												<div class="carousel-item">
+												<div class="carousel-item" data-bs-interval="3000">
 													<img class="figure-img img-fluid rounded"
 														src="/showMultiImgesF.controller/${mul.imgsno}"
 														alt="...">
 												</div>
 											</c:otherwise>
 										</c:choose>
-									</c:forEach>
+									</c:forEach>189 573
 									</div>
-								<button class="carousel-control-prev" type="button"
-									data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+								<button class="carousel-control-prev" type="button" 
+									data-bs-target="#carouselExampleControls" data-bs-slide="prev" style="background-color:#D3D3D3;border-radius:10px;width:189;height:573
+									">
 									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 									<span class="visually-hidden">Previous</span>
 								</button>
 								<button class="carousel-control-next" type="button"
-									data-bs-target="#carouselExampleControls" data-bs-slide="next">
+									data-bs-target="#carouselExampleControls" data-bs-slide="next" style="background-color:#D3D3D3;border-radius:10px;width:189;height:573
+									">
 									<span class="carousel-control-next-icon" aria-hidden="true"></span>
 									<span class="visually-hidden">Next</span>
 								</button>
@@ -176,18 +185,18 @@
         <!-- Related items section-->
         <section class="py-5 bg-light">
             <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4">你可能感興趣的商品</h2>
+                <h2 class="fw-bolder mb-4" style="display: flex;justify-content: center;align-items: center;font-size: 40px;padding-bottom: 30px">你可能感興趣的商品</h2>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     <c:forEach var="randomProduct" items="${selectRandomProduct}" varStatus="vs">
                     <div class="col mb-5">
-                        <div class="card h-100">
+                        <div class="card h-100" style="border: 3px solid gray;border-radius:4%">
                             <!-- Product image-->
-                            <img class="card-img-top" src="productimgfront.controller?productno=${randomProduct.productno}" alt="xxx" />
+                            <img style="border-radius:5%;padding:10px" height="254" class="card-img-top" src="productimgfront.controller?productno=${randomProduct.productno}" alt="xxx" />
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <h5 class="fw-bolder">${randomProduct.productname}</h5>
+                                    <h5 class="fw-bolder" style="padding-bottom:5px">${randomProduct.productname}</h5>
                                     <!-- Product price-->
                                     NT$${randomProduct.price}
                                 </div>
@@ -262,6 +271,11 @@
                 stockInfo.style.color = "red";
             }
         };
+        $(function(){
+      	  $('#userDropdown').on('click',function(){
+      		  location.href = '/userinfo';
+      	  })
+        })
         </script>
         
     </body>

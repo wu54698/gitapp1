@@ -227,7 +227,11 @@
 
                     <!-- Page Heading -->
                     <div class="row">
-		                   <div class="col-sm-11 "> <h1 class="h3 mb-4 text-gray-800 d-inline-flex">統計圖表</h1></div>
+		                   <div class="col-sm-2 "> <h1 class="h3 mb-4 text-gray-800 d-inline-flex">統計圖表</h1></div>
+		                   <div class="col-sm-10 ">
+		                   		<button class="btn btn-info " type="button" onclick="location.href='/backstage/memberchartjs'">會員</button>
+		                   		<button class="btn btn-info " type="button" onclick="location.href='/backstage/checkAnnounceDateChart.controller'">車輛</button>
+		                   </div>
 <!-- 		                   <div class="col-sm-1"><button class="update btn btn-info btn-circle" ><i class="fa-solid fa-pen btn-sm"></i></button></div> -->
 					</div>
 					<div class="row">
@@ -323,7 +327,9 @@
  			  "#FFFF00",
  			  "#daa520",
  			  "#FF5959",
- 			  "#BD7B00"
+ 			  "#BD7B00",
+ 			  "#FF0080",
+ 			  "#EA7500"
  			];
  		new Chart(ctx, {
  			  type: "pie",

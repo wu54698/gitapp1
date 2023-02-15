@@ -82,7 +82,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			//使用hasRole前面要加"ROLE_"+角色名
 			.antMatchers(HttpMethod.GET).permitAll()//沒在上面設定的不用驗證
 			//.antMatchers(HttpMethod.POST,"/backstage/**").authenticated()
-			.antMatchers(HttpMethod.POST,"/backstage/**").hasAnyAuthority("manager,employee")
+			.antMatchers("/backstage/**").hasAnyAuthority("manager,employee")
+			.antMatchers("/cartInsert.controller").hasAnyAuthority("user,manager,employee")
+			.antMatchers("/cartdeletecart.controller").hasAnyAuthority("user,manager,employee")
+			.antMatchers("/cartInsert").hasAnyAuthority("user,manager,employee")
+			.antMatchers("/cart").hasAnyAuthority("user,manager,employee")
+			.antMatchers("/checkout").hasAnyAuthority("user,manager,employee")
+			.antMatchers("/CartfinalCheckout").hasAnyAuthority("user,manager,employee")
+			.antMatchers("/CartCheckout").hasAnyAuthority("user,manager,employee")
 			.antMatchers(HttpMethod.POST).permitAll()
 			.anyRequest().authenticated()
 			.and()

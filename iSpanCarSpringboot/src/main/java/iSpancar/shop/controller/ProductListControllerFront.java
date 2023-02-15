@@ -211,7 +211,7 @@ public class ProductListControllerFront {
 		
 		ArrayList<ShopDetailBean> newProudctList = new ArrayList<ShopDetailBean>();
 		
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 3; i++) {
 			  int number = random.nextInt(randomProductList.size());
 			  ShopDetailBean randomPData = randomProductList.get(number);
 

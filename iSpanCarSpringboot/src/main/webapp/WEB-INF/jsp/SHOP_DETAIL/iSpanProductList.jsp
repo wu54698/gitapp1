@@ -70,7 +70,7 @@ display:inline;
 			<!-- Sidebar - Brand 左上標誌 -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="index">
+				href="/index">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fa-solid fa-car-rear"></i>
 				</div>
@@ -83,8 +83,8 @@ display:inline;
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="/">
-					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
+			<li class="nav-item"><a class="nav-link" href="/backstage/memberchartjs">
+					<i class="fas fa-fw fa-tachometer-alt"></i> <span>統計圖表</span>
 			</a></li>
 
 			<!-- Divider -->
@@ -248,17 +248,9 @@ display:inline;
 							<input type="submit" value="新增產品" class="btn btn-info">
 						</form>
 	
-						<form action="<c:url value='/backstage/iSpancarShop.Shop_Cart.controller'/>"
-							method="get">
-							<input type="submit" value="購物車測試" class="btn btn-info">
-						</form>
 						<form action="<c:url value='/iSpancarShop.ProductListAllShopPage.1'/>"
 							method="get">
 							<input type="submit" value="進入前臺商店" class="btn btn-info">
-						</form>
-						<form action="<c:url value='/iSpancarShop.rtrtr'/>"
-							method="get">
-							<input type="submit" value="123測試" class="btn btn-info">
 						</form>
 						<p>
 					</div>

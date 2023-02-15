@@ -34,6 +34,11 @@
     <script src="https://kit.fontawesome.com/dbb4662278.js" crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf8"
         src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+        <style>
+        	table td{
+		　　		word-break:break-all;
+			}
+        </style>
 </head>
 
 <body id="page-top">
@@ -351,6 +356,15 @@
         		var str = birthstr.substring(0,10);
         		$(this).text(str);
         	})
+        	//換頁時處理日期格式問題
+        	$('.paginate_button').on('click',function(){
+        		$('.birthday').each(function(){
+            		var birthstr = $(this).text();
+            		var str = birthstr.substring(0,10);
+            		$(this).text(str);
+            	})
+        	})
+        	 
         	
         	//跳轉新增員工頁面
         	$('.insert').on('click',function(){

@@ -120,9 +120,9 @@
                                     <input type="file" name="file" id="file" class="form-control">
                                 </div>
                                 <div id="imgshowbox">
-                                    <img id="imgshow" src="" alt=""  />
+                                    <img id="imgshow" src="" alt="" style="max-width: 400px; max-height: 300px;" />
                                 </div>
-                                <div class="g-recaptcha" data-sitekey="6Ldm7HIkAAAAAIK01QkSeXWNaHRdV6l3Ri7NX5yV" > </div><br>
+<!--                                 <div class="g-recaptcha" data-sitekey="6Ldm7HIkAAAAAIK01QkSeXWNaHRdV6l3Ri7NX5yV" > </div><br> -->
 								<input type="button" value='創建帳號' class="btn btn-primary btn-user btn-block" id="createAccount">
 								<input type="button" value='一鍵輸入' class="btn btn-info btn-user btn-block" id="inputform">
 <!--                                 <a href="#" class="btn btn-primary btn-user btn-block" id="createAccount"> -->
